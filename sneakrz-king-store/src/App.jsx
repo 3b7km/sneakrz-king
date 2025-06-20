@@ -120,6 +120,165 @@ const WhatsAppFloat = () => {
   )
 }
 
+// Enhanced Brands Page Component
+const BrandsPage = () => {
+  const brands = [
+    {
+      name: "Nike",
+      description: "Just Do It - The world's leading athletic brand",
+      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400",
+      products: 25
+    },
+    {
+      name: "Adidas",
+      description: "Impossible is Nothing - German sportswear giant",
+      image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400",
+      products: 18
+    },
+    {
+      name: "Jordan",
+      description: "Jumpman - Basketball heritage and style",
+      image: "https://images.unsplash.com/photo-1584735175315-9d5df23860e6?w=400",
+      products: 15
+    },
+    {
+      name: "New Balance",
+      description: "Endorsed by No One - Premium comfort and performance",
+      image: "https://images.unsplash.com/photo-1539185441755-769473a23570?w=400",
+      products: 12
+    }
+  ]
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Enhanced Page Header */}
+      <section className="bg-white border-b border-gray-200 section-padding py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="heading-primary text-responsive-xl gradient-text mb-4">Our Brands</h1>
+            <p className="text-body text-responsive-md max-w-2xl mx-auto">
+              Discover the world's most prestigious sneaker brands, each with their unique heritage and style.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {brands.map((brand, index) => (
+              <div key={brand.name} className="brand-card animate-fadeInUp" style={{animationDelay: `${index * 0.1}s`}}>
+                <div className="relative mb-6">
+                  <img 
+                    src={brand.image} 
+                    alt={brand.name}
+                    className="w-full h-48 object-cover rounded-lg"
+                  />
+                </div>
+                <h3 className="heading-secondary text-xl font-semibold text-gray-900 mb-2">{brand.name}</h3>
+                <p className="text-body mb-4">{brand.description}</p>
+                <div className="flex items-center justify-between">
+                  <Badge className="bg-blue-100 text-blue-800">
+                    {brand.products} Products
+                  </Badge>
+                  <Button variant="outline" size="sm" className="hover-lift">
+                    View Collection
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  )
+}
+
+// Enhanced About Page Component
+const AboutPage = () => {
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Enhanced Page Header */}
+      <section className="bg-white border-b border-gray-200 section-padding py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="heading-primary text-responsive-xl gradient-text mb-4">About SneakrzKing</h1>
+            <p className="text-body text-responsive-md max-w-2xl mx-auto">
+              Your premier destination for authentic sneakers from the world's leading brands.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="prose prose-lg mx-auto">
+            <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
+              <h2 className="heading-secondary text-2xl gradient-text mb-6">Our Story</h2>
+              <p className="text-body mb-6">
+                SneakrzKing was founded with a simple mission: to provide sneaker enthusiasts in Egypt with access to the world's most coveted footwear. We understand that sneakers are more than just shoes – they're a form of self-expression, a statement of style, and a reflection of personality.
+              </p>
+              <p className="text-body mb-6">
+                Since our inception, we've built strong relationships with authorized retailers and verified suppliers worldwide to ensure that every pair of sneakers we sell is 100% authentic. Our team of sneaker experts carefully curates our collection to bring you the latest releases, classic favorites, and hard-to-find gems.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
+              <h2 className="heading-secondary text-2xl gradient-text mb-6">Our Commitment</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h3 className="heading-secondary text-lg font-semibold mb-3">Authenticity Guaranteed</h3>
+                  <p className="text-body">Every sneaker in our collection is verified for authenticity through our rigorous quality control process.</p>
+                </div>
+                <div>
+                  <h3 className="heading-secondary text-lg font-semibold mb-3">Fast & Secure Delivery</h3>
+                  <p className="text-body">We ensure your sneakers reach you quickly and safely with our reliable delivery partners.</p>
+                </div>
+                <div>
+                  <h3 className="heading-secondary text-lg font-semibold mb-3">Customer Satisfaction</h3>
+                  <p className="text-body">Our dedicated support team is always ready to assist you with any questions or concerns.</p>
+                </div>
+                <div>
+                  <h3 className="heading-secondary text-lg font-semibold mb-3">Competitive Pricing</h3>
+                  <p className="text-body">We offer competitive prices without compromising on quality or authenticity.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl p-8 shadow-lg">
+              <h2 className="heading-secondary text-2xl gradient-text mb-6">Contact Us</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h3 className="heading-secondary text-lg font-semibold mb-3">Get in Touch</h3>
+                  <p className="text-body mb-4">Have questions about our products or need assistance with your order? We're here to help!</p>
+                  <div className="space-y-2">
+                    <a href="https://wa.me/201023329072" target="_blank" rel="noopener noreferrer" className="flex items-center text-green-600 hover:text-green-700 transition-colors">
+                      <Phone className="w-4 h-4 mr-2" />
+                      WhatsApp: +20 102 332 9072
+                    </a>
+                    <a href="https://www.instagram.com/sneakrz.king?igsh=ZHpuZ2lzdm9vdTky" target="_blank" rel="noopener noreferrer" className="flex items-center text-pink-600 hover:text-pink-700 transition-colors">
+                      <Instagram className="w-4 h-4 mr-2" />
+                      @sneakrz.king
+                    </a>
+                  </div>
+                </div>
+                <div>
+                  <h3 className="heading-secondary text-lg font-semibold mb-3">Business Hours</h3>
+                  <div className="space-y-2 text-body">
+                    <p>Monday - Friday: 9:00 AM - 8:00 PM</p>
+                    <p>Saturday: 10:00 AM - 6:00 PM</p>
+                    <p>Sunday: 12:00 PM - 5:00 PM</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  )
+}
+
 // Quantity Selector Component
 const QuantitySelector = ({ quantity, onQuantityChange, className = "" }) => {
   const handleDecrease = () => {
@@ -1544,25 +1703,6 @@ function App() {
             <p className="text-xl text-gray-600">No products found matching your criteria.</p>
           </div>
         )}
-      </div>
-    </div>
-  )
-
-  // Simple Pages
-  const BrandsPage = () => (
-    <div className="py-12 bg-gray-50 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl font-bold text-center mb-8">Our Brands</h1>
-        <p className="text-center text-gray-600">Coming soon...</p>
-      </div>
-    </div>
-  )
-
-  const AboutPage = () => (
-    <div className="py-12 bg-gray-50 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl font-bold text-center mb-8">About Us</h1>
-        <p className="text-center text-gray-600">Coming soon...</p>
       </div>
     </div>
   )
