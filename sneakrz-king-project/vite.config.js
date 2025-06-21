@@ -2,6 +2,10 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -17,8 +21,8 @@ export default defineConfig({
     host: '0.0.0.0',
     hmr: {
       protocol: 'ws',
-      host: '5180-iwc2nvq4hrabqz32wj1pk-ed19f196.manusvm.computer',
-      clientPort: 5180
+      host: '51-iwc2nvq4hrabqz32wj1pk-ed19f196.manusvm.computer',
+      clientPort: 443
     },
     watch: {
       usePolling: true

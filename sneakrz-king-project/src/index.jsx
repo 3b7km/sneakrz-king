@@ -127,6 +127,86 @@ const WhatsAppFloat = () => {
   )
 }
 
+// Enhanced Brands Page Component
+const BrandsPage = () => {
+  const navigate = useNavigate()
+  const brandsData = [
+    {
+      name: "Nike",
+      description: "Just Do It - The world's leading athletic brand",
+      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400",
+      products: 25
+    },
+    {
+      name: "Adidas",
+      description: "Impossible is Nothing - German sportswear giant",
+      image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400",
+      products: 18
+    },
+    {
+      name: "Jordan",
+      description: "Jumpman - Basketball heritage and style",
+      image: "https://images.unsplash.com/photo-1584735175315-9d5df23860e6?w=400",
+      products: 15
+    },
+    {
+      name: "New Balance",
+      description: "Endorsed by No One - Premium comfort and performance",
+      image: "https://images.unsplash.com/photo-1539185441755-769473a23570?w=400",
+      products: 12
+    }
+  ]
+
+  const handleViewCollection = (brandName) => {
+    setSelectedBrand(brandName)
+    navigate('/products')
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Enhanced Page Header */}
+      <section className="bg-white border-b border-gray-200 section-padding py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="heading-primary text-responsive-xl gradient-text mb-4">Our Brands</h1>
+            <p className="text-body text-responsive-md max-w-2xl mx-auto">
+              Discover the world's most prestigious sneaker brands, each with their unique heritage and style.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {brandsData.map((brand, index) => (
+              <div key={brand.name} className="brand-card animate-fadeInUp" style={{animationDelay: `${index * 0.1}s`}}>
+                <div className="relative mb-6">
+                  <img 
+                    src={brand.image} 
+                    alt={brand.name}
+                    className="w-full h-48 object-cover rounded-lg"
+                  />
+                </div>
+                <h3 className="heading-secondary text-xl font-semibold mb-2" style={{color: '#2C3E50'}}>{brand.name}</h3>
+                <p className="text-body mb-4">{brand.description}</p>
+                <div className="flex items-center justify-between">
+                  <Badge className="bg-blue-100 text-blue-800">
+                    {brand.products} Products
+                  </Badge>
+                  <Button variant="outline" size="sm" className="hover-lift" onClick={() => handleViewCollection(brand.name)}>
+                    View Collection
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  )
+}
+
 // Enhanced About Page Component
 const AboutPage = () => {
   return (
@@ -1152,7 +1232,7 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="md:col-span-1">
             <div className="flex items-center mb-6">
-              <div className="w-50 h-50 mr-10">
+              <div className="w-50 h-50 mr-3">
                   <img src="/kingsvg.svg" alt="SneakrzKing Logo" className="w-full h-full object-contain" />
               </div>
             </div>
@@ -1621,86 +1701,6 @@ function App() {
       </div>
     </div>
   )
-
-  // Enhanced Brands Page Component
-  const BrandsPage = () => {
-    const navigate = useNavigate();
-    const handleViewCollection = (brandName) => {
-      setSelectedBrand(brandName);
-      navigate('/products');
-    };
-  
-    const brandsData = [
-      {
-        name: "Nike",
-        description: "Just Do It - The world's leading athletic brand",
-        image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400",
-        products: 25
-      },
-      {
-        name: "Adidas",
-        description: "Impossible is Nothing - German sportswear giant",
-        image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400",
-        products: 18
-      },
-      {
-        name: "Jordan",
-        description: "Jumpman - Basketball heritage and style",
-        image: "https://images.unsplash.com/photo-1584735175315-9d5df23860e6?w=400",
-        products: 15
-      },
-      {
-        name: "New Balance",
-        description: "Endorsed by No One - Premium comfort and performance",
-        image: "https://images.unsplash.com/photo-1539185441755-769473a23570?w=400",
-        products: 12
-      }
-    ]
-  
-    return (
-      <div className="min-h-screen bg-gray-50">
-        {/* Enhanced Page Header */}
-        <section className="bg-white border-b border-gray-200 section-padding py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <h1 className="heading-primary text-responsive-xl gradient-text mb-4">Our Brands</h1>
-              <p className="text-body text-responsive-md max-w-2xl mx-auto">
-                Discover the world's most prestigious sneaker brands, each with their unique heritage and style.
-              </p>
-            </div>
-          </div>
-        </section>
-  
-        <section className="section-padding">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {brandsData.map((brand, index) => (
-                <div key={brand.name} className="brand-card animate-fadeInUp" style={{animationDelay: `${index * 0.1}s`}}>
-                  <div className="relative mb-6">
-                    <img 
-                      src={brand.image} 
-                      alt={brand.name}
-                      className="w-full h-48 object-cover rounded-lg"
-                    />
-                  </div>
-                  <h3 className="heading-secondary text-xl font-semibold mb-2" style={{color: '#2C3E50'}}>{brand.name}</h3>
-                  <p className="text-body mb-4">{brand.description}</p>
-                  <div className="flex items-center justify-between">
-                    <Badge className="bg-blue-100 text-blue-800">
-                      {brand.products} Products
-                    </Badge>
-                    <Button variant="outline" size="sm" className="hover-lift" onClick={() => handleViewCollection(brand.name)}>
-                      View Collection
-                    </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      </div>
-    )
-  }
 
   return (
     <Router>
