@@ -364,20 +364,23 @@ const SizeSelector = ({ sizes, selectedSize, onSizeChange, className = "" }) => 
 // Enhanced Navigation Component
 const Navigation = ({ cartItems, searchTerm, setSearchTerm, isMenuOpen, setIsMenuOpen }) => {
   const location = useLocation()
-  
+
   const isActive = (path) => {
     if (path === '/' && location.pathname === '/') return true
     if (path !== '/' && location.pathname.startsWith(path)) return true
     return false
   }
 
+  // Close mobile menu when a link is clicked
+  const handleMobileLinkClick = () => setIsMenuOpen(false)
+
   return (
-    <nav className="nav-professional sticky top-0 z-50 shadow-lg">
+    <nav className="nav-professional sticky top-0 z-50 shadow-lg" aria-label="Main navigation">
       <div className="max-w-7xl pl-4 sm:pl-6 lg:pl-8">
-          <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-20">
           {/* Enhanced Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="flex items-center group">
+            <Link to="/" className="flex items-center group" tabIndex={0} aria-label="Home">
               <div className="w-60 h-60 mr-4 transition-transform duration-300 group-hover:scale-110">
                 <img 
                   src="/kingsvg.svg" 
@@ -391,11 +394,11 @@ const Navigation = ({ cartItems, searchTerm, setSearchTerm, isMenuOpen, setIsMen
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
-              <Link to="/" className={`nav-link px-4 py-2 text-sm font-medium transition-all duration-300 ${isActive('/') ? 'active' : 'text-gray-600 hover:text-blue-600'}`} style={isActive('/') ? {color: '#2C3E50'} : {}}>Home</Link>
-              <Link to="/products" className={`nav-link px-4 py-2 text-sm font-medium transition-all duration-300 ${isActive('/products') ? 'active' : 'text-gray-600 hover:text-blue-600'}`} style={isActive('/products') ? {color: '#2C3E50'} : {}}>Products</Link>
-              <Link to="/brands" className={`nav-link px-4 py-2 text-sm font-medium transition-all duration-300 ${isActive('/brands') ? 'active' : 'text-gray-600 hover:text-blue-600'}`} style={isActive('/brands') ? {color: '#2C3E50'} : {}}>Brands</Link>
-              <Link to="/about" className={`nav-link px-4 py-2 text-sm font-medium transition-all duration-300 ${isActive('/about') ? 'active' : 'text-gray-600 hover:text-blue-600'}`} style={isActive('/about') ? {color: '#2C3E50'} : {}}>About</Link>
-              <a href="https://www.instagram.com/sneakrz.king?igsh=ZHpuZ2lzdm9vdTky" target="_blank" rel="noopener noreferrer" className="nav-link text-gray-600 hover:text-pink-600 px-4 py-2 text-sm font-medium transition-all duration-300 flex items-center gap-1">
+              <Link to="/" className={`nav-link px-4 py-2 text-sm font-medium transition-all duration-300 ${isActive('/') ? 'active' : 'text-gray-600 hover:text-blue-600'}`} style={isActive('/') ? {color: '#2C3E50'} : {}} tabIndex={0}>Home</Link>
+              <Link to="/products" className={`nav-link px-4 py-2 text-sm font-medium transition-all duration-300 ${isActive('/products') ? 'active' : 'text-gray-600 hover:text-blue-600'}`} style={isActive('/products') ? {color: '#2C3E50'} : {}} tabIndex={0}>Products</Link>
+              <Link to="/brands" className={`nav-link px-4 py-2 text-sm font-medium transition-all duration-300 ${isActive('/brands') ? 'active' : 'text-gray-600 hover:text-blue-600'}`} style={isActive('/brands') ? {color: '#2C3E50'} : {}} tabIndex={0}>Brands</Link>
+              <Link to="/about" className={`nav-link px-4 py-2 text-sm font-medium transition-all duration-300 ${isActive('/about') ? 'active' : 'text-gray-600 hover:text-blue-600'}`} style={isActive('/about') ? {color: '#2C3E50'} : {}} tabIndex={0}>About</Link>
+              <a href="https://www.instagram.com/sneakrz.king?igsh=ZHpuZ2lzdm9vdTky" target="_blank" rel="noopener noreferrer" className="nav-link text-gray-600 hover:text-pink-600 px-4 py-2 text-sm font-medium transition-all duration-300 flex items-center gap-1" tabIndex={0} aria-label="Instagram">
                 <Instagram className="w-4 h-4" />
                 Instagram
               </a>
@@ -412,12 +415,13 @@ const Navigation = ({ cartItems, searchTerm, setSearchTerm, isMenuOpen, setIsMen
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="search-input w-64"
+                aria-label="Search sneakers"
               />
             </div>
 
             {/* Enhanced Cart and Wishlist Icons */}
             <div className="flex items-center space-x-3">
-              <Link to="/cart" className="relative p-2 text-gray-600 hover:text-blue-600 transition-colors duration-300 hover-lift">
+              <Link to="/cart" className="relative p-2 text-gray-600 hover:text-blue-600 transition-colors duration-300 hover-lift" aria-label="View cart">
                 <ShoppingCart className="w-6 h-6" />
                 {cartItems.length > 0 && (
                   <span className="absolute -top-1 -right-1 bg-blue-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-medium">
@@ -432,42 +436,47 @@ const Navigation = ({ cartItems, searchTerm, setSearchTerm, isMenuOpen, setIsMen
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-gray-100 transition-colors duration-300"
+              className="p-3 rounded-full text-gray-600 hover:text-blue-600 hover:bg-gray-100 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
             >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMenuOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
             </button>
           </div>
         </div>
 
         {/* Enhanced Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden animate-fadeInUp">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200">
-              <Link to="/" className="nav-link block px-3 py-2 text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-all duration-300">Home</Link>
-              <Link to="/products" className="nav-link block px-3 py-2 text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-all duration-300">Products</Link>
-              <Link to="/brands" className="nav-link block px-3 py-2 text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-all duration-300">Brands</Link>
-              <Link to="/about" className="nav-link block px-3 py-2 text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-all duration-300">About</Link>
-              <a href="https://www.instagram.com/sneakrz.king?igsh=ZHpuZ2lzdm9vdTky" target="_blank" rel="noopener noreferrer" className="nav-link block px-3 py-2 text-base font-medium text-gray-600 hover:text-pink-600 hover:bg-gray-50 rounded-lg transition-all duration-300 flex items-center gap-2">
-                <Instagram className="w-4 h-4" />
-                Instagram
-              </a>
-              
-              {/* Mobile Search */}
-              <div className="px-3 py-2">
-                <div className="search-container">
-                  <Search className="search-icon w-5 h-5" />
-                  <Input
-                    type="text"
-                    placeholder="Search sneakers..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="search-input"
-                  />
-                </div>
+        <div
+          id="mobile-menu"
+          className={`md:hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}
+          aria-hidden={!isMenuOpen}
+        >
+          <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200">
+            <Link to="/" onClick={handleMobileLinkClick} className="nav-link block px-3 py-4 text-lg font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-all duration-300" tabIndex={isMenuOpen ? 0 : -1}>Home</Link>
+            <Link to="/products" onClick={handleMobileLinkClick} className="nav-link block px-3 py-4 text-lg font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-all duration-300" tabIndex={isMenuOpen ? 0 : -1}>Products</Link>
+            <Link to="/brands" onClick={handleMobileLinkClick} className="nav-link block px-3 py-4 text-lg font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-all duration-300" tabIndex={isMenuOpen ? 0 : -1}>Brands</Link>
+            <Link to="/about" onClick={handleMobileLinkClick} className="nav-link block px-3 py-4 text-lg font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-all duration-300" tabIndex={isMenuOpen ? 0 : -1}>About</Link>
+            <a href="https://www.instagram.com/sneakrz.king?igsh=ZHpuZ2lzdm9vdTky" target="_blank" rel="noopener noreferrer" onClick={handleMobileLinkClick} className="nav-link block px-3 py-4 text-lg font-medium text-gray-600 hover:text-pink-600 hover:bg-gray-50 rounded-lg transition-all duration-300 flex items-center gap-2" tabIndex={isMenuOpen ? 0 : -1} aria-label="Instagram">
+              <Instagram className="w-5 h-5" />
+              Instagram
+            </a>
+            {/* Mobile Search */}
+            <div className="px-3 py-2">
+              <div className="search-container">
+                <Search className="search-icon w-5 h-5" />
+                <Input
+                  type="text"
+                  placeholder="Search sneakers..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="search-input"
+                  aria-label="Search sneakers"
+                />
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </nav>
   )
@@ -559,44 +568,46 @@ const HeroSection = () => {
   }
 
   return (
-    <section className="hero-section-enhanced relative overflow-hidden">
-      <div className="hero-background absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-teal-500"></div>
-      <div className="hero-overlay absolute inset-0 bg-black bg-opacity-20"></div>
-      
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
-        <div className="text-center">
-          <h1 className="hero-title text-5xl md:text-7xl font-bold text-white mb-6 animate-fadeInUp">
-            Step Into <span style={{color: '#2C3E50'}}>Greatness</span>
-          </h1>
-          <p className="hero-subtitle text-xl md:text-2xl text-gray-200 mb-12 max-w-3xl mx-auto animate-fadeInUp animation-delay-200">
-            Discover the latest and greatest sneakers from top brands. Authentic products, fast delivery, and unmatched style.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fadeInUp animation-delay-400">
-            <Button 
-              onClick={scrollToProducts}
-              size="lg" 
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
-            >
-              <ShoppingCart className="w-5 h-5 mr-2" />
-              Shop Now
-            </Button>
-            <Button 
-              onClick={() => navigate('/products')}
-              variant="outline" 
-              size="lg" 
-              className="bg-white/10 border-white/30 text-white hover:bg-white/20 px-8 py-4 text-lg font-semibold backdrop-blur-sm transition-all duration-300"
-            >
-              View Collection
-            </Button>
-          </div>
+    <section className="hero-section-enhanced relative overflow-hidden min-h-[500px] flex items-center justify-center" style={{minHeight: '80vh'}}>
+      {/* 3D Logo Video as Background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        style={{ objectFit: 'cover' }}
+      >
+        <source src="/logo3d.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      {/* Centered Content */}
+      <div className="relative z-20 flex flex-col items-center justify-center w-full px-4">
+        <h1 className="hero-title text-5xl md:text-7xl font-bold text-white mb-6 text-center animate-fadeInUp">
+          Step Into <span style={{color: '#2C3E50'}}>Greatness</span>
+        </h1>
+        <p className="hero-subtitle text-xl md:text-2xl text-gray-200 mb-12 max-w-3xl mx-auto text-center animate-fadeInUp animation-delay-200">
+          Discover the latest and greatest sneakers from top brands. Authentic products, fast delivery, and unmatched style.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fadeInUp animation-delay-400">
+          <Button 
+            onClick={scrollToProducts}
+            size="lg" 
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
+          >
+            <ShoppingCart className="w-5 h-5 mr-2" />
+            Shop Now
+          </Button>
+          <Button 
+            onClick={() => navigate('/products')}
+            variant="outline" 
+            size="lg" 
+            className="bg-white/10 border-white/30 text-white hover:bg-white/20 px-8 py-4 text-lg font-semibold backdrop-blur-sm transition-all duration-300"
+          >
+            View Collection
+          </Button>
         </div>
       </div>
-      
-      {/* Decorative Elements */}
-      <div className="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full animate-float"></div>
-      <div className="absolute bottom-20 right-10 w-32 h-32 bg-teal-300/20 rounded-full animate-float animation-delay-1000"></div>
-      <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-purple-300/20 rounded-full animate-float animation-delay-500"></div>
     </section>
   )
 }
@@ -1226,17 +1237,17 @@ const CheckoutPage = ({ cartItems }) => {
 // Enhanced Footer Component
 const Footer = () => {
   return (
-    <footer className="footer-enhanced bg-gray-900 text-white">
+    <footer className="footer-enhanced" style={{ backgroundColor: '#2C3E50' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-4 gap-8">
           {/* Brand Section */}
           <div className="md:col-span-1">
             <div className="flex items-center mb-6">
               <div className="w-50 h-50 mr-3">
-                  <img src="/kingsvg.svg" alt="SneakrzKing Logo" className="w-full h-full object-contain" />
+                <img src="/kingsvg.svg" alt="Sneakrz King White Logo" className="w-full h-full object-contain" />
               </div>
             </div>
-            <p className="text-gray-400 mb-6 leading-relaxed">
+            <p className="text-gray-200 mb-6 leading-relaxed">
               Your premier destination for authentic sneakers from the world's leading brands. Quality, authenticity, and style guaranteed.
             </p>
             <div className="flex space-x-4">
@@ -1271,9 +1282,8 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-
         <div className="border-t border-gray-800 mt-12 pt-8 text-center">
-          <p className="text-gray-400">© 2025 SneakrzKing. All rights reserved.</p>
+          <p className="text-gray-200">© 2025 SneakrzKing. All rights reserved.</p>
         </div>
       </div>
     </footer>
@@ -1717,7 +1727,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/products" element={<ProductsPage />} />
-            <Route path="/brands" element={<BrandsPage />} />
+            <Route path="/brands" element={<BrandsPage selectedBrand={selectedBrand} setSelectedBrand={setSelectedBrand} />} />
             <Route path="/about" element={<AboutPage />} />
             <Route 
               path="/cart" 
