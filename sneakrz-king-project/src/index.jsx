@@ -1575,7 +1575,7 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="md:col-span-1">
             <div className="flex items-center mb-6">
-              <div className="w-50 h-50 mr-3">
+              <div className="w-12 h-12 mr-3">
                 <img
                   src="/kingsvg.svg"
                   alt="Sneakrz King White Logo"
