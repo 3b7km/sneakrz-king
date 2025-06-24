@@ -817,7 +817,8 @@ const HeroSection = () => {
           <Button
             onClick={scrollToProducts}
             size="lg"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
+            className="text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
+            style={{ backgroundColor: "rgba(0, 43, 94, 1)" }}
           >
             <ShoppingCart className="w-5 h-5 mr-2" />
             Shop Now
