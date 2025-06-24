@@ -128,7 +128,7 @@ const WhatsAppFloat = () => {
 }
 
 // Enhanced Brands Page Component
-const BrandsPage = ({ selectedBrand, setSelectedBrand }) => {
+const BrandsPage = () => {
   const navigate = useNavigate()
   const brandsData = [
     {
