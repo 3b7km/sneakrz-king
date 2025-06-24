@@ -21,7 +21,7 @@ export default defineConfig({
     host: '0.0.0.0',
     hmr: {
       protocol: 'ws',
-      host: '51-iwc2nvq4hrabqz32wj1pk-ed19f196.manusvm.computer',
+      host: '5',
       clientPort: 443
     },
     watch: {
