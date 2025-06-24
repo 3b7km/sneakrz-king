@@ -848,9 +848,12 @@ const BrandFilter = ({ brands, selectedBrand, onBrandChange }) => {
             onClick={() => onBrandChange(brand.name)}
             className={`brand-filter-btn px-6 py-3 rounded-full font-medium transition-all duration-300 ${
               selectedBrand === brand.name
-                ? "bg-blue-600 text-white shadow-lg transform scale-105"
+                ? "text-white shadow-lg transform scale-105"
                 : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-200 hover:border-gray-300"
             }`}
+            style={
+              selectedBrand === brand.name ? { backgroundColor: "#002b5e" } : {}
+            }
           >
             {brand.name}
             <span className="ml-2 text-sm opacity-75">{brand.count}</span>
