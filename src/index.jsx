@@ -508,7 +508,7 @@ const Navigation = ({
               tabIndex={0}
               aria-label="Home"
             >
-              <div className="w-12 h-12 mr-4 transition-transform duration-300 group-hover:scale-110">
+              <div className="w-70 h-70 mr-4 transition-transform duration-300 group-hover:scale-110">
                 <img
                   src="https://cdn.builder.io/api/v1/image/assets%2Fcb0376fc8e71411c9ebb0a3533b4d888%2F9d94d31e894f47c7ab1bcdd0297a87c3"
                   alt="SneakrzKing Logo"
@@ -1647,7 +1647,7 @@ const CheckoutPage = ({ cartItems }) => {
 // Enhanced Footer Component
 const Footer = () => {
   return (
-    <footer className="footer-enhanced" style={{ backgroundColor: "#1e3b5f" }}>
+    <footer className="footer-enhanced" style={{ backgroundColor: "#b0b0b0" }}>
       <div
         className="mx-auto px-4 sm:px-6 lg:px-8 py-16"
         style={{ maxWidth: "1410px" }}
@@ -1656,7 +1656,7 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="md:col-span-1">
             <div className="flex items-center mb-6">
-              <div className="w-12 h-12 mr-3">
+              <div className="w-45 h-45 mr-3">
                 <img
                   src="https://cdn.builder.io/api/v1/image/assets%2Fcb0376fc8e71411c9ebb0a3533b4d888%2Ff322eb655db24ea58df7325cb5eb92ff"
                   alt="Sneakrz King White Logo"
