@@ -1308,7 +1308,67 @@ const CheckoutPage = ({ cartItems }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle order submission
+
+    // Get form data
+    const formData = new FormData(e.target);
+    const customerData = {
+      firstName: formData.get("firstName") || "",
+      lastName: formData.get("lastName") || "",
+      email: formData.get("email") || "",
+      phone: formData.get("phone") || "",
+      address: formData.get("address") || "",
+      city: formData.get("city") || "",
+      state: formData.get("state") || "",
+      notes: formData.get("notes") || "",
+    };
+
+    // Validate required fields
+    if (
+      !customerData.firstName ||
+      !customerData.phone ||
+      !customerData.address
+    ) {
+      alert("يرجى ملء جميع الحقول المطلوبة");
+      return;
+    }
+
+    // Format WhatsApp message
+    const formatWhatsAppMessage = () => {
+      let message = `🏆 *طلب جديد من Sneakrz King* 🏆\n\n`;
+
+      // Customer Information
+      message += `👤 *بيانات العميل:*\n`;
+      message += `الاسم: ${customerData.firstName} ${customerData.lastName}\n`;
+      message += `الهاتف: ${customerData.phone}\n`;
+      if (customerData.email) message += `الإيميل: ${customerData.email}\n`;
+      message += `العنوان: ${customerData.address}\n`;
+      if (customerData.city) message += `المدينة: ${customerData.city}\n`;
+      if (customerData.state) message += `المحافظة: ${customerData.state}\n`;
+      if (customerData.notes) message += `ملاحظات: ${customerData.notes}\n`;
+
+      message += `\n🛍️ *تفاصيل الطلب:*\n`;
+
+      // Calculate total (this would need to be passed from the component that knows the cart/order details)
+      message += `المنتج: طلب من الموقع\n`;
+      message += `\n💰 *يرجى تأكيد تفاصيل الطلب والسعر*\n\n`;
+
+      message += `📝 *ملاحظة:* يرجى تأكيد الطلب والتواصل لتحديد طريقة الدفع والتوصيل.\n\n`;
+      message += `شكراً لاختياركم Sneakrz King! 👟✨`;
+
+      return encodeURIComponent(message);
+    };
+
+    // Your WhatsApp business number
+    const whatsappNumber = "201023329072";
+
+    // Create WhatsApp URL
+    const message = formatWhatsAppMessage();
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
+
+    // Open WhatsApp
+    window.open(whatsappURL, "_blank");
+
+    // Show success message
     alert("Order placed successfully!");
     navigate("/");
   };
