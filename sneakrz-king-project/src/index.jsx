@@ -1331,45 +1331,44 @@ const CheckoutPage = ({ cartItems }) => {
       return;
     }
 
-    // Format WhatsApp message
-    const formatWhatsAppMessage = () => {
-      let message = `🏆 *طلب جديد من Sneakrz King* 🏆\n\n`;
+    // Initialize EmailJS
+    emailjs.init("xZ-FMAkzHPph3aojg");
 
-      // Customer Information
-      message += `👤 *بيانات العميل:*\n`;
-      message += `الاسم: ${customerData.firstName} ${customerData.lastName}\n`;
-      message += `الهاتف: ${customerData.phone}\n`;
-      if (customerData.email) message += `الإيميل: ${customerData.email}\n`;
-      message += `العنوان: ${customerData.address}\n`;
-      if (customerData.city) message += `المدينة: ${customerData.city}\n`;
-      if (customerData.state) message += `المحافظة: ${customerData.state}\n`;
-      if (customerData.notes) message += `ملاحظات: ${customerData.notes}\n`;
-
-      message += `\n🛍️ *تفاصيل الطلب:*\n`;
-
-      // Calculate total (this would need to be passed from the component that knows the cart/order details)
-      message += `المنتج: طلب من الموقع\n`;
-      message += `\n💰 *يرجى تأكيد تفاصيل الطلب والسعر*\n\n`;
-
-      message += `📝 *ملاحظة:* يرجى تأكيد الطلب والتواصل لتحديد طريقة الدفع والتوصيل.\n\n`;
-      message += `شكراً لاختياركم Sneakrz King! 👟✨`;
-
-      return encodeURIComponent(message);
+    // Prepare email template parameters
+    const emailParams = {
+      to_email: "your-email@gmail.com", // Replace with your actual email
+      from_name: `${customerData.firstName} ${customerData.lastName}`,
+      customer_name: `${customerData.firstName} ${customerData.lastName}`,
+      customer_phone: customerData.phone,
+      customer_email: customerData.email,
+      customer_address: customerData.address,
+      customer_city: customerData.city,
+      customer_state: customerData.state,
+      order_notes: customerData.notes,
+      order_total: total.toFixed(2),
+      order_items: cartItems
+        .map(
+          (item) =>
+            `${item.name} (${item.brand}) - المقاس: ${item.selectedSize || "غير محدد"} - الكمية: ${item.quantity} - السعر: ${item.price} جنيه`,
+        )
+        .join("\n"),
+      order_date: new Date().toLocaleDateString("ar-EG"),
+      order_time: new Date().toLocaleTimeString("ar-EG"),
     };
 
-    // Your WhatsApp business number
-    const whatsappNumber = "201023329072";
-
-    // Create WhatsApp URL
-    const message = formatWhatsAppMessage();
-    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
-
-    // Open WhatsApp
-    window.open(whatsappURL, "_blank");
-
-    // Show success message
-    alert("Order placed successfully!");
-    navigate("/");
+    // Send email using EmailJS
+    emailjs
+      .send("default_service", "template_1", emailParams)
+      .then(() => {
+        alert("تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً.");
+        // Clear cart after successful order
+        setCartItems([]);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Error sending email:", error);
+        alert("حدث خطأ في إرسال الطلب. يرجى المحاولة مرة أخرى.");
+      });
   };
 
   return (
