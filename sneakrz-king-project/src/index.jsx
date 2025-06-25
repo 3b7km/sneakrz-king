@@ -1331,44 +1331,51 @@ const CheckoutPage = ({ cartItems }) => {
       return;
     }
 
-    // Initialize EmailJS
-    emailjs.init("xZ-FMAkzHPph3aojg");
+    // Check if EmailJS is loaded and initialize
+    if (typeof emailjs !== "undefined") {
+      emailjs.init("xZ-FMAkzHPph3aojg");
 
-    // Prepare email template parameters
-    const emailParams = {
-      to_email: "your-email@gmail.com", // Replace with your actual email
-      from_name: `${customerData.firstName} ${customerData.lastName}`,
-      customer_name: `${customerData.firstName} ${customerData.lastName}`,
-      customer_phone: customerData.phone,
-      customer_email: customerData.email,
-      customer_address: customerData.address,
-      customer_city: customerData.city,
-      customer_state: customerData.state,
-      order_notes: customerData.notes,
-      order_total: total.toFixed(2),
-      order_items: cartItems
-        .map(
-          (item) =>
-            `${item.name} (${item.brand}) - المقاس: ${item.selectedSize || "غير محدد"} - الكمية: ${item.quantity} - السعر: ${item.price} جنيه`,
-        )
-        .join("\n"),
-      order_date: new Date().toLocaleDateString("ar-EG"),
-      order_time: new Date().toLocaleTimeString("ar-EG"),
-    };
+      // Prepare email template parameters
+      const emailParams = {
+        to_email: "yousserabdelhakam99@gmail.com",
+        customer_name: `${customerData.firstName} ${customerData.lastName}`,
+        customer_phone: customerData.phone,
+        customer_email: customerData.email || "Not provided",
+        customer_address: customerData.address,
+        customer_city: customerData.city || "Not provided",
+        customer_state: customerData.state || "Not provided",
+        order_notes: customerData.notes || "No special notes",
+        order_total: total.toFixed(2),
+        order_items: cartItems
+          .map(
+            (item) =>
+              `${item.name} (${item.brand}) - Size: ${item.selectedSize || "No size"} - Qty: ${item.quantity} - Price: ${item.price} EGP`,
+          )
+          .join("\n"),
+        order_date: new Date().toLocaleDateString("en-GB"),
+        order_time: new Date().toLocaleTimeString("en-GB"),
+      };
 
-    // Send email using EmailJS
-    emailjs
-      .send("default_service", "template_1", emailParams)
-      .then(() => {
-        alert("تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً.");
-        // Clear cart after successful order
-        setCartItems([]);
-        navigate("/");
-      })
-      .catch((error) => {
-        console.error("Error sending email:", error);
-        alert("حدث خطأ في إرسال الطلب. يرجى المحاولة مرة أخرى.");
-      });
+      // Send email using EmailJS with your service and template IDs
+      emailjs
+        .send("service_jpicl4m", "template_sd6o0td", emailParams)
+        .then(() => {
+          alert("Order placed successfully! We will contact you soon.");
+          // Clear cart after successful order
+          setCartItems([]);
+          navigate("/");
+        })
+        .catch((error) => {
+          console.error("Error sending email:", error);
+          alert(
+            "Error placing order. Please try again or contact us directly.",
+          );
+        });
+    } else {
+      alert(
+        "Service temporarily unavailable. Please contact us directly at +201023329072",
+      );
+    }
   };
 
   return (
