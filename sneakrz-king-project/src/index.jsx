@@ -1309,8 +1309,15 @@ const CheckoutPage = ({ cartItems }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Find the form element (since e.target might be the button)
+    const form = e.target.closest("form") || document.querySelector("form");
+    if (!form) {
+      alert("Form not found");
+      return;
+    }
+
     // Get form data
-    const formData = new FormData(e.target);
+    const formData = new FormData(form);
     const customerData = {
       firstName: formData.get("firstName") || "",
       lastName: formData.get("lastName") || "",
