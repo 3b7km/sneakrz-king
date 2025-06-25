@@ -1277,6 +1277,7 @@ const CartPage = ({ cartItems, updateCartItem, removeFromCart, clearCart }) => {
 // Enhanced Checkout Page Component
 const CheckoutPage = ({ cartItems }) => {
   const navigate = useNavigate();
+  const { clearCart } = useCart();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
