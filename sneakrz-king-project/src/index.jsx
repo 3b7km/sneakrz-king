@@ -1363,7 +1363,7 @@ const CheckoutPage = ({ cartItems }) => {
         .then(() => {
           alert("Order placed successfully! We will contact you soon.");
           // Clear cart after successful order
-          setCartItems([]);
+          clearCart();
           navigate("/");
         })
         .catch((error) => {
