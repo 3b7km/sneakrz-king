@@ -1568,8 +1568,8 @@ const Footer = () => {
   return (
     <footer className="footer-enhanced" style={{ backgroundColor: "#2C3E50" }}>
       <div
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16"
-        style={{ backgroundColor: "#1e3b60" }}
+        className="mx-auto px-4 sm:px-6 lg:px-8 py-16"
+        style={{ backgroundColor: "#1e3b60", maxWidth: "1410px" }}
       >
         <div className="grid md:grid-cols-4 gap-8">
           {/* Brand Section */}
