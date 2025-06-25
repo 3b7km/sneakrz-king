@@ -1309,24 +1309,16 @@ const CheckoutPage = ({ cartItems }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Find the form element (since e.target might be the button)
-    const form = e.target.closest("form") || document.querySelector("form");
-    if (!form) {
-      alert("Form not found");
-      return;
-    }
-
-    // Get form data
-    const formData = new FormData(form);
+    // Use the React state data directly
     const customerData = {
-      firstName: formData.get("firstName") || "",
-      lastName: formData.get("lastName") || "",
-      email: formData.get("email") || "",
-      phone: formData.get("phone") || "",
-      address: formData.get("address") || "",
-      city: formData.get("city") || "",
-      state: formData.get("state") || "",
-      notes: formData.get("notes") || "",
+      firstName: formData.firstName || "",
+      lastName: formData.lastName || "",
+      email: formData.email || "",
+      phone: formData.phone || "",
+      address: formData.streetAddress || "",
+      city: formData.city || "",
+      state: formData.state || "",
+      notes: formData.orderNotes || "",
     };
 
     // Validate required fields
