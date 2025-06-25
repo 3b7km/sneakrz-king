@@ -1140,9 +1140,9 @@ const CartPage = ({ cartItems, updateCartItem, removeFromCart, clearCart }) => {
               </div>
 
               <div className="divide-y divide-gray-200">
-                {cartItems.map((item) => (
+                {cartItems.map((item, index) => (
                   <div
-                    key={`${item.id}-${item.selectedSize}`}
+                    key={`${item.id}-${item.selectedSize || "no-size"}-${index}`}
                     className="px-6 py-6"
                   >
                     <div className="grid grid-cols-5 gap-4 items-center">
@@ -1554,9 +1554,9 @@ const CheckoutPage = ({ cartItems }) => {
             <div className="bg-white rounded-lg shadow-sm p-6 sticky top-8">
               <h3 className="text-xl font-semibold mb-6">YOUR ORDER</h3>
 
-              {cartItems.map((item) => (
+              {cartItems.map((item, index) => (
                 <div
-                  key={`${item.id}-${item.selectedSize}`}
+                  key={`${item.id}-${item.selectedSize || "no-size"}-${index}`}
                   className="flex justify-between items-center py-3 border-b border-gray-200"
                 >
                   <div>
