@@ -1343,7 +1343,7 @@ const CheckoutPage = ({ cartItems }) => {
       !customerData.phone ||
       !customerData.address
     ) {
-      alert("يرجى ملء ��ميع الحقول المطلوبة");
+      alert("first name, phone, and address are required.");
       return;
     }
 
@@ -1647,10 +1647,10 @@ const CheckoutPage = ({ cartItems }) => {
 // Enhanced Footer Component
 const Footer = () => {
   return (
-    <footer className="footer-enhanced" style={{ backgroundColor: "#2C3E50" }}>
+    <footer className="footer-enhanced" style={{ backgroundColor: "#1e3b5f" }}>
       <div
         className="mx-auto px-4 sm:px-6 lg:px-8 py-16"
-        style={{ backgroundColor: "#1e3b5f", maxWidth: "1410px" }}
+        style={{ maxWidth: "1410px" }}
       >
         <div className="grid md:grid-cols-4 gap-8">
           {/* Brand Section */}
@@ -2101,7 +2101,7 @@ function App() {
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Discover our handpicked selection of premium sneakers from the
-              world's most coveted brands.
+              world's most
             </p>
           </div>
 
