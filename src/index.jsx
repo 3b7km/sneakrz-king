@@ -716,7 +716,7 @@ const ProductCard = ({ product, onQuickView, onAddToCart }) => {
           alt={product.name}
           className="w-full h-64"
           showThumbnails={false}
-          aspectRatio="aspect-[4/3]"
+          aspectRatio="aspect-square"
         />
 
         {/* Enhanced Status Badges */}

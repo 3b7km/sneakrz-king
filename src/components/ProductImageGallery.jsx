@@ -84,35 +84,12 @@ const ProductImageGallery = ({
                 <img
                   src={image}
                   alt={`${alt} - View ${index + 1}`}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover rounded-lg"
                 />
               </div>
             ))}
           </div>
         </div>
-
-        {/* Navigation Arrows */}
-        {images.length > 1 && (
-          <>
-            <button
-              className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors z-10"
-              onClick={onPrevButtonClick}
-              type="button"
-              aria-label="Previous image"
-            >
-              <ChevronLeft className="w-5 h-5 text-gray-700" />
-            </button>
-
-            <button
-              className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors z-10"
-              onClick={onNextButtonClick}
-              type="button"
-              aria-label="Next image"
-            >
-              <ChevronRight className="w-5 h-5 text-gray-700" />
-            </button>
-          </>
-        )}
 
         {/* Image Counter */}
         {images.length > 1 && (
