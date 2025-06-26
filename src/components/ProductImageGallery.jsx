@@ -43,7 +43,7 @@ const ProductImageGallery = ({
   }, [emblaMainApi, emblaThumbsApi, setSelectedIndex]);
 
   // Set up embla event listeners
-  useState(() => {
+  useEffect(() => {
     if (!emblaMainApi) return;
     onSelect();
     emblaMainApi.on("select", onSelect);
