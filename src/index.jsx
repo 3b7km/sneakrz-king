@@ -941,15 +941,21 @@ const QuickViewModal = ({
           </button>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 p-4 sm:p-8">
-            {/* Product Image */}
+            {/* Product Image Gallery */}
             <div className="relative">
-              <img
-                src={product.image}
+              <ProductImageGallery
+                images={
+                  product.images && product.images.length > 0
+                    ? product.images
+                    : [product.image]
+                }
                 alt={product.name}
-                className="w-full h-64 sm:h-96 object-cover rounded-xl"
+                className="w-full h-64 sm:h-96"
+                showThumbnails={true}
+                aspectRatio="aspect-square"
               />
               {product.isNew && (
-                <Badge variant="new" className="absolute top-4 left-4">
+                <Badge variant="new" className="absolute top-4 left-4 z-20">
                   New
                 </Badge>
               )}
