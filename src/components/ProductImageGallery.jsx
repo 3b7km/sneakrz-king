@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import "./ProductImageGallery.css";
 
 const ProductImageGallery = ({
   images = [],

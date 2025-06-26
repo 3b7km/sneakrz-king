@@ -1,0 +1,88 @@
+/* ProductImageGallery Styles */
+.product-image-gallery {
+  position: relative;
+}
+
+.embla {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+}
+
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.embla__slide img {
+  display: block;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.embla-thumbs {
+  overflow: hidden;
+}
+
+.embla-thumbs .embla__container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.embla__slide-thumb {
+  flex: 0 0 auto;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.embla__slide-thumb:hover {
+  transform: scale(1.05);
+}
+
+.embla__slide-thumb img {
+  border-radius: 0.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Smooth transitions for carousel */
+.embla__slide {
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Navigation button styles */
+.product-image-gallery button {
+  transition: all 0.2s ease-in-out;
+}
+
+.product-image-gallery button:hover {
+  transform: scale(1.1);
+}
+
+/* Image counter styles */
+.product-image-gallery .absolute.bottom-4.right-4 {
+  backdrop-filter: blur(8px);
+  border-radius: 9999px;
+  font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .embla__slide-thumb {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .product-image-gallery button {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .product-image-gallery button svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
