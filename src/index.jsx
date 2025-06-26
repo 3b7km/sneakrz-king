@@ -24,6 +24,7 @@ import {
   Plus,
   Minus,
 } from "lucide-react";
+import ProductImageGallery from "./components/ProductImageGallery.jsx";
 import "./App.css";
 import airForce1 from "./assets/products/nike-air-force-1.jpg";
 import jordan4MilitaryBlack from "./assets/products/jordan-4-military-black.jpg";
@@ -701,24 +702,35 @@ const Navigation = ({
 
 // Enhanced Product Card Component
 const ProductCard = ({ product, onQuickView, onAddToCart }) => {
+  // Use multiple images if available, fallback to single image
+  const productImages =
+    product.images && product.images.length > 0
+      ? product.images
+      : [product.image];
+
   return (
     <div className="product-card-enhanced group">
       <div className="product-image-container relative">
-        <img
-          src={product.image}
+        <ProductImageGallery
+          images={productImages}
           alt={product.name}
-          className="product-image w-full h-64 object-cover"
+          className="w-full h-64"
+          showThumbnails={false}
+          aspectRatio="aspect-[4/3]"
         />
 
         {/* Enhanced Status Badges */}
         {product.isNew && (
-          <Badge variant="new" className="status-badge absolute top-3 left-3">
+          <Badge
+            variant="new"
+            className="status-badge absolute top-3 left-3 z-20"
+          >
             New
           </Badge>
         )}
 
         {/* Enhanced Hover Actions */}
-        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100 z-10">
           <div className="flex space-x-2">
             <Button
               variant="default"
@@ -734,7 +746,7 @@ const ProductCard = ({ product, onQuickView, onAddToCart }) => {
 
         <Button
           onClick={() => onAddToCart(product)}
-          className="w-full btn-enhanced"
+          className="w-full btn-enhanced relative z-10"
           style={{
             background: "linear-gradient(135deg, #2C3E50 0%, #34495E 100%)",
             color: "white",
