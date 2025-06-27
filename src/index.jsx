@@ -774,15 +774,6 @@ const ProductCard = ({ product, onQuickView }) => {
             New
           </Badge>
         )}
-
-        {product.originalPrice && (
-          <Badge
-            variant="sale"
-            className="status-badge absolute top-4 right-4 z-10 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold"
-          >
-            Sale
-          </Badge>
-        )}
       </div>
 
       {/* Full Product Details */}
