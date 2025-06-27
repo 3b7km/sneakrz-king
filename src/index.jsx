@@ -2422,8 +2422,6 @@ function App() {
         "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F9e59976d97e1463c90936f5cb3a348b8?format=webp&width=800",
       images: [
         "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F9e59976d97e1463c90936f5cb3a348b8?format=webp&width=800",
-        "https://images.unsplash.com/photo-1539185441755-769473a23570?w=500",
-        "https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=500",
       ],
       rating: 4.4,
       brand: "New Balance",
