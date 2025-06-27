@@ -623,102 +623,104 @@ const Navigation = ({
             </div>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
+          {/* Mobile cart and menu */}
+          <div className="md:hidden flex items-center space-x-2">
+            <Link
+              to="/cart"
+              className="relative p-2 text-gray-600 hover:text-blue-600 transition-colors duration-300"
+              aria-label="View cart"
+            >
+              <ShoppingCart className="w-6 h-6" />
+              {cartItems.length > 0 && (
+                <span
+                  className="absolute -top-1 -right-1 bg-red-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold"
+                  aria-label={`${cartItems.length} items in cart`}
+                >
+                  {cartItems.length}
+                </span>
+              )}
+            </Link>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-3 rounded-full text-gray-600 hover:text-blue-600 hover:bg-gray-100 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="p-2 rounded-full text-gray-600 hover:text-blue-600 hover:bg-gray-100 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMenuOpen}
               aria-controls="mobile-menu"
             >
               {isMenuOpen ? (
-                <X className="w-8 h-8" />
+                <X className="w-6 h-6" />
               ) : (
-                <Menu className="w-8 h-8" />
+                <Menu className="w-6 h-6" />
               )}
             </button>
           </div>
         </div>
 
         {/* Enhanced Mobile Navigation */}
-        <div
-          id="mobile-menu"
-          className={`md:hidden transition-all duration-300 ease-in-out ${isMenuOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0 overflow-hidden"}`}
-          aria-hidden={!isMenuOpen}
-        >
-          <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200">
-            <Link
-              to="/"
-              onClick={handleMobileLinkClick}
-              className="nav-link block px-3 py-4 text-lg font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-all duration-300"
-              tabIndex={isMenuOpen ? 0 : -1}
-            >
-              Home
-            </Link>
-            <Link
-              to="/products"
-              onClick={handleMobileLinkClick}
-              className="nav-link block px-3 py-4 text-lg font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-all duration-300"
-              tabIndex={isMenuOpen ? 0 : -1}
-            >
-              Products
-            </Link>
-            <Link
-              to="/brands"
-              onClick={handleMobileLinkClick}
-              className="nav-link block px-3 py-4 text-lg font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-all duration-300"
-              tabIndex={isMenuOpen ? 0 : -1}
-            >
-              Brands
-            </Link>
-
-            {/* Mobile Cart Button */}
-            <Link
-              to="/cart"
-              onClick={handleMobileLinkClick}
-              className="w-full flex items-center px-3 py-4 text-lg font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-all duration-300"
-              tabIndex={isMenuOpen ? 0 : -1}
-            >
-              <ShoppingCart className="w-5 h-5 mr-3" />
-              Cart ({cartItems.length})
-            </Link>
-            <Link
-              to="/about"
-              onClick={handleMobileLinkClick}
-              className="nav-link block px-3 py-4 text-lg font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-all duration-300"
-              tabIndex={isMenuOpen ? 0 : -1}
-            >
-              About
-            </Link>
-            <a
-              href="https://www.instagram.com/sneakrz.king?igsh=ZHpuZ2lzdm9vdTky"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={handleMobileLinkClick}
-              className="nav-link block px-3 py-4 text-lg font-medium text-gray-600 hover:text-pink-600 hover:bg-gray-50 rounded-lg transition-all duration-300 flex items-center gap-2"
-              tabIndex={isMenuOpen ? 0 : -1}
-              aria-label="Instagram"
-            >
-              <Instagram className="w-5 h-5" />
-              Instagram
-            </a>
-            {/* Mobile Search */}
-            <div className="px-3 py-2">
-              <div className="search-container">
-                <Search className="search-icon w-5 h-5" />
-                <Input
-                  type="text"
-                  placeholder="Search sneakers..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="search-input"
-                  aria-label="Search sneakers"
-                />
+        {isMenuOpen && (
+          <div
+            id="mobile-menu"
+            className="md:hidden bg-white border-t border-gray-200 shadow-lg"
+            aria-hidden={!isMenuOpen}
+          >
+            <div className="px-4 pt-2 pb-3 space-y-1 max-h-screen overflow-y-auto">
+              {/* Mobile Search */}
+              <div className="py-3">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <Input
+                    type="text"
+                    placeholder="Search sneakers..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    aria-label="Search sneakers"
+                  />
+                </div>
               </div>
+
+              <Link
+                to="/"
+                onClick={handleMobileLinkClick}
+                className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
+              >
+                Home
+              </Link>
+              <Link
+                to="/products"
+                onClick={handleMobileLinkClick}
+                className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
+              >
+                Products
+              </Link>
+              <Link
+                to="/brands"
+                onClick={handleMobileLinkClick}
+                className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
+              >
+                Brands
+              </Link>
+              <Link
+                to="/about"
+                onClick={handleMobileLinkClick}
+                className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
+              >
+                About
+              </Link>
+              <a
+                href="https://www.instagram.com/sneakrz.king?igsh=ZHpuZ2lzdm9vdTky"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleMobileLinkClick}
+                className="flex items-center px-3 py-3 text-base font-medium text-gray-700 hover:text-pink-600 hover:bg-gray-50 rounded-lg transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-4 h-4 mr-2" />
+                Instagram
+              </a>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </nav>
   );
@@ -1072,7 +1074,7 @@ const QuickViewModal = ({
 // Enhanced Cart Page Component
 const CartPage = ({ cartItems, updateCartItem, removeFromCart, clearCart }) => {
   const navigate = useNavigate();
-  const [couponCode, setCouponCode] = useState("");
+
   const [timeLeft, setTimeLeft] = useState(4 * 60 + 29); // 4:29 in seconds
 
   useEffect(() => {
@@ -1234,17 +1236,9 @@ const CartPage = ({ cartItems, updateCartItem, removeFromCart, clearCart }) => {
               </div>
             </div>
 
-            {/* Coupon Section */}
+            {/* Cart Actions */}
             <div className="mt-6 bg-white rounded-lg shadow-sm p-6">
-              <div className="flex space-x-4">
-                <Input
-                  type="text"
-                  placeholder="Coupon code"
-                  value={couponCode}
-                  onChange={(e) => setCouponCode(e.target.value)}
-                  className="flex-1"
-                />
-                <Button variant="outline">OK</Button>
+              <div className="flex justify-end">
                 <Button
                   onClick={clearCart}
                   variant="outline"
@@ -1474,16 +1468,6 @@ const CheckoutPage = ({ cartItems }) => {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Coupon Banner */}
-        <div className="bg-gray-800 text-white p-4 rounded-lg mb-8 text-center">
-          <p>
-            🏷️ Have a coupon?{" "}
-            <button className="text-blue-300 hover:underline">
-              Click here to enter your code
-            </button>
-          </p>
-        </div>
-
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Billing Details */}
           <div>
@@ -2493,7 +2477,7 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
+      <div className="App min-h-screen overflow-x-hidden">
         <Navigation
           cartItems={cartItems}
           searchTerm={searchTerm}
