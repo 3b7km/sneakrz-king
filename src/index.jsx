@@ -254,7 +254,7 @@ const BrandsPage = ({ selectedBrand, setSelectedBrand, brands }) => {
                 </div>
                 <h3
                   className="heading-secondary text-xl font-semibold mb-2"
-                  style={{ color: "#2C3E50" }}
+                  style={{ color: "#1e3b60" }}
                 >
                   {brand.name}
                 </h3>
@@ -795,7 +795,7 @@ const ProductCard = ({
 
         <h3
           className="heading-secondary text-lg font-semibold mb-2 line-clamp-2"
-          style={{ color: "#2C3E50" }}
+          style={{ color: "#1e3b60" }}
         >
           {product.name}
         </h3>
@@ -852,7 +852,7 @@ const HeroSection = () => {
       {/* Centered Content */}
       <div className="relative z-20 flex flex-col items-center justify-center w-full px-4">
         <h1 className="hero-title text-5xl md:text-7xl font-bold text-white mb-6 text-center animate-fadeInUp">
-          Step Into <span style={{ color: "#2C3E50" }}>Greatness</span>
+          Step Into <span style={{ color: "#1e3b60" }}>Greatness</span>
         </h1>
         <p className="hero-subtitle text-xl md:text-2xl text-gray-200 mb-12 max-w-3xl mx-auto text-center animate-fadeInUp animation-delay-200">
           Discover the latest and greatest sneakers from top brands. Authentic
