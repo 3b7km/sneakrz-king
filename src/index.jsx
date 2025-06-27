@@ -145,7 +145,8 @@ const SuccessNotification = ({ message, onViewCart, onClose }) => {
             </Button>
             <button
               onClick={onClose}
-              className="text-white hover:text-gray-200 transition-colors"
+              className="text-white hover:text-gray-200 transition-colors p-1 rounded-full hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50"
+              aria-label="Close notification"
             >
               <X className="w-5 h-5" />
             </button>
@@ -940,9 +941,10 @@ const QuickViewModal = ({
         <div className="relative">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-10 p-2 bg-white rounded-full shadow-lg hover:bg-gray-100 transition-colors"
+            className="absolute top-4 right-4 z-10 p-3 bg-white rounded-full shadow-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500"
+            aria-label="Close modal"
           >
-            <X className="w-5 h-5" />
+            <X className="w-6 h-6 text-gray-600 hover:text-gray-800" />
           </button>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 p-4 sm:p-8">
@@ -1187,9 +1189,10 @@ const CartPage = ({ cartItems, updateCartItem, removeFromCart, clearCart }) => {
                             onClick={() =>
                               removeFromCart(item.id, item.selectedSize)
                             }
-                            className="text-sm text-red-600 hover:text-red-800 mt-1"
+                            className="inline-flex items-center justify-center w-6 h-6 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-full transition-all duration-200 mt-1 focus:outline-none focus:ring-2 focus:ring-red-500"
+                            aria-label="Remove item from cart"
                           >
-                            ×
+                            <X className="w-4 h-4" />
                           </button>
                         </div>
                       </div>
