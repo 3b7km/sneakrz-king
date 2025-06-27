@@ -1322,6 +1322,10 @@ const CheckoutPage = ({ cartItems }) => {
     orderNotes: "",
   });
 
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [touched, setTouched] = useState({});
+
   const subtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0,
@@ -1331,81 +1335,131 @@ const CheckoutPage = ({ cartItems }) => {
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
+    const newValue = type === "checkbox" ? checked : value;
+
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: newValue,
+    }));
+
+    // Real-time validation
+    if (touched[name]) {
+      const validation = validateField(name, newValue);
+      setErrors((prev) => ({
+        ...prev,
+        [name]: validation.error,
+      }));
+    }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    setTouched((prev) => ({ ...prev, [name]: true }));
+
+    const validation = validateField(name, value);
+    setErrors((prev) => ({
+      ...prev,
+      [name]: validation.error,
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
-    // Use the React state data directly
-    const customerData = {
-      firstName: formData.firstName || "",
-      lastName: formData.lastName || "",
-      email: formData.email || "",
-      phone: formData.phone || "",
-      address: formData.streetAddress || "",
-      city: formData.city || "",
-      state: formData.state || "",
-      notes: formData.orderNotes || "",
-    };
+    // Validate entire form
+    const validation = validateForm(formData);
+    setErrors(validation.errors);
+    setTouched(
+      Object.keys(formData).reduce((acc, key) => ({ ...acc, [key]: true }), {}),
+    );
 
-    // Validate required fields
-    if (
-      !customerData.firstName ||
-      !customerData.phone ||
-      !customerData.address
-    ) {
-      alert("first name, phone, and address are required.");
+    if (!validation.isValid) {
+      setIsSubmitting(false);
+      // Scroll to first error
+      const firstErrorField = Object.keys(validation.errors)[0];
+      const element = document.querySelector(`[name="${firstErrorField}"]`);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+        element.focus();
+      }
       return;
     }
 
-    // Check if EmailJS is loaded and initialize
-    if (typeof emailjs !== "undefined") {
-      emailjs.init("xZ-FMAkzHPph3aojg");
+    try {
+      // Generate order number
+      const orderNumber = Date.now().toString().slice(-8);
+      const orderDate = new Date().toLocaleDateString("en-GB");
+      const estimatedDelivery = new Date(
+        Date.now() + 5 * 24 * 60 * 60 * 1000,
+      ).toLocaleDateString("en-GB");
 
-      // Prepare email template parameters
-      const emailParams = {
-        to_email: "yousserabdelhakam99@gmail.com",
-        customer_name: `${customerData.firstName} ${customerData.lastName}`,
-        customer_phone: customerData.phone,
-        customer_email: customerData.email || "Not provided",
-        customer_address: customerData.address,
-        customer_city: customerData.city || "Not provided",
-        customer_state: customerData.state || "Not provided",
-        order_notes: customerData.notes || "No special notes",
-        order_total: total.toFixed(2),
-        order_items: cartItems
-          .map(
-            (item) =>
-              `${item.name} (${item.brand}) - Size: ${item.selectedSize || "No size"} - Qty: ${item.quantity} - Price: ${item.price} EGP`,
-          )
-          .join("\n"),
-        order_date: new Date().toLocaleDateString("en-GB"),
-        order_time: new Date().toLocaleTimeString("en-GB"),
+      const orderData = {
+        orderNumber,
+        customerInfo: {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          address: formData.streetAddress,
+          city: formData.city,
+          state: formData.state,
+          notes: formData.orderNotes,
+        },
+        items: cartItems,
+        total,
+        orderDate,
+        estimatedDelivery,
       };
 
-      // Send email using EmailJS with your service and template IDs
-      emailjs
-        .send("service_jpicl4m", "template_sd6o0td", emailParams)
-        .then(() => {
-          alert("Order placed successfully! We will contact you soon.");
-          // Clear cart after successful order
-          clearCart();
-          navigate("/");
-        })
-        .catch((error) => {
-          console.error("Error sending email:", error);
-          alert(
-            "Error placing order. Please try again or contact us directly.",
-          );
-        });
-    } else {
+      // Store order data for confirmation page
+      localStorage.setItem("lastOrder", JSON.stringify(orderData));
+
+      // Check if EmailJS is loaded and initialize
+      if (typeof emailjs !== "undefined") {
+        emailjs.init("xZ-FMAkzHPph3aojg");
+
+        // Prepare email template parameters
+        const emailParams = {
+          to_email: "yousserabdelhakam99@gmail.com",
+          customer_name: `${formData.firstName} ${formData.lastName}`,
+          customer_phone: formData.phone,
+          customer_email: formData.email || "Not provided",
+          customer_address: formData.streetAddress,
+          customer_city: formData.city || "Not provided",
+          customer_state: formData.state || "Not provided",
+          order_notes: formData.orderNotes || "No special notes",
+          order_total: total.toFixed(2),
+          order_number: orderNumber,
+          order_items: cartItems
+            .map(
+              (item) =>
+                `${item.name} (${item.brand}) - Size: ${item.selectedSize || "No size"} - Qty: ${item.quantity} - Price: ${item.price} EGP`,
+            )
+            .join("\n"),
+          order_date: orderDate,
+          order_time: new Date().toLocaleTimeString("en-GB"),
+        };
+
+        // Send email using EmailJS
+        await emailjs.send("service_jpicl4m", "template_sd6o0td", emailParams);
+      }
+
+      // Clear cart after successful order
+      clearCart();
+
+      // Navigate to order confirmation page
+      navigate("/order-confirmation", {
+        state: { orderData },
+        replace: true,
+      });
+    } catch (error) {
+      console.error("Error placing order:", error);
       alert(
-        "Service temporarily unavailable. Please contact us directly at +201023329072",
+        "Error placing order. Please try again or contact us directly at +201023329072",
       );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
