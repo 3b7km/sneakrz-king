@@ -2014,7 +2014,7 @@ function App() {
       ],
     },
     {
-      id: 4,
+      id: 3,
       name: "Nike Air Max 97",
       price: 1850,
       image:
