@@ -2199,8 +2199,6 @@ function App() {
         "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F24dd49cb80bd4bf6b32f9d1bf3c36251?format=webp&width=800",
       images: [
         "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F24dd49cb80bd4bf6b32f9d1bf3c36251?format=webp&width=800",
-        airMax97Black,
-        airmax97,
       ],
       rating: 4.6,
       brand: "Nike",
