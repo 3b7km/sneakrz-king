@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import { useCart } from "./context/CartContext.jsx";
 import { OrderProvider } from "./context/OrderContext.jsx";
+import AdminPage from "./pages/AdminPage.jsx";
 import {
   Heart,
   ShoppingCart,
@@ -2824,75 +2825,81 @@ function App() {
   );
 
   return (
-    <Router>
-      <div className="App min-h-screen overflow-x-hidden">
-        <Navigation
-          cartItems={cartItems}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          isMenuOpen={isMenuOpen}
-          setIsMenuOpen={setIsMenuOpen}
-        />
-
-        <main>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/products" element={<ProductsPage />} />
-            <Route
-              path="/brands"
-              element={
-                <BrandsPage
-                  selectedBrand={selectedBrand}
-                  setSelectedBrand={setSelectedBrand}
-                  brands={brands}
-                />
-              }
-            />
-            <Route path="/about" element={<AboutPage />} />
-            <Route
-              path="/cart"
-              element={
-                <CartPage
-                  cartItems={cartItems}
-                  updateCartItem={updateCartItem}
-                  removeFromCart={removeFromCart}
-                  clearCart={clearCart}
-                />
-              }
-            />
-            <Route
-              path="/checkout"
-              element={<CheckoutPage cartItems={cartItems} />}
-            />
-            <Route path="/order-confirmation" element={<OrderConfirmation />} />
-          </Routes>
-        </main>
-
-        <Footer />
-
-        {/* WhatsApp Floating Button */}
-        <WhatsAppFloat />
-
-        {/* Quick View Modal */}
-        <QuickViewModal
-          product={quickViewProduct}
-          isOpen={isQuickViewOpen}
-          onClose={closeQuickView}
-          onAddToCart={addToCart}
-          onBuyNow={handleBuyNow}
-          loadingStates={loadingStates}
-        />
-
-        {/* Success Notification */}
-        {successNotification && (
-          <SuccessNotification
-            message={successNotification.message}
-            onViewCart={successNotification.onViewCart}
-            onClose={successNotification.onClose}
+    <OrderProvider>
+      <Router>
+        <div className="App min-h-screen overflow-x-hidden">
+          <Navigation
+            cartItems={cartItems}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            isMenuOpen={isMenuOpen}
+            setIsMenuOpen={setIsMenuOpen}
           />
-        )}
-      </div>
-    </Router>
+
+          <main>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/products" element={<ProductsPage />} />
+              <Route
+                path="/brands"
+                element={
+                  <BrandsPage
+                    selectedBrand={selectedBrand}
+                    setSelectedBrand={setSelectedBrand}
+                    brands={brands}
+                  />
+                }
+              />
+              <Route path="/about" element={<AboutPage />} />
+              <Route
+                path="/cart"
+                element={
+                  <CartPage
+                    cartItems={cartItems}
+                    updateCartItem={updateCartItem}
+                    removeFromCart={removeFromCart}
+                    clearCart={clearCart}
+                  />
+                }
+              />
+              <Route
+                path="/checkout"
+                element={<CheckoutPage cartItems={cartItems} />}
+              />
+              <Route
+                path="/order-confirmation"
+                element={<OrderConfirmation />}
+              />
+              <Route path="/admin" element={<AdminPage />} />
+            </Routes>
+          </main>
+
+          <Footer />
+
+          {/* WhatsApp Floating Button */}
+          <WhatsAppFloat />
+
+          {/* Quick View Modal */}
+          <QuickViewModal
+            product={quickViewProduct}
+            isOpen={isQuickViewOpen}
+            onClose={closeQuickView}
+            onAddToCart={addToCart}
+            onBuyNow={handleBuyNow}
+            loadingStates={loadingStates}
+          />
+
+          {/* Success Notification */}
+          {successNotification && (
+            <SuccessNotification
+              message={successNotification.message}
+              onViewCart={successNotification.onViewCart}
+              onClose={successNotification.onClose}
+            />
+          )}
+        </div>
+      </Router>
+    </OrderProvider>
   );
 }
 
