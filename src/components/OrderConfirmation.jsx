@@ -88,6 +88,38 @@ const OrderConfirmation = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Progress Steps */}
+        <div className="mb-8">
+          <div className="flex items-center justify-center space-x-4 sm:space-x-8 overflow-x-auto px-4">
+            <div className="flex items-center flex-shrink-0">
+              <div className="w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg">
+                ✓
+              </div>
+              <span className="ml-2 font-semibold text-green-600 text-sm sm:text-base whitespace-nowrap">
+                SHOPPING CART
+              </span>
+            </div>
+            <div className="w-8 sm:w-16 h-1 bg-green-600 rounded-full flex-shrink-0"></div>
+            <div className="flex items-center flex-shrink-0">
+              <div className="w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg">
+                ✓
+              </div>
+              <span className="ml-2 font-semibold text-green-600 text-sm sm:text-base whitespace-nowrap">
+                CHECKOUT
+              </span>
+            </div>
+            <div className="w-8 sm:w-16 h-1 bg-green-600 rounded-full flex-shrink-0"></div>
+            <div className="flex items-center flex-shrink-0">
+              <div className="w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg">
+                ✓
+              </div>
+              <span className="ml-2 font-semibold text-green-600 text-sm sm:text-base whitespace-nowrap">
+                ORDER STATUS
+              </span>
+            </div>
+          </div>
+        </div>
+
         {/* Success Header */}
         <div className="text-center mb-12">
           <div className="mx-auto flex items-center justify-center h-24 w-24 rounded-full bg-green-100 mb-6">
