@@ -225,7 +225,10 @@ const BrandsPage = ({ selectedBrand, setSelectedBrand, brands }) => {
       <section className="bg-white border-b border-gray-200 section-padding py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="heading-primary text-responsive-xl gradient-text mb-4">
+            <h1
+              className="heading-primary text-responsive-xl mb-4"
+              style={{ color: "#1e3b60" }}
+            >
               Our Brands
             </h1>
             <p className="text-body text-responsive-md max-w-2xl mx-auto">
