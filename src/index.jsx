@@ -2466,7 +2466,7 @@ function App() {
     },
 
     {
-      id: 24,
+      id: 19,
       name: "Nike Dunk Low 'Panda'",
       price: 2150,
       originalPrice: 2450,
