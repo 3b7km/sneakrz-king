@@ -898,6 +898,7 @@ const QuickViewModal = ({
   onClose,
   onAddToCart,
   onBuyNow,
+  loadingStates = {},
 }) => {
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
@@ -1033,8 +1034,8 @@ const QuickViewModal = ({
               <div className="flex space-x-4">
                 <AddToCartButton
                   onAddToCart={() => handleAddToCart()}
-                  product={product}
-                  isLoading={false}
+                  product={{ ...product, selectedSize, quantity }}
+                  isLoading={loadingStates[`add-${product.id}`] || false}
                   className="flex-1"
                 />
                 <Button
@@ -2501,6 +2502,7 @@ function App() {
           onClose={closeQuickView}
           onAddToCart={addToCart}
           onBuyNow={handleBuyNow}
+          loadingStates={loadingStates}
         />
 
         {/* Success Notification */}
