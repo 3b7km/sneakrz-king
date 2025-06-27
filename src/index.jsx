@@ -2289,36 +2289,7 @@ function App() {
         { value: "45", available: true },
       ],
     },
-    {
-      id: 13,
-      name: "Nike Air Force 1 '07 White",
-      price: 1950,
-      originalPrice: 2300,
-      image:
-        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F0f4530de78a647deb471d412dfb4a0d7?format=webp&width=800",
-      images: [
-        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F0f4530de78a647deb471d412dfb4a0d7?format=webp&width=800",
-        airForce1,
-        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F8041fe4172fc4209b4a40766bc58b4fc?format=webp&width=800",
-      ],
-      rating: 4.8,
-      brand: "Nike",
-      category: "Lifestyle",
-      condition: "Brand New",
-      authenticity: "100% Guaranteed",
-      isNew: true,
-      onSale: true,
-      sizes: [
-        { value: "38", available: true },
-        { value: "39", available: true },
-        { value: "40", available: true },
-        { value: "41", available: true },
-        { value: "42", available: true },
-        { value: "43", available: true },
-        { value: "44", available: true },
-        { value: "45", available: true },
-      ],
-    },
+
     {
       id: 14,
       name: "Nike Air Max 97 'Triple Black'",
