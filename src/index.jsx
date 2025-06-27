@@ -2324,7 +2324,7 @@ function App() {
       ],
     },
     {
-      id: 18,
+      id: 14,
       name: "ASICS Gel-Lyte V 'Grey White'",
       price: 1550,
       image:
