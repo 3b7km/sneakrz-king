@@ -1986,7 +1986,7 @@ function App() {
     },
 
     {
-      id: 3,
+      id: 2,
       name: "Adidas Samba OG 'White Black Gum'",
       price: 1750,
       originalPrice: 2100,
