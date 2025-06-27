@@ -333,7 +333,10 @@ const AboutPage = () => {
             </div>
 
             <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-              <h2 className="heading-secondary text-2xl gradient-text mb-6">
+              <h2
+                className="heading-secondary text-2xl mb-6"
+                style={{ color: "#1e3b60" }}
+              >
                 Our Commitment
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
