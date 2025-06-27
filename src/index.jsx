@@ -736,7 +736,13 @@ const Navigation = ({
 
 // Enhanced Product Card Component with Full Details
 const ProductCard = ({ product, onQuickView, onAddToCart }) => {
-  const [selectedSize, setSelectedSize] = useState(product.sizes?.[0] || "");
+  const [selectedSize, setSelectedSize] = useState(() => {
+    if (product.sizes && product.sizes.length > 0) {
+      const firstSize = product.sizes[0];
+      return typeof firstSize === "object" ? firstSize.value : firstSize;
+    }
+    return "";
+  });
   const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = () => {
