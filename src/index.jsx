@@ -2223,7 +2223,7 @@ function App() {
       ],
     },
     {
-      id: 12,
+      id: 11,
       name: "ASICS Gel-Kayano 14 'White Black'",
       price: 1850,
       image:
