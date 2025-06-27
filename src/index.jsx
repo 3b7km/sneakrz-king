@@ -2073,31 +2073,6 @@ function App() {
         { value: "45", available: true },
       ],
     },
-    {
-      id: 5,
-      name: "Air Jordan 4 Retro 'Black Cat'",
-      price: 1950,
-      image: jordan4BlackCat,
-      images: [
-        jordan4BlackCat,
-        "https://images.unsplash.com/photo-1584735175315-9d5df23860e6?w=500",
-        "https://images.unsplash.com/photo-1603808033176-adc213e30219?w=500",
-      ],
-      rating: 4.8,
-      brand: "Jordan",
-      category: "Basketball",
-      condition: "Brand New",
-      authenticity: "100% Guaranteed",
-      isNew: true,
-      onSale: false,
-      sizes: [
-        { value: "41", available: true },
-        { value: "42", available: true },
-        { value: "43", available: true },
-        { value: "44", available: true },
-        { value: "45", available: true },
-      ],
-    },
 
     {
       id: 7,
