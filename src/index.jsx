@@ -1984,31 +1984,7 @@ function App() {
         { value: "45", available: true },
       ],
     },
-    {
-      id: 2,
-      name: "Air Jordan 4 Retro 'Military Black'",
-      price: 3200,
-      originalPrice: 3500,
-      image:
-        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F2c330bba31574d7980624fa1d3e2a49c?format=webp&width=800",
-      images: [
-        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F2c330bba31574d7980624fa1d3e2a49c?format=webp&width=800",
-      ],
-      rating: 4.9,
-      brand: "Jordan",
-      category: "Basketball",
-      condition: "Brand New",
-      authenticity: "100% Guaranteed",
-      isNew: false,
-      onSale: false,
-      sizes: [
-        { value: "41", available: true },
-        { value: "42", available: true },
-        { value: "43", available: true },
-        { value: "44", available: true },
-        { value: "45", available: true },
-      ],
-    },
+
     {
       id: 3,
       name: "Adidas Samba OG 'White Black Gum'",
