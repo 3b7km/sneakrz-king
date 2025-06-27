@@ -2141,11 +2141,9 @@ function App() {
       name: "ASICS Gel-Lyte III 'White Grey'",
       price: 1350,
       image:
-        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500",
+        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F403e2e0ff0f246478d7a7da8022c7198?format=webp&width=800",
       images: [
-        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500",
-        "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=500",
-        "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?w=500",
+        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F403e2e0ff0f246478d7a7da8022c7198?format=webp&width=800",
       ],
       rating: 4.3,
       brand: "ASICS",
