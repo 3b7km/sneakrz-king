@@ -2166,6 +2166,20 @@ function App() {
     },
   ];
 
+  // Calculate accurate brand counts from products
+  const calculateBrandCounts = () => {
+    const brandCounts = { All: products.length };
+    products.forEach((product) => {
+      brandCounts[product.brand] = (brandCounts[product.brand] || 0) + 1;
+    });
+    return Object.entries(brandCounts).map(([name, count]) => ({
+      name,
+      count,
+    }));
+  };
+
+  const brands = calculateBrandCounts();
+
   // Filter products based on search and brand
   const filteredProducts = products.filter((product) => {
     const matchesSearch = product.name
