@@ -2238,7 +2238,7 @@ function App() {
       ],
     },
     {
-      id: 15,
+      id: 11,
       name: "ASICS Gel-Kahana 8 'Black'",
       price: 1650,
       originalPrice: 1950,
