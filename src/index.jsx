@@ -712,19 +712,29 @@ const Navigation = ({
 };
 
 // Enhanced Product Card Component
-const ProductCard = ({ product, onQuickView, onAddToCart }) => {
+const ProductCard = ({
+  product,
+  onQuickView,
+  onAddToCart,
+  loadingStates = {},
+}) => {
+  const isLoading = loadingStates[`add-${product.id}`] || false;
+
   return (
     <div className="product-card-enhanced group">
       <div className="product-image-container relative">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="product-image w-full h-64 object-cover"
+        <ProductGallery
+          images={product.images || [product.image]}
+          productName={product.name}
+          className="h-64"
         />
 
         {/* Enhanced Status Badges */}
         {product.isNew && (
-          <Badge variant="new" className="status-badge absolute top-3 left-3">
+          <Badge
+            variant="new"
+            className="status-badge absolute top-3 left-3 z-10"
+          >
             New
           </Badge>
         )}
@@ -744,19 +754,13 @@ const ProductCard = ({ product, onQuickView, onAddToCart }) => {
           </div>
         </div>
 
-        <Button
-          onClick={() => onAddToCart(product)}
-          className="w-full btn-enhanced"
-          style={{
-            background: "linear-gradient(135deg, #2C3E50 0%, #34495E 100%)",
-            color: "white",
-            border: "none",
-          }}
-          size="md"
-        >
-          <ShoppingCart className="w-4 h-4 mr-2" />
-          Add to Cart
-        </Button>
+        <AddToCartButton
+          onAddToCart={onAddToCart}
+          product={product}
+          isLoading={isLoading}
+          disabled={isLoading}
+          className="w-full"
+        />
       </div>
 
       <CardContent className="p-6">
