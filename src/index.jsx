@@ -2075,7 +2075,7 @@ function App() {
     },
 
     {
-      id: 7,
+      id: 5,
       name: "Air Jordan 1 'Equality'",
       price: 2200,
       image: jordan1Equality,
