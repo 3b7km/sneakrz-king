@@ -176,40 +176,41 @@ const WhatsAppFloat = () => {
 const BrandsPage = ({ selectedBrand, setSelectedBrand, brands }) => {
   const navigate = useNavigate();
 
-  // Create enhanced brand data with descriptions and images, using real product counts
+  // Create enhanced brand data with descriptions and official brand logos
   const brandsData = [
     {
       name: "Nike",
       description: "Just Do It - The world's leading athletic brand",
-      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400",
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F311f95c004fe4e1eb6791863791e251b?format=webp&width=800",
       products: brands.find((b) => b.name === "Nike")?.count || 0,
     },
     {
       name: "Adidas",
       description: "Impossible is Nothing - German sportswear giant",
       image:
-        "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400",
+        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F89746157221746c99348974f49f79351?format=webp&width=800",
       products: brands.find((b) => b.name === "Adidas")?.count || 0,
     },
     {
       name: "Jordan",
       description: "Jumpman - Basketball heritage and style",
       image:
-        "https://images.unsplash.com/photo-1584735175315-9d5df23860e6?w=400",
+        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F2ceea07cc92f4440b01ebe199cadb9ac?format=webp&width=800",
       products: brands.find((b) => b.name === "Jordan")?.count || 0,
     },
     {
       name: "New Balance",
       description: "Endorsed by No One - Premium comfort and performance",
       image:
-        "https://images.unsplash.com/photo-1539185441755-769473a23570?w=400",
+        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F51dda5a28dda4f4b881a0372a5b4a969?format=webp&width=800",
       products: brands.find((b) => b.name === "New Balance")?.count || 0,
     },
     {
       name: "ASICS",
       description: "Anima Sana In Corpore Sano - Sound mind, sound body",
       image:
-        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400",
+        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F174401a5180b49a4a04f370f6f05aa8f?format=webp&width=800",
       products: brands.find((b) => b.name === "ASICS")?.count || 0,
     },
   ].filter((brand) => brand.products > 0); // Only show brands that have products
