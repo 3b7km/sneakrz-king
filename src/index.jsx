@@ -1989,11 +1989,10 @@ function App() {
       name: "Air Jordan 4 Retro 'Military Black'",
       price: 3200,
       originalPrice: 3500,
-      image: jordan4MilitaryBlack,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F2c330bba31574d7980624fa1d3e2a49c?format=webp&width=800",
       images: [
-        jordan4MilitaryBlack,
-        "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=500",
-        "https://images.unsplash.com/photo-1607522370275-f14206abe5d3?w=500",
+        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F2c330bba31574d7980624fa1d3e2a49c?format=webp&width=800",
       ],
       rating: 4.9,
       brand: "Jordan",
