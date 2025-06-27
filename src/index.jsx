@@ -1312,7 +1312,6 @@ const CheckoutPage = ({ cartItems }) => {
     state: "",
     phone: "",
     email: "",
-    shipToDifferent: false,
     orderNotes: "",
   });
 
@@ -1671,19 +1670,6 @@ const CheckoutPage = ({ cartItems }) => {
                     {getErrorMessage("email", errors)}
                   </p>
                 )}
-              </div>
-
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  name="shipToDifferent"
-                  checked={formData.shipToDifferent}
-                  onChange={handleInputChange}
-                  className="mr-2"
-                />
-                <label className="text-sm text-gray-700">
-                  Ship to a different address?
-                </label>
               </div>
 
               <div>
