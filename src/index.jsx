@@ -2633,7 +2633,9 @@ function App() {
         message: `"${product.name}" has been added to your cart.`,
         onViewCart: () => {
           setSuccessNotification(null);
-          window.location.href = "/cart";
+          // Use React Router navigation instead of window.location
+          const event = new CustomEvent("navigate-to-cart");
+          window.dispatchEvent(event);
         },
         onClose: () => setSuccessNotification(null),
       });
