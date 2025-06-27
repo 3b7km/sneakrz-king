@@ -1332,7 +1332,8 @@ const CartPage = ({ cartItems, updateCartItem, removeFromCart, clearCart }) => {
                           </h3>
                           <p className="text-sm text-gray-500">
                             Size:{" "}
-                            {typeof item.selectedSize === "object"
+                            {typeof item.selectedSize === "object" &&
+                            item.selectedSize !== null
                               ? item.selectedSize.value || "N/A"
                               : item.selectedSize || "N/A"}
                           </p>
@@ -1384,7 +1385,8 @@ const CartPage = ({ cartItems, updateCartItem, removeFromCart, clearCart }) => {
                           </h3>
                           <p className="text-sm text-gray-500">
                             Size:{" "}
-                            {typeof item.selectedSize === "object"
+                            {typeof item.selectedSize === "object" &&
+                            item.selectedSize !== null
                               ? item.selectedSize.value || "N/A"
                               : item.selectedSize || "N/A"}
                           </p>
