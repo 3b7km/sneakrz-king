@@ -310,7 +310,10 @@ const AboutPage = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="prose prose-lg mx-auto">
             <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-              <h2 className="heading-secondary text-2xl gradient-text mb-6">
+              <h2
+                className="heading-secondary text-2xl mb-6"
+                style={{ color: "#1e3b60" }}
+              >
                 Our Story
               </h2>
               <p className="text-body mb-6">
