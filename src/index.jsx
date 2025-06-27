@@ -2407,7 +2407,7 @@ function App() {
       ],
     },
     {
-      id: 21,
+      id: 17,
       name: "Air Jordan 11 Retro 'Bred'",
       price: 3450,
       originalPrice: 3800,
