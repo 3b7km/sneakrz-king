@@ -93,7 +93,7 @@ const ProductGallery = ({ images, productName, className = "" }) => {
               <img
                 src={image}
                 alt={`${productName} thumbnail ${index + 1}`}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain bg-gray-50"
               />
             </button>
           ))}
