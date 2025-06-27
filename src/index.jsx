@@ -1123,7 +1123,7 @@ const CartPage = ({ cartItems, updateCartItem, removeFromCart, clearCart }) => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-4 sm:py-8">
-      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Progress Steps */}
         <div className="mb-8">
           <div className="flex items-center justify-center space-x-8">
@@ -1165,11 +1165,11 @@ const CartPage = ({ cartItems, updateCartItem, removeFromCart, clearCart }) => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
           {/* Cart Items */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-              <div className="px-6 py-4 border-b border-gray-200">
+              <div className="hidden md:block px-6 py-4 border-b border-gray-200">
                 <div className="grid grid-cols-5 gap-4 text-sm font-medium text-gray-500 uppercase tracking-wide">
                   <div className="col-span-2">PRODUCT</div>
                   <div>PRICE</div>
@@ -1185,7 +1185,57 @@ const CartPage = ({ cartItems, updateCartItem, removeFromCart, clearCart }) => {
                     key={`${item.id}-${item.selectedSize || "no-size"}-${index}`}
                     className="px-6 py-6"
                   >
-                    <div className="grid grid-cols-5 gap-4 items-center">
+                    {/* Mobile Layout */}
+                    <div className="md:hidden space-y-4">
+                      <div className="flex items-center space-x-4">
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="w-16 h-16 object-cover rounded-lg flex-shrink-0"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-medium text-gray-900 truncate">
+                            {item.name}
+                          </h3>
+                          <p className="text-sm text-gray-500">
+                            Size: {item.selectedSize}
+                          </p>
+                          <div className="flex items-center justify-between mt-2">
+                            <span className="text-lg font-medium text-gray-900">
+                              {item.price} EGP
+                            </span>
+                            <button
+                              onClick={() =>
+                                removeFromCart(item.id, item.selectedSize)
+                              }
+                              className="inline-flex items-center justify-center w-8 h-8 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-500"
+                              aria-label="Remove item from cart"
+                            >
+                              <X className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <QuantitySelector
+                          quantity={item.quantity}
+                          onQuantityChange={(newQuantity) =>
+                            updateCartItem(
+                              item.id,
+                              item.selectedSize,
+                              newQuantity,
+                            )
+                          }
+                          className="w-32"
+                        />
+                        <div className="text-lg font-bold text-gray-900">
+                          {item.price * item.quantity} EGP
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Desktop Layout */}
+                    <div className="hidden md:grid md:grid-cols-5 gap-4 items-center">
                       <div className="col-span-2 flex items-center space-x-4">
                         <img
                           src={item.image}
