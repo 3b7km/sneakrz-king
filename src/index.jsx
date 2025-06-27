@@ -784,13 +784,14 @@ const ProductCard = ({
           </div>
         </div>
 
-        <AddToCartButton
-          onAddToCart={onAddToCart}
-          product={product}
-          isLoading={isLoading}
-          disabled={isLoading}
-          className="w-full"
-        />
+        {/* Replace Add to Cart with Choose Size button */}
+        <Button
+          onClick={() => onQuickView(product)}
+          variant="primary"
+          className="w-full mt-3"
+        >
+          Choose Size
+        </Button>
       </div>
 
       <CardContent className="p-6">
@@ -1981,8 +1982,8 @@ function App() {
     {
       id: 1,
       name: "Nike Air Force 1 '07 Triple White",
-      price: 2900,
-      originalPrice: 3200,
+      price: 1950,
+      originalPrice: 2700,
       image: airForce1,
       images: [
         airForce1,
@@ -1997,19 +1998,22 @@ function App() {
       isNew: true,
       onSale: true,
       sizes: [
-        { value: "36", available: false },
-        { value: "37", available: true },
         { value: "38", available: true },
         { value: "39", available: true },
         { value: "40", available: true },
         { value: "41", available: true },
-        { value: "42", available: false },
+        { value: "42", available: true },
+        { value: "43", available: true },
+        { value: "44", available: true },
+        { value: "45", available: true },
+
       ],
     },
     {
       id: 2,
       name: "Air Jordan 4 Retro 'Military Black'",
       price: 3200,
+      originalPrice: 3500,
       image: jordan4MilitaryBlack,
       images: [
         jordan4MilitaryBlack,
@@ -2024,13 +2028,11 @@ function App() {
       isNew: false,
       onSale: false,
       sizes: [
-        { value: "38", available: true },
-        { value: "39", available: true },
-        { value: "40", available: true },
         { value: "41", available: true },
         { value: "42", available: true },
         { value: "43", available: true },
-        { value: "44", available: false },
+        { value: "44", available: true },
+        { value: "45", available: true },
       ],
     },
     {
@@ -2052,12 +2054,14 @@ function App() {
       isNew: false,
       onSale: true,
       sizes: [
+        { value: "38", available: true },
         { value: "39", available: true },
         { value: "40", available: true },
         { value: "41", available: true },
         { value: "42", available: true },
         { value: "43", available: true },
-        { value: "44", available: false },
+        { value: "44", available: true },
+        { value: "45", available: true },
       ],
     },
     {
@@ -2078,11 +2082,11 @@ function App() {
       isNew: true,
       onSale: false,
       sizes: [
-        { value: "38", available: true },
-        { value: "39", available: true },
-        { value: "40", available: true },
-        { value: "41", available: true },
+{ value: "41", available: true },
         { value: "42", available: true },
+        { value: "43", available: true },
+        { value: "44", available: true },
+        { value: "45", available: true },
       ],
     },
     {
@@ -2100,16 +2104,14 @@ function App() {
       category: "Basketball",
       condition: "Brand New",
       authenticity: "100% Guaranteed",
-      isNew: false,
+      isNew: true,
       onSale: false,
       sizes: [
-        { value: "38", available: true },
-        { value: "39", available: true },
-        { value: "40", available: true },
         { value: "41", available: true },
         { value: "42", available: true },
         { value: "43", available: true },
-        { value: "44", available: false },
+        { value: "44", available: true },
+        { value: "45", available: true },
       ],
     },
     {
@@ -2135,7 +2137,8 @@ function App() {
         { value: "41", available: true },
         { value: "42", available: true },
         { value: "43", available: true },
-        { value: "44", available: false },
+        { value: "44", available: true },
+        { value: "45", available: true },
       ],
     },
     {
