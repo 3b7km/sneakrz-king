@@ -2436,7 +2436,7 @@ function App() {
       ],
     },
     {
-      id: 22,
+      id: 18,
       name: "New Balance 530 'White Silver'",
       price: 1450,
       originalPrice: 1750,
