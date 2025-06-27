@@ -2379,7 +2379,7 @@ function App() {
       ],
     },
     {
-      id: 20,
+      id: 16,
       name: "Air Jordan 1 Low 'Shadow Grey'",
       price: 1950,
       image:
