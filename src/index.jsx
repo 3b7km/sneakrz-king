@@ -1805,6 +1805,7 @@ function App() {
   const [quickViewProduct, setQuickViewProduct] = useState(null);
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [successNotification, setSuccessNotification] = useState(null);
+  const [loadingStates, setLoadingStates] = useState({});
 
   // Calculate accurate brand counts from products
   const calculateBrandCounts = () => {
@@ -2045,42 +2046,54 @@ function App() {
   });
 
   // Cart Functions
-  const addToCart = (product) => {
-    const existingItem = cartItems.find(
-      (item) =>
-        item.id === product.id && item.selectedSize === product.selectedSize,
-    );
+  const addToCart = async (product) => {
+    const productKey = `add-${product.id}`;
+    setLoadingStates((prev) => ({ ...prev, [productKey]: true }));
 
-    let updatedCart;
-    if (existingItem) {
-      updatedCart = cartItems.map((item) =>
-        item.id === product.id && item.selectedSize === product.selectedSize
-          ? { ...item, quantity: item.quantity + (product.quantity || 1) }
-          : item,
+    try {
+      // Simulate API call delay
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      const existingItem = cartItems.find(
+        (item) =>
+          item.id === product.id && item.selectedSize === product.selectedSize,
       );
-    } else {
-      updatedCart = [
-        ...cartItems,
-        {
-          ...product,
-          quantity: product.quantity || 1,
-          selectedSize:
-            product.selectedSize || product.sizes?.[0]?.value || "N/A",
+
+      let updatedCart;
+      if (existingItem) {
+        updatedCart = cartItems.map((item) =>
+          item.id === product.id && item.selectedSize === product.selectedSize
+            ? { ...item, quantity: item.quantity + (product.quantity || 1) }
+            : item,
+        );
+      } else {
+        updatedCart = [
+          ...cartItems,
+          {
+            ...product,
+            quantity: product.quantity || 1,
+            selectedSize:
+              product.selectedSize || product.sizes?.[0]?.value || "N/A",
+          },
+        ];
+      }
+
+      setCartItems(updatedCart);
+      localStorage.setItem("sneakrz-cart", JSON.stringify(updatedCart));
+
+      setSuccessNotification({
+        message: `"${product.name}" has been added to your cart.`,
+        onViewCart: () => {
+          setSuccessNotification(null);
+          window.location.href = "/cart";
         },
-      ];
+        onClose: () => setSuccessNotification(null),
+      });
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    } finally {
+      setLoadingStates((prev) => ({ ...prev, [productKey]: false }));
     }
-
-    setCartItems(updatedCart);
-    localStorage.setItem("sneakrz-cart", JSON.stringify(updatedCart));
-
-    setSuccessNotification({
-      message: `"${product.name}" has been added to your cart.`,
-      onViewCart: () => {
-        setSuccessNotification(null);
-        window.location.href = "/cart";
-      },
-      onClose: () => setSuccessNotification(null),
-    });
   };
 
   const updateCartItem = (id, selectedSize, quantity) => {
