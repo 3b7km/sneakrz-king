@@ -2138,7 +2138,7 @@ function App() {
       ],
     },
     {
-      id: 9,
+      id: 8,
       name: "Air Jordan 4 Retro 'Red Thunder'",
       price: 3250,
       originalPrice: 3650,
