@@ -603,7 +603,10 @@ const Navigation = ({
               >
                 <ShoppingCart className="w-6 h-6" />
                 {cartItems.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-blue-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-medium">
+                  <span
+                    className="absolute -top-1 -right-1 bg-red-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold"
+                    aria-label={`${cartItems.length} items in cart`}
+                  >
                     {cartItems.length}
                   </span>
                 )}
@@ -1494,10 +1497,21 @@ const CheckoutPage = ({ cartItems }) => {
                         ? "border-red-500 focus:ring-red-500"
                         : ""
                     }
+                    aria-describedby={
+                      hasError("firstName", errors)
+                        ? "firstName-error"
+                        : undefined
+                    }
+                    aria-invalid={hasError("firstName", errors)}
                     required
                   />
                   {hasError("firstName", errors) && (
-                    <p className="mt-1 text-sm text-red-600">
+                    <p
+                      id="firstName-error"
+                      className="mt-1 text-sm text-red-600"
+                      role="alert"
+                      aria-live="polite"
+                    >
                       {getErrorMessage("firstName", errors)}
                     </p>
                   )}

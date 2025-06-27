@@ -1,8 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const ProductGallery = ({ images, productName, className = "" }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "ArrowLeft") {
+        prevImage();
+      } else if (event.key === "ArrowRight") {
+        nextImage();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [currentIndex]);
 
   if (!images || images.length === 0) {
     return (
@@ -30,8 +44,9 @@ const ProductGallery = ({ images, productName, className = "" }) => {
       <div className="relative mb-4">
         <img
           src={images[currentIndex]}
-          alt={`${productName} - View ${currentIndex + 1}`}
+          alt={`${productName} - View ${currentIndex + 1} of ${images.length}`}
           className="w-full h-64 sm:h-96 object-cover rounded-xl"
+          loading="lazy"
         />
 
         {/* Navigation Arrows */}
