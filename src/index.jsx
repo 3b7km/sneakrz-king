@@ -1795,17 +1795,19 @@ function App() {
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [successNotification, setSuccessNotification] = useState(null);
 
-  // Sample Data
-  const brands = [
-    { name: "All", count: 8 },
-    { name: "Jordan", count: 1 },
-    { name: "Nike", count: 2 },
-    { name: "Yeezy", count: 0 },
-    { name: "New Balance", count: 1 },
-    { name: "Adidas", count: 1 },
-    { name: "Dior", count: 1 },
-    { name: "ASICS", count: 1 },
-  ];
+  // Calculate accurate brand counts from products
+  const calculateBrandCounts = () => {
+    const brandCounts = { All: products.length };
+    products.forEach((product) => {
+      brandCounts[product.brand] = (brandCounts[product.brand] || 0) + 1;
+    });
+    return Object.entries(brandCounts).map(([name, count]) => ({
+      name,
+      count,
+    }));
+  };
+
+  const brands = calculateBrandCounts();
 
   const products = [
     {
@@ -1814,6 +1816,11 @@ function App() {
       price: 2900,
       originalPrice: 3200,
       image: airForce1,
+      images: [
+        airForce1,
+        "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500",
+        "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=500",
+      ],
       rating: 4.8,
       brand: "Nike",
       category: "Lifestyle",
@@ -1836,6 +1843,11 @@ function App() {
       name: "Air Jordan 4 Retro 'Military Black'",
       price: 3200,
       image: jordan4MilitaryBlack,
+      images: [
+        jordan4MilitaryBlack,
+        "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=500",
+        "https://images.unsplash.com/photo-1607522370275-f14206abe5d3?w=500",
+      ],
       rating: 4.9,
       brand: "Jordan",
       category: "Basketball",
@@ -1859,6 +1871,11 @@ function App() {
       price: 1750,
       originalPrice: 2100,
       image: adidasSamba,
+      images: [
+        adidasSamba,
+        "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=500",
+        "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=500",
+      ],
       rating: 4.7,
       brand: "Adidas",
       category: "Lifestyle",
@@ -1880,6 +1897,11 @@ function App() {
       name: "Nike Air Max 97",
       price: 1850,
       image: airmax97,
+      images: [
+        airmax97,
+        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500",
+        "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?w=500",
+      ],
       rating: 4.9,
       brand: "Nike",
       category: "Lifestyle",
@@ -1900,6 +1922,11 @@ function App() {
       name: "Air Jordan 4 Retro 'Black Cat'",
       price: 1950,
       image: jordan4BlackCat,
+      images: [
+        jordan4BlackCat,
+        "https://images.unsplash.com/photo-1584735175315-9d5df23860e6?w=500",
+        "https://images.unsplash.com/photo-1603808033176-adc213e30219?w=500",
+      ],
       rating: 4.8,
       brand: "Jordan",
       category: "Basketball",
@@ -1922,6 +1949,11 @@ function App() {
       name: "Adidas Samba 'White Gum'",
       price: 1950,
       image: adidasSambaWhiteGum1,
+      images: [
+        adidasSambaWhiteGum1,
+        "https://images.unsplash.com/photo-1556906781-9a412961c28c?w=500",
+        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500",
+      ],
       rating: 4.6,
       brand: "Adidas",
       category: "Lifestyle",
@@ -1943,6 +1975,11 @@ function App() {
       name: "Air Jordan 1 'Equality'",
       price: 2200,
       image: jordan1Equality,
+      images: [
+        jordan1Equality,
+        "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=500",
+        "https://images.unsplash.com/photo-1597045566677-8cf032ed6634?w=500",
+      ],
       rating: 4.5,
       brand: "Jordan",
       category: "Basketball",
@@ -1963,6 +2000,11 @@ function App() {
       name: "Nike Air Max 97 'Black'",
       price: 1650,
       image: airMax97Black,
+      images: [
+        airMax97Black,
+        "https://images.unsplash.com/photo-1539185441755-769473a23570?w=500",
+        "https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=500",
+      ],
       rating: 4.7,
       brand: "Nike",
       category: "Lifestyle",
