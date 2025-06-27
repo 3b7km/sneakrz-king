@@ -1492,8 +1492,19 @@ const CheckoutPage = ({ cartItems }) => {
                     name="firstName"
                     value={formData.firstName}
                     onChange={handleInputChange}
+                    onBlur={handleBlur}
+                    className={
+                      hasError("firstName", errors)
+                        ? "border-red-500 focus:ring-red-500"
+                        : ""
+                    }
                     required
                   />
+                  {hasError("firstName", errors) && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {getErrorMessage("firstName", errors)}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -1504,8 +1515,19 @@ const CheckoutPage = ({ cartItems }) => {
                     name="lastName"
                     value={formData.lastName}
                     onChange={handleInputChange}
+                    onBlur={handleBlur}
+                    className={
+                      hasError("lastName", errors)
+                        ? "border-red-500 focus:ring-red-500"
+                        : ""
+                    }
                     required
                   />
+                  {hasError("lastName", errors) && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {getErrorMessage("lastName", errors)}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -1534,8 +1556,19 @@ const CheckoutPage = ({ cartItems }) => {
                   placeholder="House number and street name"
                   value={formData.streetAddress}
                   onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  className={
+                    hasError("streetAddress", errors)
+                      ? "border-red-500 focus:ring-red-500"
+                      : ""
+                  }
                   required
                 />
+                {hasError("streetAddress", errors) && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {getErrorMessage("streetAddress", errors)}
+                  </p>
+                )}
                 <Input
                   type="text"
                   name="apartment"
@@ -1555,26 +1588,46 @@ const CheckoutPage = ({ cartItems }) => {
                   name="city"
                   value={formData.city}
                   onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  className={
+                    hasError("city", errors)
+                      ? "border-red-500 focus:ring-red-500"
+                      : ""
+                  }
                   required
                 />
+                {hasError("city", errors) && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {getErrorMessage("city", errors)}
+                  </p>
+                )}
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  State / County *
+                  State / County
                 </label>
                 <select
                   name="state"
                   value={formData.state}
                   onChange={handleInputChange}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  required
+                  onBlur={handleBlur}
+                  className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                    hasError("state", errors)
+                      ? "border-red-500 focus:ring-red-500"
+                      : ""
+                  }`}
                 >
                   <option value="">Select an option...</option>
                   <option value="cairo">Cairo</option>
                   <option value="alexandria">Alexandria</option>
                   <option value="giza">Giza</option>
                 </select>
+                {hasError("state", errors) && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {getErrorMessage("state", errors)}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -1584,23 +1637,46 @@ const CheckoutPage = ({ cartItems }) => {
                 <Input
                   type="tel"
                   name="phone"
+                  placeholder="e.g., 01023329072"
                   value={formData.phone}
                   onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  className={
+                    hasError("phone", errors)
+                      ? "border-red-500 focus:ring-red-500"
+                      : ""
+                  }
                   required
                 />
+                {hasError("phone", errors) && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {getErrorMessage("phone", errors)}
+                  </p>
+                )}
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Email address *
+                  Email address (optional)
                 </label>
                 <Input
                   type="email"
                   name="email"
+                  placeholder="your.email@example.com"
                   value={formData.email}
                   onChange={handleInputChange}
-                  required
+                  onBlur={handleBlur}
+                  className={
+                    hasError("email", errors)
+                      ? "border-red-500 focus:ring-red-500"
+                      : ""
+                  }
                 />
+                {hasError("email", errors) && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {getErrorMessage("email", errors)}
+                  </p>
+                )}
               </div>
 
               <div className="flex items-center">
@@ -1698,13 +1774,16 @@ const CheckoutPage = ({ cartItems }) => {
                 described in our privacy policy.
               </p>
 
-              <Button
+              <LoadingButton
                 onClick={handleSubmit}
-                className="w-full mt-6 bg-pink-600 hover:bg-pink-700 text-white"
+                isLoading={isSubmitting}
+                loadingText="PLACING ORDER..."
+                disabled={isSubmitting}
+                className="w-full mt-6 bg-pink-600 hover:bg-pink-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200"
                 size="lg"
               >
                 PLACE ORDER
-              </Button>
+              </LoadingButton>
             </div>
           </div>
         </div>
