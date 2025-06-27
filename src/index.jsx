@@ -24,6 +24,18 @@ import {
   Plus,
   Minus,
 } from "lucide-react";
+import ProductGallery from "./components/ProductGallery.jsx";
+import {
+  LoadingButton,
+  AddToCartButton,
+} from "./components/LoadingSpinner.jsx";
+import OrderConfirmation from "./components/OrderConfirmation.jsx";
+import {
+  validateForm,
+  validateField,
+  hasError,
+  getErrorMessage,
+} from "./utils/formValidation.js";
 import "./App.css";
 import airForce1 from "./assets/products/nike-air-force-1.jpg";
 import jordan4MilitaryBlack from "./assets/products/jordan-4-military-black.jpg";
@@ -929,15 +941,14 @@ const QuickViewModal = ({
           </button>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 p-4 sm:p-8">
-            {/* Product Image */}
+            {/* Product Images Gallery */}
             <div className="relative">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-64 sm:h-96 object-cover rounded-xl"
+              <ProductGallery
+                images={product.images || [product.image]}
+                productName={product.name}
               />
               {product.isNew && (
-                <Badge variant="new" className="absolute top-4 left-4">
+                <Badge variant="new" className="absolute top-4 left-4 z-10">
                   New
                 </Badge>
               )}
