@@ -108,10 +108,10 @@ const OrderConfirmation = () => {
             </div>
             <div className="w-0.5 h-6 bg-gray-400"></div>
             <div className="flex items-center">
-              <div className="w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-semibold">
+              <div className="w-8 h-8 bg-blue-900 text-white rounded-full flex items-center justify-center font-semibold">
                 3
               </div>
-              <span className="ml-3 font-medium text-gray-900">
+              <span className="ml-3 font-medium text-blue-900">
                 ORDER STATUS
               </span>
             </div>
