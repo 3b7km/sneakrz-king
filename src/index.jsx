@@ -1140,29 +1140,29 @@ const CartPage = ({ cartItems, updateCartItem, removeFromCart, clearCart }) => {
     <div className="min-h-screen bg-gray-50 py-4 sm:py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Progress Steps */}
-        <div className="mb-8">
-          <div className="flex items-center justify-center space-x-8">
+        <div className="mb-8 flex justify-center">
+          <div className="flex flex-col items-center space-y-4">
             <div className="flex items-center">
               <div className="w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-semibold">
                 1
               </div>
-              <span className="ml-2 font-medium text-gray-900">
+              <span className="ml-3 font-medium text-gray-900">
                 SHOPPING CART
               </span>
             </div>
-            <div className="w-16 h-0.5 bg-gray-400"></div>
+            <div className="w-0.5 h-6 bg-gray-400"></div>
             <div className="flex items-center">
               <div className="w-8 h-8 bg-gray-500 text-white rounded-full flex items-center justify-center font-semibold">
                 2
               </div>
-              <span className="ml-2 font-medium text-gray-800">CHECKOUT</span>
+              <span className="ml-3 font-medium text-gray-800">CHECKOUT</span>
             </div>
-            <div className="w-16 h-0.5 bg-gray-400"></div>
+            <div className="w-0.5 h-6 bg-gray-400"></div>
             <div className="flex items-center">
               <div className="w-8 h-8 bg-gray-500 text-white rounded-full flex items-center justify-center font-semibold">
                 3
               </div>
-              <span className="ml-2 font-medium text-gray-800">
+              <span className="ml-3 font-medium text-gray-800">
                 ORDER STATUS
               </span>
             </div>
