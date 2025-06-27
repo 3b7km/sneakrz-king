@@ -2100,6 +2100,26 @@ function App() {
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [successNotification, setSuccessNotification] = useState(null);
   const [loadingStates, setLoadingStates] = useState({});
+  const [navigationTarget, setNavigationTarget] = useState(null);
+
+  // Handle navigation from notifications
+  useEffect(() => {
+    const handleNavigateToCart = () => {
+      setNavigationTarget("/cart");
+    };
+
+    window.addEventListener("navigate-to-cart", handleNavigateToCart);
+    return () =>
+      window.removeEventListener("navigate-to-cart", handleNavigateToCart);
+  }, []);
+
+  // Navigate when navigationTarget changes
+  useEffect(() => {
+    if (navigationTarget) {
+      window.location.href = navigationTarget;
+      setNavigationTarget(null);
+    }
+  }, [navigationTarget]);
 
   // Products data - defined first to avoid hoisting issues
   const products = [
