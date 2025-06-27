@@ -160,7 +160,7 @@ const SuccessNotification = ({ message, onViewCart, onClose }) => {
 const WhatsAppFloat = () => {
   return (
     <a
-      href="https://wa.me/201023329072"
+      href="https://wa.me/201091968021"
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110"
@@ -372,13 +372,13 @@ const AboutPage = () => {
                   </p>
                   <div className="space-y-2">
                     <a
-                      href="https://wa.me/201023329072"
+                      href="https://wa.me/201091968021"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center text-green-600 hover:text-green-700 transition-colors"
                     >
                       <Phone className="w-4 h-4 mr-2" />
-                      WhatsApp: +20 102 332 9072
+                      WhatsApp: +20 109 196 8021
                     </a>
                     <a
                       href="https://www.instagram.com/sneakrz.king?igsh=ZHpuZ2lzdm9vdTky"
@@ -1450,7 +1450,7 @@ const CheckoutPage = ({ cartItems }) => {
     } catch (error) {
       console.error("Error placing order:", error);
       alert(
-        "Error placing order. Please try again or contact us directly at +201023329072",
+        "Error placing order. Please try again or contact us directly at +201091968021",
       );
     } finally {
       setIsSubmitting(false);
@@ -1820,7 +1820,7 @@ const Footer = () => {
                 <Instagram className="w-5 h-5" />
               </a>
               <a
-                href="https://wa.me/201023329072"
+                href="https://wa.me/201091968021"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-link p-3 bg-gray-800 rounded-lg hover:bg-green-600 transition-colors duration-300"
