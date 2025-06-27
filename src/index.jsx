@@ -2090,11 +2090,10 @@ function App() {
       id: 6,
       name: "Nike Air Max 97 'Black'",
       price: 1650,
-      image: airMax97Black,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F24dd49cb80bd4bf6b32f9d1bf3c36251?format=webp&width=800",
       images: [
-        airMax97Black,
-        "https://images.unsplash.com/photo-1539185441755-769473a23570?w=500",
-        "https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=500",
+        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F24dd49cb80bd4bf6b32f9d1bf3c36251?format=webp&width=800",
       ],
       rating: 4.7,
       brand: "Nike",
