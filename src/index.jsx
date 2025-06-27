@@ -1705,7 +1705,7 @@ const CheckoutPage = ({ cartItems }) => {
                 <Input
                   type="tel"
                   name="phone"
-                  placeholder="e.g., 01023329072"
+                  placeholder="e.g., 0101234567"
                   value={formData.phone}
                   onChange={handleInputChange}
                   onBlur={handleBlur}
