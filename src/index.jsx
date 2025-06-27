@@ -2113,7 +2113,7 @@ function App() {
       ],
     },
     {
-      id: 8,
+      id: 7,
       name: "ASICS Gel-Lyte III 'White Grey'",
       price: 1350,
       image:
