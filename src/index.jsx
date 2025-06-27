@@ -2015,31 +2015,6 @@ function App() {
     },
     {
       id: 3,
-      name: "Nike Air Max 97",
-      price: 1850,
-      image:
-        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F24dd49cb80bd4bf6b32f9d1bf3c36251?format=webp&width=800",
-      images: [
-        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F24dd49cb80bd4bf6b32f9d1bf3c36251?format=webp&width=800",
-      ],
-      rating: 4.9,
-      brand: "Nike",
-      category: "Lifestyle",
-      condition: "Brand New",
-      authenticity: "100% Guaranteed",
-      isNew: true,
-      onSale: false,
-      sizes: [
-        { value: "41", available: true },
-        { value: "42", available: true },
-        { value: "43", available: true },
-        { value: "44", available: true },
-        { value: "45", available: true },
-      ],
-    },
-
-    {
-      id: 4,
       name: "Air Jordan 1 'Equality'",
       price: 2200,
       image:
