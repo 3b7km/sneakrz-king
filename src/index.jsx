@@ -289,7 +289,10 @@ const AboutPage = () => {
       <section className="bg-white border-b border-gray-200 section-padding py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="heading-primary text-responsive-xl gradient-text mb-4">
+            <h1
+              className="heading-primary text-responsive-xl mb-4"
+              style={{ color: "#1e3b60" }}
+            >
               About SneakrzKing
             </h1>
             <p className="text-body text-responsive-md max-w-2xl mx-auto">
@@ -546,7 +549,7 @@ const Navigation = ({
               <Link
                 to="/"
                 className={`nav-link px-4 py-2 text-sm font-medium transition-all duration-300 ${isActive("/") ? "active" : "text-gray-600 hover:text-blue-600"}`}
-                style={isActive("/") ? { color: "#2C3E50" } : {}}
+                style={isActive("/") ? { color: "#1e3b60" } : {}}
                 tabIndex={0}
               >
                 Home
@@ -554,7 +557,7 @@ const Navigation = ({
               <Link
                 to="/products"
                 className={`nav-link px-4 py-2 text-sm font-medium transition-all duration-300 ${isActive("/products") ? "active" : "text-gray-600 hover:text-blue-600"}`}
-                style={isActive("/products") ? { color: "#2C3E50" } : {}}
+                style={isActive("/products") ? { color: "#1e3b60" } : {}}
                 tabIndex={0}
               >
                 Products
@@ -562,7 +565,7 @@ const Navigation = ({
               <Link
                 to="/brands"
                 className={`nav-link px-4 py-2 text-sm font-medium transition-all duration-300 ${isActive("/brands") ? "active" : "text-gray-600 hover:text-blue-600"}`}
-                style={isActive("/brands") ? { color: "#2C3E50" } : {}}
+                style={isActive("/brands") ? { color: "#1e3b60" } : {}}
                 tabIndex={0}
               >
                 Brands
@@ -570,7 +573,7 @@ const Navigation = ({
               <Link
                 to="/about"
                 className={`nav-link px-4 py-2 text-sm font-medium transition-all duration-300 ${isActive("/about") ? "active" : "text-gray-600 hover:text-blue-600"}`}
-                style={isActive("/about") ? { color: "#2C3E50" } : {}}
+                style={isActive("/about") ? { color: "#1e3b60" } : {}}
                 tabIndex={0}
               >
                 About
