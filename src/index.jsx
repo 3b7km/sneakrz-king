@@ -1331,7 +1331,10 @@ const CartPage = ({ cartItems, updateCartItem, removeFromCart, clearCart }) => {
                             {item.name}
                           </h3>
                           <p className="text-sm text-gray-500">
-                            Size: {item.selectedSize}
+                            Size:{" "}
+                            {typeof item.selectedSize === "object"
+                              ? item.selectedSize.value || "N/A"
+                              : item.selectedSize || "N/A"}
                           </p>
                           <div className="flex items-center justify-between mt-2">
                             <span className="text-lg font-medium text-gray-900">
@@ -1380,7 +1383,10 @@ const CartPage = ({ cartItems, updateCartItem, removeFromCart, clearCart }) => {
                             {item.name}
                           </h3>
                           <p className="text-sm text-gray-500">
-                            Size: {item.selectedSize}
+                            Size:{" "}
+                            {typeof item.selectedSize === "object"
+                              ? item.selectedSize.value || "N/A"
+                              : item.selectedSize || "N/A"}
                           </p>
                           <button
                             onClick={() =>
