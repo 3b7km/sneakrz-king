@@ -173,37 +173,46 @@ const WhatsAppFloat = () => {
 };
 
 // Enhanced Brands Page Component
-const BrandsPage = ({ selectedBrand, setSelectedBrand }) => {
+const BrandsPage = ({ selectedBrand, setSelectedBrand, brands }) => {
   const navigate = useNavigate();
+
+  // Create enhanced brand data with descriptions and images, using real product counts
   const brandsData = [
     {
       name: "Nike",
       description: "Just Do It - The world's leading athletic brand",
       image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400",
-      products: 25,
+      products: brands.find((b) => b.name === "Nike")?.count || 0,
     },
     {
       name: "Adidas",
       description: "Impossible is Nothing - German sportswear giant",
       image:
         "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400",
-      products: 18,
+      products: brands.find((b) => b.name === "Adidas")?.count || 0,
     },
     {
       name: "Jordan",
       description: "Jumpman - Basketball heritage and style",
       image:
         "https://images.unsplash.com/photo-1584735175315-9d5df23860e6?w=400",
-      products: 15,
+      products: brands.find((b) => b.name === "Jordan")?.count || 0,
     },
     {
       name: "New Balance",
       description: "Endorsed by No One - Premium comfort and performance",
       image:
         "https://images.unsplash.com/photo-1539185441755-769473a23570?w=400",
-      products: 12,
+      products: brands.find((b) => b.name === "New Balance")?.count || 0,
     },
-  ];
+    {
+      name: "ASICS",
+      description: "Anima Sana In Corpore Sano - Sound mind, sound body",
+      image:
+        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400",
+      products: brands.find((b) => b.name === "ASICS")?.count || 0,
+    },
+  ].filter((brand) => brand.products > 0); // Only show brands that have products
 
   const handleViewCollection = (brandName) => {
     setSelectedBrand(brandName);
@@ -2132,6 +2141,60 @@ function App() {
         { value: "43", available: true },
       ],
     },
+    {
+      id: 9,
+      name: "New Balance 327 'Sea Salt'",
+      price: 1450,
+      image:
+        "https://images.unsplash.com/photo-1539185441755-769473a23570?w=500",
+      images: [
+        "https://images.unsplash.com/photo-1539185441755-769473a23570?w=500",
+        "https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=500",
+        "https://images.unsplash.com/photo-1556906781-9a412961c28c?w=500",
+      ],
+      rating: 4.4,
+      brand: "New Balance",
+      category: "Lifestyle",
+      condition: "Brand New",
+      authenticity: "100% Guaranteed",
+      isNew: true,
+      onSale: false,
+      sizes: [
+        { value: "38", available: true },
+        { value: "39", available: true },
+        { value: "40", available: true },
+        { value: "41", available: true },
+        { value: "42", available: true },
+        { value: "43", available: false },
+      ],
+    },
+    {
+      id: 10,
+      name: "ASICS Gel-Lyte III 'White Grey'",
+      price: 1350,
+      image:
+        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500",
+      images: [
+        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500",
+        "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=500",
+        "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?w=500",
+      ],
+      rating: 4.3,
+      brand: "ASICS",
+      category: "Running",
+      condition: "Brand New",
+      authenticity: "100% Guaranteed",
+      isNew: false,
+      onSale: false,
+      sizes: [
+        { value: "39", available: true },
+        { value: "40", available: true },
+        { value: "41", available: true },
+        { value: "42", available: true },
+        { value: "43", available: true },
+        { value: "44", available: false },
+      ],
+    },
   ];
 
   // Calculate accurate brand counts from products
@@ -2449,6 +2512,7 @@ function App() {
                 <BrandsPage
                   selectedBrand={selectedBrand}
                   setSelectedBrand={setSelectedBrand}
+                  brands={brands}
                 />
               }
             />
