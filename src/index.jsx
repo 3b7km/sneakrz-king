@@ -1938,20 +1938,7 @@ function App() {
   const [successNotification, setSuccessNotification] = useState(null);
   const [loadingStates, setLoadingStates] = useState({});
 
-  // Calculate accurate brand counts from products
-  const calculateBrandCounts = () => {
-    const brandCounts = { All: products.length };
-    products.forEach((product) => {
-      brandCounts[product.brand] = (brandCounts[product.brand] || 0) + 1;
-    });
-    return Object.entries(brandCounts).map(([name, count]) => ({
-      name,
-      count,
-    }));
-  };
-
-  const brands = calculateBrandCounts();
-
+  // Products data - defined first to avoid hoisting issues
   const products = [
     {
       id: 1,
