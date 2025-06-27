@@ -734,74 +734,176 @@ const Navigation = ({
   );
 };
 
-// Enhanced Product Card Component
+// Enhanced Product Card Component with Full Details
 const ProductCard = ({ product, onQuickView }) => {
+  const { addToCart } = useCart();
+  const [selectedSize, setSelectedSize] = useState(product.sizes?.[0] || "");
+  const [quantity, setQuantity] = useState(1);
+
+  const handleAddToCart = () => {
+    if (product.sizes && product.sizes.length > 0 && !selectedSize) {
+      alert("Please select a size");
+      return;
+    }
+
+    addToCart({
+      ...product,
+      selectedSize,
+      quantity,
+    });
+  };
+
   return (
-    <div className="product-card-enhanced group">
+    <div className="product-card-full bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+      {/* Full Size Image Gallery */}
       <div className="product-image-container relative">
         <ProductGallery
           images={product.images || [product.image]}
           productName={product.name}
-          className="h-64"
+          className="h-80 sm:h-96"
         />
 
-        {/* Enhanced Status Badges */}
+        {/* Status Badges */}
         {product.isNew && (
           <Badge
             variant="new"
-            className="status-badge absolute top-3 left-3 z-10"
+            className="status-badge absolute top-4 left-4 z-10 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold"
           >
             New
           </Badge>
         )}
 
-        {/* Enhanced Hover Actions */}
-        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-          <div className="flex space-x-2">
-            <Button
-              variant="default"
-              size="sm"
-              onClick={() => onQuickView(product)}
-              className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
-            >
-              <Eye className="w-4 h-4 mr-1" />
-              Quick View
-            </Button>
-          </div>
-        </div>
+        {product.originalPrice && (
+          <Badge
+            variant="sale"
+            className="status-badge absolute top-4 right-4 z-10 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold"
+          >
+            Sale
+          </Badge>
+        )}
       </div>
 
-      <CardContent className="p-6">
-        {/* Enhanced Rating Display */}
-        <div className="rating-stars mb-2">
+      {/* Full Product Details */}
+      <CardContent className="p-6 space-y-4">
+        {/* Rating */}
+        <div className="rating-stars flex items-center">
           {[...Array(5)].map((_, i) => (
             <Star
               key={i}
-              className={`star w-4 h-4 ${i < Math.floor(product.rating) ? "text-yellow-400 fill-current" : "empty"}`}
+              className={`star w-5 h-5 ${i < Math.floor(product.rating) ? "text-yellow-400 fill-current" : "text-gray-300"}`}
             />
           ))}
-          <span className="ml-2 text-sm text-gray-600">({product.rating})</span>
+          <span className="ml-2 text-sm text-gray-600 font-medium">
+            ({product.rating})
+          </span>
         </div>
 
-        <h3
-          className="heading-secondary text-lg font-semibold mb-2 line-clamp-2"
-          style={{ color: "#1e3b60" }}
-        >
+        {/* Product Name */}
+        <h3 className="text-xl font-bold text-gray-900 leading-tight">
           {product.name}
         </h3>
 
-        {/* Enhanced Price Display */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center space-x-2">
-            <span className="price-current">{product.price} EGP</span>
-            {product.originalPrice && (
-              <>
-                <span className="price-original">
-                  {product.originalPrice} EGP
-                </span>
-              </>
-            )}
+        {/* Brand */}
+        <p className="text-lg text-gray-600 font-medium">{product.brand}</p>
+
+        {/* Price Display */}
+        <div className="flex items-center space-x-3">
+          <span className="text-2xl font-bold text-gray-900">
+            {product.price} EGP
+          </span>
+          {product.originalPrice && (
+            <span className="text-lg text-gray-500 line-through">
+              {product.originalPrice} EGP
+            </span>
+          )}
+          {product.originalPrice && (
+            <span className="bg-red-100 text-red-800 px-2 py-1 rounded-md text-sm font-semibold">
+              {Math.round(
+                ((product.originalPrice - product.price) /
+                  product.originalPrice) *
+                  100,
+              )}
+              % OFF
+            </span>
+          )}
+        </div>
+
+        {/* Product Details */}
+        <div className="space-y-2 text-sm text-gray-600">
+          <div className="flex justify-between">
+            <span className="font-medium">Category:</span>
+            <span>{product.category}</span>
           </div>
+          <div className="flex justify-between">
+            <span className="font-medium">Condition:</span>
+            <span>{product.condition}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-medium">Authenticity:</span>
+            <span className="text-green-600 font-medium">
+              {product.authenticity}
+            </span>
+          </div>
+        </div>
+
+        {/* Size Selection */}
+        {product.sizes && product.sizes.length > 0 && (
+          <div>
+            <h4 className="text-sm font-semibold text-gray-900 mb-2">Size</h4>
+            <div className="flex flex-wrap gap-2">
+              {product.sizes.map((size) => (
+                <button
+                  key={size}
+                  onClick={() => setSelectedSize(size)}
+                  className={`px-3 py-2 border rounded-md text-sm font-medium transition-colors ${
+                    selectedSize === size
+                      ? "border-blue-500 bg-blue-50 text-blue-700"
+                      : "border-gray-300 text-gray-700 hover:border-gray-400"
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Quantity Selector */}
+        <div>
+          <h4 className="text-sm font-semibold text-gray-900 mb-2">Quantity</h4>
+          <div className="flex items-center space-x-3">
+            <button
+              onClick={() => setQuantity(Math.max(1, quantity - 1))}
+              className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
+            >
+              -
+            </button>
+            <span className="w-8 text-center font-medium">{quantity}</span>
+            <button
+              onClick={() => setQuantity(quantity + 1)}
+              className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex space-x-3 pt-4">
+          <Button
+            onClick={handleAddToCart}
+            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200"
+          >
+            <ShoppingCart className="w-4 h-4 mr-2" />
+            Add to Cart
+          </Button>
+          <Button
+            onClick={() => onQuickView(product)}
+            variant="outline"
+            className="px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+          >
+            <Eye className="w-4 h-4" />
+          </Button>
         </div>
       </CardContent>
     </div>
