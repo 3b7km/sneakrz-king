@@ -1049,9 +1049,15 @@ const QuickViewModal = ({
   useEffect(() => {
     if (isOpen && product) {
       // Set default size to first available size
-      const firstAvailableSize = product.sizes?.find((size) => size.available);
+      const firstAvailableSize = product.sizes?.find((size) => {
+        return typeof size === "object" ? size.available : true;
+      });
       if (firstAvailableSize) {
-        setSelectedSize(firstAvailableSize.value);
+        const sizeValue =
+          typeof firstAvailableSize === "object"
+            ? firstAvailableSize.value
+            : firstAvailableSize;
+        setSelectedSize(sizeValue);
       }
       setQuantity(1);
     }
