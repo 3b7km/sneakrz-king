@@ -2545,35 +2545,7 @@ function App() {
         { value: "44", available: false },
       ],
     },
-    {
-      id: 23,
-      name: "Nike Air Force 1 '07 Black",
-      price: 1850,
-      image:
-        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F8041fe4172fc4209b4a40766bc58b4fc?format=webp&width=800",
-      images: [
-        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F8041fe4172fc4209b4a40766bc58b4fc?format=webp&width=800",
-        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F0f4530de78a647deb471d412dfb4a0d7?format=webp&width=800",
-        airForce1,
-      ],
-      rating: 4.6,
-      brand: "Nike",
-      category: "Lifestyle",
-      condition: "Brand New",
-      authenticity: "100% Guaranteed",
-      isNew: false,
-      onSale: false,
-      sizes: [
-        { value: "38", available: true },
-        { value: "39", available: true },
-        { value: "40", available: true },
-        { value: "41", available: true },
-        { value: "42", available: true },
-        { value: "43", available: true },
-        { value: "44", available: true },
-        { value: "45", available: true },
-      ],
-    },
+
     {
       id: 24,
       name: "Nike Dunk Low 'Panda'",
