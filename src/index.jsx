@@ -484,22 +484,26 @@ const SizeSelector = ({
 }) => {
   return (
     <div className={`flex flex-wrap gap-2 ${className}`}>
-      {sizes.map((size) => (
-        <button
-          key={size.value}
-          onClick={() => onSizeChange(size.value)}
-          disabled={!size.available}
-          className={`px-4 py-2 border rounded-lg font-medium transition-all duration-200 ${
-            selectedSize === size.value
-              ? "border-blue-500 bg-blue-50 text-blue-600"
-              : size.available
-                ? "border-gray-300 hover:border-gray-400 text-gray-700"
-                : "border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed line-through"
-          }`}
-        >
-          {size.value}
-        </button>
-      ))}
+      {sizes.map((size) => {
+        const sizeValue = typeof size === "object" ? size.value : size;
+        const isAvailable = typeof size === "object" ? size.available : true;
+        return (
+          <button
+            key={sizeValue}
+            onClick={() => onSizeChange(sizeValue)}
+            disabled={!isAvailable}
+            className={`px-4 py-2 border rounded-lg font-medium transition-all duration-200 ${
+              selectedSize === sizeValue
+                ? "border-blue-500 bg-blue-50 text-blue-600"
+                : isAvailable
+                  ? "border-gray-300 hover:border-gray-400 text-gray-700"
+                  : "border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed line-through"
+            }`}
+          >
+            {sizeValue}
+          </button>
+        );
+      })}
     </div>
   );
 };
