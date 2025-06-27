@@ -2321,6 +2321,7 @@ function App() {
                 product={product}
                 onQuickView={openQuickView}
                 onAddToCart={addToCart}
+                loadingStates={loadingStates}
               />
             ))}
           </div>
@@ -2435,6 +2436,7 @@ function App() {
               product={product}
               onQuickView={openQuickView}
               onAddToCart={addToCart}
+              loadingStates={loadingStates}
             />
           ))}
         </div>
@@ -2490,6 +2492,7 @@ function App() {
               path="/checkout"
               element={<CheckoutPage cartItems={cartItems} />}
             />
+            <Route path="/order-confirmation" element={<OrderConfirmation />} />
           </Routes>
         </main>
 
