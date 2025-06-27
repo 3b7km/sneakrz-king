@@ -37,14 +37,6 @@ import {
   getErrorMessage,
 } from "./utils/formValidation.js";
 import "./App.css";
-import airForce1 from "./assets/products/nike-air-force-1.jpg";
-import jordan4MilitaryBlack from "./assets/products/jordan-4-military-black.jpg";
-import adidasSamba from "./assets/products/adidas-samba-white-gum.jpg";
-import airmax97 from "./assets/products/airmax97.jpg";
-import jordan4BlackCat from "./assets/products/jordan-4-black-cat.jpg";
-import adidasSambaWhiteGum1 from "./assets/products/adidas-samba-white-gum1.jpg";
-import jordan1Equality from "./assets/products/jordan1-equality.jpg";
-import airMax97Black from "./assets/products/air-max-97-black.jpg";
 
 // Enhanced UI Components
 const Card = ({ children, className = "", ...props }) => (
