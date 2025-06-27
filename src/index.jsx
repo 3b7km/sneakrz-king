@@ -1834,7 +1834,7 @@ const CheckoutPage = ({ cartItems }) => {
                 isLoading={isSubmitting}
                 loadingText="PLACING ORDER..."
                 disabled={isSubmitting}
-                className="w-full mt-6 bg-pink-600 hover:bg-pink-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200"
+                className="w-full mt-6 bg-[#1E3B60] hover:bg-[#163053] text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200"
                 size="lg"
               >
                 PLACE ORDER
@@ -1850,7 +1850,7 @@ const CheckoutPage = ({ cartItems }) => {
 // Enhanced Footer Component
 const Footer = () => {
   return (
-    <footer className="footer-enhanced" style={{ backgroundColor: "#b0b0b0" }}>
+    <footer className="footer-enhanced" style={{ backgroundColor: "#1E3B60" }}>
       <div
         className="mx-auto px-4 sm:px-6 lg:px-8 py-16"
         style={{ maxWidth: "1410px" }}
@@ -2363,16 +2363,20 @@ function App() {
   // Buy Now Function
   const handleBuyNow = (product) => {
     // Clear cart and add only this product
-    setCartItems([
+    const newCart = [
       {
         ...product,
         quantity: product.quantity || 1,
         selectedSize:
           product.selectedSize || product.sizes?.[0]?.value || "N/A",
       },
-    ]);
-    // Navigate to checkout
-    window.location.href = "/checkout";
+    ];
+    setCartItems(newCart);
+    localStorage.setItem("sneakrz-cart", JSON.stringify(newCart));
+    // Wait a short moment to ensure state/localStorage update, then navigate
+    setTimeout(() => {
+      window.location.href = "/checkout";
+    }, 120);
   };
 
   // Home Page Component
