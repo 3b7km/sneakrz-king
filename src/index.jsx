@@ -735,8 +735,7 @@ const Navigation = ({
 };
 
 // Enhanced Product Card Component with Full Details
-const ProductCard = ({ product, onQuickView }) => {
-  const { addToCart } = useCart();
+const ProductCard = ({ product, onQuickView, onAddToCart }) => {
   const [selectedSize, setSelectedSize] = useState(product.sizes?.[0] || "");
   const [quantity, setQuantity] = useState(1);
 
@@ -746,7 +745,7 @@ const ProductCard = ({ product, onQuickView }) => {
       return;
     }
 
-    addToCart({
+    onAddToCart({
       ...product,
       selectedSize,
       quantity,
@@ -759,7 +758,7 @@ const ProductCard = ({ product, onQuickView }) => {
       return;
     }
 
-    addToCart({
+    onAddToCart({
       ...product,
       selectedSize,
       quantity,
