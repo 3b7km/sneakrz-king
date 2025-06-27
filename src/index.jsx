@@ -2183,7 +2183,7 @@ function App() {
         { value: "40", available: true },
         { value: "41", available: true },
         { value: "42", available: true },
-        { value: "43", available: false },
+        { value: "43", available: true },
       ],
     },
     {
