@@ -25,14 +25,35 @@
 
   /* Progress steps mobile responsive */
   .progress-steps {
-    flex-direction: column !important;
-    gap: 0.5rem !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    gap: 0.25rem !important;
     margin-bottom: 1rem !important;
+    overflow-x: auto !important;
+    padding: 0 0.5rem !important;
   }
 
   .progress-steps .space-x-8 {
     space-x: 0 !important;
-    gap: 0.5rem !important;
+    gap: 0.25rem !important;
+  }
+
+  /* Make step text smaller on very small screens */
+  @media (max-width: 480px) {
+    .progress-steps span {
+      font-size: 0.75rem !important;
+      font-weight: 600 !important;
+    }
+
+    .progress-steps div[class*="w-10"] {
+      width: 2rem !important;
+      height: 2rem !important;
+      font-size: 0.75rem !important;
+    }
+
+    .progress-steps div[class*="w-8"] {
+      width: 1rem !important;
+    }
   }
 
   /* Cart buttons mobile */
