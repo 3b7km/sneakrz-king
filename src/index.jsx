@@ -2368,8 +2368,6 @@ function App() {
         "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F02aca479512b42309fa6d90dd339f7f0?format=webp&width=800",
       images: [
         "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F02aca479512b42309fa6d90dd339f7f0?format=webp&width=800",
-        jordan1Equality,
-        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F1acdfab89e214864a47a00549cb26150?format=webp&width=800",
       ],
       rating: 4.7,
       brand: "Jordan",
