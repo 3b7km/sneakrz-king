@@ -2341,8 +2341,6 @@ function App() {
         "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2Fcff896a0989046c099a02c550207402d?format=webp&width=800",
       images: [
         "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2Fcff896a0989046c099a02c550207402d?format=webp&width=800",
-        jordan4BlackCat,
-        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F2c330bba31574d7980624fa1d3e2a49c?format=webp&width=800",
       ],
       rating: 4.8,
       brand: "Jordan",
