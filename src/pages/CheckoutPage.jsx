@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useCart } from "../context/CartContext";
-import { useOrders } from "../context/OrderContext";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -15,7 +14,6 @@ import { ShoppingCart, Phone, MapPin, User, Mail } from "lucide-react";
 
 const CheckoutPage = () => {
   const { cartItems, getTotalPrice, clearCart } = useCart();
-  const { createOrder } = useOrders();
   const navigate = useNavigate();
 
   const [customerData, setCustomerData] = useState({
@@ -117,34 +115,6 @@ const CheckoutPage = () => {
       alert("السلة فارغة!");
       return;
     }
-
-    // Create order in tracking system
-    const orderData = {
-      customerInfo: {
-        name: customerData.name,
-        email: customerData.email,
-        phone: customerData.phone,
-        address: customerData.address,
-        city: customerData.city,
-        governorate: customerData.governorate,
-        notes: customerData.notes,
-      },
-      items: cartItems.map((item) => ({
-        id: item.id,
-        name: item.name,
-        brand: item.brand,
-        price: item.price,
-        quantity: item.quantity,
-        selectedSize: item.selectedSize,
-        image: item.image,
-      })),
-      total: getTotalPrice(),
-      paymentMethod: "cash_on_delivery", // Default for WhatsApp orders
-      shippingFee: 80,
-    };
-
-    // Save order to tracking system
-    createOrder(orderData);
 
     // Format WhatsApp message
     const message = formatWhatsAppMessage();
