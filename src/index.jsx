@@ -1961,11 +1961,10 @@ function App() {
       name: "Nike Air Force 1 '07 Triple White",
       price: 1950,
       originalPrice: 2700,
-      image: airForce1,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F0f4530de78a647deb471d412dfb4a0d7?format=webp&width=800",
       images: [
-        airForce1,
-        "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500",
-        "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=500",
+        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F0f4530de78a647deb471d412dfb4a0d7?format=webp&width=800",
       ],
       rating: 4.8,
       brand: "Nike",
