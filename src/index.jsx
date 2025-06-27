@@ -2066,11 +2066,10 @@ function App() {
       id: 5,
       name: "Air Jordan 1 'Equality'",
       price: 2200,
-      image: jordan1Equality,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F02aca479512b42309fa6d90dd339f7f0?format=webp&width=800",
       images: [
-        jordan1Equality,
-        "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=500",
-        "https://images.unsplash.com/photo-1597045566677-8cf032ed6634?w=500",
+        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F02aca479512b42309fa6d90dd339f7f0?format=webp&width=800",
       ],
       rating: 4.5,
       brand: "Jordan",
