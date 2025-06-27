@@ -156,7 +156,7 @@ const CheckoutPage = () => {
       <div className="max-w-4xl mx-auto px-4">
         {/* Progress Steps */}
         <div className="mb-8">
-          <div className="flex items-center justify-center space-x-4 sm:space-x-8 overflow-x-auto px-4">
+          <div className="progress-steps flex items-center justify-center space-x-4 sm:space-x-8 overflow-x-auto px-4">
             <div className="flex items-center flex-shrink-0">
               <div className="w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg">
                 ✓
