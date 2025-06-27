@@ -278,7 +278,7 @@ const OrderConfirmation = () => {
                 <ArrowRight className="w-4 h-4 ml-2" />
               </button>
               <a
-                href="https://wa.me/201023329072"
+                href="https://wa.me/201091968021"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 block text-center"

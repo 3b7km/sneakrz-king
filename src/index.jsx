@@ -1875,34 +1875,12 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="#"
+                  href="https://wa.me/201091968021"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="footer-link text-gray-400 hover:text-white transition-colors duration-300"
                 >
                   Contact Us
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="footer-link text-gray-400 hover:text-white transition-colors duration-300"
-                >
-                  Shipping Info
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="footer-link text-gray-400 hover:text-white transition-colors duration-300"
-                >
-                  Returns
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="footer-link text-gray-400 hover:text-white transition-colors duration-300"
-                >
-                  Size Guide
                 </a>
               </li>
             </ul>
