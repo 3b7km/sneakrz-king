@@ -2233,36 +2233,6 @@ function App() {
         { value: "45", available: true },
       ],
     },
-    {
-      id: 12,
-      name: "Adidas Samba OG 'White Black'",
-      price: 1750,
-      originalPrice: 2100,
-      image:
-        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F779f472fe8e7473ca2241d62e1bcf0ba?format=webp&width=800",
-      images: [
-        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F779f472fe8e7473ca2241d62e1bcf0ba?format=webp&width=800",
-        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F0f4530de78a647deb471d412dfb4a0d7?format=webp&width=800",
-        adidasSamba,
-      ],
-      rating: 4.7,
-      brand: "Adidas",
-      category: "Lifestyle",
-      condition: "Brand New",
-      authenticity: "100% Guaranteed",
-      isNew: true,
-      onSale: true,
-      sizes: [
-        { value: "38", available: true },
-        { value: "39", available: true },
-        { value: "40", available: true },
-        { value: "41", available: true },
-        { value: "42", available: true },
-        { value: "43", available: true },
-        { value: "44", available: true },
-        { value: "45", available: true },
-      ],
-    },
 
     {
       id: 14,
