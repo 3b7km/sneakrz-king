@@ -1141,28 +1141,30 @@ const CartPage = ({ cartItems, updateCartItem, removeFromCart, clearCart }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Progress Steps */}
         <div className="mb-8">
-          <div className="flex items-center justify-center space-x-8">
-            <div className="flex items-center">
-              <div className="w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-semibold">
+          <div className="flex items-center justify-center space-x-4 sm:space-x-8 overflow-x-auto px-4">
+            <div className="flex items-center flex-shrink-0">
+              <div className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg">
                 1
               </div>
-              <span className="ml-2 font-medium text-gray-900">
+              <span className="ml-2 font-semibold text-gray-900 text-sm sm:text-base whitespace-nowrap">
                 SHOPPING CART
               </span>
             </div>
-            <div className="w-16 h-0.5 bg-gray-300"></div>
-            <div className="flex items-center">
-              <div className="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center font-semibold">
+            <div className="w-8 sm:w-16 h-1 bg-gray-300 rounded-full flex-shrink-0"></div>
+            <div className="flex items-center flex-shrink-0">
+              <div className="w-10 h-10 bg-gray-400 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg border-2 border-gray-300">
                 2
               </div>
-              <span className="ml-2 font-medium text-gray-600">CHECKOUT</span>
+              <span className="ml-2 font-semibold text-gray-700 text-sm sm:text-base whitespace-nowrap">
+                CHECKOUT
+              </span>
             </div>
-            <div className="w-16 h-0.5 bg-gray-300"></div>
-            <div className="flex items-center">
-              <div className="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center font-semibold">
+            <div className="w-8 sm:w-16 h-1 bg-gray-300 rounded-full flex-shrink-0"></div>
+            <div className="flex items-center flex-shrink-0">
+              <div className="w-10 h-10 bg-gray-400 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg border-2 border-gray-300">
                 3
               </div>
-              <span className="ml-2 font-medium text-gray-600">
+              <span className="ml-2 font-semibold text-gray-700 text-sm sm:text-base whitespace-nowrap">
                 ORDER STATUS
               </span>
             </div>
