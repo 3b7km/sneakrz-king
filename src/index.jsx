@@ -2100,26 +2100,6 @@ function App() {
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [successNotification, setSuccessNotification] = useState(null);
   const [loadingStates, setLoadingStates] = useState({});
-  const [navigationTarget, setNavigationTarget] = useState(null);
-
-  // Handle navigation from notifications
-  useEffect(() => {
-    const handleNavigateToCart = () => {
-      setNavigationTarget("/cart");
-    };
-
-    window.addEventListener("navigate-to-cart", handleNavigateToCart);
-    return () =>
-      window.removeEventListener("navigate-to-cart", handleNavigateToCart);
-  }, []);
-
-  // Navigate when navigationTarget changes
-  useEffect(() => {
-    if (navigationTarget) {
-      window.location.href = navigationTarget;
-      setNavigationTarget(null);
-    }
-  }, [navigationTarget]);
 
   // Products data - defined first to avoid hoisting issues
   const products = [
@@ -2653,9 +2633,16 @@ function App() {
         message: `"${product.name}" has been added to your cart.`,
         onViewCart: () => {
           setSuccessNotification(null);
-          // Use React Router navigation instead of window.location
-          const event = new CustomEvent("navigate-to-cart");
-          window.dispatchEvent(event);
+          // Use a small timeout to ensure state is cleared before navigation
+          setTimeout(() => {
+            try {
+              window.location.href = "/cart";
+            } catch (error) {
+              console.error("Navigation error:", error);
+              // Fallback: try to navigate using the current URL
+              window.location.pathname = "/cart";
+            }
+          }, 100);
         },
         onClose: () => setSuccessNotification(null),
       });
