@@ -90,30 +90,28 @@ const OrderConfirmation = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Progress Steps */}
         <div className="mb-8">
-          <div className="progress-steps flex items-center justify-center space-x-4 sm:space-x-8 overflow-x-auto px-4">
-            <div className="flex items-center flex-shrink-0">
-              <div className="w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg">
-                ✓
+          <div className="flex items-center justify-center space-x-8">
+            <div className="flex items-center">
+              <div className="w-8 h-8 bg-gray-500 text-white rounded-full flex items-center justify-center font-semibold">
+                1
               </div>
-              <span className="ml-2 font-semibold text-green-600 text-sm sm:text-base whitespace-nowrap">
+              <span className="ml-2 font-medium text-gray-800">
                 SHOPPING CART
               </span>
             </div>
-            <div className="w-8 sm:w-16 h-1 bg-green-600 rounded-full flex-shrink-0"></div>
-            <div className="flex items-center flex-shrink-0">
-              <div className="w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg">
-                ✓
+            <div className="w-16 h-0.5 bg-gray-400"></div>
+            <div className="flex items-center">
+              <div className="w-8 h-8 bg-gray-500 text-white rounded-full flex items-center justify-center font-semibold">
+                2
               </div>
-              <span className="ml-2 font-semibold text-green-600 text-sm sm:text-base whitespace-nowrap">
-                CHECKOUT
-              </span>
+              <span className="ml-2 font-medium text-gray-800">CHECKOUT</span>
             </div>
-            <div className="w-8 sm:w-16 h-1 bg-green-600 rounded-full flex-shrink-0"></div>
-            <div className="flex items-center flex-shrink-0">
-              <div className="w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg">
-                ✓
+            <div className="w-16 h-0.5 bg-gray-400"></div>
+            <div className="flex items-center">
+              <div className="w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-semibold">
+                3
               </div>
-              <span className="ml-2 font-semibold text-green-600 text-sm sm:text-base whitespace-nowrap">
+              <span className="ml-2 font-medium text-gray-900">
                 ORDER STATUS
               </span>
             </div>
