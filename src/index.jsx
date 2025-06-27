@@ -1031,19 +1031,12 @@ const QuickViewModal = ({
 
               {/* Action Buttons */}
               <div className="flex space-x-4">
-                <Button
-                  onClick={handleAddToCart}
-                  className="flex-1 text-white"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, #2C3E50 0%, #34495E 100%)",
-                    border: "none",
-                  }}
-                  size="lg"
-                >
-                  <ShoppingCart className="w-5 h-5 mr-2" />
-                  Add to Cart
-                </Button>
+                <AddToCartButton
+                  onAddToCart={() => handleAddToCart()}
+                  product={product}
+                  isLoading={false}
+                  className="flex-1"
+                />
                 <Button
                   onClick={handleBuyNow}
                   variant="buyNow"
