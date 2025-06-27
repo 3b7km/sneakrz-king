@@ -2633,16 +2633,14 @@ function App() {
         message: `"${product.name}" has been added to your cart.`,
         onViewCart: () => {
           setSuccessNotification(null);
-          // Use a small timeout to ensure state is cleared before navigation
-          setTimeout(() => {
-            try {
-              window.location.href = "/cart";
-            } catch (error) {
-              console.error("Navigation error:", error);
-              // Fallback: try to navigate using the current URL
-              window.location.pathname = "/cart";
-            }
-          }, 100);
+          // Create a Link click event to navigate properly with React Router
+          const cartLink = document.querySelector('a[href="/cart"]');
+          if (cartLink) {
+            cartLink.click();
+          } else {
+            // Fallback to direct navigation
+            window.location.href = "/cart";
+          }
         },
         onClose: () => setSuccessNotification(null),
       });
