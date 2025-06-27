@@ -745,11 +745,7 @@ const Navigation = ({
 const ProductCard = ({
   product,
   onQuickView,
-  onAddToCart,
-  loadingStates = {},
 }) => {
-  const isLoading = loadingStates[`add-${product.id}`] || false;
-
   return (
     <div className="product-card-enhanced group">
       <div className="product-image-container relative">
@@ -784,14 +780,6 @@ const ProductCard = ({
           </div>
         </div>
 
-        {/* Replace Add to Cart with Choose Size button */}
-        <Button
-          onClick={() => onQuickView(product)}
-          variant="primary"
-          className="w-full mt-3"
-        >
-          Choose Size
-        </Button>
       </div>
 
       <CardContent className="p-6">
