@@ -2014,11 +2014,10 @@ function App() {
       name: "Adidas Samba OG 'White Black Gum'",
       price: 1750,
       originalPrice: 2100,
-      image: adidasSamba,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F779f472fe8e7473ca2241d62e1bcf0ba?format=webp&width=800",
       images: [
-        adidasSamba,
-        "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=500",
-        "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=500",
+        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F779f472fe8e7473ca2241d62e1bcf0ba?format=webp&width=800",
       ],
       rating: 4.7,
       brand: "Adidas",
