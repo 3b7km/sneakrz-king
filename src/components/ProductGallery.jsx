@@ -45,7 +45,7 @@ const ProductGallery = ({ images, productName, className = "" }) => {
         <img
           src={images[currentIndex]}
           alt={`${productName} - View ${currentIndex + 1} of ${images.length}`}
-          className="w-full h-64 sm:h-96 object-contain bg-gray-50 rounded-xl"
+          className="w-full h-80 sm:h-96 lg:h-[500px] object-contain bg-gray-50 rounded-xl"
           loading="lazy"
         />
 
