@@ -755,6 +755,22 @@ const ProductCard = ({ product, onQuickView }) => {
     });
   };
 
+  const handleBuyNow = () => {
+    if (product.sizes && product.sizes.length > 0 && !selectedSize) {
+      alert("Please select a size");
+      return;
+    }
+
+    addToCart({
+      ...product,
+      selectedSize,
+      quantity,
+    });
+
+    // Navigate to checkout
+    window.location.href = "/checkout";
+  };
+
   return (
     <div className="product-card-full bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
       {/* Full Size Image Gallery */}
@@ -890,20 +906,29 @@ const ProductCard = ({ product, onQuickView }) => {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex space-x-3 pt-4">
-          <Button
-            onClick={handleAddToCart}
-            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200"
-          >
-            <ShoppingCart className="w-4 h-4 mr-2" />
-            Add to Cart
-          </Button>
+        <div className="space-y-3 pt-4">
+          <div className="flex space-x-3">
+            <Button
+              onClick={handleAddToCart}
+              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200"
+            >
+              <ShoppingCart className="w-4 h-4 mr-2" />
+              Add to Cart
+            </Button>
+            <Button
+              onClick={handleBuyNow}
+              className="flex-1 bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200"
+            >
+              Buy Now
+            </Button>
+          </div>
           <Button
             onClick={() => onQuickView(product)}
             variant="outline"
-            className="px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+            className="w-full py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
           >
-            <Eye className="w-4 h-4" />
+            <Eye className="w-4 h-4 mr-2" />
+            Quick View (Zoom)
           </Button>
         </div>
       </CardContent>
