@@ -742,10 +742,7 @@ const Navigation = ({
 };
 
 // Enhanced Product Card Component
-const ProductCard = ({
-  product,
-  onQuickView,
-}) => {
+const ProductCard = ({ product, onQuickView }) => {
   return (
     <div className="product-card-enhanced group">
       <div className="product-image-container relative">
@@ -779,7 +776,6 @@ const ProductCard = ({
             </Button>
           </div>
         </div>
-
       </div>
 
       <CardContent className="p-6">
@@ -1994,7 +1990,6 @@ function App() {
         { value: "43", available: true },
         { value: "44", available: true },
         { value: "45", available: true },
-
       ],
     },
     {
@@ -2070,7 +2065,7 @@ function App() {
       isNew: true,
       onSale: false,
       sizes: [
-{ value: "41", available: true },
+        { value: "41", available: true },
         { value: "42", available: true },
         { value: "43", available: true },
         { value: "44", available: true },
@@ -2232,6 +2227,152 @@ function App() {
         { value: "42", available: true },
         { value: "43", available: true },
         { value: "44", available: false },
+      ],
+    },
+    {
+      id: 11,
+      name: "Nike Air Force 1 Premium Edition",
+      price: 2150,
+      originalPrice: 2500,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F4edbcb69101a45d79d339adc4a9e1103?format=webp&width=800",
+      images: [
+        "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F4edbcb69101a45d79d339adc4a9e1103?format=webp&width=800",
+        "https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg",
+        "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500",
+      ],
+      rating: 4.9,
+      brand: "Nike",
+      category: "Lifestyle",
+      condition: "Brand New",
+      authenticity: "100% Guaranteed",
+      isNew: true,
+      onSale: true,
+      sizes: [
+        { value: "38", available: true },
+        { value: "39", available: true },
+        { value: "40", available: true },
+        { value: "41", available: true },
+        { value: "42", available: true },
+        { value: "43", available: true },
+        { value: "44", available: true },
+        { value: "45", available: true },
+      ],
+    },
+    {
+      id: 12,
+      name: "Jordan Retro High 'Red & White'",
+      price: 2850,
+      originalPrice: 3200,
+      image:
+        "https://images.pexels.com/photos/10963373/pexels-photo-10963373.jpeg",
+      images: [
+        "https://images.pexels.com/photos/10963373/pexels-photo-10963373.jpeg",
+        "https://images.unsplash.com/photo-1584735175315-9d5df23860e6?w=500",
+        "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=500",
+      ],
+      rating: 4.8,
+      brand: "Jordan",
+      category: "Basketball",
+      condition: "Brand New",
+      authenticity: "100% Guaranteed",
+      isNew: true,
+      onSale: true,
+      sizes: [
+        { value: "39", available: true },
+        { value: "40", available: true },
+        { value: "41", available: true },
+        { value: "42", available: true },
+        { value: "43", available: true },
+        { value: "44", available: true },
+        { value: "45", available: true },
+      ],
+    },
+    {
+      id: 13,
+      name: "Nike Air Max Premium Collection",
+      price: 1950,
+      image:
+        "https://images.pexels.com/photos/2404959/pexels-photo-2404959.png",
+      images: [
+        "https://images.pexels.com/photos/2404959/pexels-photo-2404959.png",
+        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500",
+        "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?w=500",
+      ],
+      rating: 4.7,
+      brand: "Nike",
+      category: "Lifestyle",
+      condition: "Brand New",
+      authenticity: "100% Guaranteed",
+      isNew: true,
+      onSale: false,
+      sizes: [
+        { value: "38", available: true },
+        { value: "39", available: true },
+        { value: "40", available: true },
+        { value: "41", available: true },
+        { value: "42", available: true },
+        { value: "43", available: true },
+        { value: "44", available: true },
+      ],
+    },
+    {
+      id: 14,
+      name: "Adidas Ultraboost 'Luxury Edition'",
+      price: 2250,
+      originalPrice: 2650,
+      image:
+        "https://images.pexels.com/photos/20350042/pexels-photo-20350042.jpeg",
+      images: [
+        "https://images.pexels.com/photos/20350042/pexels-photo-20350042.jpeg",
+        "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=500",
+        "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=500",
+      ],
+      rating: 4.6,
+      brand: "Adidas",
+      category: "Running",
+      condition: "Brand New",
+      authenticity: "100% Guaranteed",
+      isNew: true,
+      onSale: true,
+      sizes: [
+        { value: "38", available: true },
+        { value: "39", available: true },
+        { value: "40", available: true },
+        { value: "41", available: true },
+        { value: "42", available: true },
+        { value: "43", available: true },
+        { value: "44", available: false },
+        { value: "45", available: true },
+      ],
+    },
+    {
+      id: 15,
+      name: "Classic White Minimalist Sneakers",
+      price: 1650,
+      image:
+        "https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg",
+      images: [
+        "https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg",
+        "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500",
+        "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=500",
+      ],
+      rating: 4.5,
+      brand: "Nike",
+      category: "Lifestyle",
+      condition: "Brand New",
+      authenticity: "100% Guaranteed",
+      isNew: false,
+      onSale: false,
+      sizes: [
+        { value: "37", available: true },
+        { value: "38", available: true },
+        { value: "39", available: true },
+        { value: "40", available: true },
+        { value: "41", available: true },
+        { value: "42", available: true },
+        { value: "43", available: true },
+        { value: "44", available: true },
       ],
     },
   ];
