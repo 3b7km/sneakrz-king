@@ -2063,7 +2063,7 @@ function App() {
       ],
     },
     {
-      id: 6,
+      id: 5,
       name: "Nike Air Max 97 'Black'",
       price: 1650,
       image:
