@@ -534,7 +534,7 @@ const Navigation = ({
                 <img
                   src="https://cdn.builder.io/api/v1/image/assets%2Fcb0376fc8e71411c9ebb0a3533b4d888%2F9d94d31e894f47c7ab1bcdd0297a87c3"
                   alt="SneakrzKing Logo"
-                  className="w-full h-full object-contain"
+                  className="w-50 h-50 object-contain"
                 />
               </div>
             </Link>
