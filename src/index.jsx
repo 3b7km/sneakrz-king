@@ -2126,7 +2126,7 @@ function App() {
       ],
     },
     {
-      id: 9,
+      id: 7,
       name: "New Balance 327 'Sea Salt'",
       price: 1450,
       image:
