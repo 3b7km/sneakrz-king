@@ -2251,7 +2251,7 @@ function App() {
       ],
     },
     {
-      id: 13,
+      id: 12,
       name: "ASICS Gel-1130 'Silver Sage'",
       price: 1750,
       originalPrice: 2000,
