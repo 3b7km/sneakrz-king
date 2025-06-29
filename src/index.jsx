@@ -5,6 +5,7 @@ import "./App.css";
 import "./mobile-responsive.css";
 import "./mobile-cart-fix.css";
 import "./mobile-fixes.css";
+import { initMobileEnhancements } from "./utils/mobileCartUtils.js";
 
 // Hooks
 import { useProductFilters } from "./hooks/useProductFilters.js";
