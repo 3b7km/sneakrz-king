@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const CheckoutPage = ({ cartItems = [] }) => {
@@ -21,6 +21,47 @@ const CheckoutPage = ({ cartItems = [] }) => {
   const shipping = 80;
   const total = subtotal + shipping;
 
+  // Initialize EmailJS
+  useEffect(() => {
+    if (window.emailjs) {
+      window.emailjs.init("xZ-FMAkzHPph3aojg");
+    }
+  }, []);
+
+  // Send email confirmation
+  const sendEmailConfirmation = async () => {
+    if (!formData.email || !window.emailjs) {
+      return;
+    }
+
+    try {
+      const templateParams = {
+        customer_name: `${formData.firstName} ${formData.lastName}`,
+        customer_email: formData.email,
+        customer_phone: formData.phone,
+        customer_address: `${formData.address}, ${formData.city}`,
+        order_items: cartItems
+          .map(
+            (item) =>
+              `${item.name} - Size: ${item.selectedSize || "N/A"} - Qty: ${item.quantity} - Price: ${item.price} EGP`,
+          )
+          .join("\n"),
+        total_amount: total.toFixed(2),
+        order_notes: formData.notes || "No additional notes",
+      };
+
+      await window.emailjs.send(
+        "service_jpicl4m",
+        "template_mgf1n2b",
+        templateParams,
+      );
+
+      console.log("Email sent successfully");
+    } catch (error) {
+      console.error("Email sending failed:", error);
+    }
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -31,6 +72,11 @@ const CheckoutPage = ({ cartItems = [] }) => {
     setIsSubmitting(true);
 
     try {
+      // Send email confirmation if email is provided
+      if (formData.email) {
+        await sendEmailConfirmation();
+      }
+
       // Simulate order processing
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
