@@ -291,7 +291,19 @@ const AdvancedFilters = ({
                     e.stopPropagation();
                     handleSizeToggle(size);
                   }}
-                  className="hover:bg-green-200 rounded-full p-0.5 transition-colors"
+                  onTouchStart={(e) => {
+                    e.preventDefault();
+                  }}
+                  onTouchEnd={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleSizeToggle(size);
+                  }}
+                  className="hover:bg-green-200 rounded-full p-0.5 transition-colors touch-manipulation"
+                  style={{
+                    touchAction: "manipulation",
+                    WebkitTapHighlightColor: "transparent",
+                  }}
                   aria-label={`Remove size ${size} filter`}
                 >
                   <X className="w-3 h-3" />
