@@ -66,9 +66,10 @@ const Navigation = ({
                 to="/products"
                 className={`nav-link px-4 py-2 text-sm font-medium transition-all duration-300 ${
                   isActive("/products")
-                    ? "text-blue-600 font-semibold"
-                    : "text-gray-600 hover:text-blue-600"
+                    ? "font-semibold"
+                    : "hover:text-blue-600"
                 }`}
+                style={{ color: "rgba(30, 59, 96, 1)" }}
                 tabIndex={0}
               >
                 Products
