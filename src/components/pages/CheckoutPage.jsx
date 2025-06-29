@@ -616,6 +616,13 @@ const CheckoutPage = () => {
                   {isSubmitting ? "Processing Order..." : "Place Order"}
                 </span>
               </button>
+
+              {/* Form status indicator */}
+              {!isFormReady() && Object.keys(formErrors).length === 0 && (
+                <p className="mt-2 text-sm text-gray-600 text-center">
+                  Please fill in all required fields to place your order
+                </p>
+              )}
             </form>
           </div>
 
