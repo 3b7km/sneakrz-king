@@ -2177,6 +2177,7 @@ function App() {
       rating: 4.5,
       brand: "Jordan",
       category: "Basketball",
+      gender: "Men",
       condition: "Brand New",
       authenticity: "100% Guaranteed",
       isNew: false,
