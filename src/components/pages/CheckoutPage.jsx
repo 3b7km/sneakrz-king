@@ -229,12 +229,37 @@ const CheckoutPage = () => {
       "address",
       "city",
     ];
-    const hasAllRequiredFields = requiredFields.every(
-      (field) => formData[field] && formData[field].trim().length > 0,
+
+    // Check if all required fields are filled
+    const missingFields = requiredFields.filter(
+      (field) => !formData[field] || formData[field].trim().length === 0,
     );
-    const hasNoErrors =
-      Object.keys(formErrors).length === 0 ||
-      Object.values(formErrors).every((error) => !error);
+
+    // Check if there are any validation errors
+    const validationErrors = Object.entries(formErrors).filter(
+      ([field, error]) => error && error.trim().length > 0,
+    );
+
+    const hasAllRequiredFields = missingFields.length === 0;
+    const hasNoErrors = validationErrors.length === 0;
+
+    // Debug logging for troubleshooting
+    if (!hasAllRequiredFields || !hasNoErrors) {
+      console.log("Form not ready:", {
+        missingFields,
+        validationErrors,
+        formData: Object.fromEntries(
+          Object.entries(formData).map(([key, value]) => [
+            key,
+            value
+              ? `${value.slice(0, 20)}${value.length > 20 ? "..." : ""}`
+              : "empty",
+          ]),
+        ),
+        formErrors,
+      });
+    }
+
     return hasAllRequiredFields && hasNoErrors;
   };
 
