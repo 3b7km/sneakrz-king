@@ -16,6 +16,31 @@ const CartPage = () => {
   const shipping = 80;
   const total = subtotal + shipping;
 
+  const handleQuantityUpdate = async (itemId, selectedSize, newQuantity) => {
+    const loadingKey = `quantity-${itemId}-${selectedSize}`;
+    setLoadingStates((prev) => ({ ...prev, [loadingKey]: true }));
+
+    try {
+      // Add small delay to show loading state
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      updateQuantity(itemId, selectedSize, newQuantity);
+    } finally {
+      setLoadingStates((prev) => ({ ...prev, [loadingKey]: false }));
+    }
+  };
+
+  const handleRemoveItem = async (itemId, selectedSize) => {
+    const loadingKey = `remove-${itemId}-${selectedSize}`;
+    setLoadingStates((prev) => ({ ...prev, [loadingKey]: true }));
+
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 200));
+      removeItem(itemId, selectedSize);
+    } finally {
+      setLoadingStates((prev) => ({ ...prev, [loadingKey]: false }));
+    }
+  };
+
   if (cartItems.length === 0) {
     return (
       <div className="min-h-screen bg-gray-50 py-12">
