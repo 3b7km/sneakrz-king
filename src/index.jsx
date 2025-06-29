@@ -2311,6 +2311,7 @@ function App() {
       rating: 4.6,
       brand: "Nike",
       category: "Running",
+      gender: "Women",
       condition: "Brand New",
       authenticity: "100% Guaranteed",
       isNew: true,
