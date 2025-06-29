@@ -187,7 +187,7 @@ const OrderConfirmation = () => {
               <div className="space-y-4">
                 {items.map((item, index) => (
                   <div
-                    key={`item-${item.id || index}-${item.selectedSize || 'default'}`}
+                    key={`item-${item.id || index}-${item.selectedSize || "default"}`}
                     className="flex items-center space-x-4 p-4 border border-gray-200 rounded-lg"
                   >
                     <img
@@ -270,8 +270,10 @@ const OrderConfirmation = () => {
                 {getDeliverySteps().map((step, index) => {
                   const Icon = step.icon;
                   return (
-                    <div key={`delivery-step-${step.name || step.title || index}`}
-                    <div key={index} className="flex items-start space-x-3">
+                    <div
+                      key={`delivery-step-${step.name || step.title || index}`}
+                      className="flex items-start space-x-3"
+                    >
                       <div
                         className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
                           step.completed ? "bg-green-100" : "bg-gray-100"
