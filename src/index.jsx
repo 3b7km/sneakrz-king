@@ -7,8 +7,8 @@ import "./mobile-cart-fix.css";
 import "./mobile-fixes.css";
 
 // Hooks
-import { useProductFilters } from "./hooks/useProductFilters";
-import { useLoadingStates } from "./hooks/useLoadingStates";
+import { useProductFilters } from "./hooks/useProductFilters.js";
+import { useLoadingStates } from "./hooks/useLoadingStates.js";
 
 // Components - Using lazy loading for better performance
 const Navigation = lazy(() => import("./components/Navigation.jsx"));
