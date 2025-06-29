@@ -109,7 +109,15 @@ body {
     background: white !important;
     border-top: 1px solid #e5e7eb !important;
     padding: 1rem !important;
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom)) !important;
     margin: 0 -1rem !important;
+  }
+
+  /* Safe area support for buttons */
+  .cart-action-btn,
+  .btn-enhanced,
+  .btn-professional {
+    margin-bottom: env(safe-area-inset-bottom, 0) !important;
   }
 
   /* CONSOLIDATED BUTTON STYLES - All mobile button styles in one place */
