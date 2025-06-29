@@ -252,6 +252,28 @@ const CheckoutPage = () => {
     return validation.isValid;
   };
 
+  // Force validation - useful for iOS Safari and debugging
+  const forceValidation = () => {
+    console.log("Force validation triggered");
+    const isValid = validateFormData();
+
+    // Force state updates
+    setFormErrors((prev) => ({ ...prev }));
+    setFormData((prev) => ({ ...prev }));
+
+    console.log("Force validation result:", {
+      isValid,
+      formReady: isFormReady(),
+      formData: Object.keys(formData).reduce((acc, key) => {
+        acc[key] = formData[key] ? "filled" : "empty";
+        return acc;
+      }, {}),
+      errors: formErrors,
+    });
+
+    return isValid;
+  };
+
   // Check if form is ready to submit
   const isFormReady = () => {
     const requiredFields = [
