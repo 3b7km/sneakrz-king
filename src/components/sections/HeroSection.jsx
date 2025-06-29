@@ -45,16 +45,13 @@ const HeroSection = () => {
           <source src="/logo3d.mp4" type="video/mp4" />
         </video>
       </div>
-
-      {/* Enhanced Background Overlay */}
-      #<div className="absolute inset-0 z-10 bg-gradient-to-r from-black/60 via-black/40 to-black/60"></div>
-
+      {/* Enhanced Background Overlay */}#
+      <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/60 via-black/40 to-black/60"></div>
       {/* Animated Background Elements */}
       <div className="absolute inset-0 z-5">
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-float"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-float animation-delay-1000"></div>
       </div>
-
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col justify-end items-center">
         <div className="text-center">
           {/* Hero Text Content */}
@@ -66,7 +63,13 @@ const HeroSection = () => {
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-200 to-white drop-shadow-2xl ml-auto pb-48">
                     <p>
                       Rise With{" "}
-                      <strong style={{ fontFamily: "'Montserrat', 'Khula', sans-serif", fontWeight: 700, letterSpacing: '1px' }}>
+                      <strong
+                        style={{
+                          fontFamily: "'Montserrat', 'Khula', sans-serif",
+                          fontWeight: 700,
+                          letterSpacing: "1px",
+                        }}
+                      >
                         Every Step
                       </strong>
                     </p>
@@ -125,7 +128,7 @@ const HeroSection = () => {
 
         {/* Enhanced Dropdown Menu */}
         {showDropdown && (
-          <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 w-56 bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/20 overflow-hidden z-30 animate-fadeInUp">
+          <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 w-56 bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/20 overflow-hidden z-[60] animate-fadeInUp">
             <button
               onClick={() => {
                 navigate("/mens-shoes");
@@ -149,7 +152,6 @@ const HeroSection = () => {
           </div>
         )}
       </div>
-
       {/* Enhanced Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
         <button
