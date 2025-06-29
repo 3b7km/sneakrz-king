@@ -55,7 +55,14 @@ const HeroSection = () => {
           <div className="text-white space-y-8">
             <div className="space-y-6">
               <h1 className="hero-title text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                Step Into Greatness
+                <span
+                  style={{
+                    color: "#1e3b60",
+                    fontFamily: "Times New Roman, serif",
+                  }}
+                >
+                  Step Into&nbsp; Greatness
+                </span>
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200"></span>
               </h1>
 
