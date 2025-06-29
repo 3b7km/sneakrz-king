@@ -65,7 +65,10 @@ const HeroSection = () => {
                 <h1 className="hero-title text-5xl md:text-6xl lg:text-7xl font-bold leading-tight animate-fadeInUp flex flex-col">
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-200 to-white drop-shadow-2xl ml-auto pb-48">
                     <p>
-                      Rise With <strong>Every Step</strong>
+                      Rise With{" "}
+                      <strong style={{ fontFamily: "Khula, sans-serif" }}>
+                        Every Step
+                      </strong>
                     </p>
                   </span>
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-white to-blue-300 drop-shadow-2xl animate-fadeInUp animation-delay-200"></span>
@@ -103,7 +106,8 @@ const HeroSection = () => {
         >
           <button
             onClick={() => setShowDropdown(!showDropdown)}
-            className="group bg-gradient-to-r from-white to-blue-50 text-blue-900 px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 flex items-end justify-center gap-3 backdrop-blur-sm border border-white/20"
+            className="group bg-gradient-to-r from-white to-blue-50 text-blue-900 px-10 py-5 rounded-2xl text-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 flex flex-row items-center justify-center backdrop-blur-sm border border-white/20"
+            style={{ gap: "15px" }}
           >
             <span>View Collection</span>
             <ChevronDown
