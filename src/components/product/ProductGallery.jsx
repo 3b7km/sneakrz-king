@@ -125,7 +125,29 @@ const ProductGallery = ({
           }`}
           loading={lazy ? "lazy" : "eager"}
           onLoad={() => setIsLoading(false)}
-          onError={() => setIsLoading(false)}
+          onError={(e) => {
+            setIsLoading(false);
+            // Try to fix common path issues
+            const originalSrc = e.target.src;
+            if (originalSrc.includes("./Sneakers photos/")) {
+              e.target.src = originalSrc.replace(
+                "./Sneakers photos/",
+                "/Sneakers photos/",
+              );
+            } else if (!originalSrc.includes("/Sneakers photos/")) {
+              // Last resort fallback to a placeholder
+              e.target.style.display = "none";
+              e.target.parentElement.style.backgroundColor = "#f3f4f6";
+              e.target.parentElement.innerHTML = `
+                <div class="flex items-center justify-center h-full">
+                  <div class="text-center text-gray-500">
+                    <div class="text-2xl mb-2">📸</div>
+                    <div class="text-sm">Image not found</div>
+                  </div>
+                </div>
+              `;
+            }
+          }}
         />
 
         {/* Navigation Arrows */}
