@@ -21,7 +21,7 @@ const Footer = () => {
                 src="/kingsvg.svg"
                 alt="SneakrzKing Logo"
                 className="filter brightness-0 invert transition-transform duration-300 hover:scale-105"
-                style={{ width: "200px", height: "155px" }}
+                style={{ width: "250px", height: "200px" }}
               />
             </div>
             <p className="text-blue-100 text-base leading-relaxed font-light">
