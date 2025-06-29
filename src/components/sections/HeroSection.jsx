@@ -54,30 +54,34 @@ const HeroSection = () => {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               {/* Shop Collection with Dropdown */}
-              <div
-                className="relative"
-                onMouseEnter={() => setShowDropdown(true)}
-                onMouseLeave={() => setShowDropdown(false)}
-              >
+              <div className="relative">
                 <button
-                  onClick={scrollToProducts}
+                  onClick={() => setShowDropdown(!showDropdown)}
                   className="group bg-white text-blue-900 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex items-center justify-center gap-2"
                 >
                   View Collection
-                  <ChevronDown className="w-5 h-5 group-hover:rotate-180 transition-transform duration-300" />
+                  <ChevronDown
+                    className={`w-5 h-5 transition-transform duration-300 ${showDropdown ? "rotate-180" : ""}`}
+                  />
                 </button>
 
                 {/* Dropdown Menu */}
                 {showDropdown && (
                   <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-30">
                     <button
-                      onClick={() => navigate("/mens-shoes")}
+                      onClick={() => {
+                        navigate("/mens-shoes");
+                        setShowDropdown(false);
+                      }}
                       className="w-full px-6 py-3 text-left text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200 font-medium"
                     >
                       Men's Collection
                     </button>
                     <button
-                      onClick={() => navigate("/womens-shoes")}
+                      onClick={() => {
+                        navigate("/womens-shoes");
+                        setShowDropdown(false);
+                      }}
                       className="w-full px-6 py-3 text-left text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200 font-medium border-t border-gray-100"
                     >
                       Women's Collection
