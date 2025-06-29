@@ -85,20 +85,28 @@ const CheckoutPage = ({ cartItems = [] }) => {
     }
 
     try {
+      console.log("=== EmailJS Debug Info ===");
       console.log("Attempting to send email to:", formData.email);
       console.log("Cart items:", cartItems);
-      console.log("Total calculated:", total);
+      console.log("Original total from props:", total);
       console.log("Form data:", formData);
 
       // Calculate totals to ensure they're correct
       const calculatedSubtotal = cartItems.reduce((sum, item) => {
         const itemPrice = parseFloat(item.price) || 0;
         const itemQuantity = parseInt(item.quantity) || 1;
+        console.log(
+          `Item: ${item.name}, Price: ${itemPrice}, Qty: ${itemQuantity}, Item Total: ${itemPrice * itemQuantity}`,
+        );
         return sum + itemPrice * itemQuantity;
       }, 0);
 
       const shippingCost = 80;
       const calculatedTotal = calculatedSubtotal + shippingCost;
+
+      console.log("Calculated subtotal:", calculatedSubtotal);
+      console.log("Shipping cost:", shippingCost);
+      console.log("Calculated total:", calculatedTotal);
 
       // Ensure we have proper values
       const customerName = `${formData.firstName.trim()} ${formData.lastName.trim()}`;
