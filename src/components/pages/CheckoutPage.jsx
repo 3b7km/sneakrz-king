@@ -333,12 +333,32 @@ const CheckoutPage = () => {
     };
 
     try {
-      console.log("=== EmailJS Debug Info ===");
+      console.log("=== Enhanced EmailJS Debug Info ===");
       console.log("Browser:", navigator.userAgent);
+      console.log("Is iOS Safari:", isIOSSafari);
+      console.log("EmailJS Ready:", !!window._emailJSReady);
       console.log("Attempting to send email to:", formData.email);
 
-      // Wait for EmailJS to be ready
-      await waitForEmailJS();
+      // Wait for EmailJS to be ready with timeout handling
+      try {
+        await waitForEmailJS();
+      } catch (waitError) {
+        console.error("EmailJS wait failed:", waitError);
+        // For iOS Safari, try one more time with manual initialization
+        if (isIOSSafari && window.emailjs) {
+          try {
+            console.log("iOS Safari: Attempting manual re-initialization");
+            window.emailjs.init("xZ-FMAkzHPph3aojg");
+            window._emailJSReady = true;
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+          } catch (reinitError) {
+            console.error("Manual re-initialization failed:", reinitError);
+            throw waitError;
+          }
+        } else {
+          throw waitError;
+        }
+      }
 
       if (!window.emailjs) {
         throw new Error("EmailJS failed to load");
@@ -410,13 +430,20 @@ const CheckoutPage = () => {
       console.log("=== Final Template Params ===");
       console.log(JSON.stringify(templateParams, null, 2));
 
-      // Safari specific: Add a small delay before sending
-      const isSafari =
-        navigator.vendor && navigator.vendor.indexOf("Apple") > -1;
-      if (isSafari) {
+      // iOS Safari specific: Add longer delay and additional safeguards
+      if (isIOSSafari) {
+        console.log("iOS Safari: Adding extended delay before sending");
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+
+        // Additional verification for iOS Safari
+        if (!window.emailjs || !window._emailJSReady) {
+          throw new Error("EmailJS not properly initialized for iOS Safari");
+        }
+      } else if (isSafari) {
         await new Promise((resolve) => setTimeout(resolve, 500));
       }
 
+      console.log("Sending email via EmailJS...");
       const response = await window.emailjs.send(
         "service_jpicl4m",
         "template_sd6o0td",
