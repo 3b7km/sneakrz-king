@@ -61,20 +61,12 @@ const HeroSection = () => {
           <div className="text-white space-y-10 animate-fadeInUp">
             <div className="space-y-8">
               <h1 className="hero-title text-6xl md:text-7xl lg:text-8xl font-bold leading-tight animate-fadeInUp">
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-200 to-white drop-shadow-2xl">
-                  Step Into
-                </span>
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-white to-blue-300 drop-shadow-2xl animate-fadeInUp animation-delay-200">
-                  Greatness
-                </span>
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-200 to-white drop-shadow-2xl"></span>
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-white to-blue-300 drop-shadow-2xl animate-fadeInUp animation-delay-200"></span>
               </h1>
 
               <p className="hero-subtitle text-xl md:text-2xl lg:text-3xl text-blue-100 leading-relaxed max-w-4xl mx-auto font-light animate-fadeInUp animation-delay-400">
-                Discover authentic sneakers from the world's most prestigious
-                brands.
-                <span className="block mt-2 text-white/90 font-medium">
-                  Experience style, comfort, and authenticity in every step.
-                </span>
+                <span className="block mt-2 text-white/90 font-medium"></span>
               </p>
             </div>
 
