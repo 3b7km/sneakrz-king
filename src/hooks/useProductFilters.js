@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 
 export function useProductFilters(products) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState("All");
 
   // Get unique brands from products with counts
   const brands = useMemo(() => {
