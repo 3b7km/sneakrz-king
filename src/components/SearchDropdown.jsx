@@ -158,10 +158,8 @@ const SearchDropdown = ({
               <button
                 key={product.id}
                 onClick={() => handleProductClick(product)}
-                className={`w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors flex items-center gap-3 ${
-                  index === selectedIndex
-                    ? "bg-blue-50 border-l-4 border-blue-500"
-                    : ""
+                className={`search-result-item w-full px-4 py-3 text-left flex items-center gap-3 ${
+                  index === selectedIndex ? "selected" : ""
                 }`}
                 role="option"
                 aria-selected={index === selectedIndex}
