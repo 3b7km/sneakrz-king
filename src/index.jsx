@@ -723,16 +723,7 @@ function App() {
                 }
               />
               <Route path="/about" element={<AboutPage />} />
-              <Route
-                path="/cart"
-                element={
-                  <CartPage
-                    cartItems={cartItems}
-                    setCartItems={setCartItems}
-                    clearCart={clearCart}
-                  />
-                }
-              />
+              <Route path="/cart" element={<CartPage />} />
               <Route
                 path="/checkout"
                 element={<CheckoutPage cartItems={cartItems} />}
