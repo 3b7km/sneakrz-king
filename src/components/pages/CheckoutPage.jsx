@@ -112,6 +112,16 @@ const CheckoutPage = ({ cartItems = [] }) => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // Clear field error when user starts typing
+    if (formErrors[name]) {
+      setFormErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+
+    // Clear general submit error
+    if (submitError) {
+      setSubmitError("");
+    }
   };
 
   const handleSubmit = async (e) => {
