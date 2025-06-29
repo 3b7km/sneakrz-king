@@ -12,7 +12,7 @@ const Footer = () => {
                 src="/kingsvg.svg"
                 alt="SneakrzKing Logo"
                 className="mr-3 filter brightness-0 invert"
-                style={{ width: "306px", height: "233px" }}
+                style={{ width: "300px", height: "233px" }}
               />
               <div></div>
             </div>

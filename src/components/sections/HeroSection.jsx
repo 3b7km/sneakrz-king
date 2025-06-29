@@ -94,7 +94,7 @@ const HeroSection = () => {
                     </button>
                     <button
                       onClick={() => {
-                        navigate("/womens-shoes");
+                        navigate("/wmns-shoes");
                         setShowDropdown(false);
                       }}
                       className="w-full px-6 py-3 text-left text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200 font-medium border-t border-gray-100"
