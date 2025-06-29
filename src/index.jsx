@@ -2603,14 +2603,16 @@ function App() {
 
   const brands = calculateBrandCounts();
 
-  // Filter products based on search and brand
+  // Filter products based on search, brand, and gender
   const filteredProducts = products.filter((product) => {
     const matchesSearch = product.name
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
     const matchesBrand =
       selectedBrand === "All" || product.brand === selectedBrand;
-    return matchesSearch && matchesBrand;
+    const matchesGender =
+      selectedGender === "All" || product.gender === selectedGender;
+    return matchesSearch && matchesBrand && matchesGender;
   });
 
   // Cart Functions
