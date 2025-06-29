@@ -34,6 +34,7 @@ const QuickViewModal = lazy(() => import("./components/QuickViewModal.jsx"));
 const SuccessNotification = lazy(
   () => import("./components/SuccessNotification.jsx"),
 );
+const EmailJSTest = lazy(() => import("./components/EmailJSTest.jsx"));
 
 // Optimized products data with performance in mind
 const products = [
