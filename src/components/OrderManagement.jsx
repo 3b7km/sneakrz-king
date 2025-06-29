@@ -329,7 +329,7 @@ const OrderManagement = () => {
                   <div className="space-y-2">
                     {selectedOrder.items?.map((item, index) => (
                       <div
-                        key={index}
+                        key={`order-item-${item.id || index}-${item.selectedSize || "default"}`}
                         className="flex justify-between items-center p-2 bg-gray-50 rounded"
                       >
                         <div className="flex items-center space-x-3">
@@ -390,7 +390,7 @@ const OrderManagement = () => {
                       <div className="space-y-2 mb-3">
                         {selectedOrder.adminNotes.map((note, index) => (
                           <div
-                            key={index}
+                            key={`admin-note-${note.timestamp || index}`}
                             className="bg-blue-50 p-3 rounded border-l-4 border-blue-400"
                           >
                             <p className="text-sm">{note.note}</p>
