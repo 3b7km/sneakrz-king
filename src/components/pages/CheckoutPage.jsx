@@ -523,6 +523,7 @@ const CheckoutPage = () => {
                     name="lastName"
                     value={formData.lastName}
                     onChange={handleInputChange}
+                    onBlur={handleFieldBlur}
                     required
                     className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
                       errors.lastName ? "border-red-300" : "border-gray-300"
@@ -541,12 +542,16 @@ const CheckoutPage = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Email (Optional)
+                  <span className="text-xs text-gray-500 block mt-1">
+                    Receive order confirmation via email
+                  </span>
                 </label>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
+                  onBlur={handleFieldBlur}
                   className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
                     errors.email ? "border-red-300" : "border-gray-300"
                   }`}
@@ -561,17 +566,21 @@ const CheckoutPage = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Phone Number *
+                  <span className="text-xs text-gray-500 block mt-1">
+                    Egyptian mobile number (e.g., 01234567890 or +201234567890)
+                  </span>
                 </label>
                 <input
                   type="tel"
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
+                  onBlur={handleFieldBlur}
                   required
                   className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
                     errors.phone ? "border-red-300" : "border-gray-300"
                   }`}
-                  placeholder="01234567890"
+                  placeholder="01234567890 or +201234567890"
                 />
                 {errors.phone && (
                   <p className="mt-1 text-sm text-red-600">{errors.phone}</p>
@@ -588,11 +597,12 @@ const CheckoutPage = () => {
                   name="address"
                   value={formData.address}
                   onChange={handleInputChange}
+                  onBlur={handleFieldBlur}
                   required
                   className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
                     errors.address ? "border-red-300" : "border-gray-300"
                   }`}
-                  placeholder="Street address"
+                  placeholder="Street address, building number, apartment"
                 />
                 {errors.address && (
                   <p className="mt-1 text-sm text-red-600">{errors.address}</p>
@@ -609,6 +619,7 @@ const CheckoutPage = () => {
                   name="city"
                   value={formData.city}
                   onChange={handleInputChange}
+                  onBlur={handleFieldBlur}
                   required
                   className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
                     errors.city ? "border-red-300" : "border-gray-300"
