@@ -30,6 +30,9 @@ const OrderConfirmation = () => {
 
     setOrderData(orderInfo);
 
+    // Ensure cart is cleared (backup in case checkout didn't clear it)
+    clearCart();
+
     // Clear the order data from localStorage after displaying
     setTimeout(() => {
       localStorage.removeItem("lastOrder");
