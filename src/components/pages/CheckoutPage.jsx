@@ -373,8 +373,11 @@ const CheckoutPage = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Email (Optional)
+                  <span className="text-xs text-gray-500 block mt-1">
+                    Receive order confirmation via email
+                  </span>
                 </label>
                 <input
                   type="email"
@@ -382,14 +385,15 @@ const CheckoutPage = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   placeholder="your@email.com (optional)"
-                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
                     formErrors.email
                       ? "border-red-300 bg-red-50"
                       : "border-gray-300"
                   }`}
+                  style={{ fontSize: "16px", minHeight: "48px" }}
                 />
                 {formErrors.email && (
-                  <p className="mt-1 text-sm text-red-600">
+                  <p className="mt-2 text-sm text-red-600 form-error-message">
                     {formErrors.email}
                   </p>
                 )}
@@ -482,8 +486,13 @@ const CheckoutPage = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
-                style={{ backgroundColor: "#002b5e" }}
+                className="w-full text-white py-4 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 place-order-button button-loading"
+                style={{
+                  backgroundColor: "#002b5e",
+                  minHeight: "48px",
+                  fontSize: "16px",
+                  touchAction: "manipulation",
+                }}
                 onMouseEnter={(e) =>
                   !isSubmitting && (e.target.style.backgroundColor = "#001a3d")
                 }
