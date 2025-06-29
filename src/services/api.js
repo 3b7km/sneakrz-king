@@ -3,7 +3,7 @@
 
 class APIService {
   constructor() {
-    this.baseURL = process.env.REACT_APP_API_URL || "/api";
+    this.baseURL = import.meta.env.VITE_API_URL || "/api";
     this.cache = new Map();
     this.requestQueue = new Map();
   }
