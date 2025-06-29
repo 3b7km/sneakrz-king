@@ -331,22 +331,44 @@ const CheckoutPage = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitError("");
 
     console.log("Form submitted");
 
-    if (!validateForm()) {
-      setSubmitError("Please fill in all required fields correctly");
+    // Validate form
+    if (!validateFormData()) {
+      setSubmitError(
+        "Please fill in all required fields correctly before placing your order.",
+      );
       return;
     }
 
     setIsSubmitting(true);
-    setSubmitError("");
 
     try {
-      // Simulate processing
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // Send email confirmation if email is provided
+      if (formData.email) {
+        setEmailSentStatus("sending");
+        console.log("Starting email confirmation process");
 
-      // Create order data
+        try {
+          const emailResult = await sendEmailConfirmation();
+          setEmailSentStatus(emailResult ? "sent" : "failed");
+          console.log(
+            "Email confirmation result:",
+            emailResult ? "success" : "failed",
+          );
+        } catch (emailError) {
+          console.error("Email confirmation error:", emailError);
+          setEmailSentStatus("failed");
+          // Continue with order processing even if email fails
+        }
+      }
+
+      // Simulate order processing
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      // Generate order data
       const orderData = {
         orderNumber: Date.now().toString().slice(-8),
         customerInfo: formData,
@@ -358,19 +380,29 @@ const CheckoutPage = () => {
         ).toLocaleDateString(),
       };
 
-      // Store order data
-      localStorage.setItem("lastOrder", JSON.stringify(orderData));
+      // Store order for confirmation page
+      try {
+        localStorage.setItem("lastOrder", JSON.stringify(orderData));
+        console.log("Order data stored successfully");
+      } catch (storageError) {
+        console.error("Local storage error:", storageError);
+        // Continue anyway - order data can be reconstructed
+      }
 
-      // Clear cart
+      // Clear cart after successful order placement
       clearCart();
+      console.log("Cart cleared after successful order placement");
 
       // Navigate to confirmation
       navigate("/order-confirmation");
     } catch (error) {
       console.error("Order submission failed:", error);
-      setSubmitError("Order submission failed. Please try again.");
+      setSubmitError(
+        "Order submission failed. Please check your information and try again.",
+      );
     } finally {
       setIsSubmitting(false);
+      setEmailSentStatus(null);
     }
   };
 
