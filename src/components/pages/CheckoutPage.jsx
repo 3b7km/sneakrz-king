@@ -224,6 +224,10 @@ const CheckoutPage = ({ cartItems = [] }) => {
       // Store order for confirmation page
       localStorage.setItem("lastOrder", JSON.stringify(orderData));
 
+      // Clear cart after successful order placement
+      clearCart();
+      console.log("Cart cleared after successful order placement");
+
       // Navigate to confirmation
       navigate("/order-confirmation");
     } catch (error) {
