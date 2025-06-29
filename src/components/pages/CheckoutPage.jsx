@@ -235,30 +235,47 @@ const CheckoutPage = () => {
       (field) => !formData[field] || formData[field].trim().length === 0,
     );
 
-    // Check if there are any validation errors
+    // Check if there are any validation errors for filled fields
     const validationErrors = Object.entries(formErrors).filter(
-      ([field, error]) => error && error.trim().length > 0,
+      ([field, error]) => {
+        // Only count errors for fields that have content or are required
+        if (
+          field === "email" &&
+          (!formData[field] || formData[field].trim() === "")
+        ) {
+          return false; // Skip empty optional email field
+        }
+        return error && error.trim().length > 0;
+      },
     );
 
     const hasAllRequiredFields = missingFields.length === 0;
     const hasNoErrors = validationErrors.length === 0;
 
-    // Debug logging for troubleshooting
-    if (!hasAllRequiredFields || !hasNoErrors) {
-      console.log("Form not ready:", {
-        missingFields,
-        validationErrors,
-        formData: Object.fromEntries(
-          Object.entries(formData).map(([key, value]) => [
-            key,
-            value
-              ? `${value.slice(0, 20)}${value.length > 20 ? "..." : ""}`
-              : "empty",
-          ]),
-        ),
-        formErrors,
-      });
-    }
+    // Enhanced debug logging for troubleshooting
+    console.log("=== Form Ready Check ===", {
+      hasAllRequiredFields,
+      hasNoErrors,
+      missingFields,
+      validationErrors: validationErrors.map(([field, error]) => ({
+        field,
+        error,
+      })),
+      formData: Object.fromEntries(
+        Object.entries(formData).map(([key, value]) => [
+          key,
+          value
+            ? `${value.slice(0, 30)}${value.length > 30 ? "..." : ""}`
+            : "EMPTY",
+        ]),
+      ),
+      formErrors: Object.fromEntries(
+        Object.entries(formErrors).map(([key, error]) => [
+          key,
+          error || "NO_ERROR",
+        ]),
+      ),
+    });
 
     return hasAllRequiredFields && hasNoErrors;
   };
