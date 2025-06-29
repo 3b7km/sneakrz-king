@@ -968,6 +968,23 @@ const CheckoutPage = () => {
                       </ul>
                     </div>
                   )}
+                  {/* Debug section for development */}
+                  {process.env.NODE_ENV === "development" && (
+                    <details className="mt-2 text-xs text-gray-600">
+                      <summary className="cursor-pointer text-gray-700 font-medium">
+                        Debug Info
+                      </summary>
+                      <div className="mt-1 space-y-1">
+                        <div>
+                          Form Data: {JSON.stringify(formData, null, 2)}
+                        </div>
+                        <div>
+                          Form Errors: {JSON.stringify(formErrors, null, 2)}
+                        </div>
+                        <div>Is Form Ready: {isFormReady().toString()}</div>
+                      </div>
+                    </details>
+                  )}
                 </div>
               )}
             </form>
