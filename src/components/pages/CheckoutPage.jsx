@@ -33,81 +33,156 @@ const CheckoutPage = () => {
   const shipping = 80;
   const total = subtotal + shipping;
 
-  // Initialize EmailJS with Safari-specific handling
+  // Initialize EmailJS with enhanced iPhone Safari compatibility
   useEffect(() => {
     let retryCount = 0;
-    const maxRetries = 10;
+    const maxRetries = 15; // Increased for iOS
     let initTimer;
+    let emailJSReady = false;
+
+    // Detect iOS/iPhone specifically
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const isIOSSafari = isIOS && isSafari;
+
+    console.log("=== EmailJS Initialization Debug ===");
+    console.log("User Agent:", navigator.userAgent);
+    console.log("Is iOS:", isIOS);
+    console.log("Is Safari:", isSafari);
+    console.log("Is iOS Safari:", isIOSSafari);
 
     const initEmailJS = () => {
       // Check for EmailJS availability
-      if (window.emailjs) {
+      if (window.emailjs && !emailJSReady) {
         console.log("EmailJS found, initializing...");
         try {
           window.emailjs.init("xZ-FMAkzHPph3aojg");
+          emailJSReady = true;
           console.log("EmailJS initialized successfully");
+
+          // Store initialization status for later use
+          window._emailJSReady = true;
           return true;
         } catch (error) {
           console.error("EmailJS initialization failed:", error);
           return false;
         }
-      } else {
+      } else if (!window.emailjs) {
         console.warn(
           `EmailJS not found on window object (attempt ${retryCount + 1}/${maxRetries})`,
         );
         retryCount++;
 
         if (retryCount < maxRetries) {
-          // Safari specific: Use longer delays and try multiple approaches
-          const delay =
-            navigator.vendor && navigator.vendor.indexOf("Apple") > -1
-              ? Math.min(2000 * retryCount, 10000) // Longer delays for Safari
-              : 1000 * retryCount;
+          // iOS Safari specific: Use much longer delays and progressive backoff
+          let delay;
+          if (isIOSSafari) {
+            delay = Math.min(3000 * retryCount, 15000); // Much longer delays for iOS Safari
+          } else if (isSafari) {
+            delay = Math.min(2000 * retryCount, 10000); // Regular Safari delays
+          } else {
+            delay = 1000 * retryCount; // Standard delays for other browsers
+          }
 
+          console.log(
+            `Retrying EmailJS init in ${delay}ms (attempt ${retryCount})`,
+          );
           initTimer = setTimeout(initEmailJS, delay);
         } else {
           console.error("EmailJS failed to load after maximum retries");
+          // Mark as failed but continue
+          window._emailJSFailed = true;
         }
         return false;
       }
+      return emailJSReady;
     };
 
-    // Multiple initialization strategies for Safari compatibility
+    // Enhanced initialization strategies for iOS Safari
     const strategies = [
       // Immediate attempt
-      () => initEmailJS(),
+      () => {
+        console.log("Strategy 1: Immediate attempt");
+        return initEmailJS();
+      },
       // DOM ready
       () => {
+        console.log("Strategy 2: DOM ready");
         if (document.readyState === "complete") {
-          initEmailJS();
+          return initEmailJS();
         } else {
-          document.addEventListener("DOMContentLoaded", initEmailJS, {
+          document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+              setTimeout(initEmailJS, isIOSSafari ? 1000 : 100);
+            },
+            { once: true },
+          );
+        }
+      },
+      // Window load with iOS-specific delay
+      () => {
+        console.log("Strategy 3: Window load");
+        if (document.readyState === "complete") {
+          setTimeout(initEmailJS, isIOSSafari ? 2000 : 500);
+        } else {
+          window.addEventListener(
+            "load",
+            () => {
+              setTimeout(initEmailJS, isIOSSafari ? 2000 : 500);
+            },
+            { once: true },
+          );
+        }
+      },
+      // Long delay for iOS Safari
+      () => {
+        console.log("Strategy 4: Long delay");
+        setTimeout(initEmailJS, isIOSSafari ? 5000 : 3000);
+      },
+      // User interaction trigger for iOS (helps with security restrictions)
+      () => {
+        if (isIOSSafari) {
+          console.log("Strategy 5: iOS user interaction trigger setup");
+          const handleFirstInteraction = () => {
+            console.log(
+              "First user interaction detected, initializing EmailJS",
+            );
+            setTimeout(initEmailJS, 100);
+            document.removeEventListener("touchstart", handleFirstInteraction);
+            document.removeEventListener("click", handleFirstInteraction);
+          };
+
+          document.addEventListener("touchstart", handleFirstInteraction, {
+            once: true,
+          });
+          document.addEventListener("click", handleFirstInteraction, {
             once: true,
           });
         }
       },
-      // Window load
-      () => {
-        if (document.readyState === "complete") {
-          initEmailJS();
-        } else {
-          window.addEventListener("load", initEmailJS, { once: true });
-        }
-      },
-      // Delayed attempt for Safari
-      () => {
-        setTimeout(initEmailJS, 3000);
-      },
     ];
 
-    // Try all strategies
+    // Try all strategies with progressive delays
     strategies.forEach((strategy, index) => {
+      const strategyDelay = isIOSSafari ? index * 1000 : index * 500;
       setTimeout(() => {
-        if (!window.emailjs) {
+        if (!emailJSReady && !window._emailJSFailed) {
           strategy();
         }
-      }, index * 500);
+      }, strategyDelay);
     });
+
+    // Final fallback check after extended time
+    setTimeout(
+      () => {
+        if (!emailJSReady && !window._emailJSFailed) {
+          console.log("Final fallback check for EmailJS");
+          initEmailJS();
+        }
+      },
+      isIOSSafari ? 10000 : 6000,
+    );
 
     return () => {
       if (initTimer) {
