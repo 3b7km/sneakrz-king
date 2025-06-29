@@ -14,17 +14,24 @@ const QuickViewModal = ({
 
   useEffect(() => {
     if (isOpen && product) {
-      const firstAvailableSize = product.sizes?.find((size) => {
-        return typeof size === "object" ? size.available : true;
-      });
-      if (firstAvailableSize) {
-        const sizeValue =
-          typeof firstAvailableSize === "object"
-            ? firstAvailableSize.value
-            : firstAvailableSize;
-        setSelectedSize(sizeValue);
+      // Use the selected size from product if available, otherwise find first available
+      if (product.selectedSize) {
+        setSelectedSize(product.selectedSize);
+      } else {
+        const firstAvailableSize = product.sizes?.find((size) => {
+          return typeof size === "object" ? size.available : true;
+        });
+        if (firstAvailableSize) {
+          const sizeValue =
+            typeof firstAvailableSize === "object"
+              ? firstAvailableSize.value
+              : firstAvailableSize;
+          setSelectedSize(sizeValue);
+        }
       }
-      setQuantity(1);
+
+      // Use the quantity from product if available, otherwise default to 1
+      setQuantity(product.quantity || 1);
     }
   }, [isOpen, product]);
 
