@@ -73,7 +73,9 @@ const CartPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-4 md:py-12">
       <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 md:mb-8 px-2">Shopping Cart</h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 md:mb-8 px-2">
+          Shopping Cart
+        </h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8">
           {/* Cart Items */}
@@ -87,7 +89,10 @@ const CartPage = () => {
 
               <div className="divide-y divide-gray-200">
                 {cartItems.map((item) => (
-                  <div key={`${item.id}-${item.selectedSize}`} className="p-4 md:p-6">
+                  <div
+                    key={`${item.id}-${item.selectedSize}`}
+                    className="p-4 md:p-6"
+                  >
                     <div className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
                       <div className="flex items-start space-x-4">
                         <img
@@ -99,7 +104,9 @@ const CartPage = () => {
                           <h3 className="text-base md:text-lg font-medium text-gray-900 truncate">
                             {item.name}
                           </h3>
-                          <p className="text-sm md:text-base text-gray-600">{item.brand}</p>
+                          <p className="text-sm md:text-base text-gray-600">
+                            {item.brand}
+                          </p>
                           <p className="text-sm text-gray-500">
                             Size: {item.selectedSize}
                           </p>
@@ -115,11 +122,18 @@ const CartPage = () => {
                                 item.quantity - 1,
                               )
                             }
-                            disabled={item.quantity <= 1 || loadingStates[`quantity-${item.id}-${item.selectedSize}`]}
+                            disabled={
+                              item.quantity <= 1 ||
+                              loadingStates[
+                                `quantity-${item.id}-${item.selectedSize}`
+                              ]
+                            }
                             className="cart-quantity-btn p-2 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
                             aria-label="Decrease quantity"
                           >
-                            {loadingStates[`quantity-${item.id}-${item.selectedSize}`] ? (
+                            {loadingStates[
+                              `quantity-${item.id}-${item.selectedSize}`
+                            ] ? (
                               <LoadingSpinner size="sm" />
                             ) : (
                               <Minus className="w-4 h-4" />
@@ -136,11 +150,17 @@ const CartPage = () => {
                                 item.quantity + 1,
                               )
                             }
-                            disabled={loadingStates[`quantity-${item.id}-${item.selectedSize}`]}
+                            disabled={
+                              loadingStates[
+                                `quantity-${item.id}-${item.selectedSize}`
+                              ]
+                            }
                             className="cart-quantity-btn p-2 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
                             aria-label="Increase quantity"
                           >
-                            {loadingStates[`quantity-${item.id}-${item.selectedSize}`] ? (
+                            {loadingStates[
+                              `quantity-${item.id}-${item.selectedSize}`
+                            ] ? (
                               <LoadingSpinner size="sm" />
                             ) : (
                               <Plus className="w-4 h-4" />
@@ -158,25 +178,27 @@ const CartPage = () => {
                             </p>
                           </div>
                           <button
-                        onClick={() =>
-                          handleRemoveItem(item.id, item.selectedSize)
-                        }
-                        disabled={
-                          loadingStates[
-                            `remove-${item.id}-${item.selectedSize}`
-                          ]
-                        }
-                        className="p-2 text-red-500 hover:bg-red-50 rounded-md border border-red-200 hover:border-red-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 min-w-[40px] min-h-[40px] flex items-center justify-center"
-                        aria-label="Remove item from cart"
-                      >
-                        {loadingStates[
-                          `remove-${item.id}-${item.selectedSize}`
-                        ] ? (
-                          <LoadingSpinner size="sm" />
-                        ) : (
-                          <X className="w-5 h-5" />
-                        )}
-                      </button>
+                            onClick={() =>
+                              handleRemoveItem(item.id, item.selectedSize)
+                            }
+                            disabled={
+                              loadingStates[
+                                `remove-${item.id}-${item.selectedSize}`
+                              ]
+                            }
+                            className="p-2 text-red-500 hover:bg-red-50 rounded-md border border-red-200 hover:border-red-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 min-w-[40px] min-h-[40px] flex items-center justify-center"
+                            aria-label="Remove item from cart"
+                          >
+                            {loadingStates[
+                              `remove-${item.id}-${item.selectedSize}`
+                            ] ? (
+                              <LoadingSpinner size="sm" />
+                            ) : (
+                              <X className="w-5 h-5" />
+                            )}
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ))}
