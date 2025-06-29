@@ -151,21 +151,32 @@ const AdvancedFilters = ({
           <label className="block text-sm font-medium text-gray-700 mb-3">
             Sizes
           </label>
-          <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
+          <div className="flex flex-wrap gap-2 max-h-40 overflow-y-auto">
             {filterOptions.sizes.map((size) => (
               <button
                 key={size}
-                onClick={() => handleSizeToggle(size)}
-                className={`px-3 py-1 border rounded-md text-sm font-medium transition-colors ${
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleSizeToggle(size);
+                }}
+                className={`px-4 py-2 border rounded-lg text-sm font-medium transition-all duration-200 min-w-[48px] h-10 flex items-center justify-center ${
                   selectedSizes.includes(size)
-                    ? "border-blue-500 bg-blue-50 text-blue-700"
-                    : "border-gray-300 text-gray-700 hover:border-gray-400"
+                    ? "border-blue-500 bg-blue-500 text-white shadow-md transform scale-105"
+                    : "border-gray-300 text-gray-700 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-700"
                 }`}
+                aria-pressed={selectedSizes.includes(size)}
+                role="button"
+                tabIndex={0}
               >
                 {size}
               </button>
             ))}
           </div>
+          {filterOptions.sizes.length === 0 && (
+            <p className="text-sm text-gray-500 italic">No sizes available</p>
+          )}
         </div>
 
         {/* Additional Filters */}
