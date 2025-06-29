@@ -532,6 +532,11 @@ const PageLoader = () => (
 
 // Main App Component - Optimized for Performance
 function App() {
+  // Initialize mobile enhancements
+  useEffect(() => {
+    initMobileEnhancements();
+  }, []);
+
   // Performance hooks
   const { loadingStates } = useLoadingStates();
   const filters = useProductFilters(products);
