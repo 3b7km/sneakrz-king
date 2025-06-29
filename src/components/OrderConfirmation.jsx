@@ -147,12 +147,16 @@ const OrderConfirmation = () => {
                 <div>
                   <p className="text-sm text-gray-600">Name</p>
                   <p className="font-medium">
-                    {customerInfo.firstName} {customerInfo.lastName}
+                    {customerInfo.firstName && customerInfo.lastName
+                      ? `${customerInfo.firstName} ${customerInfo.lastName}`
+                      : customerInfo.name || "Not provided"}
                   </p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Phone</p>
-                  <p className="font-medium">{customerInfo.phone}</p>
+                  <p className="font-medium">
+                    {customerInfo.phone || "Not provided"}
+                  </p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Email</p>
@@ -163,8 +167,9 @@ const OrderConfirmation = () => {
                 <div>
                   <p className="text-sm text-gray-600">Delivery Address</p>
                   <p className="font-medium">
-                    {customerInfo.address}, {customerInfo.city}
-                    {customerInfo.state && `, ${customerInfo.state}`}
+                    {customerInfo.address && customerInfo.city
+                      ? `${customerInfo.address}, ${customerInfo.city}`
+                      : "Not provided"}
                   </p>
                 </div>
               </div>
