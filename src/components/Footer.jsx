@@ -9,7 +9,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center mb-4">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets%2Fb220db0e9b2841ae97da454e5697371d%2Fb626a8c31e464985aff1a794f2a77f91?format=webp&width=800"
+                src="https://cdn.builder.io/api/v1/image/assets%2Fcb0376fc8e71411c9ebb0a3533b4d888%2F9d94d31e894f47c7ab1bcdd0297a87c3"
                 alt="SneakrzKing Logo"
                 className="w-12 h-12 mr-3"
               />
