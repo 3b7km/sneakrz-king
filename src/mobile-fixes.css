@@ -35,12 +35,7 @@
     margin: 1rem !important;
   }
 
-  /* Button fixes for mobile */
-  .btn-enhanced,
-  .btn-professional {
-    min-height: 44px !important;
-    font-size: 16px !important;
-  }
+  /* Mobile button base styles - removed conflicts */
 
   /* Text sizing for mobile */
   .text-responsive-xl {
