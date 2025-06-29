@@ -55,7 +55,7 @@ const HeroSection = () => {
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-float animation-delay-1000"></div>
       </div>
 
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col justify-end items-center">
         <div className="text-center">
           {/* Main Content */}
           <div className="text-white space-y-10 animate-fadeInUp">
@@ -76,7 +76,7 @@ const HeroSection = () => {
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setShowDropdown(!showDropdown)}
-                  className="group bg-gradient-to-r from-white to-blue-50 text-blue-900 px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 flex items-center justify-center gap-3 backdrop-blur-sm border border-white/20"
+                  className="group bg-gradient-to-r from-white to-blue-50 text-blue-900 px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 flex items-end justify-center gap-3 backdrop-blur-sm border border-white/20"
                 >
                   <span>View Collection</span>
                   <ChevronDown
