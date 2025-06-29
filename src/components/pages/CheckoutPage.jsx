@@ -200,24 +200,132 @@ const CheckoutPage = () => {
     );
   };
 
+  // Send email confirmation
+  const sendEmailConfirmation = async () => {
+    if (!formData.email) {
+      console.log("Email not provided");
+      return;
+    }
+
+    try {
+      // Wait for EmailJS to be ready
+      const waitForEmailJS = () => {
+        return new Promise((resolve, reject) => {
+          let attempts = 0;
+          const maxAttempts = 20;
+
+          const checkEmailJS = () => {
+            attempts++;
+            if (window.emailjs && window._emailJSReady) {
+              resolve(true);
+            } else if (window._emailJSFailed) {
+              reject(new Error("EmailJS failed to initialize"));
+            } else if (attempts >= maxAttempts) {
+              reject(new Error("EmailJS timeout"));
+            } else {
+              setTimeout(checkEmailJS, 500);
+            }
+          };
+          checkEmailJS();
+        });
+      };
+
+      await waitForEmailJS();
+
+      if (!window.emailjs) {
+        throw new Error("EmailJS failed to load");
+      }
+
+      const calculatedSubtotal = cartItems.reduce((sum, item) => {
+        const itemPrice = parseFloat(item.price) || 0;
+        const itemQuantity = parseInt(item.quantity) || 1;
+        return sum + itemPrice * itemQuantity;
+      }, 0);
+
+      const customerName = `${formData.firstName.trim()} ${formData.lastName.trim()}`;
+      const orderItemsList =
+        cartItems.length > 0
+          ? cartItems
+              .map((item) => {
+                const itemPrice = parseFloat(item.price) || 0;
+                const itemQuantity = parseInt(item.quantity) || 1;
+                const itemTotal = itemPrice * itemQuantity;
+                return `• ${item.name || "Unknown Item"} - Size: ${item.selectedSize || "N/A"} - Qty: ${itemQuantity} - Price: ${itemTotal.toFixed(2)} EGP`;
+              })
+              .join("\n")
+          : "No items in cart";
+
+      const templateParams = {
+        customer_name: customerName,
+        customer_email: formData.email.trim(),
+        customer_phone: formData.phone.trim() || "Not provided",
+        customer_address: `${formData.address.trim()}, ${formData.city.trim()}`,
+        order_items: orderItemsList,
+        subtotal_amount: calculatedSubtotal.toFixed(2),
+        shipping_amount: "80.00",
+        total_amount: total.toFixed(2),
+        order_total: total.toFixed(2),
+        order_notes: formData.notes.trim() || "No additional notes",
+        order_date: new Date().toLocaleDateString(),
+        order_time: new Date().toLocaleTimeString(),
+        subtotal: `${calculatedSubtotal.toFixed(2)} EGP`,
+        shipping: "80.00 EGP",
+        total: `${total.toFixed(2)} EGP`,
+      };
+
+      console.log("Sending email via EmailJS...");
+      const response = await window.emailjs.send(
+        "service_jpicl4m",
+        "template_sd6o0td",
+        templateParams,
+      );
+
+      console.log("Email sent successfully:", response);
+      return response;
+    } catch (error) {
+      console.error("Email sending failed:", error);
+      return null;
+    }
+  };
+
   // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
 
-    // Clear errors for this field
-    if (errors[name]) {
-      setErrors((prev) => {
-        const newErrors = { ...prev };
-        delete newErrors[name];
-        return newErrors;
-      });
-    }
-
-    // Clear submit error
+    // Clear submit error immediately
     if (submitError) {
       setSubmitError("");
     }
+
+    // Real-time validation with debounce
+    if (value.trim() !== "") {
+      setTimeout(() => {
+        validateSingleField(name, value);
+      }, 300);
+    } else {
+      // Clear error if field is empty (except for required fields)
+      const requiredFields = [
+        "firstName",
+        "lastName",
+        "phone",
+        "address",
+        "city",
+      ];
+      if (errors[name] && !requiredFields.includes(name)) {
+        setErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors[name];
+          return newErrors;
+        });
+      }
+    }
+  };
+
+  // Handle field blur for immediate validation
+  const handleFieldBlur = (e) => {
+    const { name, value } = e.target;
+    validateSingleField(name, value);
   };
 
   // Handle form submission
