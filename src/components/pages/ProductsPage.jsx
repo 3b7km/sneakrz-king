@@ -25,7 +25,11 @@ const ProductsPage = ({
 }) => {
   const [sortBy, setSortBy] = useState("newest");
   const [priceRange, setPriceRange] = useState([0, 5000]);
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilters, setShowFilters] = useState(true);
+  const [selectedGender, setSelectedGender] = useState("All");
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [onSale, setOnSale] = useState(false);
+  const [inStock, setInStock] = useState(false);
 
   // Memoized sorted and filtered products for performance
   const sortedProducts = useMemo(() => {
