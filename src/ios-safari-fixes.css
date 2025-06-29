@@ -38,12 +38,43 @@
     -webkit-tap-highlight-color: transparent;
     position: relative;
     z-index: 1;
+    /* Force hardware acceleration for better performance */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform, background-color;
+    /* Ensure button is always interactive */
+    pointer-events: auto;
   }
 
   /* Ensure proper touch handling */
   .place-order-button:active {
-    -webkit-transform: scale(0.98);
-    transform: scale(0.98);
+    -webkit-transform: scale(0.98) translateZ(0);
+    transform: scale(0.98) translateZ(0);
+  }
+
+  /* Fix disabled button state on iOS Safari */
+  .place-order-button:disabled {
+    pointer-events: none !important;
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+    -webkit-transform: none !important;
+    transform: none !important;
+  }
+
+  /* Ensure enabled button is fully interactive */
+  .place-order-button:not(:disabled) {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+
+  /* Fix for iOS Safari button focus issues */
+  .place-order-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
   }
 
   /* Fix for email status messages on iOS */
