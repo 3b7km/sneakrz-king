@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { AlertCircle, CheckCircle } from "lucide-react";
-import { useCart } from "../../context/CartContext";
 import {
   validateForm,
   validateField,
@@ -12,6 +12,7 @@ import {
 const CheckoutPage = () => {
   const { cartItems, clearCart } = useCart();
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -21,11 +22,13 @@ const CheckoutPage = () => {
     city: "",
     notes: "",
   });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formErrors, setFormErrors] = useState({});
+  const [errors, setErrors] = useState({});
   const [submitError, setSubmitError] = useState("");
   const [emailSentStatus, setEmailSentStatus] = useState(null);
 
+  // Calculate totals
   const subtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0,
@@ -33,96 +36,34 @@ const CheckoutPage = () => {
   const shipping = 80;
   const total = subtotal + shipping;
 
-  // Periodic form state updates for iOS Safari
-  useEffect(() => {
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    const isIOSSafari = isIOS && isSafari;
-
-    if (isIOSSafari) {
-      console.log(
-        "iOS Safari detected - setting up periodic form state updates",
-      );
-
-      // Force form validation refresh every 2 seconds for iOS Safari
-      const stateRefreshInterval = setInterval(() => {
-        // Trigger a small state update to force re-render
-        setFormErrors((prev) => ({ ...prev }));
-
-        // Debug log current form state
-        console.log("iOS Safari periodic refresh:", {
-          formReady: isFormReady(),
-          isSubmitting,
-          formData: Object.keys(formData).reduce((acc, key) => {
-            acc[key] = formData[key] ? "filled" : "empty";
-            return acc;
-          }, {}),
-          errorCount: Object.keys(formErrors).length,
-        });
-      }, 2000);
-
-      return () => clearInterval(stateRefreshInterval);
-    }
-  }, [formData, formErrors, isSubmitting]);
-
-  // Initialize EmailJS with enhanced iPhone Safari compatibility
+  // Initialize EmailJS
   useEffect(() => {
     let retryCount = 0;
-    const maxRetries = 15; // Increased for iOS
-    let initTimer;
+    const maxRetries = 10;
     let emailJSReady = false;
 
-    // Detect iOS/iPhone specifically
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    const isIOSSafari = isIOS && isSafari;
-
-    console.log("=== EmailJS Initialization Debug ===");
-    console.log("User Agent:", navigator.userAgent);
-    console.log("Is iOS:", isIOS);
-    console.log("Is Safari:", isSafari);
-    console.log("Is iOS Safari:", isIOSSafari);
-
     const initEmailJS = () => {
-      // Check for EmailJS availability
       if (window.emailjs && !emailJSReady) {
-        console.log("EmailJS found, initializing...");
         try {
           window.emailjs.init("xZ-FMAkzHPph3aojg");
           emailJSReady = true;
-          console.log("EmailJS initialized successfully");
-
-          // Store initialization status for later use
           window._emailJSReady = true;
+          console.log("EmailJS initialized successfully");
           return true;
         } catch (error) {
           console.error("EmailJS initialization failed:", error);
           return false;
         }
       } else if (!window.emailjs) {
-        console.warn(
-          `EmailJS not found on window object (attempt ${retryCount + 1}/${maxRetries})`,
-        );
         retryCount++;
-
         if (retryCount < maxRetries) {
-          // iOS Safari specific: Use much longer delays and progressive backoff
-          let delay;
-          if (isIOSSafari) {
-            delay = Math.min(3000 * retryCount, 15000); // Much longer delays for iOS Safari
-          } else if (isSafari) {
-            delay = Math.min(2000 * retryCount, 10000); // Regular Safari delays
-          } else {
-            delay = 1000 * retryCount; // Standard delays for other browsers
-          }
-
+          const delay = 1000 * retryCount;
           console.log(
             `Retrying EmailJS init in ${delay}ms (attempt ${retryCount})`,
           );
-          initTimer = setTimeout(initEmailJS, delay);
+          setTimeout(initEmailJS, delay);
         } else {
           console.error("EmailJS failed to load after maximum retries");
-          // Mark as failed but continue
           window._emailJSFailed = true;
         }
         return false;
@@ -130,111 +71,32 @@ const CheckoutPage = () => {
       return emailJSReady;
     };
 
-    // Enhanced initialization strategies for iOS Safari
-    const strategies = [
-      // Immediate attempt
-      () => {
-        console.log("Strategy 1: Immediate attempt");
-        return initEmailJS();
-      },
-      // DOM ready
-      () => {
-        console.log("Strategy 2: DOM ready");
-        if (document.readyState === "complete") {
-          return initEmailJS();
-        } else {
-          document.addEventListener(
-            "DOMContentLoaded",
-            () => {
-              setTimeout(initEmailJS, isIOSSafari ? 1000 : 100);
-            },
-            { once: true },
-          );
-        }
-      },
-      // Window load with iOS-specific delay
-      () => {
-        console.log("Strategy 3: Window load");
-        if (document.readyState === "complete") {
-          setTimeout(initEmailJS, isIOSSafari ? 2000 : 500);
-        } else {
-          window.addEventListener(
-            "load",
-            () => {
-              setTimeout(initEmailJS, isIOSSafari ? 2000 : 500);
-            },
-            { once: true },
-          );
-        }
-      },
-      // Long delay for iOS Safari
-      () => {
-        console.log("Strategy 4: Long delay");
-        setTimeout(initEmailJS, isIOSSafari ? 5000 : 3000);
-      },
-      // User interaction trigger for iOS (helps with security restrictions)
-      () => {
-        if (isIOSSafari) {
-          console.log("Strategy 5: iOS user interaction trigger setup");
-          const handleFirstInteraction = () => {
-            console.log(
-              "First user interaction detected, initializing EmailJS",
-            );
-            setTimeout(initEmailJS, 100);
-            document.removeEventListener("touchstart", handleFirstInteraction);
-            document.removeEventListener("click", handleFirstInteraction);
-          };
+    // Try immediate initialization
+    initEmailJS();
 
-          document.addEventListener("touchstart", handleFirstInteraction, {
-            once: true,
-          });
-          document.addEventListener("click", handleFirstInteraction, {
-            once: true,
-          });
-        }
-      },
-    ];
+    // Fallback initialization strategies
+    if (document.readyState === "complete") {
+      setTimeout(initEmailJS, 500);
+    } else {
+      window.addEventListener(
+        "load",
+        () => {
+          setTimeout(initEmailJS, 500);
+        },
+        { once: true },
+      );
+    }
 
-    // Try all strategies with progressive delays
-    strategies.forEach((strategy, index) => {
-      const strategyDelay = isIOSSafari ? index * 1000 : index * 500;
-      setTimeout(() => {
-        if (!emailJSReady && !window._emailJSFailed) {
-          strategy();
-        }
-      }, strategyDelay);
-    });
-
-    // Final fallback check after extended time
-    setTimeout(
-      () => {
-        if (!emailJSReady && !window._emailJSFailed) {
-          console.log("Final fallback check for EmailJS");
-          initEmailJS();
-        }
-      },
-      isIOSSafari ? 10000 : 6000,
-    );
-
-    return () => {
-      if (initTimer) {
-        clearTimeout(initTimer);
+    // Final fallback
+    setTimeout(() => {
+      if (!emailJSReady && !window._emailJSFailed) {
+        initEmailJS();
       }
-    };
+    }, 5000);
   }, []);
 
-  // Enhanced form validation function using utility
+  // Enhanced validation using utility functions
   const validateFormData = () => {
-    // Create custom validation rules without the country requirement
-    const customValidationRules = {
-      firstName: checkoutValidationRules.firstName,
-      lastName: checkoutValidationRules.lastName,
-      email: checkoutValidationRules.email,
-      phone: checkoutValidationRules.phone,
-      streetAddress: checkoutValidationRules.streetAddress,
-      city: checkoutValidationRules.city,
-    };
-
     const formDataForValidation = {
       firstName: formData.firstName,
       lastName: formData.lastName,
@@ -244,94 +106,34 @@ const CheckoutPage = () => {
       city: formData.city,
     };
 
+    const customValidationRules = {
+      firstName: checkoutValidationRules.firstName,
+      lastName: checkoutValidationRules.lastName,
+      email: checkoutValidationRules.email,
+      phone: checkoutValidationRules.phone,
+      streetAddress: checkoutValidationRules.streetAddress,
+      city: checkoutValidationRules.city,
+    };
+
     const validation = validateForm(
       formDataForValidation,
       customValidationRules,
     );
-    setFormErrors(validation.errors);
+
+    // Map validation errors back to form field names
+    const mappedErrors = {};
+    if (validation.errors.firstName)
+      mappedErrors.firstName = validation.errors.firstName;
+    if (validation.errors.lastName)
+      mappedErrors.lastName = validation.errors.lastName;
+    if (validation.errors.email) mappedErrors.email = validation.errors.email;
+    if (validation.errors.phone) mappedErrors.phone = validation.errors.phone;
+    if (validation.errors.streetAddress)
+      mappedErrors.address = validation.errors.streetAddress;
+    if (validation.errors.city) mappedErrors.city = validation.errors.city;
+
+    setErrors(mappedErrors);
     return validation.isValid;
-  };
-
-  // Force validation - useful for iOS Safari and debugging
-  const forceValidation = () => {
-    console.log("Force validation triggered");
-    const isValid = validateFormData();
-
-    // Force state updates
-    setFormErrors((prev) => ({ ...prev }));
-    setFormData((prev) => ({ ...prev }));
-
-    console.log("Force validation result:", {
-      isValid,
-      formReady: isFormReady(),
-      formData: Object.keys(formData).reduce((acc, key) => {
-        acc[key] = formData[key] ? "filled" : "empty";
-        return acc;
-      }, {}),
-      errors: formErrors,
-    });
-
-    return isValid;
-  };
-
-  // Check if form is ready to submit
-  const isFormReady = () => {
-    const requiredFields = [
-      "firstName",
-      "lastName",
-      "phone",
-      "address",
-      "city",
-    ];
-
-    // Check if all required fields are filled
-    const missingFields = requiredFields.filter(
-      (field) => !formData[field] || formData[field].trim().length === 0,
-    );
-
-    // Check if there are any validation errors for filled fields
-    const validationErrors = Object.entries(formErrors).filter(
-      ([field, error]) => {
-        // Only count errors for fields that have content or are required
-        if (
-          field === "email" &&
-          (!formData[field] || formData[field].trim() === "")
-        ) {
-          return false; // Skip empty optional email field
-        }
-        return error && error.trim().length > 0;
-      },
-    );
-
-    const hasAllRequiredFields = missingFields.length === 0;
-    const hasNoErrors = validationErrors.length === 0;
-
-    // Enhanced debug logging for troubleshooting
-    console.log("=== Form Ready Check ===", {
-      hasAllRequiredFields,
-      hasNoErrors,
-      missingFields,
-      validationErrors: validationErrors.map(([field, error]) => ({
-        field,
-        error,
-      })),
-      formData: Object.fromEntries(
-        Object.entries(formData).map(([key, value]) => [
-          key,
-          value
-            ? `${value.slice(0, 30)}${value.length > 30 ? "..." : ""}`
-            : "EMPTY",
-        ]),
-      ),
-      formErrors: Object.fromEntries(
-        Object.entries(formErrors).map(([key, error]) => [
-          key,
-          error || "NO_ERROR",
-        ]),
-      ),
-    });
-
-    return hasAllRequiredFields && hasNoErrors;
   };
 
   // Real-time field validation
@@ -358,7 +160,7 @@ const CheckoutPage = () => {
     if (mappedFieldName) {
       // Skip validation for empty optional fields (like email)
       if (fieldName === "email" && (!value || value.trim() === "")) {
-        setFormErrors((prev) => {
+        setErrors((prev) => {
           const newErrors = { ...prev };
           delete newErrors[fieldName];
           return newErrors;
@@ -372,12 +174,12 @@ const CheckoutPage = () => {
         customValidationRules,
       );
       if (!validation.isValid) {
-        setFormErrors((prev) => ({
+        setErrors((prev) => ({
           ...prev,
           [fieldName]: validation.error,
         }));
       } else {
-        setFormErrors((prev) => {
+        setErrors((prev) => {
           const newErrors = { ...prev };
           delete newErrors[fieldName];
           return newErrors;
@@ -386,112 +188,60 @@ const CheckoutPage = () => {
     }
   };
 
-  // Send email confirmation with enhanced iOS Safari support
+  // Check if form is ready
+  const isFormValid = () => {
+    return (
+      formData.firstName.trim() &&
+      formData.lastName.trim() &&
+      formData.phone.trim() &&
+      formData.address.trim() &&
+      formData.city.trim() &&
+      Object.keys(errors).length === 0
+    );
+  };
+
+  // Send email confirmation
   const sendEmailConfirmation = async () => {
     if (!formData.email) {
       console.log("Email not provided");
       return;
     }
 
-    // Enhanced iOS detection
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    const isIOSSafari = isIOS && isSafari;
-
-    // Wait for EmailJS with enhanced iOS Safari handling
-    const waitForEmailJS = () => {
-      return new Promise((resolve, reject) => {
-        let attempts = 0;
-        const maxAttempts = isIOSSafari ? 30 : 20; // More attempts for iOS Safari
-
-        const checkEmailJS = () => {
-          attempts++;
-          console.log(
-            `Checking EmailJS availability (attempt ${attempts}/${maxAttempts})`,
-          );
-
-          if (window.emailjs && window._emailJSReady) {
-            console.log("EmailJS is ready and initialized");
-            resolve(true);
-          } else if (window._emailJSFailed) {
-            console.error("EmailJS initialization failed");
-            reject(new Error("EmailJS failed to initialize"));
-          } else if (attempts >= maxAttempts) {
-            console.error("EmailJS timeout after maximum attempts");
-            reject(new Error("EmailJS timeout"));
-          } else {
-            // Progressive timeout increases for iOS Safari
-            let timeout;
-            if (isIOSSafari) {
-              timeout = Math.min(1000 + attempts * 200, 3000);
-            } else if (isSafari) {
-              timeout = Math.min(500 + attempts * 100, 2000);
-            } else {
-              timeout = 500;
-            }
-
-            setTimeout(checkEmailJS, timeout);
-          }
-        };
-
-        checkEmailJS();
-      });
-    };
-
     try {
-      console.log("=== Enhanced EmailJS Debug Info ===");
-      console.log("Browser:", navigator.userAgent);
-      console.log("Is iOS Safari:", isIOSSafari);
-      console.log("EmailJS Ready:", !!window._emailJSReady);
-      console.log("Attempting to send email to:", formData.email);
+      // Wait for EmailJS to be ready
+      const waitForEmailJS = () => {
+        return new Promise((resolve, reject) => {
+          let attempts = 0;
+          const maxAttempts = 20;
 
-      // Wait for EmailJS to be ready with timeout handling
-      try {
-        await waitForEmailJS();
-      } catch (waitError) {
-        console.error("EmailJS wait failed:", waitError);
-        // For iOS Safari, try one more time with manual initialization
-        if (isIOSSafari && window.emailjs) {
-          try {
-            console.log("iOS Safari: Attempting manual re-initialization");
-            window.emailjs.init("xZ-FMAkzHPph3aojg");
-            window._emailJSReady = true;
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-          } catch (reinitError) {
-            console.error("Manual re-initialization failed:", reinitError);
-            throw waitError;
-          }
-        } else {
-          throw waitError;
-        }
-      }
+          const checkEmailJS = () => {
+            attempts++;
+            if (window.emailjs && window._emailJSReady) {
+              resolve(true);
+            } else if (window._emailJSFailed) {
+              reject(new Error("EmailJS failed to initialize"));
+            } else if (attempts >= maxAttempts) {
+              reject(new Error("EmailJS timeout"));
+            } else {
+              setTimeout(checkEmailJS, 500);
+            }
+          };
+          checkEmailJS();
+        });
+      };
+
+      await waitForEmailJS();
 
       if (!window.emailjs) {
         throw new Error("EmailJS failed to load");
       }
 
-      console.log("EmailJS is ready, preparing email data...");
-      console.log("Cart items:", cartItems);
-      console.log("Form data:", formData);
-
-      // Calculate totals to ensure they're correct
       const calculatedSubtotal = cartItems.reduce((sum, item) => {
         const itemPrice = parseFloat(item.price) || 0;
         const itemQuantity = parseInt(item.quantity) || 1;
-        console.log(
-          `Item: ${item.name}, Price: ${itemPrice}, Qty: ${itemQuantity}, Item Total: ${itemPrice * itemQuantity}`,
-        );
         return sum + itemPrice * itemQuantity;
       }, 0);
 
-      const shippingCost = 80;
-      const calculatedTotal = calculatedSubtotal + shippingCost;
-
-      console.log("Calculated subtotal:", calculatedSubtotal);
-      console.log("Shipping cost:", shippingCost);
-      console.log("Calculated total:", calculatedTotal);
-
-      // Ensure we have proper values
       const customerName = `${formData.firstName.trim()} ${formData.lastName.trim()}`;
       const orderItemsList =
         cartItems.length > 0
@@ -505,49 +255,23 @@ const CheckoutPage = () => {
               .join("\n")
           : "No items in cart";
 
-      const totalAmount = calculatedTotal.toFixed(2);
-      const subtotalAmount = calculatedSubtotal.toFixed(2);
-
-      console.log(
-        "Final amounts - Subtotal:",
-        subtotalAmount,
-        "Total:",
-        totalAmount,
-      );
-
       const templateParams = {
         customer_name: customerName,
         customer_email: formData.email.trim(),
         customer_phone: formData.phone.trim() || "Not provided",
         customer_address: `${formData.address.trim()}, ${formData.city.trim()}`,
         order_items: orderItemsList,
-        subtotal_amount: subtotalAmount,
+        subtotal_amount: calculatedSubtotal.toFixed(2),
         shipping_amount: "80.00",
-        total_amount: totalAmount,
-        order_total: totalAmount,
+        total_amount: total.toFixed(2),
+        order_total: total.toFixed(2),
         order_notes: formData.notes.trim() || "No additional notes",
         order_date: new Date().toLocaleDateString(),
         order_time: new Date().toLocaleTimeString(),
-        subtotal: `${subtotalAmount} EGP`,
+        subtotal: `${calculatedSubtotal.toFixed(2)} EGP`,
         shipping: "80.00 EGP",
-        total: `${totalAmount} EGP`,
+        total: `${total.toFixed(2)} EGP`,
       };
-
-      console.log("=== Final Template Params ===");
-      console.log(JSON.stringify(templateParams, null, 2));
-
-      // iOS Safari specific: Add longer delay and additional safeguards
-      if (isIOSSafari) {
-        console.log("iOS Safari: Adding extended delay before sending");
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-
-        // Additional verification for iOS Safari
-        if (!window.emailjs || !window._emailJSReady) {
-          throw new Error("EmailJS not properly initialized for iOS Safari");
-        }
-      } else if (isSafari) {
-        await new Promise((resolve) => setTimeout(resolve, 500));
-      }
 
       console.log("Sending email via EmailJS...");
       const response = await window.emailjs.send(
@@ -560,87 +284,25 @@ const CheckoutPage = () => {
       return response;
     } catch (error) {
       console.error("Email sending failed:", error);
-      console.error("Error details:", error.message);
-      console.error("Browser info:", {
-        userAgent: navigator.userAgent,
-        vendor: navigator.vendor,
-        isIOS: isIOS,
-        isSafari: isSafari,
-        isIOSSafari: isIOSSafari,
-        emailJSAvailable: !!window.emailjs,
-        emailJSReady: !!window._emailJSReady,
-        emailJSFailed: !!window._emailJSFailed,
-      });
-
-      // Enhanced retry logic for iOS Safari
-      if ((isIOSSafari || isSafari) && !error.retried) {
-        console.log(
-          `${isIOSSafari ? "iOS Safari" : "Safari"} detected, attempting enhanced retry...`,
-        );
-
-        // Longer delay for iOS Safari
-        const retryDelay = isIOSSafari ? 3000 : 2000;
-        await new Promise((resolve) => setTimeout(resolve, retryDelay));
-
-        // Force re-initialization for iOS Safari if needed
-        if (isIOSSafari && window.emailjs) {
-          try {
-            console.log("iOS Safari: Force re-initializing EmailJS for retry");
-            window.emailjs.init("xZ-FMAkzHPph3aojg");
-            window._emailJSReady = true;
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-          } catch (reinitError) {
-            console.error("iOS Safari re-initialization failed:", reinitError);
-          }
-        }
-
-        if (window.emailjs) {
-          try {
-            error.retried = true;
-            console.log("Attempting retry with enhanced error handling");
-            return await sendEmailConfirmation();
-          } catch (retryError) {
-            console.error(
-              `${isIOSSafari ? "iOS Safari" : "Safari"} retry also failed:`,
-              retryError,
-            );
-
-            // Final attempt for iOS Safari with different approach
-            if (isIOSSafari && !retryError.finalAttempt) {
-              console.log("iOS Safari: Final attempt with different timing");
-              await new Promise((resolve) => setTimeout(resolve, 2000));
-
-              try {
-                retryError.finalAttempt = true;
-                return await sendEmailConfirmation();
-              } catch (finalError) {
-                console.error("iOS Safari final attempt failed:", finalError);
-              }
-            }
-          }
-        }
-      }
-
-      // Don't throw error - allow order to continue even if email fails
       return null;
     }
   };
 
+  // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
 
-    // Clear general submit error immediately
+    // Clear submit error immediately
     if (submitError) {
       setSubmitError("");
     }
 
-    // Real-time validation with shorter debounce for better responsiveness
+    // Real-time validation with debounce
     if (value.trim() !== "") {
-      // Immediate validation for better UX
       setTimeout(() => {
         validateSingleField(name, value);
-      }, 200);
+      }, 300);
     } else {
       // Clear error if field is empty (except for required fields)
       const requiredFields = [
@@ -650,84 +312,28 @@ const CheckoutPage = () => {
         "address",
         "city",
       ];
-      if (formErrors[name] && !requiredFields.includes(name)) {
-        setFormErrors((prev) => {
+      if (errors[name] && !requiredFields.includes(name)) {
+        setErrors((prev) => {
           const newErrors = { ...prev };
           delete newErrors[name];
           return newErrors;
         });
       }
     }
-
-    // Force form state refresh for iOS Safari
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    if (isIOS && isSafari) {
-      // Additional state update to trigger re-render
-      setTimeout(() => {
-        setFormErrors((prev) => ({ ...prev }));
-      }, 100);
-    }
   };
 
-  // Handle field blur for immediate required field validation
+  // Handle field blur for immediate validation
   const handleFieldBlur = (e) => {
     const { name, value } = e.target;
-
-    // Always validate on blur
     validateSingleField(name, value);
-
-    // Force a complete form validation for iOS Safari
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    if (isIOS && isSafari) {
-      setTimeout(() => {
-        // Trigger form validation refresh
-        const currentFormData = {
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          phone: formData.phone,
-          streetAddress: formData.address,
-          city: formData.city,
-        };
-
-        const customValidationRules = {
-          firstName: checkoutValidationRules.firstName,
-          lastName: checkoutValidationRules.lastName,
-          email: checkoutValidationRules.email,
-          phone: checkoutValidationRules.phone,
-          streetAddress: checkoutValidationRules.streetAddress,
-          city: checkoutValidationRules.city,
-        };
-
-        const validation = validateForm(currentFormData, customValidationRules);
-        setFormErrors(validation.errors);
-
-        console.log("iOS Safari form validation refresh after blur:", {
-          field: name,
-          value: value ? "filled" : "empty",
-          isValid: validation.isValid,
-          errors: validation.errors,
-          formReady: isFormReady(),
-        });
-      }, 100);
-    }
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitError("");
 
-    // iOS Safari specific: Prevent default more aggressively
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    const isIOSSafari = isIOS && isSafari;
-
-    if (isIOSSafari) {
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-    }
+    console.log("Form submitted");
 
     // Validate form
     if (!validateFormData()) {
@@ -740,12 +346,6 @@ const CheckoutPage = () => {
     setIsSubmitting(true);
 
     try {
-      // iOS Safari: Add extra delay for form processing
-      if (isIOSSafari) {
-        console.log("iOS Safari: Adding form processing delay");
-        await new Promise((resolve) => setTimeout(resolve, 500));
-      }
-
       // Send email confirmation if email is provided
       if (formData.email) {
         setEmailSentStatus("sending");
@@ -765,9 +365,8 @@ const CheckoutPage = () => {
         }
       }
 
-      // Simulate order processing with iOS-specific timing
-      const processingDelay = isIOSSafari ? 2000 : 1500;
-      await new Promise((resolve) => setTimeout(resolve, processingDelay));
+      // Simulate order processing
+      await new Promise((resolve) => setTimeout(resolve, 1500));
 
       // Generate order data
       const orderData = {
@@ -781,7 +380,7 @@ const CheckoutPage = () => {
         ).toLocaleDateString(),
       };
 
-      // Store order for confirmation page with iOS Safari safeguards
+      // Store order for confirmation page
       try {
         localStorage.setItem("lastOrder", JSON.stringify(orderData));
         console.log("Order data stored successfully");
@@ -794,10 +393,8 @@ const CheckoutPage = () => {
       clearCart();
       console.log("Cart cleared after successful order placement");
 
-      // iOS Safari: Add delay before navigation
-      if (isIOSSafari) {
-        await new Promise((resolve) => setTimeout(resolve, 300));
-      }
+      // Small delay to ensure cart is cleared before navigation
+      await new Promise((resolve) => setTimeout(resolve, 100));
 
       // Navigate to confirmation
       navigate("/order-confirmation");
@@ -812,6 +409,7 @@ const CheckoutPage = () => {
     }
   };
 
+  // Redirect if cart is empty
   if (cartItems.length === 0) {
     return (
       <div className="min-h-screen bg-gray-50 py-12">
@@ -822,8 +420,7 @@ const CheckoutPage = () => {
             </h2>
             <button
               onClick={() => navigate("/products")}
-              className="bg-navy-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-navy-700 transition-colors"
-              style={{ backgroundColor: "#002b5e" }}
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
             >
               Shop Now
             </button>
@@ -834,19 +431,18 @@ const CheckoutPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-6 md:py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 checkout-container">
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">Checkout</h1>
 
         <div className="grid lg:grid-cols-2 gap-8">
-          {/* Checkout Form */}
-          <div className="bg-white rounded-lg shadow-sm p-4 md:p-6 checkout-form">
+          {/* Form Section */}
+          <div className="bg-white rounded-lg shadow p-6">
             <h2 className="text-xl font-semibold mb-6">Billing Information</h2>
 
-            {/* Error Display */}
             {submitError && (
-              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start space-x-3">
-                <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
+                <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
                 <div>
                   <h4 className="font-medium text-red-800">Error</h4>
                   <p className="text-red-700">{submitError}</p>
@@ -857,7 +453,7 @@ const CheckoutPage = () => {
             {/* Email Status */}
             {emailSentStatus && (
               <div
-                className={`mb-6 p-4 rounded-lg flex items-start gap-3 email-status-message ${
+                className={`mb-6 p-4 rounded-lg flex items-start gap-3 ${
                   emailSentStatus === "sent"
                     ? "bg-green-50 border border-green-200"
                     : emailSentStatus === "failed"
@@ -896,9 +492,10 @@ const CheckoutPage = () => {
             )}
 
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Name Fields */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     First Name *
                   </label>
                   <input
@@ -908,21 +505,20 @@ const CheckoutPage = () => {
                     onChange={handleInputChange}
                     onBlur={handleFieldBlur}
                     required
-                    placeholder="Enter your first name"
-                    className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      formErrors.firstName
-                        ? "border-red-300 bg-red-50"
-                        : "border-gray-300"
+                    className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                      errors.firstName ? "border-red-300" : "border-gray-300"
                     }`}
+                    placeholder="Enter first name"
                   />
-                  {formErrors.firstName && (
+                  {errors.firstName && (
                     <p className="mt-1 text-sm text-red-600">
-                      {formErrors.firstName}
+                      {errors.firstName}
                     </p>
                   )}
                 </div>
+
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     Last Name *
                   </label>
                   <input
@@ -932,21 +528,20 @@ const CheckoutPage = () => {
                     onChange={handleInputChange}
                     onBlur={handleFieldBlur}
                     required
-                    placeholder="Enter your last name"
-                    className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      formErrors.lastName
-                        ? "border-red-300 bg-red-50"
-                        : "border-gray-300"
+                    className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                      errors.lastName ? "border-red-300" : "border-gray-300"
                     }`}
+                    placeholder="Enter last name"
                   />
-                  {formErrors.lastName && (
+                  {errors.lastName && (
                     <p className="mt-1 text-sm text-red-600">
-                      {formErrors.lastName}
+                      {errors.lastName}
                     </p>
                   )}
                 </div>
               </div>
 
+              {/* Email */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Email (Optional)
@@ -960,23 +555,19 @@ const CheckoutPage = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   onBlur={handleFieldBlur}
-                  placeholder="your@email.com (optional)"
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
-                    formErrors.email
-                      ? "border-red-300 bg-red-50"
-                      : "border-gray-300"
+                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    errors.email ? "border-red-300" : "border-gray-300"
                   }`}
-                  style={{ fontSize: "16px", minHeight: "48px" }}
+                  placeholder="your@email.com"
                 />
-                {formErrors.email && (
-                  <p className="mt-2 text-sm text-red-600 form-error-message">
-                    {formErrors.email}
-                  </p>
+                {errors.email && (
+                  <p className="mt-1 text-sm text-red-600">{errors.email}</p>
                 )}
               </div>
 
+              {/* Phone */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Phone Number *
                   <span className="text-xs text-gray-500 block mt-1">
                     Egyptian mobile number (e.g., 01234567890 or +201234567890)
@@ -989,22 +580,19 @@ const CheckoutPage = () => {
                   onChange={handleInputChange}
                   onBlur={handleFieldBlur}
                   required
-                  placeholder="01234567890 or +201234567890"
-                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                    formErrors.phone
-                      ? "border-red-300 bg-red-50"
-                      : "border-gray-300"
+                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    errors.phone ? "border-red-300" : "border-gray-300"
                   }`}
+                  placeholder="01234567890 or +201234567890"
                 />
-                {formErrors.phone && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {formErrors.phone}
-                  </p>
+                {errors.phone && (
+                  <p className="mt-1 text-sm text-red-600">{errors.phone}</p>
                 )}
               </div>
 
+              {/* Address */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Address *
                 </label>
                 <input
@@ -1014,22 +602,19 @@ const CheckoutPage = () => {
                   onChange={handleInputChange}
                   onBlur={handleFieldBlur}
                   required
-                  placeholder="Street address, building number, apartment"
-                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                    formErrors.address
-                      ? "border-red-300 bg-red-50"
-                      : "border-gray-300"
+                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    errors.address ? "border-red-300" : "border-gray-300"
                   }`}
+                  placeholder="Street address, building number, apartment"
                 />
-                {formErrors.address && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {formErrors.address}
-                  </p>
+                {errors.address && (
+                  <p className="mt-1 text-sm text-red-600">{errors.address}</p>
                 )}
               </div>
 
+              {/* City */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   City *
                 </label>
                 <input
@@ -1039,20 +624,19 @@ const CheckoutPage = () => {
                   onChange={handleInputChange}
                   onBlur={handleFieldBlur}
                   required
-                  placeholder="Enter your city"
-                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                    formErrors.city
-                      ? "border-red-300 bg-red-50"
-                      : "border-gray-300"
+                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    errors.city ? "border-red-300" : "border-gray-300"
                   }`}
+                  placeholder="Enter city"
                 />
-                {formErrors.city && (
-                  <p className="mt-1 text-sm text-red-600">{formErrors.city}</p>
+                {errors.city && (
+                  <p className="mt-1 text-sm text-red-600">{errors.city}</p>
                 )}
               </div>
 
+              {/* Notes */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Order Notes (Optional)
                 </label>
                 <textarea
@@ -1060,175 +644,48 @@ const CheckoutPage = () => {
                   value={formData.notes}
                   onChange={handleInputChange}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Any special instructions..."
                 />
               </div>
 
+              {/* Submit Button */}
               <button
                 type="submit"
-                disabled={isSubmitting || !isFormReady()}
-                className="w-full text-white py-4 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 place-order-button button-loading"
-                style={{
-                  backgroundColor:
-                    isSubmitting || !isFormReady() ? "#9ca3af" : "#002b5e",
-                  minHeight: "48px",
-                  fontSize: "16px",
-                  touchAction: "manipulation",
-                  WebkitTapHighlightColor: "transparent",
-                  WebkitTouchCallout: "none",
-                  WebkitUserSelect: "none",
-                  userSelect: "none",
-                }}
-                onMouseEnter={(e) => {
-                  if (!isSubmitting && isFormReady()) {
-                    e.target.style.backgroundColor = "#001a3d";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isSubmitting && isFormReady()) {
-                    e.target.style.backgroundColor = "#002b5e";
-                  }
-                }}
-                onTouchStart={(e) => {
-                  // iOS Safari specific: Ensure touch events work properly
-                  if (!isSubmitting && isFormReady()) {
-                    e.target.style.backgroundColor = "#001a3d";
-                  }
-                }}
-                onTouchEnd={(e) => {
-                  // iOS Safari specific: Reset background after touch
-                  if (!isSubmitting && isFormReady()) {
-                    setTimeout(() => {
-                      e.target.style.backgroundColor = "#002b5e";
-                    }, 100);
-                  }
-                }}
-                onClick={(e) => {
-                  // Additional click handler for iOS Safari
-                  console.log("Button clicked:", {
-                    isSubmitting,
-                    isFormReady: isFormReady(),
-                    disabled: e.target.disabled,
-                    buttonEnabled: !isSubmitting && isFormReady(),
-                  });
-
-                  // Prevent multiple clicks
-                  if (isSubmitting || !isFormReady()) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    return false;
-                  }
-                }}
+                disabled={isSubmitting || !isFormValid()}
+                className={`w-full py-3 rounded-lg font-semibold text-white transition-colors ${
+                  isSubmitting || !isFormValid()
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-blue-600 hover:bg-blue-700"
+                }`}
               >
-                {isSubmitting && <LoadingSpinner size="sm" />}
-                <span>
-                  {isSubmitting ? "Processing Order..." : "Place Order"}
-                </span>
+                {isSubmitting ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <LoadingSpinner size="sm" />
+                    Processing Order...
+                  </div>
+                ) : (
+                  "Place Order"
+                )}
               </button>
 
-              {/* Enhanced form status indicator */}
-              {!isFormReady() && (
-                <div className="mt-3 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                  <p className="text-sm text-yellow-800 text-center font-medium">
-                    Please complete all required fields to place your order
-                  </p>
-                  {Object.keys(formErrors).length > 0 && (
-                    <div className="mt-2 text-xs text-yellow-700">
-                      <p>Issues found:</p>
-                      <ul className="list-disc list-inside">
-                        {Object.entries(formErrors).map(
-                          ([field, error]) =>
-                            error && <li key={field}>{error}</li>,
-                        )}
-                      </ul>
-                    </div>
-                  )}
-                  {/* Debug section for development and troubleshooting */}
-                  <details className="mt-2 text-xs text-gray-600">
-                    <summary className="cursor-pointer text-gray-700 font-medium">
-                      Debug & Fix Tools
-                    </summary>
-                    <div className="mt-2 space-y-2">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          console.log("Manual validation triggered");
-                          forceValidation();
-                        }}
-                        className="px-3 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600"
-                      >
-                        Force Validation Check
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          console.log("Form state refresh triggered");
-                          setFormErrors((prev) => ({ ...prev }));
-                          setFormData((prev) => ({ ...prev }));
-                        }}
-                        className="px-3 py-1 bg-green-500 text-white text-xs rounded hover:bg-green-600 ml-2"
-                      >
-                        Refresh Form State
-                      </button>
-                      <div className="mt-2 space-y-1 text-xs">
-                        <div>
-                          <strong>Form Ready:</strong>{" "}
-                          {isFormReady().toString()}
-                        </div>
-                        <div>
-                          <strong>Is Submitting:</strong>{" "}
-                          {isSubmitting.toString()}
-                        </div>
-                        <div>
-                          <strong>Button Should Be Enabled:</strong>{" "}
-                          {(!isSubmitting && isFormReady()).toString()}
-                        </div>
-                        <div>
-                          <strong>Error Count:</strong>{" "}
-                          {Object.keys(formErrors).length}
-                        </div>
-                        <div>
-                          <strong>Required Fields Filled:</strong>{" "}
-                          {["firstName", "lastName", "phone", "address", "city"]
-                            .map(
-                              (field) =>
-                                `${field}: ${formData[field] ? "✓" : "✗"}`,
-                            )
-                            .join(", ")}
-                        </div>
-                        {Object.keys(formErrors).length > 0 && (
-                          <div>
-                            <strong>Current Errors:</strong>
-                            <ul className="list-disc list-inside ml-2">
-                              {Object.entries(formErrors).map(
-                                ([field, error]) =>
-                                  error && (
-                                    <li key={field}>
-                                      {field}: {error}
-                                    </li>
-                                  ),
-                              )}
-                            </ul>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </details>
-                </div>
+              {!isFormValid() && (
+                <p className="text-center text-sm text-gray-600">
+                  Please fill in all required fields to place your order
+                </p>
               )}
             </form>
           </div>
 
           {/* Order Summary */}
-          <div className="bg-white rounded-lg shadow-sm p-6">
+          <div className="bg-white rounded-lg shadow p-6">
             <h2 className="text-xl font-semibold mb-6">Order Summary</h2>
 
             <div className="space-y-4 mb-6">
               {cartItems.map((item) => (
                 <div
                   key={`${item.id}-${item.selectedSize}`}
-                  className="flex items-center space-x-4"
+                  className="flex items-center gap-4"
                 >
                   <img
                     src={item.image}

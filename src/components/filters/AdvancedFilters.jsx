@@ -150,15 +150,20 @@ const AdvancedFilters = ({
             {filterOptions.categories.map((category) => (
               <label
                 key={category}
-                className="flex items-center group cursor-pointer"
+                className="flex items-center group cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition-colors"
               >
                 <input
                   type="checkbox"
                   checked={selectedCategories.includes(category)}
                   onChange={() => handleCategoryToggle(category)}
-                  className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 focus:ring-2 transition-all"
+                  className="w-5 h-5 text-blue-600 border-2 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 focus:ring-offset-2 transition-all"
+                  style={{
+                    accentColor: "#3B82F6",
+                    appearance: "auto",
+                    WebkitAppearance: "checkbox",
+                  }}
                 />
-                <span className="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors capitalize">
+                <span className="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors capitalize font-medium">
                   {category}
                 </span>
               </label>
@@ -186,11 +191,28 @@ const AdvancedFilters = ({
                   e.stopPropagation();
                   handleSizeToggle(size);
                 }}
-                className={`px-4 py-2 border rounded-lg text-sm font-medium transition-all duration-200 min-w-[48px] h-10 flex items-center justify-center ${
+                onTouchStart={(e) => {
+                  // Mobile touch support
+                  e.preventDefault();
+                }}
+                onTouchEnd={(e) => {
+                  // Mobile touch support
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleSizeToggle(size);
+                }}
+                className={`px-4 py-2 border rounded-lg text-sm font-medium transition-all duration-200 min-w-[48px] h-10 flex items-center justify-center touch-manipulation ${
                   selectedSizes.includes(size)
                     ? "border-blue-500 bg-blue-500 text-white shadow-md transform scale-105"
-                    : "border-gray-300 text-gray-700 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-700"
+                    : "border-gray-300 text-gray-700 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-700 active:bg-blue-100"
                 }`}
+                style={{
+                  touchAction: "manipulation",
+                  WebkitTapHighlightColor: "transparent",
+                  WebkitTouchCallout: "none",
+                  WebkitUserSelect: "none",
+                  userSelect: "none",
+                }}
                 aria-pressed={selectedSizes.includes(size)}
                 role="button"
                 tabIndex={0}
@@ -210,27 +232,37 @@ const AdvancedFilters = ({
             Additional Filters
           </label>
           <div className="space-y-4">
-            <label className="flex items-center group cursor-pointer">
+            <label className="flex items-center group cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition-colors">
               <input
                 type="checkbox"
                 checked={onSale}
                 onChange={(e) => setOnSale(e.target.checked)}
-                className="w-4 h-4 rounded border-gray-300 text-red-600 focus:ring-red-500 focus:ring-2 transition-all"
+                className="w-5 h-5 text-red-600 border-2 border-gray-300 rounded focus:ring-red-500 focus:ring-2 focus:ring-offset-2 transition-all"
+                style={{
+                  accentColor: "#DC2626",
+                  appearance: "auto",
+                  WebkitAppearance: "checkbox",
+                }}
               />
-              <span className="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors flex items-center">
-                <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
+              <span className="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors flex items-center font-medium">
+                <span className="w-3 h-3 bg-red-500 rounded-full mr-2 flex-shrink-0"></span>
                 On Sale
               </span>
             </label>
-            <label className="flex items-center group cursor-pointer">
+            <label className="flex items-center group cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition-colors">
               <input
                 type="checkbox"
                 checked={inStock}
                 onChange={(e) => setInStock(e.target.checked)}
-                className="w-4 h-4 rounded border-gray-300 text-green-600 focus:ring-green-500 focus:ring-2 transition-all"
+                className="w-5 h-5 text-green-600 border-2 border-gray-300 rounded focus:ring-green-500 focus:ring-2 focus:ring-offset-2 transition-all"
+                style={{
+                  accentColor: "#16A34A",
+                  appearance: "auto",
+                  WebkitAppearance: "checkbox",
+                }}
               />
-              <span className="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors flex items-center">
-                <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+              <span className="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors flex items-center font-medium">
+                <span className="w-3 h-3 bg-green-500 rounded-full mr-2 flex-shrink-0"></span>
                 In Stock
               </span>
             </label>
@@ -274,7 +306,19 @@ const AdvancedFilters = ({
                     e.stopPropagation();
                     handleSizeToggle(size);
                   }}
-                  className="hover:bg-green-200 rounded-full p-0.5 transition-colors"
+                  onTouchStart={(e) => {
+                    e.preventDefault();
+                  }}
+                  onTouchEnd={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleSizeToggle(size);
+                  }}
+                  className="hover:bg-green-200 rounded-full p-0.5 transition-colors touch-manipulation"
+                  style={{
+                    touchAction: "manipulation",
+                    WebkitTapHighlightColor: "transparent",
+                  }}
                   aria-label={`Remove size ${size} filter`}
                 >
                   <X className="w-3 h-3" />
