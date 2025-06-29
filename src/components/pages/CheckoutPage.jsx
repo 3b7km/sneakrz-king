@@ -126,16 +126,25 @@ const CheckoutPage = ({ cartItems = [] }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitError("");
+
+    // Validate form
+    if (!validateForm()) {
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
       // Send email confirmation if email is provided
       if (formData.email) {
-        await sendEmailConfirmation();
+        setEmailSentStatus("sending");
+        const emailResult = await sendEmailConfirmation();
+        setEmailSentStatus(emailResult ? "sent" : "failed");
       }
 
       // Simulate order processing
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 1500));
 
       // Generate order data
       const orderData = {
@@ -156,9 +165,12 @@ const CheckoutPage = ({ cartItems = [] }) => {
       navigate("/order-confirmation");
     } catch (error) {
       console.error("Order submission failed:", error);
-      alert("Order submission failed. Please try again.");
+      setSubmitError(
+        "Order submission failed. Please check your information and try again.",
+      );
     } finally {
       setIsSubmitting(false);
+      setEmailSentStatus(null);
     }
   };
 
