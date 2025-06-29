@@ -10,6 +10,7 @@ const ProductGallery = ({
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loadedImages, setLoadedImages] = useState(new Set());
   const [isLoading, setIsLoading] = useState(true);
+  const [failedImages, setFailedImages] = useState(new Set());
 
   // Preload images for better performance
   useEffect(() => {
@@ -117,38 +118,40 @@ const ProductGallery = ({
           </div>
         )}
 
-        <img
-          src={images[currentImageIndex]}
-          alt={`${productName} - Image ${currentImageIndex + 1}`}
-          className={`w-full h-full object-cover transition-opacity duration-300 ${
-            loadedImages.has(currentImageIndex) ? "opacity-100" : "opacity-0"
-          }`}
-          loading={lazy ? "lazy" : "eager"}
-          onLoad={() => setIsLoading(false)}
-          onError={(e) => {
-            setIsLoading(false);
-            // Try to fix common path issues
-            const originalSrc = e.target.src;
-            if (originalSrc.includes("./Sneakers photos/")) {
-              e.target.src = originalSrc.replace(
-                "./Sneakers photos/",
-                "/Sneakers photos/",
-              );
-            } else if (!originalSrc.includes("/Sneakers photos/")) {
-              // Last resort fallback to a placeholder
-              e.target.style.display = "none";
-              e.target.parentElement.style.backgroundColor = "#f3f4f6";
-              e.target.parentElement.innerHTML = `
-                <div class="flex items-center justify-center h-full">
-                  <div class="text-center text-gray-500">
-                    <div class="text-2xl mb-2">📸</div>
-                    <div class="text-sm">Image not found</div>
-                  </div>
-                </div>
-              `;
-            }
-          }}
-        />
+        {failedImages.has(currentImageIndex) ? (
+          <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+            <div className="text-center text-gray-500">
+              <div className="text-2xl mb-2">📸</div>
+              <div className="text-sm">Image not found</div>
+            </div>
+          </div>
+        ) : (
+          <img
+            src={images[currentImageIndex]}
+            alt={`${productName} - Image ${currentImageIndex + 1}`}
+            className={`w-full h-full object-cover transition-opacity duration-300 ${
+              loadedImages.has(currentImageIndex) ? "opacity-100" : "opacity-0"
+            }`}
+            loading={lazy ? "lazy" : "eager"}
+            onLoad={() => setIsLoading(false)}
+            onError={(e) => {
+              setIsLoading(false);
+              // Try to fix common path issues first
+              const originalSrc = e.target.src;
+              if (originalSrc.includes("./Sneakers photos/")) {
+                e.target.src = originalSrc.replace(
+                  "./Sneakers photos/",
+                  "/Sneakers photos/",
+                );
+              } else {
+                // Mark image as failed for React to handle
+                setFailedImages(
+                  (prev) => new Set([...prev, currentImageIndex]),
+                );
+              }
+            }}
+          />
+        )}
 
         {/* Navigation Arrows */}
         {images.length > 1 && (
