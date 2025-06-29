@@ -1,10 +1,10 @@
-import { Instagram, Phone, Mail, MapPin, Clock } from "lucide-react";
+import { Instagram, Phone, Mail, MapPin } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-br from-gray-900 via-blue-900 to-gray-800 text-white py-16">
+    <footer className="bg-[#1E3B60] text-white py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div className="md:col-span-1">
             <div className="flex items-center mb-6">
@@ -108,45 +108,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Categories */}
-          <div>
-            <h4 className="text-lg font-semibold mb-6 text-white">
-              Categories
-            </h4>
-            <ul className="space-y-3">
-              <li>
-                <span className="text-gray-300 flex items-center">
-                  <span className="w-2 h-2 bg-purple-400 rounded-full mr-3"></span>
-                  Nike
-                </span>
-              </li>
-              <li>
-                <span className="text-gray-300 flex items-center">
-                  <span className="w-2 h-2 bg-purple-400 rounded-full mr-3"></span>
-                  Adidas
-                </span>
-              </li>
-              <li>
-                <span className="text-gray-300 flex items-center">
-                  <span className="w-2 h-2 bg-purple-400 rounded-full mr-3"></span>
-                  Jordan
-                </span>
-              </li>
-              <li>
-                <span className="text-gray-300 flex items-center">
-                  <span className="w-2 h-2 bg-purple-400 rounded-full mr-3"></span>
-                  New Balance
-                </span>
-              </li>
-              <li>
-                <span className="text-gray-300 flex items-center">
-                  <span className="w-2 h-2 bg-purple-400 rounded-full mr-3"></span>
-                  ASICS
-                </span>
-              </li>
-            </ul>
-          </div>
-
           {/* Contact Info */}
           <div>
             <h4 className="text-lg font-semibold mb-6 text-white">
@@ -168,17 +129,9 @@ const Footer = () => {
                 </div>
               </div>
               <div className="flex items-center text-gray-300">
-                <Clock className="w-5 h-5 mr-3 text-blue-400" />
-                <div>
-                  <p className="font-medium">Mon-Fri 9AM-8PM</p>
-                  <p className="text-sm text-gray-400">Business Hours</p>
-                </div>
-              </div>
-              <div className="flex items-center text-gray-300">
                 <MapPin className="w-5 h-5 mr-3 text-red-400" />
                 <div>
                   <p className="font-medium">Egypt</p>
-                  <p className="text-sm text-gray-400">We deliver nationwide</p>
                 </div>
               </div>
             </div>

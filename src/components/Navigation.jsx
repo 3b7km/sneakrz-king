@@ -39,7 +39,7 @@ const Navigation = ({
                 style={{ width: "50px", height: "50px" }}
               >
                 <img
-                  src="/whiteking.png"
+                  src="/kingsvg.svg"
                   alt="SneakrzKing Logo"
                   className="w-full h-full object-contain"
                 />
