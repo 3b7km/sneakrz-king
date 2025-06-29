@@ -90,21 +90,32 @@ const CheckoutPage = ({ cartItems = [] }) => {
       console.log("Total calculated:", total);
       console.log("Form data:", formData);
 
+      // Calculate totals to ensure they're correct
+      const calculatedSubtotal = cartItems.reduce((sum, item) => {
+        const itemPrice = parseFloat(item.price) || 0;
+        const itemQuantity = parseInt(item.quantity) || 1;
+        return sum + itemPrice * itemQuantity;
+      }, 0);
+
+      const shippingCost = 80;
+      const calculatedTotal = calculatedSubtotal + shippingCost;
+
       // Ensure we have proper values
       const customerName = `${formData.firstName.trim()} ${formData.lastName.trim()}`;
       const orderItemsList =
         cartItems.length > 0
           ? cartItems
-              .map(
-                (item) =>
-                  `• ${item.name || "Unknown Item"} - Size: ${item.selectedSize || "N/A"} - Qty: ${item.quantity || 1} - Price: ${(item.price || 0) * (item.quantity || 1)} EGP`,
-              )
+              .map((item) => {
+                const itemPrice = parseFloat(item.price) || 0;
+                const itemQuantity = parseInt(item.quantity) || 1;
+                const itemTotal = itemPrice * itemQuantity;
+                return `• ${item.name || "Unknown Item"} - Size: ${item.selectedSize || "N/A"} - Qty: ${itemQuantity} - Price: ${itemTotal.toFixed(2)} EGP`;
+              })
               .join("\n")
           : "No items in cart";
 
-      const totalAmount = total && !isNaN(total) ? total.toFixed(2) : "0.00";
-      const subtotalAmount =
-        subtotal && !isNaN(subtotal) ? subtotal.toFixed(2) : "0.00";
+      const totalAmount = calculatedTotal.toFixed(2);
+      const subtotalAmount = calculatedSubtotal.toFixed(2);
 
       const templateParams = {
         customer_name: customerName,
