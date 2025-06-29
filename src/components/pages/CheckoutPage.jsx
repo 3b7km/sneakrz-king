@@ -76,6 +76,16 @@ const CheckoutPage = () => {
 
   // Enhanced form validation function using utility
   const validateFormData = () => {
+    // Create custom validation rules without the country requirement
+    const customValidationRules = {
+      firstName: checkoutValidationRules.firstName,
+      lastName: checkoutValidationRules.lastName,
+      email: checkoutValidationRules.email,
+      phone: checkoutValidationRules.phone,
+      streetAddress: checkoutValidationRules.streetAddress,
+      city: checkoutValidationRules.city,
+    };
+
     const formDataForValidation = {
       firstName: formData.firstName,
       lastName: formData.lastName,
@@ -87,7 +97,7 @@ const CheckoutPage = () => {
 
     const validation = validateForm(
       formDataForValidation,
-      checkoutValidationRules,
+      customValidationRules,
     );
     setFormErrors(validation.errors);
     return validation.isValid;
