@@ -46,9 +46,8 @@ const HeroSection = () => {
               </h1>
 
               <p className="hero-subtitle text-xl md:text-2xl text-gray-200 leading-relaxed max-w-lg">
-                Discover authentic sneakers from the world's most prestigious
-                brands. Experience style, comfort, and authenticity in every
-                step.
+                Discover the authentic and greatest sneakers from top brands.
+                Authentic products, fast delivery, and unmatched style.
               </p>
             </div>
 
@@ -56,45 +55,18 @@ const HeroSection = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <button
                 onClick={scrollToProducts}
-                className="group px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex items-center justify-center gap-2"
-                style={{ backgroundColor: "#1E3B60", color: "white" }}
+                className="group px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white"
               >
-                Shop Collection
-                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                🛒 Shop Now
               </button>
 
               <button
-                onClick={() => navigate("/mens-shoes")}
-                className="border-2 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105"
-                style={{
-                  borderColor: "#1E3B60",
-                  color: "#1E3B60",
-                  backgroundColor: "transparent",
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = "#1E3B60";
-                  e.target.style.color = "white";
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = "transparent";
-                  e.target.style.color = "#1E3B60";
-                }}
+                onClick={() => navigate("/products")}
+                className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:bg-white hover:text-black"
               >
-                Men's Collection
+                View Collection
               </button>
-
-              <button
-                onClick={() => navigate("/womens-shoes")}
-                className="border-2 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105"
-                style={{
-                  borderColor: "#1E3B60",
-                  color: "#1E3B60",
-                  backgroundColor: "transparent",
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = "#1E3B60";
-                  e.target.style.color = "white";
-                }}
+            </div>
                 onMouseLeave={(e) => {
                   e.target.style.backgroundColor = "transparent";
                   e.target.style.color = "#1E3B60";
@@ -163,8 +135,8 @@ const HeroSection = () => {
           onClick={scrollToProducts}
           className="animate-bounce transition-colors"
           style={{ color: "#1E3B60" }}
-          onMouseEnter={(e) => (e.target.style.color = "#2C5F87")}
-          onMouseLeave={(e) => (e.target.style.color = "#1E3B60")}
+          onMouseEnter={(e) => e.target.style.color = "#2C5F87"}
+          onMouseLeave={(e) => e.target.style.color = "#1E3B60"}
           aria-label="Scroll to products"
         >
           <ChevronRight className="w-6 h-6 transform rotate-90" />
