@@ -736,6 +736,7 @@ function App() {
                 path="/order-confirmation"
                 element={<OrderConfirmation />}
               />
+              <Route path="/emailjs-test" element={<EmailJSTest />} />
             </Routes>
           </Suspense>
         </main>
