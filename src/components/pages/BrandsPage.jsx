@@ -68,11 +68,11 @@ const BrandsPage = ({ selectedBrand, setSelectedBrand, brands = [] }) => {
 
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
             {brandsData.map((brand, index) => (
               <div
                 key={brand.name}
-                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 h-full flex flex-col"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
@@ -101,7 +101,7 @@ const BrandsPage = ({ selectedBrand, setSelectedBrand, brands = [] }) => {
                     </div>
                   </div>
                 </div>
-                <div className="p-6">
+                <div className="p-6 flex-1 flex flex-col justify-between">
                   <h3
                     className="text-xl font-semibold mb-2"
                     style={{ color: "#1e3b60" }}
