@@ -280,27 +280,54 @@ const CheckoutPage = () => {
     }
   };
 
-  // Send email confirmation with enhanced Safari support
+  // Send email confirmation with enhanced iOS Safari support
   const sendEmailConfirmation = async () => {
     if (!formData.email) {
       console.log("Email not provided");
       return;
     }
 
-    // Wait for EmailJS to be available with Safari-specific timeout
+    // Enhanced iOS detection
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const isIOSSafari = isIOS && isSafari;
+
+    // Wait for EmailJS with enhanced iOS Safari handling
     const waitForEmailJS = () => {
-      return new Promise((resolve) => {
+      return new Promise((resolve, reject) => {
+        let attempts = 0;
+        const maxAttempts = isIOSSafari ? 30 : 20; // More attempts for iOS Safari
+
         const checkEmailJS = () => {
-          if (window.emailjs) {
+          attempts++;
+          console.log(
+            `Checking EmailJS availability (attempt ${attempts}/${maxAttempts})`,
+          );
+
+          if (window.emailjs && window._emailJSReady) {
+            console.log("EmailJS is ready and initialized");
             resolve(true);
+          } else if (window._emailJSFailed) {
+            console.error("EmailJS initialization failed");
+            reject(new Error("EmailJS failed to initialize"));
+          } else if (attempts >= maxAttempts) {
+            console.error("EmailJS timeout after maximum attempts");
+            reject(new Error("EmailJS timeout"));
           } else {
-            // Safari specific: Give it more time
-            const isSafari =
-              navigator.vendor && navigator.vendor.indexOf("Apple") > -1;
-            const timeout = isSafari ? 1000 : 500;
+            // Progressive timeout increases for iOS Safari
+            let timeout;
+            if (isIOSSafari) {
+              timeout = Math.min(1000 + attempts * 200, 3000);
+            } else if (isSafari) {
+              timeout = Math.min(500 + attempts * 100, 2000);
+            } else {
+              timeout = 500;
+            }
+
             setTimeout(checkEmailJS, timeout);
           }
         };
+
         checkEmailJS();
       });
     };
