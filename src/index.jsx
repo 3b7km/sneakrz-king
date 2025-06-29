@@ -2119,6 +2119,7 @@ function App() {
       rating: 4.8,
       brand: "Nike",
       category: "Lifestyle",
+      gender: "Men",
       condition: "Brand New",
       authenticity: "100% Guaranteed",
       isNew: true,
