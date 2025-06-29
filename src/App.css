@@ -966,12 +966,7 @@ html {
   }
 
   /* Form inputs mobile */
-  input,
-  select,
-  textarea {
-    font-size: 16px !important;
-    min-height: 44px !important;
-  }
+  /* Input styles moved to mobile-responsive.css */
 
   /* Grid responsive */
   .grid.md\\:grid-cols-2,
