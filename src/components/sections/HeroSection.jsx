@@ -165,7 +165,10 @@ const HeroSection = () => {
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
         <button
           onClick={scrollToProducts}
-          className="animate-bounce text-white hover:text-blue-200 transition-colors"
+          className="animate-bounce transition-colors"
+          style={{ color: "#1E3B60" }}
+          onMouseEnter={(e) => (e.target.style.color = "#2C5F87")}
+          onMouseLeave={(e) => (e.target.style.color = "#1E3B60")}
           aria-label="Scroll to products"
         >
           <ChevronRight className="w-6 h-6 transform rotate-90" />
