@@ -920,20 +920,42 @@ const CheckoutPage = () => {
 
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !isFormReady()}
                 className="w-full text-white py-4 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 place-order-button button-loading"
                 style={{
-                  backgroundColor: "#002b5e",
+                  backgroundColor:
+                    isSubmitting || !isFormReady() ? "#6b7280" : "#002b5e",
                   minHeight: "48px",
                   fontSize: "16px",
                   touchAction: "manipulation",
+                  WebkitTouchCallout: "none",
+                  WebkitUserSelect: "none",
+                  WebkitTapHighlightColor: "transparent",
+                  cursor:
+                    isSubmitting || !isFormReady() ? "not-allowed" : "pointer",
                 }}
-                onMouseEnter={(e) =>
-                  !isSubmitting && (e.target.style.backgroundColor = "#001a3d")
-                }
-                onMouseLeave={(e) =>
-                  !isSubmitting && (e.target.style.backgroundColor = "#002b5e")
-                }
+                onMouseEnter={(e) => {
+                  if (!isSubmitting && isFormReady()) {
+                    e.target.style.backgroundColor = "#001a3d";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isSubmitting && isFormReady()) {
+                    e.target.style.backgroundColor = "#002b5e";
+                  }
+                }}
+                onTouchStart={(e) => {
+                  // iOS Safari specific touch handling
+                  if (!isSubmitting && isFormReady()) {
+                    e.target.style.backgroundColor = "#001a3d";
+                  }
+                }}
+                onTouchEnd={(e) => {
+                  // iOS Safari specific touch handling
+                  if (!isSubmitting && isFormReady()) {
+                    e.target.style.backgroundColor = "#002b5e";
+                  }
+                }}
               >
                 {isSubmitting && <LoadingSpinner size="sm" />}
                 <span>
