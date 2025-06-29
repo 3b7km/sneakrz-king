@@ -57,7 +57,7 @@ const CheckoutPage = ({ cartItems = [] }) => {
 
       const response = await window.emailjs.send(
         "service_jpicl4m",
-        "template_mgf1n2b",
+        "template_sd6o0td",
         templateParams,
       );
 
