@@ -85,4 +85,24 @@
     padding-top: 2rem !important;
     padding-bottom: 2rem !important;
   }
+
+  /* Text overflow fixes */
+  .cart-item-name {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    max-width: 200px !important;
+  }
+
+  .cart-item-details {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* Prevent horizontal scrolling */
+  body,
+  html {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+  }
 }
