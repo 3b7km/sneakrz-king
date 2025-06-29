@@ -56,27 +56,12 @@ const HeroSection = () => {
               </p>
             </div>
 
-            {/* Features */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="flex items-center space-x-2">
-                <Shield className="w-5 h-5 text-blue-400" />
-                <span className="text-sm text-blue-100">100% Authentic</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Truck className="w-5 h-5 text-blue-400" />
-                <span className="text-sm text-blue-100">Fast Delivery</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Star className="w-5 h-5 text-blue-400" />
-                <span className="text-sm text-blue-100">Premium Quality</span>
-              </div>
-            </div>
-
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               <button
                 onClick={scrollToProducts}
-                className="group bg-white text-blue-900 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex items-center justify-center gap-2"
+                className="group px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex items-center justify-center gap-2"
+                style={{ backgroundColor: "#1E3B60", color: "white" }}
               >
                 Shop Collection
                 <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -84,33 +69,43 @@ const HeroSection = () => {
 
               <button
                 onClick={() => navigate("/mens-shoes")}
-                className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:bg-white hover:text-blue-900 transform hover:scale-105"
+                className="border-2 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105"
+                style={{
+                  borderColor: "#1E3B60",
+                  color: "#1E3B60",
+                  backgroundColor: "transparent",
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = "#1E3B60";
+                  e.target.style.color = "white";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = "transparent";
+                  e.target.style.color = "#1E3B60";
+                }}
               >
                 Men's Collection
               </button>
 
               <button
                 onClick={() => navigate("/womens-shoes")}
-                className="border-2 border-blue-300 text-blue-300 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:bg-blue-300 hover:text-blue-900 transform hover:scale-105"
+                className="border-2 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105"
+                style={{
+                  borderColor: "#1E3B60",
+                  color: "#1E3B60",
+                  backgroundColor: "transparent",
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = "#1E3B60";
+                  e.target.style.color = "white";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = "transparent";
+                  e.target.style.color = "#1E3B60";
+                }}
               >
                 Women's Collection
               </button>
-            </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-blue-800">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white">500+</div>
-                <div className="text-sm text-blue-200">Products</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white">5+</div>
-                <div className="text-sm text-blue-200">Top Brands</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white">1000+</div>
-                <div className="text-sm text-blue-200">Happy Customers</div>
-              </div>
             </div>
           </div>
 
