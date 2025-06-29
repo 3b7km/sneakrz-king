@@ -11,7 +11,8 @@ const Footer = () => {
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2Fcb0376fc8e71411c9ebb0a3533b4d888%2Ff322eb655db24ea58df7325cb5eb92ff"
                 alt="SneakrzKing Logo"
-                className="w-20 h-20 mr-3"
+                className="mr-3"
+                style={{ width: "50px", height: "50px" }}
               />
               <h3 className="text-xl font-bold">Sneakrz King</h3>
             </div>
