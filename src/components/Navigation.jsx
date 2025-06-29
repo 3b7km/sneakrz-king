@@ -34,7 +34,7 @@ const Navigation = ({
               tabIndex={0}
               aria-label="Home"
             >
-              <div className="w-20 h-20 mr-4 transition-transform duration-300 group-hover:scale-110">
+              <div className="w-28 h-28 mr-4 transition-transform duration-300 group-hover:scale-110">
                 <img
                   src="https://cdn.builder.io/api/v1/image/assets%2Fcb0376fc8e71411c9ebb0a3533b4d888%2F9d94d31e894f47c7ab1bcdd0297a87c3"
                   alt="SneakrzKing Logo"
