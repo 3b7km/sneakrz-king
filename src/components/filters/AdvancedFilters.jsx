@@ -150,15 +150,20 @@ const AdvancedFilters = ({
             {filterOptions.categories.map((category) => (
               <label
                 key={category}
-                className="flex items-center group cursor-pointer"
+                className="flex items-center group cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition-colors"
               >
                 <input
                   type="checkbox"
                   checked={selectedCategories.includes(category)}
                   onChange={() => handleCategoryToggle(category)}
-                  className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 focus:ring-2 transition-all"
+                  className="w-5 h-5 text-blue-600 border-2 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 focus:ring-offset-2 transition-all"
+                  style={{
+                    accentColor: "#3B82F6",
+                    appearance: "auto",
+                    WebkitAppearance: "checkbox",
+                  }}
                 />
-                <span className="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors capitalize">
+                <span className="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors capitalize font-medium">
                   {category}
                 </span>
               </label>
