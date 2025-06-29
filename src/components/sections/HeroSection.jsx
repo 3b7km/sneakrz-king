@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ChevronRight, Star } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 const HeroSection = () => {
   const navigate = useNavigate();
@@ -31,100 +31,36 @@ const HeroSection = () => {
       </div>
 
       {/* Background Pattern */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/50 to-black/30"></div>
+      <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/60 to-black/40"></div>
 
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
-          <div className="text-white space-y-8">
-            <div className="space-y-4">
-              <h1 className="hero-title text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-white">
-                Step Into
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200">
-                  Greatness
-                </span>
-              </h1>
+        <div className="text-center">
+          {/* Main Title */}
+          <h1 className="hero-title text-6xl md:text-7xl lg:text-8xl font-bold leading-tight text-white mb-8">
+            Step Into Greatness
+          </h1>
 
-              <p className="hero-subtitle text-xl md:text-2xl text-gray-200 leading-relaxed max-w-lg">
-                Discover the authentic and greatest sneakers from top brands.
-                Authentic products, fast delivery, and unmatched style.
-              </p>
-            </div>
+          {/* Subtitle */}
+          <p className="hero-subtitle text-xl md:text-2xl text-gray-200 leading-relaxed max-w-3xl mx-auto mb-12">
+            Discover the authentic and greatest sneakers from top brands.
+            Authentic products, fast delivery, and unmatched style.
+          </p>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button
-                onClick={scrollToProducts}
-                className="group px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white"
-              >
-                🛒 Shop Now
-              </button>
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              onClick={scrollToProducts}
+              className="group px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white"
+            >
+              🛒 Shop Now
+            </button>
 
-              <button
-                onClick={() => navigate("/products")}
-                className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:bg-white hover:text-black"
-              >
-                View Collection
-              </button>
-            </div>
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = "transparent";
-                  e.target.style.color = "#1E3B60";
-                }}
-              >
-                Women's Collection
-              </button>
-            </div>
-          </div>
-
-          {/* Right Content - Featured Product Showcase */}
-          <div className="hidden lg:block">
-            <div className="relative">
-              {/* Background Circle */}
-              <div className="absolute inset-0 bg-gradient-to-r from-gray-200/20 to-gray-300/20 rounded-full blur-3xl transform scale-150"></div>
-
-              {/* Featured Product */}
-              <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 shadow-2xl">
-                <div className="text-center">
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F0f4530de78a647deb471d412dfb4a0d7?format=webp&width=400"
-                    alt="Featured Sneaker"
-                    className="w-64 h-64 object-contain mx-auto mb-4 transform hover:scale-110 transition-transform duration-300"
-                    loading="eager"
-                  />
-                  <h3
-                    className="text-xl font-bold mb-2"
-                    style={{ color: "#1E3B60" }}
-                  >
-                    Featured Product
-                  </h3>
-                  <p className="text-gray-600 text-sm mb-4">
-                    Nike Air Force 1 '07
-                  </p>
-                  <div className="flex items-center justify-center space-x-2 mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-4 h-4 text-yellow-400 fill-current"
-                      />
-                    ))}
-                    <span className="text-gray-700 text-sm ml-2">(4.8)</span>
-                  </div>
-                  <button
-                    className="px-6 py-2 rounded-lg font-medium transition-colors text-white"
-                    style={{ backgroundColor: "#1E3B60" }}
-                    onMouseEnter={(e) =>
-                      (e.target.style.backgroundColor = "#2C5F87")
-                    }
-                    onMouseLeave={(e) =>
-                      (e.target.style.backgroundColor = "#1E3B60")
-                    }
-                  >
-                    View Product
-                  </button>
-                </div>
-              </div>
-            </div>
+            <button
+              onClick={() => navigate("/products")}
+              className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:bg-white hover:text-black"
+            >
+              View Collection
+            </button>
           </div>
         </div>
       </div>
@@ -133,10 +69,7 @@ const HeroSection = () => {
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
         <button
           onClick={scrollToProducts}
-          className="animate-bounce transition-colors"
-          style={{ color: "#1E3B60" }}
-          onMouseEnter={(e) => e.target.style.color = "#2C5F87"}
-          onMouseLeave={(e) => e.target.style.color = "#1E3B60"}
+          className="animate-bounce text-white hover:text-gray-300 transition-colors"
           aria-label="Scroll to products"
         >
           <ChevronRight className="w-6 h-6 transform rotate-90" />
