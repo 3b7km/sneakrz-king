@@ -945,12 +945,7 @@ html {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
   }
 
-  /* Button accessibility for mobile */
-  .btn-enhanced,
-  .btn-professional {
-    min-height: 44px !important;
-    font-size: 16px !important;
-  }
+  /* Button styles moved to mobile-responsive.css to avoid conflicts */
 
   /* Cart page mobile responsive */
   .cart-page,
