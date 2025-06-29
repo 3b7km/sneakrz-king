@@ -62,34 +62,24 @@ const HeroSection = () => {
             <div className="space-y-8">
               {/* Inspirational Header Text */}
               <div className="text-center space-y-6 mb-12">
-                <h1 className="hero-title text-5xl md:text-6xl lg:text-7xl font-bold leading-tight animate-fadeInUp">
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-200 to-white drop-shadow-2xl">
-                    Rise With
+                <h1 className="hero-title text-5xl md:text-6xl lg:text-7xl font-bold leading-tight animate-fadeInUp flex flex-col">
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-200 to-white drop-shadow-2xl ml-auto pb-48">
+                    <p>
+                      Rise With <strong>Every Step</strong>
+                    </p>
                   </span>
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-white to-blue-300 drop-shadow-2xl animate-fadeInUp animation-delay-200">
-                    Every Step
-                  </span>
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-white to-blue-300 drop-shadow-2xl animate-fadeInUp animation-delay-200"></span>
                 </h1>
 
                 <p className="hero-subtitle text-xl md:text-2xl lg:text-3xl text-blue-100 leading-relaxed max-w-4xl mx-auto font-light animate-fadeInUp animation-delay-400">
-                  Discover authentic sneakers from the world's most prestigious
-                  brands.
-                  <span className="block mt-2 text-white/90 font-medium">
-                    Experience style, comfort, and authenticity in every step.
-                  </span>
+                  <span className="block mt-2 text-white/90 font-medium"></span>
                 </p>
               </div>
 
               {/* Additional Motivational Text */}
               <div className="text-center space-y-4 animate-fadeInUp animation-delay-500">
-                <h2 className="text-2xl md:text-3xl font-semibold text-white/90">
-                  Elevate Your Journey
-                </h2>
-                <p className="text-lg text-blue-200 max-w-2xl mx-auto leading-relaxed">
-                  Every great journey begins with a single step. Make yours
-                  count with premium sneakers that define your path to
-                  greatness.
-                </p>
+                <h2 className="text-2xl md:text-3xl font-semibold text-white/90"></h2>
+                <p className="text-lg text-blue-200 max-w-2xl mx-auto leading-relaxed"></p>
               </div>
             </div>
 
