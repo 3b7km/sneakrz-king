@@ -900,20 +900,25 @@ const CheckoutPage = () => {
 
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !isFormReady()}
                 className="w-full text-white py-4 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 place-order-button button-loading"
                 style={{
-                  backgroundColor: "#002b5e",
+                  backgroundColor:
+                    isSubmitting || !isFormReady() ? "#9ca3af" : "#002b5e",
                   minHeight: "48px",
                   fontSize: "16px",
                   touchAction: "manipulation",
                 }}
-                onMouseEnter={(e) =>
-                  !isSubmitting && (e.target.style.backgroundColor = "#001a3d")
-                }
-                onMouseLeave={(e) =>
-                  !isSubmitting && (e.target.style.backgroundColor = "#002b5e")
-                }
+                onMouseEnter={(e) => {
+                  if (!isSubmitting && isFormReady()) {
+                    e.target.style.backgroundColor = "#001a3d";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isSubmitting && isFormReady()) {
+                    e.target.style.backgroundColor = "#002b5e";
+                  }
+                }}
               >
                 {isSubmitting && <LoadingSpinner size="sm" />}
                 <span>
@@ -921,11 +926,24 @@ const CheckoutPage = () => {
                 </span>
               </button>
 
-              {/* Form status indicator */}
-              {!isFormReady() && Object.keys(formErrors).length === 0 && (
-                <p className="mt-2 text-sm text-gray-600 text-center">
-                  Please fill in all required fields to place your order
-                </p>
+              {/* Enhanced form status indicator */}
+              {!isFormReady() && (
+                <div className="mt-3 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                  <p className="text-sm text-yellow-800 text-center font-medium">
+                    Please complete all required fields to place your order
+                  </p>
+                  {Object.keys(formErrors).length > 0 && (
+                    <div className="mt-2 text-xs text-yellow-700">
+                      <p>Issues found:</p>
+                      <ul className="list-disc list-inside">
+                        {Object.entries(formErrors).map(
+                          ([field, error]) =>
+                            error && <li key={field}>{error}</li>,
+                        )}
+                      </ul>
+                    </div>
+                  )}
+                </div>
               )}
             </form>
           </div>
