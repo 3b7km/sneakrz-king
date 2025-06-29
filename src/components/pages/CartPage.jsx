@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { Minus, Plus, X } from "lucide-react";
+import { useCart } from "../../context/CartContext";
+import { LoadingSpinner } from "../LoadingSpinner";
+import { useState } from "react";
 
-const CartPage = ({
-  cartItems = [],
-  updateCartItem,
-  removeFromCart,
-  clearCart,
-}) => {
+const CartPage = () => {
   const navigate = useNavigate();
+  const { cartItems, updateQuantity, removeItem, clearCart } = useCart();
+  const [loadingStates, setLoadingStates] = useState({});
 
   const subtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
