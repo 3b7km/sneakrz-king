@@ -121,19 +121,23 @@ const OrderConfirmation = () => {
         </div>
 
         {/* Success Header */}
-        <div className="text-center mb-12">
-          <div className="mx-auto flex items-center justify-center h-24 w-24 rounded-full bg-green-100 mb-6">
-            <CheckCircle className="h-12 w-12 text-green-600" />
+        <div className="text-center mb-8 md:mb-12 px-4">
+          <div className="mx-auto flex items-center justify-center h-16 w-16 md:h-24 md:w-24 rounded-full bg-green-100 mb-4 md:mb-6">
+            <CheckCircle className="h-8 w-8 md:h-12 md:w-12 text-green-600" />
           </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
             Order Confirmed!
           </h1>
-          <p className="text-xl text-gray-600 mb-6">
+          <p className="text-base md:text-xl text-gray-600 mb-4 md:mb-6 max-w-2xl mx-auto">
             Thank you for your purchase. We'll send you updates via WhatsApp.
           </p>
-          <div className="bg-white rounded-lg shadow-sm border-2 border-green-200 px-6 py-4 inline-block">
-            <p className="text-sm text-gray-600 mb-1">Order Number</p>
-            <p className="text-2xl font-bold text-green-600">#{orderNumber}</p>
+          <div className="bg-white rounded-lg shadow-sm border-2 border-green-200 px-4 md:px-6 py-3 md:py-4 inline-block">
+            <p className="text-xs md:text-sm text-gray-600 mb-1">
+              Order Number
+            </p>
+            <p className="text-xl md:text-2xl font-bold text-green-600">
+              #{orderNumber}
+            </p>
           </div>
         </div>
 
