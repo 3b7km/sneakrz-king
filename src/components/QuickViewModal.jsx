@@ -151,7 +151,7 @@ const QuickViewModal = ({
                 <h4 className="text-sm font-semibold text-gray-900 mb-2">
                   Quantity
                 </h4>
-                <div className="flex items-center border border-gray-300 rounded-lg w-32">
+                <div className="flex flex-row justify-center items-center border border-gray-300 rounded-lg w-32">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                     className="p-2 hover:bg-gray-50"
