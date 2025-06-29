@@ -856,6 +856,46 @@ html {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
+/* Search Dropdown Styles */
+.search-dropdown {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.1),
+    0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.search-result-item {
+  transition: all 0.2s ease;
+  border-radius: 8px;
+  margin: 2px 4px;
+}
+
+.search-result-item:hover {
+  background: rgba(59, 130, 246, 0.05);
+  transform: translateX(4px);
+}
+
+.search-result-item.selected {
+  background: rgba(59, 130, 246, 0.1);
+  border-left: 3px solid #3b82f6;
+}
+
+.search-result-image {
+  transition: transform 0.2s ease;
+}
+
+.search-result-item:hover .search-result-image {
+  transform: scale(1.05);
+}
+
+/* Search input focus effects */
+.search-input-container:focus-within {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
 /* Enhanced Mobile Responsiveness */
 @media (max-width: 640px) {
   .card-professional,
