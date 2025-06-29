@@ -186,11 +186,28 @@ const AdvancedFilters = ({
                   e.stopPropagation();
                   handleSizeToggle(size);
                 }}
-                className={`px-4 py-2 border rounded-lg text-sm font-medium transition-all duration-200 min-w-[48px] h-10 flex items-center justify-center ${
+                onTouchStart={(e) => {
+                  // Mobile touch support
+                  e.preventDefault();
+                }}
+                onTouchEnd={(e) => {
+                  // Mobile touch support
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleSizeToggle(size);
+                }}
+                className={`px-4 py-2 border rounded-lg text-sm font-medium transition-all duration-200 min-w-[48px] h-10 flex items-center justify-center touch-manipulation ${
                   selectedSizes.includes(size)
                     ? "border-blue-500 bg-blue-500 text-white shadow-md transform scale-105"
-                    : "border-gray-300 text-gray-700 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-700"
+                    : "border-gray-300 text-gray-700 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-700 active:bg-blue-100"
                 }`}
+                style={{
+                  touchAction: "manipulation",
+                  WebkitTapHighlightColor: "transparent",
+                  WebkitTouchCallout: "none",
+                  WebkitUserSelect: "none",
+                  userSelect: "none",
+                }}
                 aria-pressed={selectedSizes.includes(size)}
                 role="button"
                 tabIndex={0}
