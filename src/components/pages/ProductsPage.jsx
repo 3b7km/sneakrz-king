@@ -155,7 +155,14 @@ const ProductsPage = ({
               </span>
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
+                className="text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                style={{ backgroundColor: "#002b5e" }}
+                onMouseEnter={(e) =>
+                  (e.target.style.backgroundColor = "#001a3d")
+                }
+                onMouseLeave={(e) =>
+                  (e.target.style.backgroundColor = "#002b5e")
+                }
               >
                 {showFilters ? "Hide Filters" : "More Filters"}
               </button>
