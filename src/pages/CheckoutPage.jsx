@@ -27,6 +27,48 @@ const CheckoutPage = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Initialize EmailJS
+  useEffect(() => {
+    if (window.emailjs) {
+      window.emailjs.init("YB3nz0o8m09fUU-e6"); // Your public key
+    }
+  }, []);
+
+  // Send email confirmation
+  const sendEmailConfirmation = async () => {
+    if (!customerData.email || !window.emailjs) {
+      return;
+    }
+
+    try {
+      const templateParams = {
+        customer_name: customerData.name,
+        customer_email: customerData.email,
+        customer_phone: customerData.phone,
+        customer_address: `${customerData.address}, ${customerData.city}, ${customerData.governorate}`,
+        order_items: cartItems
+          .map(
+            (item) =>
+              `${item.name} (${item.brand}) - Size: ${item.selectedSize || "N/A"} - Qty: ${item.quantity} - Price: ${item.price} EGP`,
+          )
+          .join("\n"),
+        total_amount: getTotalPrice().toFixed(2),
+        order_notes: customerData.notes || "No additional notes",
+      };
+
+      await window.emailjs.send(
+        "service_jpicl4m",
+        "template_mgf1n2b",
+        templateParams,
+      );
+
+      console.log("Email sent successfully");
+    } catch (error) {
+      console.error("Email sending failed:", error);
+    }
+  };
 
   // Handle form input changes
   const handleInputChange = (e) => {
