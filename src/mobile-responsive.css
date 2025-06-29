@@ -135,7 +135,7 @@ body {
   /* Regular buttons - exclude hero section buttons */
   button:not(.btn-enhanced):not(.btn-professional):not(.cart-quantity-btn):not(
       .hero-collection-btn
-    ):not(.hero-explore-btn) {
+    ):not(.hero-explore-btn):not(.hero-dropdown-btn) {
     min-height: 48px !important;
     font-size: 16px !important;
     padding: 12px 16px !important;
@@ -145,7 +145,8 @@ body {
 
   /* Hero section buttons - preserve original styling */
   .hero-collection-btn,
-  .hero-explore-btn {
+  .hero-explore-btn,
+  .hero-dropdown-btn {
     min-height: auto !important;
     font-size: inherit !important;
     padding: inherit !important;
