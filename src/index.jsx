@@ -2149,6 +2149,7 @@ function App() {
       rating: 4.7,
       brand: "Adidas",
       category: "Lifestyle",
+      gender: "Women",
       condition: "Brand New",
       authenticity: "100% Guaranteed",
       isNew: false,
