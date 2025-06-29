@@ -2370,6 +2370,7 @@ function App() {
       rating: 4.5,
       brand: "ASICS",
       category: "Running",
+      gender: "Men",
       condition: "Brand New",
       authenticity: "100% Guaranteed",
       isNew: true,
