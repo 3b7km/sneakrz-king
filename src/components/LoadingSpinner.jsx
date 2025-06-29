@@ -49,7 +49,7 @@ export const AddToCartButton = ({
       isLoading={isLoading}
       loadingText="Adding..."
       disabled={disabled}
-      className={`w-full btn-enhanced ${className}`}
+      className={`w-full cart-action-btn ${className}`}
       style={{
         background: "linear-gradient(135deg, #2C3E50 0%, #34495E 100%)",
         color: "white",
@@ -59,6 +59,18 @@ export const AddToCartButton = ({
       {!isLoading && <ShoppingCart className="w-4 h-4 mr-2" />}
       {isLoading ? "Adding to Cart..." : "Add to Cart"}
     </LoadingButton>
+  );
+};
+
+// Cart Loading States
+export const CartLoadingSpinner = ({ message = "Updating cart..." }) => {
+  return (
+    <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50 flex items-center justify-center">
+      <div className="bg-white rounded-lg p-6 shadow-lg text-center">
+        <LoadingSpinner size="lg" className="text-blue-600 mb-4" />
+        <p className="text-gray-600 font-medium">{message}</p>
+      </div>
+    </div>
   );
 };
 
