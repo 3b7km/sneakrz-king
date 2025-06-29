@@ -458,22 +458,59 @@ const CheckoutPage = () => {
       console.error("Browser info:", {
         userAgent: navigator.userAgent,
         vendor: navigator.vendor,
+        isIOS: isIOS,
+        isSafari: isSafari,
+        isIOSSafari: isIOSSafari,
         emailJSAvailable: !!window.emailjs,
+        emailJSReady: !!window._emailJSReady,
+        emailJSFailed: !!window._emailJSFailed,
       });
 
-      // For Safari, try once more with a longer delay
-      const isSafari =
-        navigator.vendor && navigator.vendor.indexOf("Apple") > -1;
-      if (isSafari && !error.retried) {
-        console.log("Safari detected, attempting retry...");
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+      // Enhanced retry logic for iOS Safari
+      if ((isIOSSafari || isSafari) && !error.retried) {
+        console.log(
+          `${isIOSSafari ? "iOS Safari" : "Safari"} detected, attempting enhanced retry...`,
+        );
+
+        // Longer delay for iOS Safari
+        const retryDelay = isIOSSafari ? 3000 : 2000;
+        await new Promise((resolve) => setTimeout(resolve, retryDelay));
+
+        // Force re-initialization for iOS Safari if needed
+        if (isIOSSafari && window.emailjs) {
+          try {
+            console.log("iOS Safari: Force re-initializing EmailJS for retry");
+            window.emailjs.init("xZ-FMAkzHPph3aojg");
+            window._emailJSReady = true;
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+          } catch (reinitError) {
+            console.error("iOS Safari re-initialization failed:", reinitError);
+          }
+        }
 
         if (window.emailjs) {
           try {
             error.retried = true;
+            console.log("Attempting retry with enhanced error handling");
             return await sendEmailConfirmation();
           } catch (retryError) {
-            console.error("Safari retry also failed:", retryError);
+            console.error(
+              `${isIOSSafari ? "iOS Safari" : "Safari"} retry also failed:`,
+              retryError,
+            );
+
+            // Final attempt for iOS Safari with different approach
+            if (isIOSSafari && !retryError.finalAttempt) {
+              console.log("iOS Safari: Final attempt with different timing");
+              await new Promise((resolve) => setTimeout(resolve, 2000));
+
+              try {
+                retryError.finalAttempt = true;
+                return await sendEmailConfirmation();
+              } catch (finalError) {
+                console.error("iOS Safari final attempt failed:", finalError);
+              }
+            }
           }
         }
       }
