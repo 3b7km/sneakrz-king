@@ -50,6 +50,14 @@ const Footer = () => {
             <ul className="space-y-2 text-sm">
               <li>
                 <a
+                  href="/"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Home
+                </a>
+              </li>
+              <li>
+                <a
                   href="/products"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
