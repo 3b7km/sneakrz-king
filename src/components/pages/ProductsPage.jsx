@@ -1,4 +1,5 @@
-import { Suspense, lazy, useState, useMemo } from "react";
+import { Suspense, lazy, useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 // Lazy load components
 const BrandFilter = lazy(() => import("../filters/BrandFilter.jsx"));
