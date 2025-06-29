@@ -286,7 +286,7 @@ const CheckoutPage = () => {
             {/* Email Status */}
             {emailSentStatus && (
               <div
-                className={`mb-6 p-4 rounded-lg flex items-start space-x-3 ${
+                className={`mb-6 p-4 rounded-lg flex items-start gap-3 email-status-message ${
                   emailSentStatus === "sent"
                     ? "bg-green-50 border border-green-200"
                     : emailSentStatus === "failed"
@@ -295,7 +295,7 @@ const CheckoutPage = () => {
                 }`}
               >
                 {emailSentStatus === "sending" && (
-                  <LoadingSpinner size="sm" className="mt-0.5" />
+                  <LoadingSpinner size="sm" className="mt-0.5 flex-shrink-0" />
                 )}
                 {emailSentStatus === "sent" && (
                   <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
@@ -303,9 +303,9 @@ const CheckoutPage = () => {
                 {emailSentStatus === "failed" && (
                   <AlertCircle className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" />
                 )}
-                <div>
+                <div className="flex-1">
                   <p
-                    className={`text-sm ${
+                    className={`text-sm leading-relaxed ${
                       emailSentStatus === "sent"
                         ? "text-green-700"
                         : emailSentStatus === "failed"
@@ -316,9 +316,9 @@ const CheckoutPage = () => {
                     {emailSentStatus === "sending" &&
                       "Sending confirmation email..."}
                     {emailSentStatus === "sent" &&
-                      "Confirmation email sent successfully!"}
+                      "Confirmation email sent successfully! Check your inbox."}
                     {emailSentStatus === "failed" &&
-                      "Could not send confirmation email, but order will still be processed."}
+                      "Could not send confirmation email, but your order will still be processed."}
                   </p>
                 </div>
               </div>
