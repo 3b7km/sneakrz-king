@@ -47,6 +47,29 @@ const ProductGallery = ({ images, productName, className = "" }) => {
           alt={`${productName} - View ${currentIndex + 1} of ${images.length}`}
           className="w-full h-80 sm:h-96 lg:h-[500px] object-contain bg-gray-50 rounded-xl"
           loading="lazy"
+          onError={(e) => {
+            // Try to fix common path issues
+            const originalSrc = e.target.src;
+            if (originalSrc.includes("./Sneakers photos/")) {
+              e.target.src = originalSrc.replace(
+                "./Sneakers photos/",
+                "/Sneakers photos/",
+              );
+            } else if (!originalSrc.includes("/Sneakers photos/")) {
+              // Fallback to placeholder
+              e.target.style.display = "none";
+              e.target.parentElement.style.backgroundColor = "#f3f4f6";
+              e.target.parentElement.innerHTML = `
+                <div class="flex items-center justify-center h-full">
+                  <div class="text-center text-gray-500">
+                    <div class="text-4xl mb-2">📸</div>
+                    <div class="text-lg">Image not available</div>
+                    <div class="text-sm">${productName}</div>
+                  </div>
+                </div>
+              `;
+            }
+          }}
         />
 
         {/* Navigation Arrows */}
