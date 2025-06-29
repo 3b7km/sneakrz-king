@@ -148,7 +148,7 @@ const CheckoutPage = () => {
   };
 
   // Handle order submission
-  const handleSubmitOrder = () => {
+  const handleSubmitOrder = async () => {
     if (!validateForm()) {
       return;
     }
@@ -158,24 +158,42 @@ const CheckoutPage = () => {
       return;
     }
 
-    // Format WhatsApp message
-    const message = formatWhatsAppMessage();
+    setIsSubmitting(true);
 
-    // Your WhatsApp business number (replace with your actual number)
-    const whatsappNumber = "201023329072"; // Replace with your number
+    try {
+      // Send email confirmation if email is provided
+      if (customerData.email) {
+        await sendEmailConfirmation();
+      }
 
-    // Create WhatsApp URL
-    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
+      // Format WhatsApp message
+      const message = formatWhatsAppMessage();
 
-    // Open WhatsApp
-    window.open(whatsappURL, "_blank");
+      // Your WhatsApp business number (replace with your actual number)
+      const whatsappNumber = "201023329072"; // Replace with your number
 
-    // Clear cart after successful order
-    clearCart();
+      // Create WhatsApp URL
+      const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
 
-    // Show success message and redirect
-    alert("تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً.");
-    navigate("/");
+      // Open WhatsApp
+      window.open(whatsappURL, "_blank");
+
+      // Clear cart after successful order
+      clearCart();
+
+      // Show success message with email confirmation
+      const successMessage = customerData.email
+        ? "تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً وتم إرسال تأكيد الطلب على إيميلك."
+        : "تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً.";
+
+      alert(successMessage);
+      navigate("/");
+    } catch (error) {
+      console.error("Order submission error:", error);
+      alert("حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (cartItems.length === 0) {
