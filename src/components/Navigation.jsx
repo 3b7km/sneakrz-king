@@ -9,6 +9,7 @@ const Navigation = ({
   setSearchTerm = () => {},
   isMenuOpen = false,
   setIsMenuOpen = () => {},
+  products = [],
 }) => {
   const location = useLocation();
 
