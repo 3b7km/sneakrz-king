@@ -946,6 +946,24 @@ html {
     gap: 1rem !important;
   }
 
+  /* Filter mobile improvements */
+  .filter-size-btn {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    font-size: 14px !important;
+  }
+
+  .filter-container {
+    padding: 1rem !important;
+    border-radius: 12px !important;
+  }
+
+  /* Advanced filters mobile layout */
+  .grid.sm\\:grid-cols-2.lg\\:grid-cols-4 {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
   /* Hero mobile */
   .hero-section-enhanced {
     min-height: 80vh !important;
