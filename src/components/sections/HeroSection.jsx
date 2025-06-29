@@ -41,8 +41,7 @@ const HeroSection = () => {
             <div className="space-y-6">
               <h1 className="hero-title text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
                 Step Into Greatness
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200">
-                </span>
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200"></span>
               </h1>
 
               <p className="hero-subtitle text-xl md:text-2xl text-blue-100 leading-relaxed max-w-3xl mx-auto">
@@ -72,13 +71,13 @@ const HeroSection = () => {
                 {showDropdown && (
                   <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-30">
                     <button
-                      onClick={() => navigate("/products?gender=men")}
+                      onClick={() => navigate("/mens-shoes")}
                       className="w-full px-6 py-3 text-left text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200 font-medium"
                     >
                       Men's Collection
                     </button>
                     <button
-                      onClick={() => navigate("/products?gender=women")}
+                      onClick={() => navigate("/womens-shoes")}
                       className="w-full px-6 py-3 text-left text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200 font-medium border-t border-gray-100"
                     >
                       Women's Collection
