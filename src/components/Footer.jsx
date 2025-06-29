@@ -2,7 +2,10 @@ import { Instagram, Phone, ShoppingBag } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="relative text-white py-20" style={{ backgroundColor: '#1E3B60' }}>
+    <footer
+      className="relative text-white py-20"
+      style={{ backgroundColor: "#1E3B60" }}
+    >
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-float"></div>
@@ -21,7 +24,7 @@ const Footer = () => {
                 src="/kingsvg.svg"
                 alt="SneakrzKing Logo"
                 className="filter brightness-0 invert transition-transform duration-300 hover:scale-105 ml-0 mr-auto"
-                style={{ width: "300px", height: "250px", }}
+                style={{ width: "300px", height: "250px" }}
               />
             </div>
             <p className="text-blue-100 text-base leading-relaxed font-light">
@@ -63,7 +66,7 @@ const Footer = () => {
                 { href: "/", label: "Home" },
                 { href: "/products", label: "Products" },
                 { href: "/mens-shoes", label: "Men's Shoes" },
-                { href: "/wmns-shoes", label: "Women's Shoes" },
+                { href: "/womens-shoes", label: "Women's Shoes" },
                 { href: "/brands", label: "Brands" },
                 { href: "/about", label: "About" },
               ].map((link, index) => (
