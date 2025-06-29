@@ -1108,7 +1108,7 @@ const CheckoutPage = () => {
                   }
                 }}
                 onClick={(e) => {
-                  // Additional click handler for iOS Safari
+                  // Debug logging
                   console.log("Button clicked:", {
                     isSubmitting,
                     isFormReady: isFormReady(),
@@ -1116,8 +1116,8 @@ const CheckoutPage = () => {
                     buttonEnabled: !isSubmitting && isFormReady(),
                   });
 
-                  // Prevent multiple clicks
-                  if (isSubmitting || !isFormReady()) {
+                  // Only prevent if actually disabled
+                  if (e.target.disabled) {
                     e.preventDefault();
                     e.stopPropagation();
                     return false;
