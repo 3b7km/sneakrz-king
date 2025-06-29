@@ -713,6 +713,9 @@ function App() {
                 element={
                   <BrandsPage
                     products={products}
+                    brands={filters.brands}
+                    selectedBrand={filters.selectedBrand}
+                    setSelectedBrand={filters.setSelectedBrand}
                     openQuickView={openQuickView}
                     addToCart={addToCart}
                     loadingStates={loadingStates}
