@@ -161,9 +161,22 @@ const QuickViewModal = ({
                   <input
                     type="number"
                     value={quantity}
-                    onChange={(e) =>
-                      setQuantity(Math.max(1, parseInt(e.target.value) || 1))
-                    }
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      if (value === "" || value === "0") {
+                        setQuantity(1);
+                      } else {
+                        setQuantity(Math.max(1, parseInt(value) || 1));
+                      }
+                    }}
+                    onBlur={(e) => {
+                      if (
+                        e.target.value === "" ||
+                        parseInt(e.target.value) < 1
+                      ) {
+                        setQuantity(1);
+                      }
+                    }}
                     className="flex-1 text-center border-0 focus:outline-none"
                     min="1"
                   />
