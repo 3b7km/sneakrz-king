@@ -95,40 +95,97 @@ const CheckoutPage = () => {
     }, 5000);
   }, []);
 
-  // Simple validation
-  const validateForm = () => {
-    const newErrors = {};
+  // Enhanced validation using utility functions
+  const validateFormData = () => {
+    const formDataForValidation = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      phone: formData.phone,
+      streetAddress: formData.address,
+      city: formData.city,
+    };
 
-    if (!formData.firstName.trim()) {
-      newErrors.firstName = "First name is required";
+    const customValidationRules = {
+      firstName: checkoutValidationRules.firstName,
+      lastName: checkoutValidationRules.lastName,
+      email: checkoutValidationRules.email,
+      phone: checkoutValidationRules.phone,
+      streetAddress: checkoutValidationRules.streetAddress,
+      city: checkoutValidationRules.city,
+    };
+
+    const validation = validateForm(
+      formDataForValidation,
+      customValidationRules,
+    );
+
+    // Map validation errors back to form field names
+    const mappedErrors = {};
+    if (validation.errors.firstName)
+      mappedErrors.firstName = validation.errors.firstName;
+    if (validation.errors.lastName)
+      mappedErrors.lastName = validation.errors.lastName;
+    if (validation.errors.email) mappedErrors.email = validation.errors.email;
+    if (validation.errors.phone) mappedErrors.phone = validation.errors.phone;
+    if (validation.errors.streetAddress)
+      mappedErrors.address = validation.errors.streetAddress;
+    if (validation.errors.city) mappedErrors.city = validation.errors.city;
+
+    setErrors(mappedErrors);
+    return validation.isValid;
+  };
+
+  // Real-time field validation
+  const validateSingleField = (fieldName, value) => {
+    const fieldMapping = {
+      firstName: "firstName",
+      lastName: "lastName",
+      email: "email",
+      phone: "phone",
+      address: "streetAddress",
+      city: "city",
+    };
+
+    const customValidationRules = {
+      firstName: checkoutValidationRules.firstName,
+      lastName: checkoutValidationRules.lastName,
+      email: checkoutValidationRules.email,
+      phone: checkoutValidationRules.phone,
+      streetAddress: checkoutValidationRules.streetAddress,
+      city: checkoutValidationRules.city,
+    };
+
+    const mappedFieldName = fieldMapping[fieldName];
+    if (mappedFieldName) {
+      // Skip validation for empty optional fields (like email)
+      if (fieldName === "email" && (!value || value.trim() === "")) {
+        setErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors[fieldName];
+          return newErrors;
+        });
+        return;
+      }
+
+      const validation = validateField(
+        mappedFieldName,
+        value,
+        customValidationRules,
+      );
+      if (!validation.isValid) {
+        setErrors((prev) => ({
+          ...prev,
+          [fieldName]: validation.error,
+        }));
+      } else {
+        setErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors[fieldName];
+          return newErrors;
+        });
+      }
     }
-
-    if (!formData.lastName.trim()) {
-      newErrors.lastName = "Last name is required";
-    }
-
-    if (!formData.phone.trim()) {
-      newErrors.phone = "Phone number is required";
-    } else if (
-      !/^(\+20|20|0)?1[0-9]{9}$/.test(formData.phone.replace(/\s/g, ""))
-    ) {
-      newErrors.phone = "Please enter a valid Egyptian phone number";
-    }
-
-    if (!formData.address.trim()) {
-      newErrors.address = "Address is required";
-    }
-
-    if (!formData.city.trim()) {
-      newErrors.city = "City is required";
-    }
-
-    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
   };
 
   // Check if form is ready
