@@ -89,30 +89,32 @@ const OrderConfirmation = () => {
     <div className="min-h-screen bg-gray-50 py-4 md:py-12">
       <div className="max-w-4xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
         {/* Progress Steps */}
-        <div className="mb-8 flex justify-center">
-          <div className="flex flex-col items-center space-y-4">
+        <div className="mb-6 md:mb-8 flex justify-center overflow-x-auto pb-2">
+          <div className="flex items-center space-x-2 md:space-x-4 min-w-max px-4">
             <div className="flex items-center">
-              <div className="w-8 h-8 bg-gray-500 text-white rounded-full flex items-center justify-center font-semibold">
+              <div className="w-6 h-6 md:w-8 md:h-8 bg-gray-500 text-white rounded-full flex items-center justify-center font-semibold text-xs md:text-sm">
                 1
               </div>
-              <span className="ml-3 font-medium text-gray-800">
-                SHOPPING CART
+              <span className="ml-2 md:ml-3 font-medium text-gray-800 text-sm md:text-base whitespace-nowrap">
+                CART
               </span>
             </div>
-            <div className="w-0.5 h-6 bg-gray-400"></div>
+            <div className="w-4 md:w-6 h-0.5 bg-gray-400"></div>
             <div className="flex items-center">
-              <div className="w-8 h-8 bg-gray-500 text-white rounded-full flex items-center justify-center font-semibold">
+              <div className="w-6 h-6 md:w-8 md:h-8 bg-gray-500 text-white rounded-full flex items-center justify-center font-semibold text-xs md:text-sm">
                 2
               </div>
-              <span className="ml-3 font-medium text-gray-800">CHECKOUT</span>
+              <span className="ml-2 md:ml-3 font-medium text-gray-800 text-sm md:text-base whitespace-nowrap">
+                CHECKOUT
+              </span>
             </div>
-            <div className="w-0.5 h-6 bg-gray-400"></div>
+            <div className="w-4 md:w-6 h-0.5 bg-gray-400"></div>
             <div className="flex items-center">
-              <div className="w-8 h-8 bg-blue-900 text-white rounded-full flex items-center justify-center font-semibold">
+              <div className="w-6 h-6 md:w-8 md:h-8 bg-blue-900 text-white rounded-full flex items-center justify-center font-semibold text-xs md:text-sm">
                 3
               </div>
-              <span className="ml-3 font-medium text-blue-900">
-                ORDER STATUS
+              <span className="ml-2 md:ml-3 font-medium text-blue-900 text-sm md:text-base whitespace-nowrap">
+                CONFIRMED
               </span>
             </div>
           </div>
