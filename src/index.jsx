@@ -3031,6 +3031,8 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/products" element={<ProductsPage />} />
+            <Route path="/mens-shoes" element={<MensShoesPage />} />
+            <Route path="/womens-shoes" element={<WomensShoesPage />} />
             <Route
               path="/brands"
               element={
