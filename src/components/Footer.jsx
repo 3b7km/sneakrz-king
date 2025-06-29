@@ -12,7 +12,7 @@ const Footer = () => {
                 src="https://cdn.builder.io/api/v1/image/assets%2Fcb0376fc8e71411c9ebb0a3533b4d888%2Ff322eb655db24ea58df7325cb5eb92ff"
                 alt="SneakrzKing Logo"
                 className="mr-3"
-                style={{ width: "50px", height: "50px" }}
+                style={{ width: "100px", height: "100px" }}
               />
               <h3 className="text-xl font-bold">Sneakrz King</h3>
             </div>
@@ -114,7 +114,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-700 mt-8 pt-8 text-center">
           <p className="text-gray-400">
-            © 2024 Sneakrz King. All rights reserved. | 100% Authentic Sneakers
+            © 2024 Sneakrz King. All rights reserved.
           </p>
         </div>
       </div>
