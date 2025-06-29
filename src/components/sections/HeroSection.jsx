@@ -17,7 +17,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="hero-section-enhanced relative overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 min-h-screen flex items-center">
+    <section className="hero-section-enhanced relative overflow-hidden bg-gradient-to-min-h-screen flex items-center">
       {/* Background Video - More Visible */}
       <div className="absolute inset-0 z-0">
         <video
@@ -25,8 +25,7 @@ const HeroSection = () => {
           muted
           loop
           playsInline
-          className="w-full h-full object-cover opacity-60"
-          poster="https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F0f4530de78a647deb471d412dfb4a0d7?format=webp&width=1920"
+          className="w-full h-full object-cover opacity-100"
         >
           <source src="/logo3d.mp4" type="video/mp4" />
         </video>
@@ -41,9 +40,8 @@ const HeroSection = () => {
           <div className="text-white space-y-8">
             <div className="space-y-6">
               <h1 className="hero-title text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                Step Into
+                Step Into Greatness
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200">
-                  Greatness
                 </span>
               </h1>
 
