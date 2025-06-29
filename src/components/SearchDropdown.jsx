@@ -171,7 +171,12 @@ const SearchDropdown = ({
                     alt={product.name}
                     className="search-result-image w-full h-full object-cover"
                     onError={(e) => {
-                      e.target.src = "/placeholder-shoe.jpg";
+                      e.target.style.display = "none";
+                      e.target.parentElement.innerHTML = `
+                        <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                          <span class="text-gray-400 text-xs">👟</span>
+                        </div>
+                      `;
                     }}
                   />
                 </div>
