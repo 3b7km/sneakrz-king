@@ -2429,6 +2429,7 @@ function App() {
       rating: 4.3,
       brand: "ASICS",
       category: "Lifestyle",
+      gender: "Men",
       condition: "Brand New",
       authenticity: "100% Guaranteed",
       isNew: false,
