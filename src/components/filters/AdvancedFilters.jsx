@@ -242,8 +242,14 @@ const AdvancedFilters = ({
               >
                 Size {size}
                 <button
-                  onClick={() => handleSizeToggle(size)}
-                  className="hover:bg-green-200 rounded-full p-0.5"
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleSizeToggle(size);
+                  }}
+                  className="hover:bg-green-200 rounded-full p-0.5 transition-colors"
+                  aria-label={`Remove size ${size} filter`}
                 >
                   <X className="w-3 h-3" />
                 </button>
