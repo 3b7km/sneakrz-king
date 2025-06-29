@@ -2926,6 +2926,96 @@ function App() {
     </div>
   );
 
+  // Men's Shoes Page Component
+  const MensShoesPage = () => {
+    const mensProducts = products.filter((product) => product.gender === "Men");
+
+    return (
+      <div className="products-page py-12 bg-gray-50 min-h-screen">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h1
+              className="heading-primary text-4xl md:text-5xl font-bold mb-6"
+              style={{ color: "#1E3B60" }}
+            >
+              Men's Shoes
+            </h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Discover our premium collection of men's sneakers featuring the
+              latest styles from top brands.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+            {mensProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                onQuickView={openQuickView}
+                onAddToCart={addToCart}
+                loadingStates={loadingStates}
+              />
+            ))}
+          </div>
+
+          {mensProducts.length === 0 && (
+            <div className="text-center py-16">
+              <p className="text-xl text-gray-600">
+                No men's shoes available at the moment.
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  // Women's Shoes Page Component
+  const WomensShoesPage = () => {
+    const womensProducts = products.filter(
+      (product) => product.gender === "Women",
+    );
+
+    return (
+      <div className="products-page py-12 bg-gray-50 min-h-screen">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h1
+              className="heading-primary text-4xl md:text-5xl font-bold mb-6"
+              style={{ color: "#1E3B60" }}
+            >
+              Women's Shoes
+            </h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Explore our curated selection of women's sneakers combining style,
+              comfort, and performance.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+            {womensProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                onQuickView={openQuickView}
+                onAddToCart={addToCart}
+                loadingStates={loadingStates}
+              />
+            ))}
+          </div>
+
+          {womensProducts.length === 0 && (
+            <div className="text-center py-16">
+              <p className="text-xl text-gray-600">
+                No women's shoes available at the moment.
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <Router>
       <div className="App min-h-screen overflow-x-hidden">
