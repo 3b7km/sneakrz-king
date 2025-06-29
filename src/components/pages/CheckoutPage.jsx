@@ -898,7 +898,26 @@ const CheckoutPage = () => {
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-4"
+              style={{
+                // iPhone specific fixes
+                WebkitTransform: "translateZ(0)",
+                transform: "translateZ(0)",
+              }}
+              onSubmitCapture={(e) => {
+                // iPhone specific: Additional submit handling
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+                const isSafari = /^((?!chrome|android).)*safari/i.test(
+                  navigator.userAgent,
+                );
+                console.log("iPhone form submit captured:", {
+                  isIOS,
+                  isSafari,
+                });
+              }}
+            >
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
