@@ -36,6 +36,65 @@ const CheckoutPage = () => {
   const shipping = 80;
   const total = subtotal + shipping;
 
+  // Initialize EmailJS
+  useEffect(() => {
+    let retryCount = 0;
+    const maxRetries = 10;
+    let emailJSReady = false;
+
+    const initEmailJS = () => {
+      if (window.emailjs && !emailJSReady) {
+        try {
+          window.emailjs.init("xZ-FMAkzHPph3aojg");
+          emailJSReady = true;
+          window._emailJSReady = true;
+          console.log("EmailJS initialized successfully");
+          return true;
+        } catch (error) {
+          console.error("EmailJS initialization failed:", error);
+          return false;
+        }
+      } else if (!window.emailjs) {
+        retryCount++;
+        if (retryCount < maxRetries) {
+          const delay = 1000 * retryCount;
+          console.log(
+            `Retrying EmailJS init in ${delay}ms (attempt ${retryCount})`,
+          );
+          setTimeout(initEmailJS, delay);
+        } else {
+          console.error("EmailJS failed to load after maximum retries");
+          window._emailJSFailed = true;
+        }
+        return false;
+      }
+      return emailJSReady;
+    };
+
+    // Try immediate initialization
+    initEmailJS();
+
+    // Fallback initialization strategies
+    if (document.readyState === "complete") {
+      setTimeout(initEmailJS, 500);
+    } else {
+      window.addEventListener(
+        "load",
+        () => {
+          setTimeout(initEmailJS, 500);
+        },
+        { once: true },
+      );
+    }
+
+    // Final fallback
+    setTimeout(() => {
+      if (!emailJSReady && !window._emailJSFailed) {
+        initEmailJS();
+      }
+    }, 5000);
+  }, []);
+
   // Simple validation
   const validateForm = () => {
     const newErrors = {};
