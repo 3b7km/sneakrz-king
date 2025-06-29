@@ -4,8 +4,8 @@ import { LoadingSpinner } from "../LoadingSpinner";
 import { AlertCircle, CheckCircle } from "lucide-react";
 import { useCart } from "../../context/CartContext";
 
-const CheckoutPage = ({ cartItems = [] }) => {
-  const { clearCart } = useCart();
+const CheckoutPage = () => {
+  const { cartItems, clearCart } = useCart();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
