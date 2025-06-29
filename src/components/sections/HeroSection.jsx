@@ -1,18 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { ChevronRight } from "lucide-react";
 
 const HeroSection = () => {
   const navigate = useNavigate();
-
-  const scrollToProducts = () => {
-    const productsSection = document.getElementById("featured-collection");
-    if (productsSection) {
-      productsSection.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  };
 
   return (
     <section className="hero-section-enhanced relative overflow-hidden min-h-screen flex items-center bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
@@ -98,16 +87,6 @@ const HeroSection = () => {
             Explore Brands
           </button>
         </div>
-      </div>
-      {/* Enhanced Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-        <button
-          onClick={scrollToProducts}
-          className="group animate-bounce hover:animate-none text-white/80 hover:text-white transition-all duration-300 p-4 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20"
-          aria-label="Scroll to products"
-        >
-          <ChevronRight className="w-6 h-6 transform rotate-90 group-hover:scale-110 transition-transform duration-300" />
-        </button>
       </div>
     </section>
   );

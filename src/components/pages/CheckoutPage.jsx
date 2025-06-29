@@ -33,19 +33,23 @@ const CheckoutPage = () => {
   const shipping = 80;
   const total = subtotal + shipping;
 
-  // Initialize EmailJS with better error handling
+  // Initialize EmailJS with Safari-specific handling
   useEffect(() => {
     let retryCount = 0;
-    const maxRetries = 5;
+    const maxRetries = 10;
+    let initTimer;
 
     const initEmailJS = () => {
+      // Check for EmailJS availability
       if (window.emailjs) {
         console.log("EmailJS found, initializing...");
         try {
           window.emailjs.init("xZ-FMAkzHPph3aojg");
           console.log("EmailJS initialized successfully");
+          return true;
         } catch (error) {
           console.error("EmailJS initialization failed:", error);
+          return false;
         }
       } else {
         console.warn(
@@ -54,23 +58,61 @@ const CheckoutPage = () => {
         retryCount++;
 
         if (retryCount < maxRetries) {
-          // Try again with increasing delay
-          setTimeout(initEmailJS, 1000 * retryCount);
+          // Safari specific: Use longer delays and try multiple approaches
+          const delay =
+            navigator.vendor && navigator.vendor.indexOf("Apple") > -1
+              ? Math.min(2000 * retryCount, 10000) // Longer delays for Safari
+              : 1000 * retryCount;
+
+          initTimer = setTimeout(initEmailJS, delay);
         } else {
           console.error("EmailJS failed to load after maximum retries");
         }
+        return false;
       }
     };
 
-    // Initial attempt
-    initEmailJS();
+    // Multiple initialization strategies for Safari compatibility
+    const strategies = [
+      // Immediate attempt
+      () => initEmailJS(),
+      // DOM ready
+      () => {
+        if (document.readyState === "complete") {
+          initEmailJS();
+        } else {
+          document.addEventListener("DOMContentLoaded", initEmailJS, {
+            once: true,
+          });
+        }
+      },
+      // Window load
+      () => {
+        if (document.readyState === "complete") {
+          initEmailJS();
+        } else {
+          window.addEventListener("load", initEmailJS, { once: true });
+        }
+      },
+      // Delayed attempt for Safari
+      () => {
+        setTimeout(initEmailJS, 3000);
+      },
+    ];
 
-    // Also try when window loads (for mobile browsers)
-    const handleLoad = () => initEmailJS();
-    window.addEventListener("load", handleLoad);
+    // Try all strategies
+    strategies.forEach((strategy, index) => {
+      setTimeout(() => {
+        if (!window.emailjs) {
+          strategy();
+        }
+      }, index * 500);
+    });
 
     return () => {
-      window.removeEventListener("load", handleLoad);
+      if (initTimer) {
+        clearTimeout(initTimer);
+      }
     };
   }, []);
 
@@ -163,18 +205,45 @@ const CheckoutPage = () => {
     }
   };
 
-  // Send email confirmation
+  // Send email confirmation with enhanced Safari support
   const sendEmailConfirmation = async () => {
-    if (!formData.email || !window.emailjs) {
-      console.log("Email not provided or EmailJS not loaded");
+    if (!formData.email) {
+      console.log("Email not provided");
       return;
     }
 
+    // Wait for EmailJS to be available with Safari-specific timeout
+    const waitForEmailJS = () => {
+      return new Promise((resolve) => {
+        const checkEmailJS = () => {
+          if (window.emailjs) {
+            resolve(true);
+          } else {
+            // Safari specific: Give it more time
+            const isSafari =
+              navigator.vendor && navigator.vendor.indexOf("Apple") > -1;
+            const timeout = isSafari ? 1000 : 500;
+            setTimeout(checkEmailJS, timeout);
+          }
+        };
+        checkEmailJS();
+      });
+    };
+
     try {
       console.log("=== EmailJS Debug Info ===");
+      console.log("Browser:", navigator.userAgent);
       console.log("Attempting to send email to:", formData.email);
+
+      // Wait for EmailJS to be ready
+      await waitForEmailJS();
+
+      if (!window.emailjs) {
+        throw new Error("EmailJS failed to load");
+      }
+
+      console.log("EmailJS is ready, preparing email data...");
       console.log("Cart items:", cartItems);
-      console.log("Original total from props:", total);
       console.log("Form data:", formData);
 
       // Calculate totals to ensure they're correct
@@ -227,11 +296,10 @@ const CheckoutPage = () => {
         subtotal_amount: subtotalAmount,
         shipping_amount: "80.00",
         total_amount: totalAmount,
-        order_total: totalAmount, // Add this as backup
+        order_total: totalAmount,
         order_notes: formData.notes.trim() || "No additional notes",
         order_date: new Date().toLocaleDateString(),
         order_time: new Date().toLocaleTimeString(),
-        // Add more explicit values
         subtotal: `${subtotalAmount} EGP`,
         shipping: "80.00 EGP",
         total: `${totalAmount} EGP`,
@@ -239,6 +307,13 @@ const CheckoutPage = () => {
 
       console.log("=== Final Template Params ===");
       console.log(JSON.stringify(templateParams, null, 2));
+
+      // Safari specific: Add a small delay before sending
+      const isSafari =
+        navigator.vendor && navigator.vendor.indexOf("Apple") > -1;
+      if (isSafari) {
+        await new Promise((resolve) => setTimeout(resolve, 500));
+      }
 
       const response = await window.emailjs.send(
         "service_jpicl4m",
@@ -251,6 +326,29 @@ const CheckoutPage = () => {
     } catch (error) {
       console.error("Email sending failed:", error);
       console.error("Error details:", error.message);
+      console.error("Browser info:", {
+        userAgent: navigator.userAgent,
+        vendor: navigator.vendor,
+        emailJSAvailable: !!window.emailjs,
+      });
+
+      // For Safari, try once more with a longer delay
+      const isSafari =
+        navigator.vendor && navigator.vendor.indexOf("Apple") > -1;
+      if (isSafari && !error.retried) {
+        console.log("Safari detected, attempting retry...");
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
+        if (window.emailjs) {
+          try {
+            error.retried = true;
+            return await sendEmailConfirmation();
+          } catch (retryError) {
+            console.error("Safari retry also failed:", retryError);
+          }
+        }
+      }
+
       // Don't throw error - allow order to continue even if email fails
       return null;
     }
