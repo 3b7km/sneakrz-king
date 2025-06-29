@@ -240,9 +240,9 @@ const AdvancedFilters = ({
 
       {/* Active Filters Display */}
       {activeFiltersCount > 0 && (
-        <div className="mt-6 pt-4 border-t border-gray-200">
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-sm font-medium text-gray-700">
+        <div className="mt-8 pt-6 border-t border-gray-200">
+          <div className="flex items-start gap-3 flex-wrap">
+            <span className="text-sm font-medium text-gray-700 bg-gray-100 px-3 py-1 rounded-full">
               Active filters:
             </span>
 
