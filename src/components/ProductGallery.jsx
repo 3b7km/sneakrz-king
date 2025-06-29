@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const ProductGallery = ({ images, productName, className = "" }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [failedImages, setFailedImages] = useState(new Set());
 
   // Keyboard navigation
   useEffect(() => {
@@ -113,30 +114,40 @@ const ProductGallery = ({ images, productName, className = "" }) => {
                   : "border-gray-200 hover:border-gray-300"
               }`}
             >
-              <img
-                src={image}
-                alt={`${productName} thumbnail ${index + 1}`}
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  // Try to fix path issues for thumbnails
-                  const originalSrc = e.target.src;
-                  if (originalSrc.includes("./Sneakers photos/")) {
-                    e.target.src = originalSrc.replace(
-                      "./Sneakers photos/",
-                      "/Sneakers photos/",
-                    );
-                  } else {
-                    e.target.style.backgroundColor = "#f3f4f6";
-                    e.target.alt = "❌";
-                  }
-                }}
-              />
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default ProductGallery;
+        {failedImages.has(currentIndex) ? (
+          <div className="w-full h-80 sm:h-96 lg:h-[500px] bg-gray-50 rounded-xl flex items-center justify-center">
+            <div className="text-center text-gray-500">
+              <div className="text-4xl mb-2">📸</div>
+              <div className="text-lg">Image not available</div>
+              <div className="text-sm">{productName}</div>
+            </div>
+          </div>
+        ) : (
+          <img
+            src={images[currentIndex]}
+            alt={`${productName} - View ${currentIndex + 1} of ${images.length}`}
+            className="w-full h-80 sm:h-96 lg:h-[500px] object-contain bg-gray-50 rounded-xl"
+            loading="lazy"
+            onError={(e) => {
+              // Try to fix common path issues
+              const originalSrc = e.target.src;
+              {failedImages.has(index) ? (
+                <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                  <span className="text-gray-400 text-xs">❌</span>
+                </div>
+              ) : (
+                <img
+                  src={image}
+                  alt={`${productName} thumbnail ${index + 1}`}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    // Try to fix path issues for thumbnails
+                    const originalSrc = e.target.src;
+                    if (originalSrc.includes('./Sneakers photos/')) {
+                      e.target.src = originalSrc.replace('./Sneakers photos/', '/Sneakers photos/');
+                    } else {
+                      setFailedImages(prev => new Set([...prev, index]));
+                    }
+                  }}
+                />
+              )}
