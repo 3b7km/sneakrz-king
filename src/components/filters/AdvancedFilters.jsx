@@ -105,34 +105,38 @@ const AdvancedFilters = ({
             Price Range (EGP)
           </label>
           <div className="space-y-3">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <input
                 type="number"
                 value={priceRange[0]}
                 onChange={(e) =>
                   setPriceRange([parseInt(e.target.value) || 0, priceRange[1]])
                 }
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                 placeholder="Min"
                 min={filterOptions.minPrice}
                 max={priceRange[1]}
               />
-              <span className="text-gray-500">-</span>
+              <span className="text-gray-400 font-medium">to</span>
               <input
                 type="number"
                 value={priceRange[1]}
                 onChange={(e) =>
                   setPriceRange([priceRange[0], parseInt(e.target.value) || 0])
                 }
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                 placeholder="Max"
                 min={priceRange[0]}
                 max={filterOptions.maxPrice}
               />
             </div>
             <div className="flex justify-between text-xs text-gray-500">
-              <span>{filterOptions.minPrice} EGP</span>
-              <span>{filterOptions.maxPrice} EGP</span>
+              <span className="bg-gray-100 px-2 py-1 rounded">
+                {filterOptions.minPrice} EGP
+              </span>
+              <span className="bg-gray-100 px-2 py-1 rounded">
+                {filterOptions.maxPrice} EGP
+              </span>
             </div>
           </div>
         </div>
