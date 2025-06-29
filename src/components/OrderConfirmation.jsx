@@ -8,11 +8,13 @@ import {
   Star,
   ArrowRight,
 } from "lucide-react";
+import { useCart } from "../context/CartContext";
 
 const OrderConfirmation = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [orderData, setOrderData] = useState(null);
+  const { clearCart } = useCart();
 
   useEffect(() => {
     // Get order data from navigation state or localStorage
