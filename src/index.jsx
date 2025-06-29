@@ -2400,6 +2400,7 @@ function App() {
       rating: 4.6,
       brand: "ASICS",
       category: "Lifestyle",
+      gender: "Women",
       condition: "Brand New",
       authenticity: "100% Guaranteed",
       isNew: true,
