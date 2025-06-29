@@ -173,13 +173,13 @@ const ProductCard = ({
           <div>
             <h4 className="text-sm font-semibold text-gray-900 mb-2">Size</h4>
             <div className="flex flex-wrap gap-2">
-              {product.sizes.map((size) => {
+              {product.sizes.map((size, index) => {
                 const sizeValue = typeof size === "object" ? size.value : size;
                 const isAvailable =
                   typeof size === "object" ? size.available : true;
                 return (
                   <button
-                    key={sizeValue}
+                    key={`${product.id}-size-${sizeValue}-${index}`}
                     onClick={() => setSelectedSize(sizeValue)}
                     disabled={!isAvailable}
                     className={`px-3 py-2 border rounded-md text-sm font-medium transition-colors ${
