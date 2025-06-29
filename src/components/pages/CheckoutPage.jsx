@@ -31,10 +31,13 @@ const CheckoutPage = ({ cartItems = [] }) => {
   // Send email confirmation
   const sendEmailConfirmation = async () => {
     if (!formData.email || !window.emailjs) {
+      console.log("Email not provided or EmailJS not loaded");
       return;
     }
 
     try {
+      console.log("Attempting to send email to:", formData.email);
+
       const templateParams = {
         customer_name: `${formData.firstName} ${formData.lastName}`,
         customer_email: formData.email,
@@ -50,15 +53,20 @@ const CheckoutPage = ({ cartItems = [] }) => {
         order_notes: formData.notes || "No additional notes",
       };
 
-      await window.emailjs.send(
+      console.log("Template params:", templateParams);
+
+      const response = await window.emailjs.send(
         "service_jpicl4m",
         "template_mgf1n2b",
         templateParams,
       );
 
-      console.log("Email sent successfully");
+      console.log("Email sent successfully:", response);
+      return response;
     } catch (error) {
       console.error("Email sending failed:", error);
+      // Don't throw error - allow order to continue even if email fails
+      return null;
     }
   };
 
