@@ -103,6 +103,24 @@ const CheckoutPage = () => {
     return validation.isValid;
   };
 
+  // Check if form is ready to submit
+  const isFormReady = () => {
+    const requiredFields = [
+      "firstName",
+      "lastName",
+      "phone",
+      "address",
+      "city",
+    ];
+    const hasAllRequiredFields = requiredFields.every(
+      (field) => formData[field] && formData[field].trim().length > 0,
+    );
+    const hasNoErrors =
+      Object.keys(formErrors).length === 0 ||
+      Object.values(formErrors).every((error) => !error);
+    return hasAllRequiredFields && hasNoErrors;
+  };
+
   // Real-time field validation
   const validateSingleField = (fieldName, value) => {
     const fieldMapping = {
@@ -114,12 +132,21 @@ const CheckoutPage = () => {
       city: "city",
     };
 
+    const customValidationRules = {
+      firstName: checkoutValidationRules.firstName,
+      lastName: checkoutValidationRules.lastName,
+      email: checkoutValidationRules.email,
+      phone: checkoutValidationRules.phone,
+      streetAddress: checkoutValidationRules.streetAddress,
+      city: checkoutValidationRules.city,
+    };
+
     const mappedFieldName = fieldMapping[fieldName];
     if (mappedFieldName) {
       const validation = validateField(
         mappedFieldName,
         value,
-        checkoutValidationRules,
+        customValidationRules,
       );
       if (!validation.isValid) {
         setFormErrors((prev) => ({
