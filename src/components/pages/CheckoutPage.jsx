@@ -289,32 +289,39 @@ const CheckoutPage = () => {
       (field) => !formData[field] || formData[field].trim().length === 0,
     );
 
-    // Check if there are any validation errors for filled fields
-    const validationErrors = Object.entries(formErrors).filter(
-      ([field, error]) => {
-        // Only count errors for fields that have content or are required
-        if (
-          field === "email" &&
-          (!formData[field] || formData[field].trim() === "")
-        ) {
-          return false; // Skip empty optional email field
-        }
-        return error && error.trim().length > 0;
-      },
+    // Use the same validation logic as validateFormData for consistency
+    const formDataForValidation = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      phone: formData.phone,
+      streetAddress: formData.address,
+      city: formData.city,
+    };
+
+    const customValidationRules = {
+      firstName: checkoutValidationRules.firstName,
+      lastName: checkoutValidationRules.lastName,
+      email: checkoutValidationRules.email,
+      phone: checkoutValidationRules.phone,
+      streetAddress: checkoutValidationRules.streetAddress,
+      city: checkoutValidationRules.city,
+    };
+
+    const validation = validateForm(
+      formDataForValidation,
+      customValidationRules,
     );
 
     const hasAllRequiredFields = missingFields.length === 0;
-    const hasNoErrors = validationErrors.length === 0;
+    const hasNoValidationErrors = validation.isValid;
 
     // Enhanced debug logging for troubleshooting
     console.log("=== Form Ready Check ===", {
       hasAllRequiredFields,
-      hasNoErrors,
+      hasNoValidationErrors,
       missingFields,
-      validationErrors: validationErrors.map(([field, error]) => ({
-        field,
-        error,
-      })),
+      validationErrors: validation.errors,
       formData: Object.fromEntries(
         Object.entries(formData).map(([key, value]) => [
           key,
@@ -323,15 +330,11 @@ const CheckoutPage = () => {
             : "EMPTY",
         ]),
       ),
-      formErrors: Object.fromEntries(
-        Object.entries(formErrors).map(([key, error]) => [
-          key,
-          error || "NO_ERROR",
-        ]),
-      ),
+      currentFormErrors: formErrors,
+      validationResult: validation,
     });
 
-    return hasAllRequiredFields && hasNoErrors;
+    return hasAllRequiredFields && hasNoValidationErrors;
   };
 
   // Real-time field validation
