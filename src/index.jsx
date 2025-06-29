@@ -1,5 +1,11 @@
-import { Suspense, lazy, useState, useCallback } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Suspense, lazy, useState, useCallback, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useSearchParams,
+  useLocation,
+} from "react-router-dom";
 import { useProductFilters, useLoadingStates } from "./hooks/usePerformance.js";
 import Navigation from "./components/Navigation.jsx";
 import "./App.css";
