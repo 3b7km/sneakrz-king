@@ -2,7 +2,7 @@ import { Instagram, Phone, Mail, MapPin } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#002b5e] text-white py-16">
+    <footer className="bg-[#002B5E] text-white py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand - Left position */}
@@ -12,7 +12,7 @@ const Footer = () => {
                 src="/kingsvg.svg"
                 alt="SneakrzKing Logo"
                 className="mr-3 filter brightness-0 invert"
-                style={{ width: "60px", height: "60px" }}
+                style={{ width: "100px", height: "100px" }}
               />
               <div>
                 <h3 className="text-xl font-bold text-white">Sneakrz King</h3>

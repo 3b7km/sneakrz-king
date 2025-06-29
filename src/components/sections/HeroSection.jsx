@@ -89,7 +89,7 @@ const HeroSection = () => {
               {/* Secondary CTA */}
               <button
                 onClick={() => navigate("/brands")}
-                className="border-2 border-blue-300 text-blue-300 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:bg-blue-300 hover:text-blue-900 transform hover:scale-105"
+                className="border-2 border-[#002B5E] text-[#002B5E] bg-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:bg-[#002B5E] hover:text-white transform hover:scale-105"
               >
                 Explore Brands
               </button>
