@@ -106,28 +106,55 @@ const CartPage = () => {
                       <div className="flex items-center space-x-3">
                         <button
                           onClick={() =>
-                            updateCartItem(
+                            handleQuantityUpdate(
                               item.id,
                               item.selectedSize,
                               item.quantity - 1,
                             )
                           }
-                          className="p-1 hover:bg-gray-100 rounded"
+                          disabled={
+                            item.quantity <= 1 ||
+                            loadingStates[
+                              `quantity-${item.id}-${item.selectedSize}`
+                            ]
+                          }
+                          className="p-2 hover:bg-gray-100 rounded-md border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 min-w-[40px] min-h-[40px] flex items-center justify-center"
+                          aria-label="Decrease quantity"
                         >
-                          <Minus className="w-4 h-4" />
+                          {loadingStates[
+                            `quantity-${item.id}-${item.selectedSize}`
+                          ] ? (
+                            <LoadingSpinner size="sm" />
+                          ) : (
+                            <Minus className="w-4 h-4" />
+                          )}
                         </button>
-                        <span className="w-8 text-center">{item.quantity}</span>
+                        <span className="w-12 text-center font-medium bg-gray-50 px-3 py-2 rounded-md border">
+                          {item.quantity}
+                        </span>
                         <button
                           onClick={() =>
-                            updateCartItem(
+                            handleQuantityUpdate(
                               item.id,
                               item.selectedSize,
                               item.quantity + 1,
                             )
                           }
-                          className="p-1 hover:bg-gray-100 rounded"
+                          disabled={
+                            loadingStates[
+                              `quantity-${item.id}-${item.selectedSize}`
+                            ]
+                          }
+                          className="p-2 hover:bg-gray-100 rounded-md border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 min-w-[40px] min-h-[40px] flex items-center justify-center"
+                          aria-label="Increase quantity"
                         >
-                          <Plus className="w-4 h-4" />
+                          {loadingStates[
+                            `quantity-${item.id}-${item.selectedSize}`
+                          ] ? (
+                            <LoadingSpinner size="sm" />
+                          ) : (
+                            <Plus className="w-4 h-4" />
+                          )}
                         </button>
                       </div>
                       <div className="text-right">
