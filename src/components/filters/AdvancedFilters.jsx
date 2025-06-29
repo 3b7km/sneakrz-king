@@ -41,10 +41,15 @@ const AdvancedFilters = ({
   };
 
   const handleSizeToggle = (size) => {
-    if (selectedSizes.includes(size)) {
-      setSelectedSizes(selectedSizes.filter((s) => s !== size));
-    } else {
-      setSelectedSizes([...selectedSizes, size]);
+    try {
+      const sizeStr = String(size); // Ensure size is a string for comparison
+      if (selectedSizes.includes(sizeStr)) {
+        setSelectedSizes(selectedSizes.filter((s) => s !== sizeStr));
+      } else {
+        setSelectedSizes([...selectedSizes, sizeStr]);
+      }
+    } catch (error) {
+      console.error("Error toggling size:", error);
     }
   };
 
