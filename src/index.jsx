@@ -1,42 +1,33 @@
-import { useState, useEffect } from "react";
+import { Suspense, lazy } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
-import { useCart } from "./context/CartContext.jsx";
-import {
-  Heart,
-  ShoppingCart,
-  Search,
-  Menu,
-  X,
-  User,
-  Star,
-  Shield,
-  MessageCircle,
-  Eye,
-  Instagram,
-  Phone,
-  Plus,
-  Minus,
-} from "lucide-react";
-import ProductGallery from "./components/ProductGallery.jsx";
-import {
-  LoadingButton,
-  AddToCartButton,
-} from "./components/LoadingSpinner.jsx";
-import OrderConfirmation from "./components/OrderConfirmation.jsx";
-import {
-  validateForm,
-  validateField,
-  hasError,
-  getErrorMessage,
-} from "./utils/formValidation.js";
+  useProductFilters,
+  useCart as useOptimizedCart,
+  useLoadingStates,
+} from "./hooks/usePerformance.js";
+import Navigation from "./components/Navigation.jsx";
+import Footer from "./components/Footer.jsx";
+import WhatsAppFloat from "./components/WhatsAppFloat.jsx";
+import QuickViewModal from "./components/QuickViewModal.jsx";
+import SuccessNotification from "./components/SuccessNotification.jsx";
 import "./App.css";
+
+// Lazy load pages for performance optimization
+const HomePage = lazy(() => import("./components/pages/HomePage.jsx"));
+const ProductsPage = lazy(() => import("./components/pages/ProductsPage.jsx"));
+const MensShoesPage = lazy(
+  () => import("./components/pages/MensShoesPage.jsx"),
+);
+const WomensShoesPage = lazy(
+  () => import("./components/pages/WomensShoesPage.jsx"),
+);
+const BrandsPage = lazy(() => import("./components/pages/BrandsPage.jsx"));
+const AboutPage = lazy(() => import("./components/pages/AboutPage.jsx"));
+const CartPage = lazy(() => import("./components/pages/CartPage.jsx"));
+const CheckoutPage = lazy(() => import("./components/pages/CheckoutPage.jsx"));
+const OrderConfirmation = lazy(
+  () => import("./components/OrderConfirmation.jsx"),
+);
 
 // Enhanced UI Components
 const Card = ({ children, className = "", ...props }) => (
