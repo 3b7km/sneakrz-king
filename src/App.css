@@ -457,6 +457,20 @@ html {
   background: var(--secondary-gradient);
 }
 
+/* Thin scrollbar utility */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-thumb-gray-300::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 2px;
+}
+
+.scrollbar-track-gray-100::-webkit-scrollbar-track {
+  background: #f3f4f6;
+}
+
 /* Enhanced Focus States */
 .focus-professional:focus {
   outline: none;
