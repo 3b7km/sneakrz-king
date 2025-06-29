@@ -33,6 +33,38 @@ const CheckoutPage = () => {
   const shipping = 80;
   const total = subtotal + shipping;
 
+  // Periodic form state updates for iOS Safari
+  useEffect(() => {
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const isIOSSafari = isIOS && isSafari;
+
+    if (isIOSSafari) {
+      console.log(
+        "iOS Safari detected - setting up periodic form state updates",
+      );
+
+      // Force form validation refresh every 2 seconds for iOS Safari
+      const stateRefreshInterval = setInterval(() => {
+        // Trigger a small state update to force re-render
+        setFormErrors((prev) => ({ ...prev }));
+
+        // Debug log current form state
+        console.log("iOS Safari periodic refresh:", {
+          formReady: isFormReady(),
+          isSubmitting,
+          formData: Object.keys(formData).reduce((acc, key) => {
+            acc[key] = formData[key] ? "filled" : "empty";
+            return acc;
+          }, {}),
+          errorCount: Object.keys(formErrors).length,
+        });
+      }, 2000);
+
+      return () => clearInterval(stateRefreshInterval);
+    }
+  }, [formData, formErrors, isSubmitting]);
+
   // Initialize EmailJS with enhanced iPhone Safari compatibility
   useEffect(() => {
     let retryCount = 0;
