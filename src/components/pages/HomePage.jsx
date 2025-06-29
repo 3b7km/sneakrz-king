@@ -76,7 +76,16 @@ const HomePage = ({
 
           <div className="text-center mt-12">
             <Link to="/products">
-              <button className="btn-enhanced bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+              <button
+                className="btn-enhanced text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                style={{ backgroundColor: "#002b5e" }}
+                onMouseEnter={(e) =>
+                  (e.target.style.backgroundColor = "#001a3d")
+                }
+                onMouseLeave={(e) =>
+                  (e.target.style.backgroundColor = "#002b5e")
+                }
+              >
                 View All Products
               </button>
             </Link>
