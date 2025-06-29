@@ -12,10 +12,10 @@ const Footer = () => {
                 src="/kingsvg.svg"
                 alt="SneakrzKing Logo"
                 className="mr-3 filter brightness-0 invert"
-                style={{ width: "100px", height: "100px" }}
+                style={{ width: "386px", height: "233px" }}
               />
               <div>
-                <h3 className="text-xl font-bold text-white">Sneakrz King</h3>
+                <h3 className="text-xl font-bold text-white">akrz King</h3>
               </div>
             </div>
             <p className="text-gray-300 mb-4 text-sm leading-relaxed">
@@ -110,10 +110,6 @@ const Footer = () => {
               <p className="text-gray-400">
                 <span className="font-medium text-white">Instagram:</span>{" "}
                 @sneakrz.king
-              </p>
-              <p className="text-gray-400">
-                <span className="font-medium text-white">Hours:</span> Mon-Fri
-                9AM-8PM
               </p>
             </div>
           </div>
