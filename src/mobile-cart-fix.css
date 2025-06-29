@@ -2,15 +2,15 @@
 
 @media (max-width: 768px) {
   /* Fix cart page layout on mobile */
-  .min-h-screen {
-    min-height: auto !important;
-    height: auto !important;
+  .cart-page .min-h-screen {
+    min-height: 100vh !important;
+    padding-bottom: env(safe-area-inset-bottom) !important;
   }
 
   /* Cart page container fixes */
   .cart-page,
   .cart-container {
-    padding: 0.5rem !important;
+    padding: 1rem !important;
     margin: 0 !important;
     max-width: 100% !important;
     overflow-x: hidden !important;
