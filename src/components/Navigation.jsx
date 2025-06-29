@@ -70,28 +70,6 @@ const Navigation = ({
                 Products
               </Link>
               <Link
-                to="/mens-shoes"
-                className={`nav-link px-4 py-2 text-sm font-medium transition-all duration-300 ${
-                  isActive("/mens-shoes")
-                    ? "text-blue-600 font-semibold"
-                    : "text-gray-600 hover:text-blue-600"
-                }`}
-                tabIndex={0}
-              >
-                Men's Shoes
-              </Link>
-              <Link
-                to="/womens-shoes"
-                className={`nav-link px-4 py-2 text-sm font-medium transition-all duration-300 ${
-                  isActive("/womens-shoes")
-                    ? "text-blue-600 font-semibold"
-                    : "text-gray-600 hover:text-blue-600"
-                }`}
-                tabIndex={0}
-              >
-                Women's Shoes
-              </Link>
-              <Link
                 to="/brands"
                 className={`nav-link px-4 py-2 text-sm font-medium transition-all duration-300 ${
                   isActive("/brands")
