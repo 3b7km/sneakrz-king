@@ -132,13 +132,24 @@ body {
     transition: all 0.2s ease !important;
   }
 
-  /* Regular buttons */
-  button:not(.btn-enhanced):not(.btn-professional):not(.cart-quantity-btn) {
+  /* Regular buttons - exclude hero section buttons */
+  button:not(.btn-enhanced):not(.btn-professional):not(.cart-quantity-btn):not(
+      .hero-collection-btn
+    ):not(.hero-explore-btn) {
     min-height: 48px !important;
     font-size: 16px !important;
     padding: 12px 16px !important;
     border-radius: 8px !important;
     transition: all 0.2s ease !important;
+  }
+
+  /* Hero section buttons - preserve original styling */
+  .hero-collection-btn,
+  .hero-explore-btn {
+    min-height: auto !important;
+    font-size: inherit !important;
+    padding: inherit !important;
+    border-radius: inherit !important;
   }
 
   /* Cart quantity buttons - smaller for inline use */
