@@ -722,6 +722,20 @@ const Navigation = ({
                 Products
               </Link>
               <Link
+                to="/mens-shoes"
+                onClick={handleMobileLinkClick}
+                className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
+              >
+                Men's Shoes
+              </Link>
+              <Link
+                to="/womens-shoes"
+                onClick={handleMobileLinkClick}
+                className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
+              >
+                Women's Shoes
+              </Link>
+              <Link
                 to="/brands"
                 onClick={handleMobileLinkClick}
                 className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
