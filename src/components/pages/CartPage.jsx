@@ -147,15 +147,17 @@ const CartPage = () => {
                             )}
                           </button>
                         </div>
-                      <div className="text-right">
-                        <p className="text-lg font-medium text-gray-900">
-                          {item.price * item.quantity} EGP
-                        </p>
-                        <p className="text-sm text-gray-500">
-                          {item.price} EGP each
-                        </p>
-                      </div>
-                      <button
+
+                        <div className="flex items-center justify-between md:justify-end md:space-x-4">
+                          <div className="text-right">
+                            <p className="text-base md:text-lg font-medium text-gray-900">
+                              {item.price * item.quantity} EGP
+                            </p>
+                            <p className="text-xs md:text-sm text-gray-500">
+                              {item.price} EGP each
+                            </p>
+                          </div>
+                          <button
                         onClick={() =>
                           handleRemoveItem(item.id, item.selectedSize)
                         }
