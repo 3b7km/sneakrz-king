@@ -81,7 +81,7 @@ const CartPage = () => {
           {/* Cart Items */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-              <div className="px-6 py-4 border-b border-gray-200">
+              <div className="px-4 md:px-6 py-4 border-b border-gray-200">
                 <h2 className="text-lg font-medium text-gray-900">
                   Cart Items ({cartItems.length})
                 </h2>
@@ -89,8 +89,11 @@ const CartPage = () => {
 
               <div className="divide-y divide-gray-200">
                 {cartItems.map((item) => (
-                  <div key={`${item.id}-${item.selectedSize}`} className="p-6">
-                    <div className="flex items-center space-x-4">
+                  <div
+                    key={`${item.id}-${item.selectedSize}`}
+                    className="p-4 md:p-6"
+                  >
+                    <div className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
                       <img
                         src={item.image}
                         alt={item.name}
