@@ -134,7 +134,7 @@ const HeroSection = () => {
                 navigate("/mens-shoes");
                 setShowDropdown(false);
               }}
-              className="w-full px-6 py-4 text-left text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:text-blue-900 transition-all duration-300 font-semibold flex items-center gap-3"
+              className="hero-dropdown-btn w-full px-6 py-4 text-left text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:text-blue-900 transition-all duration-300 font-semibold flex items-center gap-3"
             >
               <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
               Men's Collection
