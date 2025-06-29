@@ -141,7 +141,7 @@ const SearchDropdown = ({
       {isOpen && filteredProducts.length > 0 && (
         <div
           ref={resultsRef}
-          className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto"
+          className="absolute top-full left-0 right-0 mt-1 search-dropdown rounded-lg z-50 max-h-80 overflow-y-auto"
           role="listbox"
         >
           {/* Results Header */}
