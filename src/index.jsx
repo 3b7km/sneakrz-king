@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useProductFilters, useLoadingStates } from "./hooks/usePerformance.js";
 import Navigation from "./components/Navigation.jsx";
 import "./App.css";
-
+//king
 // Lazy load pages for optimal performance
 const HomePage = lazy(() => import("./components/pages/HomePage.jsx"));
 const ProductsPage = lazy(() => import("./components/pages/ProductsPage.jsx"));
