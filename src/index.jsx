@@ -36,11 +36,8 @@ const products = [
     name: "Nike Air Force 1 '07 Triple White",
     price: 1950,
     originalPrice: 2700,
-    image:
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F0f4530de78a647deb471d412dfb4a0d7?format=webp&width=800",
-    images: [
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F0f4530de78a647deb471d412dfb4a0d7?format=webp&width=800",
-    ],
+    image: "/Sneakers photos/AF1.jpg",
+    images: ["/Sneakers photos/AF1.jpg"],
     rating: 4.8,
     brand: "Nike",
     category: "Lifestyle",
@@ -65,11 +62,8 @@ const products = [
     name: "Adidas Samba OG 'White Black Gum'",
     price: 1750,
     originalPrice: 2100,
-    image:
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F779f472fe8e7473ca2241d62e1bcf0ba?format=webp&width=800",
-    images: [
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F779f472fe8e7473ca2241d62e1bcf0ba?format=webp&width=800",
-    ],
+    image: "/Sneakers photos/AdidasSambaOG'WhiteBlackGum'.jpg",
+    images: ["/Sneakers photos/AdidasSambaOG'WhiteBlackGum'.jpg"],
     rating: 4.7,
     brand: "Adidas",
     category: "Lifestyle",
@@ -93,11 +87,8 @@ const products = [
     id: 3,
     name: "Air Jordan 1 'Equality'",
     price: 2200,
-    image:
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F02aca479512b42309fa6d90dd339f7f0?format=webp&width=800",
-    images: [
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F02aca479512b42309fa6d90dd339f7f0?format=webp&width=800",
-    ],
+    image: "/Sneakers photos/Jordan1LowLightSmokeGrey.jpg",
+    images: ["/Sneakers photos/Jordan1LowLightSmokeGrey.jpg"],
     rating: 4.5,
     brand: "Jordan",
     category: "Basketball",
@@ -118,11 +109,8 @@ const products = [
     id: 5,
     name: "Nike Air Max 97 'Black'",
     price: 1650,
-    image:
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F24dd49cb80bd4bf6b32f9d1bf3c36251?format=webp&width=800",
-    images: [
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F24dd49cb80bd4bf6b32f9d1bf3c36251?format=webp&width=800",
-    ],
+    image: "/Sneakers photos/airmax97blac.jpg",
+    images: ["/Sneakers photos/airmax97blac.jpg"],
     rating: 4.7,
     brand: "Nike",
     category: "Lifestyle",
@@ -144,11 +132,8 @@ const products = [
     id: 6,
     name: "New Balance 327 'Sea Salt'",
     price: 1450,
-    image:
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F9e59976d97e1463c90936f5cb3a348b8?format=webp&width=800",
-    images: [
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F9e59976d97e1463c90936f5cb3a348b8?format=webp&width=800",
-    ],
+    image: "/Sneakers photos/NB53.jpg",
+    images: ["/Sneakers photos/NB53.jpg"],
     rating: 4.4,
     brand: "New Balance",
     category: "Lifestyle",
@@ -170,11 +155,8 @@ const products = [
     id: 7,
     name: "ASICS Gel-Lyte III 'White Grey'",
     price: 1350,
-    image:
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F403e2e0ff0f246478d7a7da8022c7198?format=webp&width=800",
-    images: [
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F403e2e0ff0f246478d7a7da8022c7198?format=webp&width=800",
-    ],
+    image: "/Sneakers photos/AsicsGelKayano14SilverCream1201A019-108.jpg",
+    images: ["/Sneakers photos/AsicsGelKayano14SilverCream1201A019-108.jpg"],
     rating: 4.3,
     brand: "ASICS",
     category: "Running",
@@ -197,12 +179,11 @@ const products = [
     name: "Air Jordan 4 Retro 'Red Thunder'",
     price: 3250,
     originalPrice: 3650,
-    image:
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F2c330bba31574d7980624fa1d3e2a49c?format=webp&width=800",
+    image: "/Sneakers photos/redthunder.jpg",
     images: [
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F2c330bba31574d7980624fa1d3e2a49c?format=webp&width=800",
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2Fcff896a0989046c099a02c550207402d?format=webp&width=800",
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F02aca479512b42309fa6d90dd339f7f0?format=webp&width=800",
+      "/Sneakers photos/redthunder.jpg",
+      "/Sneakers photos/blackcat.jpg",
+      "/Sneakers photos/jorden11.jpg",
     ],
     rating: 4.9,
     brand: "Jordan",
@@ -226,11 +207,8 @@ const products = [
     id: 9,
     name: "Nike Air Max 97 'Triple Black'",
     price: 2050,
-    image:
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F24dd49cb80bd4bf6b32f9d1bf3c36251?format=webp&width=800",
-    images: [
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F24dd49cb80bd4bf6b32f9d1bf3c36251?format=webp&width=800",
-    ],
+    image: "/Sneakers photos/airmax97blac.jpg",
+    images: ["/Sneakers photos/airmax97blac.jpg"],
     rating: 4.6,
     brand: "Nike",
     category: "Running",
@@ -254,12 +232,11 @@ const products = [
     name: "Nike Dunk Low 'Panda'",
     price: 2150,
     originalPrice: 2450,
-    image:
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2Fe8c45048c3924cf8b75566f4459dd8a3?format=webp&width=800",
+    image: "/Sneakers photos/NikeDunkLowRetro'Panda'.jpg",
     images: [
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2Fe8c45048c3924cf8b75566f4459dd8a3?format=webp&width=800",
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F0f4530de78a647deb471d412dfb4a0d7?format=webp&width=800",
-      "https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F8041fe4172fc4209b4a40766bc58b4fc?format=webp&width=800",
+      "/Sneakers photos/NikeDunkLowRetro'Panda'.jpg",
+      "/Sneakers photos/AF1.jpg",
+      "/Sneakers photos/NikeAirForce1Low'07Black.jpg",
     ],
     rating: 4.8,
     brand: "Nike",
