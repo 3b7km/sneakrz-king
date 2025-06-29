@@ -241,7 +241,8 @@ const ProductCard = ({
             <button
               onClick={handleAddToCart}
               disabled={isLoading}
-              className="py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+              className="py-3 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+              style={{ backgroundColor: "#002b5e" }}
             >
               {isLoading ? (
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>

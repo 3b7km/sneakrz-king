@@ -16,22 +16,7 @@ const HeroSection = () => {
 
   return (
     <section className="hero-section-enhanced relative overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-800 min-h-screen flex items-center">
-      {/* Background Video - More Visible */}
-      <div className="absolute inset-0 z-0">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover opacity-60"
-          poster="https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F0f4530de78a647deb471d412dfb4a0d7?format=webp&width=1920"
-        >
-          <source src="/logo3d.mp4" type="video/mp4" />
-        </video>
-      </div>
-
-      {/* Lighter Background Pattern */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/30 to-transparent"></div>
+      <div className="absolute inset-0 z-0"></div>
 
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center">
@@ -40,7 +25,7 @@ const HeroSection = () => {
             <div className="space-y-4">
               <h1 className="hero-title text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
                 Step Into
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-yellow-400">
+                <span className="block" style={{ color: "#1e3b60" }}>
                   Greatness
                 </span>
               </h1>
@@ -56,7 +41,7 @@ const HeroSection = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={scrollToProducts}
-                className="group bg-gradient-to-r from-orange-500 to-yellow-500 text-black px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex items-center justify-center gap-2"
+                className="group bg-white text-black px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex items-center justify-center gap-2"
               >
                 Shop Collection
                 <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
