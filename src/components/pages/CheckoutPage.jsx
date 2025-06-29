@@ -960,6 +960,10 @@ const CheckoutPage = () => {
                   minHeight: "48px",
                   fontSize: "16px",
                   touchAction: "manipulation",
+                  WebkitTapHighlightColor: "transparent",
+                  WebkitTouchCallout: "none",
+                  WebkitUserSelect: "none",
+                  userSelect: "none",
                 }}
                 onMouseEnter={(e) => {
                   if (!isSubmitting && isFormReady()) {
@@ -969,6 +973,36 @@ const CheckoutPage = () => {
                 onMouseLeave={(e) => {
                   if (!isSubmitting && isFormReady()) {
                     e.target.style.backgroundColor = "#002b5e";
+                  }
+                }}
+                onTouchStart={(e) => {
+                  // iOS Safari specific: Ensure touch events work properly
+                  if (!isSubmitting && isFormReady()) {
+                    e.target.style.backgroundColor = "#001a3d";
+                  }
+                }}
+                onTouchEnd={(e) => {
+                  // iOS Safari specific: Reset background after touch
+                  if (!isSubmitting && isFormReady()) {
+                    setTimeout(() => {
+                      e.target.style.backgroundColor = "#002b5e";
+                    }, 100);
+                  }
+                }}
+                onClick={(e) => {
+                  // Additional click handler for iOS Safari
+                  console.log("Button clicked:", {
+                    isSubmitting,
+                    isFormReady: isFormReady(),
+                    disabled: e.target.disabled,
+                    buttonEnabled: !isSubmitting && isFormReady(),
+                  });
+
+                  // Prevent multiple clicks
+                  if (isSubmitting || !isFormReady()) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
                   }
                 }}
               >
