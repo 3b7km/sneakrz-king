@@ -76,23 +76,41 @@ const CheckoutPage = ({ cartItems = [] }) => {
 
     try {
       console.log("Attempting to send email to:", formData.email);
+      console.log("Cart items:", cartItems);
+      console.log("Total calculated:", total);
+      console.log("Form data:", formData);
+
+      // Ensure we have proper values
+      const customerName = `${formData.firstName.trim()} ${formData.lastName.trim()}`;
+      const orderItemsList =
+        cartItems.length > 0
+          ? cartItems
+              .map(
+                (item) =>
+                  `• ${item.name || "Unknown Item"} - Size: ${item.selectedSize || "N/A"} - Qty: ${item.quantity || 1} - Price: ${(item.price || 0) * (item.quantity || 1)} EGP`,
+              )
+              .join("\n")
+          : "No items in cart";
+
+      const totalAmount = total && !isNaN(total) ? total.toFixed(2) : "0.00";
+      const subtotalAmount =
+        subtotal && !isNaN(subtotal) ? subtotal.toFixed(2) : "0.00";
 
       const templateParams = {
-        customer_name: `${formData.firstName} ${formData.lastName}`,
-        customer_email: formData.email,
-        customer_phone: formData.phone,
-        customer_address: `${formData.address}, ${formData.city}`,
-        order_items: cartItems
-          .map(
-            (item) =>
-              `${item.name} - Size: ${item.selectedSize || "N/A"} - Qty: ${item.quantity} - Price: ${item.price} EGP`,
-          )
-          .join("\n"),
-        total_amount: total.toFixed(2),
-        order_notes: formData.notes || "No additional notes",
+        customer_name: customerName,
+        customer_email: formData.email.trim(),
+        customer_phone: formData.phone.trim() || "Not provided",
+        customer_address: `${formData.address.trim()}, ${formData.city.trim()}`,
+        order_items: orderItemsList,
+        subtotal_amount: subtotalAmount,
+        shipping_amount: "80.00",
+        total_amount: totalAmount,
+        order_notes: formData.notes.trim() || "No additional notes",
+        order_date: new Date().toLocaleDateString(),
+        order_time: new Date().toLocaleTimeString(),
       };
 
-      console.log("Template params:", templateParams);
+      console.log("Template params being sent:", templateParams);
 
       const response = await window.emailjs.send(
         "service_jpicl4m",
@@ -104,6 +122,7 @@ const CheckoutPage = ({ cartItems = [] }) => {
       return response;
     } catch (error) {
       console.error("Email sending failed:", error);
+      console.error("Error details:", error.message);
       // Don't throw error - allow order to continue even if email fails
       return null;
     }
