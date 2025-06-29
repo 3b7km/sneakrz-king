@@ -324,7 +324,7 @@ const OrderConfirmation = () => {
             <div className="space-y-3">
               <button
                 onClick={() => navigate("/products")}
-                className="w-full text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center"
+                className="cart-action-btn w-full text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center"
                 style={{ backgroundColor: "#002b5e" }}
                 onMouseEnter={(e) =>
                   (e.target.style.backgroundColor = "#001a3d")
@@ -340,7 +340,7 @@ const OrderConfirmation = () => {
                 href="https://wa.me/201091968021"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 block text-center"
+                className="cart-action-btn w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 block text-center"
               >
                 Contact Us on WhatsApp
               </a>
