@@ -2097,6 +2097,7 @@ function App() {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("All");
+  const [selectedGender, setSelectedGender] = useState("All");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState(null);
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
