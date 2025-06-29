@@ -412,6 +412,7 @@ function App() {
           setSearchTerm={filters.setSearchTerm}
           isMenuOpen={isMenuOpen}
           setIsMenuOpen={setIsMenuOpen}
+          products={products}
         />
 
         <main>
