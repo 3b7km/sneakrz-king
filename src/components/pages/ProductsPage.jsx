@@ -250,7 +250,14 @@ const ProductsPage = ({
                   setInStock(false);
                   setSortBy("newest");
                 }}
-                className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+                className="text-white px-6 py-3 rounded-lg font-medium transition-colors"
+                style={{ backgroundColor: "#002b5e" }}
+                onMouseEnter={(e) =>
+                  (e.target.style.backgroundColor = "#001a3d")
+                }
+                onMouseLeave={(e) =>
+                  (e.target.style.backgroundColor = "#002b5e")
+                }
               >
                 Clear All Filters
               </button>
