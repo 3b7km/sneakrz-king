@@ -572,6 +572,22 @@ const Navigation = ({
                 Products
               </Link>
               <Link
+                to="/mens-shoes"
+                className={`nav-link px-4 py-2 text-sm font-medium transition-all duration-300 ${isActive("/mens-shoes") ? "active" : "text-gray-600 hover:text-blue-600"}`}
+                style={isActive("/mens-shoes") ? { color: "#1e3b60" } : {}}
+                tabIndex={0}
+              >
+                Men's Shoes
+              </Link>
+              <Link
+                to="/womens-shoes"
+                className={`nav-link px-4 py-2 text-sm font-medium transition-all duration-300 ${isActive("/womens-shoes") ? "active" : "text-gray-600 hover:text-blue-600"}`}
+                style={isActive("/womens-shoes") ? { color: "#1e3b60" } : {}}
+                tabIndex={0}
+              >
+                Women's Shoes
+              </Link>
+              <Link
                 to="/brands"
                 className={`nav-link px-4 py-2 text-sm font-medium transition-all duration-300 ${isActive("/brands") ? "active" : "text-gray-600 hover:text-blue-600"}`}
                 style={isActive("/brands") ? { color: "#1e3b60" } : {}}
