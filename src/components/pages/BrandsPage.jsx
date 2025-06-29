@@ -75,12 +75,31 @@ const BrandsPage = ({ selectedBrand, setSelectedBrand, brands = [] }) => {
                 className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="relative mb-6">
+                <div className="relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
                   <img
                     src={brand.image}
                     alt={brand.name}
-                    className="w-full h-48 object-cover"
+                    className="w-full h-64 object-contain object-center p-4 transition-transform duration-300 hover:scale-105"
+                    style={{
+                      minHeight: "256px",
+                      maxHeight: "256px",
+                    }}
+                    onError={(e) => {
+                      e.target.style.display = "none";
+                      e.target.nextSibling.style.display = "flex";
+                    }}
                   />
+                  <div
+                    className="absolute inset-0 hidden items-center justify-center bg-gray-100"
+                    style={{ display: "none" }}
+                  >
+                    <div className="text-center">
+                      <div className="text-4xl font-bold text-gray-400 mb-2">
+                        {brand.name}
+                      </div>
+                      <div className="text-gray-500">Brand Logo</div>
+                    </div>
+                  </div>
                 </div>
                 <div className="p-6">
                   <h3
