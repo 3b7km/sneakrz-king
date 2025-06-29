@@ -3,6 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { AlertCircle, CheckCircle } from "lucide-react";
 import { useCart } from "../../context/CartContext";
+import {
+  validateForm,
+  validateField,
+  checkoutValidationRules,
+} from "../../utils/formValidation";
 
 const CheckoutPage = () => {
   const { cartItems, clearCart } = useCart();
@@ -69,38 +74,56 @@ const CheckoutPage = () => {
     };
   }, []);
 
-  // Form validation function
-  const validateForm = () => {
-    const errors = {};
+  // Enhanced form validation function using utility
+  const validateFormData = () => {
+    const formDataForValidation = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      phone: formData.phone,
+      streetAddress: formData.address,
+      city: formData.city,
+    };
 
-    if (!formData.firstName.trim()) {
-      errors.firstName = "First name is required";
+    const validation = validateForm(
+      formDataForValidation,
+      checkoutValidationRules,
+    );
+    setFormErrors(validation.errors);
+    return validation.isValid;
+  };
+
+  // Real-time field validation
+  const validateSingleField = (fieldName, value) => {
+    const fieldMapping = {
+      firstName: "firstName",
+      lastName: "lastName",
+      email: "email",
+      phone: "phone",
+      address: "streetAddress",
+      city: "city",
+    };
+
+    const mappedFieldName = fieldMapping[fieldName];
+    if (mappedFieldName) {
+      const validation = validateField(
+        mappedFieldName,
+        value,
+        checkoutValidationRules,
+      );
+      if (!validation.isValid) {
+        setFormErrors((prev) => ({
+          ...prev,
+          [fieldName]: validation.error,
+        }));
+      } else {
+        setFormErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors[fieldName];
+          return newErrors;
+        });
+      }
     }
-
-    if (!formData.lastName.trim()) {
-      errors.lastName = "Last name is required";
-    }
-
-    if (!formData.phone.trim()) {
-      errors.phone = "Phone number is required";
-    } else if (!/^[0-9+\-\s()]+$/.test(formData.phone)) {
-      errors.phone = "Please enter a valid phone number";
-    }
-
-    if (!formData.address.trim()) {
-      errors.address = "Address is required";
-    }
-
-    if (!formData.city.trim()) {
-      errors.city = "City is required";
-    }
-
-    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      errors.email = "Please enter a valid email address";
-    }
-
-    setFormErrors(errors);
-    return Object.keys(errors).length === 0;
   };
 
   // Send email confirmation
@@ -200,9 +223,16 @@ const CheckoutPage = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
 
-    // Clear field error when user starts typing
-    if (formErrors[name]) {
-      setFormErrors((prev) => ({ ...prev, [name]: "" }));
+    // Real-time validation with debounce for better UX
+    if (value.trim() !== "") {
+      setTimeout(() => {
+        validateSingleField(name, value);
+      }, 500);
+    } else {
+      // Clear error if field is empty (except for required fields on blur)
+      if (formErrors[name]) {
+        setFormErrors((prev) => ({ ...prev, [name]: "" }));
+      }
     }
 
     // Clear general submit error
@@ -211,12 +241,18 @@ const CheckoutPage = () => {
     }
   };
 
+  // Handle field blur for immediate required field validation
+  const handleFieldBlur = (e) => {
+    const { name, value } = e.target;
+    validateSingleField(name, value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitError("");
 
     // Validate form
-    if (!validateForm()) {
+    if (!validateFormData()) {
       return;
     }
 
@@ -359,7 +395,9 @@ const CheckoutPage = () => {
                     name="firstName"
                     value={formData.firstName}
                     onChange={handleInputChange}
+                    onBlur={handleFieldBlur}
                     required
+                    placeholder="Enter your first name"
                     className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
                       formErrors.firstName
                         ? "border-red-300 bg-red-50"
@@ -381,7 +419,9 @@ const CheckoutPage = () => {
                     name="lastName"
                     value={formData.lastName}
                     onChange={handleInputChange}
+                    onBlur={handleFieldBlur}
                     required
+                    placeholder="Enter your last name"
                     className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
                       formErrors.lastName
                         ? "border-red-300 bg-red-50"
@@ -408,6 +448,7 @@ const CheckoutPage = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
+                  onBlur={handleFieldBlur}
                   placeholder="your@email.com (optional)"
                   className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
                     formErrors.email
@@ -426,14 +467,18 @@ const CheckoutPage = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Phone Number *
+                  <span className="text-xs text-gray-500 block mt-1">
+                    Egyptian mobile number (e.g., 01234567890 or +201234567890)
+                  </span>
                 </label>
                 <input
                   type="tel"
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
+                  onBlur={handleFieldBlur}
                   required
-                  placeholder="+20 123 456 7890"
+                  placeholder="01234567890 or +201234567890"
                   className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
                     formErrors.phone
                       ? "border-red-300 bg-red-50"
@@ -456,8 +501,9 @@ const CheckoutPage = () => {
                   name="address"
                   value={formData.address}
                   onChange={handleInputChange}
+                  onBlur={handleFieldBlur}
                   required
-                  placeholder="Street address, building number"
+                  placeholder="Street address, building number, apartment"
                   className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
                     formErrors.address
                       ? "border-red-300 bg-red-50"
@@ -480,8 +526,9 @@ const CheckoutPage = () => {
                   name="city"
                   value={formData.city}
                   onChange={handleInputChange}
+                  onBlur={handleFieldBlur}
                   required
-                  placeholder="City name"
+                  placeholder="Enter your city"
                   className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
                     formErrors.city
                       ? "border-red-300 bg-red-50"
