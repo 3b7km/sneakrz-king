@@ -188,28 +188,36 @@ const OrderConfirmation = () => {
             </div>
 
             {/* Order Items */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
-              <h3 className="text-lg font-semibold mb-4">Order Items</h3>
-              <div className="space-y-4">
+            <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
+              <h3 className="text-lg font-semibold mb-4 text-center md:text-left">
+                Order Items
+              </h3>
+              <div className="space-y-3 md:space-y-4">
                 {items.map((item, index) => (
                   <div
                     key={`item-${item.id || index}-${item.selectedSize || "default"}`}
-                    className="flex items-center space-x-4 p-4 border border-gray-200 rounded-lg"
+                    className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 p-3 md:p-4 border border-gray-200 rounded-lg"
                   >
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-16 h-16 object-cover rounded-lg"
-                    />
-                    <div className="flex-1">
-                      <h4 className="font-medium text-gray-900">{item.name}</h4>
-                      <p className="text-sm text-gray-600">{item.brand}</p>
-                      <p className="text-sm text-gray-600">
-                        Size: {item.selectedSize} • Qty: {item.quantity}
-                      </p>
+                    <div className="flex items-center space-x-3 sm:space-x-4">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-12 h-12 md:w-16 md:h-16 object-cover rounded-lg flex-shrink-0"
+                      />
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-medium text-gray-900 text-sm md:text-base truncate">
+                          {item.name}
+                        </h4>
+                        <p className="text-xs md:text-sm text-gray-600">
+                          {item.brand}
+                        </p>
+                        <p className="text-xs md:text-sm text-gray-600">
+                          Size: {item.selectedSize} • Qty: {item.quantity}
+                        </p>
+                      </div>
                     </div>
-                    <div className="text-right">
-                      <p className="font-semibold text-gray-900">
+                    <div className="text-right sm:text-left">
+                      <p className="font-semibold text-gray-900 text-sm md:text-base">
                         {item.price * item.quantity} EGP
                       </p>
                     </div>
