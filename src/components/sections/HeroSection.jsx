@@ -1,25 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { ChevronRight, ChevronDown } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import { ChevronRight } from "lucide-react";
 
 const HeroSection = () => {
   const navigate = useNavigate();
-  const [showDropdown, setShowDropdown] = useState(false);
-  const dropdownRef = useRef(null);
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowDropdown(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   const scrollToProducts = () => {
     const productsSection = document.getElementById("featured-collection");
@@ -90,10 +73,7 @@ const HeroSection = () => {
             </div>
 
             {/* Enhanced CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fadeInUp animation-delay-500">
-              {/* Primary CTA with Dropdown */}
-              <div className="relative" ref={dropdownRef}></div>
-            </div>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fadeInUp animation-delay-500"></div>
 
             {/* New Features Section */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 animate-fadeInUp animation-delay-1000">
@@ -103,19 +83,12 @@ const HeroSection = () => {
             </div>
           </div>
         </div>
-        <div
-          className="flex flex-col sm:flex-row gap-6 justify-center items-center relative"
-          ref={dropdownRef}
-        >
+        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
           <button
-            onClick={() => setShowDropdown(!showDropdown)}
+            onClick={() => navigate("/products")}
             className="hero-collection-btn group bg-gradient-to-r from-white to-blue-50 text-blue-900 px-10 py-5 rounded-2xl text-lg font-bold transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 flex flex-row items-center justify-center backdrop-blur-sm border border-white/20"
-            style={{ gap: "15px" }}
           >
             <span style={{ fontWeight: 700 }}>View Collection</span>
-            <ChevronDown
-              className={`w-5 h-5 transition-transform duration-300 ${showDropdown ? "rotate-180" : ""}`}
-            />
           </button>
 
           <button
@@ -125,32 +98,6 @@ const HeroSection = () => {
             Explore Brands
           </button>
         </div>
-
-        {/* Enhanced Dropdown Menu */}
-        {showDropdown && (
-          <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 w-56 bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/20 overflow-hidden z-[60] animate-fadeInUp">
-            <button
-              onClick={() => {
-                navigate("/mens-shoes");
-                setShowDropdown(false);
-              }}
-              className="hero-dropdown-btn w-full px-6 py-4 text-left text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:text-blue-900 transition-all duration-300 font-semibold flex items-center gap-3"
-            >
-              <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-              Men's Collection
-            </button>
-            <button
-              onClick={() => {
-                navigate("/womens-shoes");
-                setShowDropdown(false);
-              }}
-              className="hero-dropdown-btn w-full px-6 py-4 text-left text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:text-blue-900 transition-all duration-300 font-semibold border-t border-gray-100/50 flex items-center gap-3"
-            >
-              <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
-              Women's Collection
-            </button>
-          </div>
-        )}
       </div>
       {/* Enhanced Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
