@@ -14,11 +14,11 @@ const Footer = () => {
                 className="mr-3 filter brightness-0 invert"
                 style={{ width: "306px", height: "233px" }}
               />
-              <div>
-              </div>
+              <div></div>
             </div>
             <p className="text-gray-300 mb-4 text-sm leading-relaxed">
-              Your premier destination for authentic sneakers from the world's leading brands.
+              Your premier destination for authentic sneakers from the world's
+              leading brands.
             </p>
             <div className="flex space-x-3">
               <a
@@ -42,35 +42,55 @@ const Footer = () => {
 
           {/* Quick Links - Middle position */}
           <div>
-            <h4 className="text-sm font-semibold mb-4 text-white">Quick Links</h4>
+            <h4 className="text-sm font-semibold mb-4 text-white">
+              Quick Links
+            </h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="/" className="text-gray-400 hover:text-white transition-colors">
+                <a
+                  href="/"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
                   Home
                 </a>
               </li>
               <li>
-                <a href="/products" className="text-gray-400 hover:text-white transition-colors">
+                <a
+                  href="/products"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
                   Products
                 </a>
               </li>
               <li>
-                <a href="/mens-shoes" className="text-gray-400 hover:text-white transition-colors">
+                <a
+                  href="/mens-shoes"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
                   Men's Shoes
                 </a>
               </li>
               <li>
-                <a href="/womens-shoes" className="text-gray-400 hover:text-white transition-colors">
+                <a
+                  href="/womens-shoes"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
                   Women's Shoes
                 </a>
               </li>
               <li>
-                <a href="/brands" className="text-gray-400 hover:text-white transition-colors">
+                <a
+                  href="/brands"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
                   Brands
                 </a>
               </li>
               <li>
-                <a href="/about" className="text-gray-400 hover:text-white transition-colors">
+                <a
+                  href="/about"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
                   About
                 </a>
               </li>
@@ -82,25 +102,27 @@ const Footer = () => {
             <h4 className="text-sm font-semibold mb-4 text-white">Contact</h4>
             <div className="space-y-2 text-sm">
               <p className="text-gray-400">
-                <span className="font-medium text-white">Phone:</span> +20 109 196 8021
+                <span className="font-medium text-white">Phone:</span> +20 109
+                196 8021
               </p>
               <p className="text-gray-400">
-                <span className="font-medium text-white">Instagram:</span> @sneakrz.king
+                <span className="font-medium text-white">Instagram:</span>{" "}
+                @sneakrz.king
               </p>
             </div>
           </div>
         </div>
 
+        {/* Bottom Section - Separate from main footer content */}
+        <div className="border-t border-gray-700 mt-12 pt-8">
+          <div className="text-center">
+            <p className="text-gray-400 text-sm">
+              © 2024 Sneakrz King. All rights reserved.
+            </p>
+          </div>
+        </div>
       </div>
     </footer>
-    {/* Bottom Section - Moved outside footer */}
-    <div className="border-t border-gray-700 mt-12 pt-8">
-      <div className="text-center">
-        <p className="text-gray-400 text-sm">
-          © 2024 Sneakrz King. All rights reserved.
-        </p>
-      </div>
-    </div>
   );
 };
 
