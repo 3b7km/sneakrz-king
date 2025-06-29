@@ -28,21 +28,45 @@ const CheckoutPage = () => {
   const shipping = 80;
   const total = subtotal + shipping;
 
-  // Initialize EmailJS
+  // Initialize EmailJS with better error handling
   useEffect(() => {
+    let retryCount = 0;
+    const maxRetries = 5;
+
     const initEmailJS = () => {
       if (window.emailjs) {
         console.log("EmailJS found, initializing...");
-        window.emailjs.init("xZ-FMAkzHPph3aojg");
-        console.log("EmailJS initialized successfully");
+        try {
+          window.emailjs.init("xZ-FMAkzHPph3aojg");
+          console.log("EmailJS initialized successfully");
+        } catch (error) {
+          console.error("EmailJS initialization failed:", error);
+        }
       } else {
-        console.warn("EmailJS not found on window object");
-        // Try again after a short delay
-        setTimeout(initEmailJS, 1000);
+        console.warn(
+          `EmailJS not found on window object (attempt ${retryCount + 1}/${maxRetries})`,
+        );
+        retryCount++;
+
+        if (retryCount < maxRetries) {
+          // Try again with increasing delay
+          setTimeout(initEmailJS, 1000 * retryCount);
+        } else {
+          console.error("EmailJS failed to load after maximum retries");
+        }
       }
     };
 
+    // Initial attempt
     initEmailJS();
+
+    // Also try when window loads (for mobile browsers)
+    const handleLoad = () => initEmailJS();
+    window.addEventListener("load", handleLoad);
+
+    return () => {
+      window.removeEventListener("load", handleLoad);
+    };
   }, []);
 
   // Form validation function
