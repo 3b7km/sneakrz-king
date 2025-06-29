@@ -162,6 +162,26 @@ const ProductsPage = ({
             </div>
           </div>
 
+          {/* Gender Filter */}
+          <div className="bg-white p-4 rounded-lg shadow-sm">
+            <h3 className="text-lg font-semibold mb-4">Gender Categories</h3>
+            <div className="flex flex-wrap gap-2">
+              {["All", "Men", "Women"].map((gender) => (
+                <button
+                  key={gender}
+                  onClick={() => setSelectedGender(gender)}
+                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                    selectedGender === gender
+                      ? "bg-blue-600 text-white"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  }`}
+                >
+                  {gender === "All" ? "All Products" : `${gender}'s Shoes`}
+                </button>
+              ))}
+            </div>
+          </div>
+
           {/* Advanced Filters */}
           {showFilters && (
             <Suspense
@@ -173,6 +193,12 @@ const ProductsPage = ({
                 priceRange={priceRange}
                 setPriceRange={setPriceRange}
                 products={filteredProducts}
+                selectedCategories={selectedCategories}
+                setSelectedCategories={setSelectedCategories}
+                onSale={onSale}
+                setOnSale={setOnSale}
+                inStock={inStock}
+                setInStock={setInStock}
               />
             </Suspense>
           )}
