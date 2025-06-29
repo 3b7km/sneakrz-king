@@ -146,19 +146,29 @@ const AdvancedFilters = ({
           <label className="block text-sm font-medium text-gray-700 mb-3">
             Categories
           </label>
-          <div className="space-y-2 max-h-32 overflow-y-auto">
+          <div className="space-y-3 max-h-40 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
             {filterOptions.categories.map((category) => (
-              <label key={category} className="flex items-center">
+              <label
+                key={category}
+                className="flex items-center group cursor-pointer"
+              >
                 <input
                   type="checkbox"
                   checked={selectedCategories.includes(category)}
                   onChange={() => handleCategoryToggle(category)}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 focus:ring-2 transition-all"
                 />
-                <span className="ml-2 text-sm text-gray-700">{category}</span>
+                <span className="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors capitalize">
+                  {category}
+                </span>
               </label>
             ))}
           </div>
+          {filterOptions.categories.length === 0 && (
+            <p className="text-sm text-gray-500 italic">
+              No categories available
+            </p>
+          )}
         </div>
 
         {/* Sizes */}
