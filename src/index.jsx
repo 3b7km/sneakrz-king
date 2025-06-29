@@ -446,6 +446,8 @@ function App() {
                     brands={filters.brands}
                     selectedBrand={filters.selectedBrand}
                     setSelectedBrand={filters.setSelectedBrand}
+                    searchTerm={filters.searchTerm}
+                    setSearchTerm={filters.setSearchTerm}
                     openQuickView={openQuickView}
                     addToCart={addToCart}
                     loadingStates={loadingStates}
