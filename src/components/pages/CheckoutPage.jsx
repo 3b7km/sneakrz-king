@@ -552,6 +552,16 @@ const CheckoutPage = () => {
     e.preventDefault();
     setSubmitError("");
 
+    // iOS Safari specific: Prevent default more aggressively
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const isIOSSafari = isIOS && isSafari;
+
+    if (isIOSSafari) {
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+    }
+
     // Validate form
     if (!validateFormData()) {
       setSubmitError(
@@ -563,15 +573,34 @@ const CheckoutPage = () => {
     setIsSubmitting(true);
 
     try {
+      // iOS Safari: Add extra delay for form processing
+      if (isIOSSafari) {
+        console.log("iOS Safari: Adding form processing delay");
+        await new Promise((resolve) => setTimeout(resolve, 500));
+      }
+
       // Send email confirmation if email is provided
       if (formData.email) {
         setEmailSentStatus("sending");
-        const emailResult = await sendEmailConfirmation();
-        setEmailSentStatus(emailResult ? "sent" : "failed");
+        console.log("Starting email confirmation process");
+
+        try {
+          const emailResult = await sendEmailConfirmation();
+          setEmailSentStatus(emailResult ? "sent" : "failed");
+          console.log(
+            "Email confirmation result:",
+            emailResult ? "success" : "failed",
+          );
+        } catch (emailError) {
+          console.error("Email confirmation error:", emailError);
+          setEmailSentStatus("failed");
+          // Continue with order processing even if email fails
+        }
       }
 
-      // Simulate order processing
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // Simulate order processing with iOS-specific timing
+      const processingDelay = isIOSSafari ? 2000 : 1500;
+      await new Promise((resolve) => setTimeout(resolve, processingDelay));
 
       // Generate order data
       const orderData = {
@@ -585,12 +614,23 @@ const CheckoutPage = () => {
         ).toLocaleDateString(),
       };
 
-      // Store order for confirmation page
-      localStorage.setItem("lastOrder", JSON.stringify(orderData));
+      // Store order for confirmation page with iOS Safari safeguards
+      try {
+        localStorage.setItem("lastOrder", JSON.stringify(orderData));
+        console.log("Order data stored successfully");
+      } catch (storageError) {
+        console.error("Local storage error:", storageError);
+        // Continue anyway - order data can be reconstructed
+      }
 
       // Clear cart after successful order placement
       clearCart();
       console.log("Cart cleared after successful order placement");
+
+      // iOS Safari: Add delay before navigation
+      if (isIOSSafari) {
+        await new Promise((resolve) => setTimeout(resolve, 300));
+      }
 
       // Navigate to confirmation
       navigate("/order-confirmation");
