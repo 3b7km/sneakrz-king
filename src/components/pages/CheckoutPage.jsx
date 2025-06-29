@@ -28,9 +28,19 @@ const CheckoutPage = ({ cartItems = [] }) => {
 
   // Initialize EmailJS
   useEffect(() => {
-    if (window.emailjs) {
-      window.emailjs.init("xZ-FMAkzHPph3aojg");
-    }
+    const initEmailJS = () => {
+      if (window.emailjs) {
+        console.log("EmailJS found, initializing...");
+        window.emailjs.init("xZ-FMAkzHPph3aojg");
+        console.log("EmailJS initialized successfully");
+      } else {
+        console.warn("EmailJS not found on window object");
+        // Try again after a short delay
+        setTimeout(initEmailJS, 1000);
+      }
+    };
+
+    initEmailJS();
   }, []);
 
   // Form validation function
