@@ -28,8 +28,21 @@ const ProductsPage = ({
   const [showFilters, setShowFilters] = useState(true);
   const [selectedGender, setSelectedGender] = useState("All");
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedSizes, setSelectedSizes] = useState([]);
   const [onSale, setOnSale] = useState(false);
   const [inStock, setInStock] = useState(false);
+
+  // Calculate the actual min and max prices from products
+  const priceRangeFromProducts = useMemo(() => {
+    if (filteredProducts.length === 0) return [0, 5000];
+    const prices = filteredProducts.map((p) => p.price);
+    return [Math.min(...prices), Math.max(...prices)];
+  }, [filteredProducts]);
+
+  // Initialize price range based on actual products
+  useState(() => {
+    setPriceRange(priceRangeFromProducts);
+  }, [priceRangeFromProducts]);
 
   // Memoized sorted and filtered products for performance
   const sortedProducts = useMemo(() => {
@@ -44,6 +57,16 @@ const ProductsPage = ({
     if (selectedCategories.length > 0) {
       sorted = sorted.filter((product) =>
         selectedCategories.includes(product.category),
+      );
+    }
+
+    // Filter by sizes - Fix the size filtering logic
+    if (selectedSizes.length > 0) {
+      sorted = sorted.filter((product) =>
+        product.sizes?.some((size) => {
+          const sizeValue = typeof size === "object" ? size.value : size;
+          return selectedSizes.includes(sizeValue);
+        }),
       );
     }
 
@@ -79,7 +102,7 @@ const ProductsPage = ({
         sorted.sort((a, b) => a.name.localeCompare(b.name));
         break;
       case "rating":
-        sorted.sort((a, b) => b.rating - a.rating);
+        sorted.sort((a, b) => (b.rating || 0) - (a.rating || 0));
         break;
       case "newest":
       default:
@@ -94,9 +117,22 @@ const ProductsPage = ({
     priceRange,
     selectedGender,
     selectedCategories,
+    selectedSizes,
     onSale,
     inStock,
   ]);
+
+  // Clear all filters function
+  const clearAllFilters = () => {
+    setSelectedGender("All");
+    setSelectedCategories([]);
+    setSelectedSizes([]);
+    setPriceRange(priceRangeFromProducts);
+    setOnSale(false);
+    setInStock(false);
+    setSortBy("newest");
+    setSelectedBrand("All");
+  };
 
   return (
     <div className="products-page py-12 bg-gray-50 min-h-screen">
@@ -155,7 +191,7 @@ const ProductsPage = ({
               </span>
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                className="text-white px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 hover:shadow-lg transform hover:scale-105"
                 style={{ backgroundColor: "#002b5e" }}
                 onMouseEnter={(e) =>
                   (e.target.style.backgroundColor = "#001a3d")
@@ -164,23 +200,25 @@ const ProductsPage = ({
                   (e.target.style.backgroundColor = "#002b5e")
                 }
               >
-                {showFilters ? "Hide Filters" : "More Filters"}
+                {showFilters ? "Hide Filters" : "Show More Filters"}
               </button>
             </div>
           </div>
 
           {/* Gender Filter */}
-          <div className="bg-white p-4 rounded-lg shadow-sm">
-            <h3 className="text-lg font-semibold mb-4">Gender Categories</h3>
-            <div className="flex flex-wrap gap-2">
+          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <h3 className="text-lg font-semibold mb-4 text-gray-800">
+              Gender Categories
+            </h3>
+            <div className="flex flex-wrap gap-3">
               {["All", "Men", "Women"].map((gender) => (
                 <button
                   key={gender}
                   onClick={() => setSelectedGender(gender)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                  className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 border ${
                     selectedGender === gender
-                      ? "bg-blue-600 text-white"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      ? "bg-blue-600 text-white border-blue-600 shadow-md"
+                      : "bg-gray-50 text-gray-700 hover:bg-gray-100 border-gray-200 hover:border-gray-300"
                   }`}
                 >
                   {gender === "All" ? "All Products" : `${gender}'s Shoes`}
@@ -202,6 +240,8 @@ const ProductsPage = ({
                 products={filteredProducts}
                 selectedCategories={selectedCategories}
                 setSelectedCategories={setSelectedCategories}
+                selectedSizes={selectedSizes}
+                setSelectedSizes={setSelectedSizes}
                 onSale={onSale}
                 setOnSale={setOnSale}
                 inStock={inStock}
@@ -241,16 +281,8 @@ const ProductsPage = ({
                 looking for.
               </p>
               <button
-                onClick={() => {
-                  setSelectedBrand("All");
-                  setSelectedGender("All");
-                  setSelectedCategories([]);
-                  setPriceRange([0, 5000]);
-                  setOnSale(false);
-                  setInStock(false);
-                  setSortBy("newest");
-                }}
-                className="text-white px-6 py-3 rounded-lg font-medium transition-colors"
+                onClick={clearAllFilters}
+                className="text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:shadow-lg transform hover:scale-105"
                 style={{ backgroundColor: "#002b5e" }}
                 onMouseEnter={(e) =>
                   (e.target.style.backgroundColor = "#001a3d")
