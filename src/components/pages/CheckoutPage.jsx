@@ -315,8 +315,17 @@ const CheckoutPage = ({ cartItems = [] }) => {
                   value={formData.email}
                   onChange={handleInputChange}
                   placeholder="your@email.com (optional)"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                    formErrors.email
+                      ? "border-red-300 bg-red-50"
+                      : "border-gray-300"
+                  }`}
                 />
+                {formErrors.email && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {formErrors.email}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -329,8 +338,18 @@ const CheckoutPage = ({ cartItems = [] }) => {
                   value={formData.phone}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="+20 123 456 7890"
+                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                    formErrors.phone
+                      ? "border-red-300 bg-red-50"
+                      : "border-gray-300"
+                  }`}
                 />
+                {formErrors.phone && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {formErrors.phone}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -343,8 +362,18 @@ const CheckoutPage = ({ cartItems = [] }) => {
                   value={formData.address}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Street address, building number"
+                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                    formErrors.address
+                      ? "border-red-300 bg-red-50"
+                      : "border-gray-300"
+                  }`}
                 />
+                {formErrors.address && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {formErrors.address}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -357,8 +386,16 @@ const CheckoutPage = ({ cartItems = [] }) => {
                   value={formData.city}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="City name"
+                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                    formErrors.city
+                      ? "border-red-300 bg-red-50"
+                      : "border-gray-300"
+                  }`}
                 />
+                {formErrors.city && (
+                  <p className="mt-1 text-sm text-red-600">{formErrors.city}</p>
+                )}
               </div>
 
               <div>
