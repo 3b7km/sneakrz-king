@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { AlertCircle, CheckCircle } from "lucide-react";
+import { useCart } from "../../context/CartContext";
 
 const CheckoutPage = ({ cartItems = [] }) => {
+  const { clearCart } = useCart();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
