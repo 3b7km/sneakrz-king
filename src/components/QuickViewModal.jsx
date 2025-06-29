@@ -174,7 +174,14 @@ const QuickViewModal = ({
                 <button
                   onClick={handleAddToCart}
                   disabled={isLoading}
-                  className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="w-full text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                  style={{ backgroundColor: "#002b5e" }}
+                  onMouseEnter={(e) =>
+                    !isLoading && (e.target.style.backgroundColor = "#001a3d")
+                  }
+                  onMouseLeave={(e) =>
+                    !isLoading && (e.target.style.backgroundColor = "#002b5e")
+                  }
                 >
                   {isLoading ? (
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
