@@ -232,27 +232,37 @@ const AdvancedFilters = ({
             Additional Filters
           </label>
           <div className="space-y-4">
-            <label className="flex items-center group cursor-pointer">
+            <label className="flex items-center group cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition-colors">
               <input
                 type="checkbox"
                 checked={onSale}
                 onChange={(e) => setOnSale(e.target.checked)}
-                className="w-4 h-4 rounded border-gray-300 text-red-600 focus:ring-red-500 focus:ring-2 transition-all"
+                className="w-5 h-5 text-red-600 border-2 border-gray-300 rounded focus:ring-red-500 focus:ring-2 focus:ring-offset-2 transition-all"
+                style={{
+                  accentColor: "#DC2626",
+                  appearance: "auto",
+                  WebkitAppearance: "checkbox",
+                }}
               />
-              <span className="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors flex items-center">
-                <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
+              <span className="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors flex items-center font-medium">
+                <span className="w-3 h-3 bg-red-500 rounded-full mr-2 flex-shrink-0"></span>
                 On Sale
               </span>
             </label>
-            <label className="flex items-center group cursor-pointer">
+            <label className="flex items-center group cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition-colors">
               <input
                 type="checkbox"
                 checked={inStock}
                 onChange={(e) => setInStock(e.target.checked)}
-                className="w-4 h-4 rounded border-gray-300 text-green-600 focus:ring-green-500 focus:ring-2 transition-all"
+                className="w-5 h-5 text-green-600 border-2 border-gray-300 rounded focus:ring-green-500 focus:ring-2 focus:ring-offset-2 transition-all"
+                style={{
+                  accentColor: "#16A34A",
+                  appearance: "auto",
+                  WebkitAppearance: "checkbox",
+                }}
               />
-              <span className="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors flex items-center">
-                <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+              <span className="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors flex items-center font-medium">
+                <span className="w-3 h-3 bg-green-500 rounded-full mr-2 flex-shrink-0"></span>
                 In Stock
               </span>
             </label>
