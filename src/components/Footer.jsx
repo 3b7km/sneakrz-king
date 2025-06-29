@@ -134,31 +134,14 @@ const Footer = () => {
                 <span className="text-white font-semibold">Sneakrz King</span>.
                 All rights reserved.
               </p>
-              <p className="text-blue-300 text-sm mt-1">
-                Crafted with passion for sneaker enthusiasts worldwide
-              </p>
+              <p className="text-blue-300 text-sm mt-1">Created by @Ki9yj</p>
             </div>
 
             {/* Trust Indicators */}
             <div className="flex items-center gap-6">
-              <div className="text-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mb-2">
-                  <span className="text-white font-bold text-lg">✓</span>
-                </div>
-                <p className="text-blue-200 text-xs">100% Authentic</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center mb-2">
-                  <span className="text-white font-bold text-lg">🔒</span>
-                </div>
-                <p className="text-blue-200 text-xs">Secure Shopping</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mb-2">
-                  <span className="text-white font-bold text-lg">⚡</span>
-                </div>
-                <p className="text-blue-200 text-xs">Fast Delivery</p>
-              </div>
+              <div className="text-center"></div>
+              <div className="text-center"></div>
+              <div className="text-center"></div>
             </div>
           </div>
         </div>

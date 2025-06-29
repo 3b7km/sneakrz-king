@@ -130,39 +130,9 @@ const HeroSection = () => {
 
             {/* New Features Section */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 animate-fadeInUp animation-delay-1000">
-              <div className="text-center space-y-3">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white font-bold text-xl">✓</span>
-                </div>
-                <h3 className="text-white font-semibold text-lg">
-                  Authentic Products
-                </h3>
-                <p className="text-blue-200 text-sm">
-                  100% genuine sneakers from verified brands
-                </p>
-              </div>
-              <div className="text-center space-y-3">
-                <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white font-bold text-xl">🚀</span>
-                </div>
-                <h3 className="text-white font-semibold text-lg">
-                  Fast Delivery
-                </h3>
-                <p className="text-blue-200 text-sm">
-                  Quick and secure shipping worldwide
-                </p>
-              </div>
-              <div className="text-center space-y-3">
-                <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white font-bold text-xl">⭐</span>
-                </div>
-                <h3 className="text-white font-semibold text-lg">
-                  Premium Quality
-                </h3>
-                <p className="text-blue-200 text-sm">
-                  Curated selection of top-tier sneakers
-                </p>
-              </div>
+              <div className="text-center space-y-3"></div>
+              <div className="text-center space-y-3"></div>
+              <div className="text-center space-y-3"></div>
             </div>
           </div>
         </div>
