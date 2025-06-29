@@ -54,11 +54,15 @@ const AdvancedFilters = ({
   };
 
   const clearAllFilters = () => {
-    setPriceRange([filterOptions.minPrice, filterOptions.maxPrice]);
-    setSelectedCategories([]);
-    setSelectedSizes([]);
-    setOnSale(false);
-    setInStock(false);
+    try {
+      setPriceRange([filterOptions.minPrice, filterOptions.maxPrice]);
+      setSelectedCategories([]);
+      setSelectedSizes([]);
+      setOnSale(false);
+      setInStock(false);
+    } catch (error) {
+      console.error("Error clearing filters:", error);
+    }
   };
 
   const activeFiltersCount = [
