@@ -209,24 +209,30 @@ const AdvancedFilters = ({
           <label className="block text-sm font-medium text-gray-700 mb-3">
             Additional Filters
           </label>
-          <div className="space-y-3">
-            <label className="flex items-center">
+          <div className="space-y-4">
+            <label className="flex items-center group cursor-pointer">
               <input
                 type="checkbox"
                 checked={onSale}
                 onChange={(e) => setOnSale(e.target.checked)}
-                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                className="w-4 h-4 rounded border-gray-300 text-red-600 focus:ring-red-500 focus:ring-2 transition-all"
               />
-              <span className="ml-2 text-sm text-gray-700">On Sale</span>
+              <span className="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors flex items-center">
+                <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
+                On Sale
+              </span>
             </label>
-            <label className="flex items-center">
+            <label className="flex items-center group cursor-pointer">
               <input
                 type="checkbox"
                 checked={inStock}
                 onChange={(e) => setInStock(e.target.checked)}
-                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                className="w-4 h-4 rounded border-gray-300 text-green-600 focus:ring-green-500 focus:ring-2 transition-all"
               />
-              <span className="ml-2 text-sm text-gray-700">In Stock</span>
+              <span className="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors flex items-center">
+                <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                In Stock
+              </span>
             </label>
           </div>
         </div>
