@@ -142,7 +142,7 @@ const CheckoutPage = () => {
     message += `💰 *إجمالي الطلب: ${total.toFixed(2)} جنيه*\n\n`;
 
     message += `📝 *ملاحظة:* يرجى تأكيد الطلب والتواصل لتحديد طريقة الدفع والتوصيل.\n\n`;
-    message += `شكراً لاختياركم Sneakrz King! 👟✨`;
+    message += `شكراً لاختي��ركم Sneakrz King! 👟✨`;
 
     return encodeURIComponent(message);
   };
@@ -422,6 +422,8 @@ const CheckoutPage = () => {
 
                 <p className="text-xs text-gray-500 text-center">
                   سيتم فتح واتساب مع تفاصيل طلبك جاهزة للإرسال
+                  {customerData.email && <br />}
+                  {customerData.email && "وسيتم إرسال تأكيد الطلب على إيميلك"}
                 </p>
               </div>
             </CardContent>
