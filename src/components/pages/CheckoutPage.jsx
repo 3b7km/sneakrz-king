@@ -651,7 +651,46 @@ const CheckoutPage = () => {
   // Handle field blur for immediate required field validation
   const handleFieldBlur = (e) => {
     const { name, value } = e.target;
+
+    // Always validate on blur
     validateSingleField(name, value);
+
+    // Force a complete form validation for iOS Safari
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    if (isIOS && isSafari) {
+      setTimeout(() => {
+        // Trigger form validation refresh
+        const currentFormData = {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          streetAddress: formData.address,
+          city: formData.city,
+        };
+
+        const customValidationRules = {
+          firstName: checkoutValidationRules.firstName,
+          lastName: checkoutValidationRules.lastName,
+          email: checkoutValidationRules.email,
+          phone: checkoutValidationRules.phone,
+          streetAddress: checkoutValidationRules.streetAddress,
+          city: checkoutValidationRules.city,
+        };
+
+        const validation = validateForm(currentFormData, customValidationRules);
+        setFormErrors(validation.errors);
+
+        console.log("iOS Safari form validation refresh after blur:", {
+          field: name,
+          value: value ? "filled" : "empty",
+          isValid: validation.isValid,
+          errors: validation.errors,
+          formReady: isFormReady(),
+        });
+      }, 100);
+    }
   };
 
   const handleSubmit = async (e) => {
