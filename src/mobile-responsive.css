@@ -218,6 +218,28 @@
     gap: 1rem !important;
   }
 
+  /* Checkout page grid */
+  .grid.lg\\:grid-cols-2 {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Form input improvements */
+  .checkout-form input,
+  .checkout-form textarea,
+  .checkout-form select {
+    font-size: 16px !important;
+    min-height: 48px !important;
+    padding: 12px 16px !important;
+  }
+
+  /* Error message mobile */
+  .checkout-error {
+    margin: 1rem 0 !important;
+    padding: 1rem !important;
+    border-radius: 8px !important;
+  }
+
   /* Brand filter mobile */
   .brand-filter-enhanced {
     overflow-x: auto !important;
