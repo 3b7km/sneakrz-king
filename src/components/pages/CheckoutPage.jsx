@@ -232,10 +232,30 @@ const CheckoutPage = () => {
     const hasAllRequiredFields = requiredFields.every(
       (field) => formData[field] && formData[field].trim().length > 0,
     );
+
+    // For iOS Safari compatibility, be more lenient with error checking
     const hasNoErrors =
       Object.keys(formErrors).length === 0 ||
-      Object.values(formErrors).every((error) => !error);
-    return hasAllRequiredFields && hasNoErrors;
+      Object.values(formErrors).every((error) => !error || error === "");
+
+    const isReady = hasAllRequiredFields && hasNoErrors;
+
+    // Debug for iOS Safari
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    if (isIOS) {
+      console.log("iOS Form Ready Check:", {
+        hasAllRequiredFields,
+        hasNoErrors,
+        formErrors,
+        formData: Object.keys(formData).reduce((acc, key) => {
+          acc[key] = formData[key] ? "has_value" : "empty";
+          return acc;
+        }, {}),
+        isReady,
+      });
+    }
+
+    return isReady;
   };
 
   // Real-time field validation
