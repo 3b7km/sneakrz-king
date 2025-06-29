@@ -26,6 +26,7 @@ const CheckoutPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
   const [submitError, setSubmitError] = useState("");
+  const [emailSentStatus, setEmailSentStatus] = useState(null);
 
   // Calculate totals
   const subtotal = cartItems.reduce(
