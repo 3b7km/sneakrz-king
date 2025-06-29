@@ -164,7 +164,14 @@ const CartPage = ({
               <div className="mt-6 space-y-3">
                 <button
                   onClick={() => navigate("/checkout")}
-                  className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+                  className="w-full text-white py-3 rounded-lg font-medium transition-colors"
+                  style={{ backgroundColor: "#002b5e" }}
+                  onMouseEnter={(e) =>
+                    (e.target.style.backgroundColor = "#001a3d")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.target.style.backgroundColor = "#002b5e")
+                  }
                 >
                   Proceed to Checkout
                 </button>
