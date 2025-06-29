@@ -96,7 +96,14 @@ const BrandsPage = ({ selectedBrand, setSelectedBrand, brands = [] }) => {
                     </span>
                     <button
                       onClick={() => handleViewCollection(brand.name)}
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                      className="text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                      style={{ backgroundColor: "#002b5e" }}
+                      onMouseEnter={(e) =>
+                        (e.target.style.backgroundColor = "#001a3d")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.target.style.backgroundColor = "#002b5e")
+                      }
                     >
                       View Collection
                     </button>
