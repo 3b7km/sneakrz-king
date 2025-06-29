@@ -86,8 +86,8 @@ const OrderConfirmation = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 py-4 md:py-12">
+      <div className="max-w-4xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
         {/* Progress Steps */}
         <div className="mb-8 flex justify-center">
           <div className="flex flex-col items-center space-y-4">
