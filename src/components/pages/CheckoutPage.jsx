@@ -393,6 +393,9 @@ const CheckoutPage = () => {
       clearCart();
       console.log("Cart cleared after successful order placement");
 
+      // Small delay to ensure cart is cleared before navigation
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
       // Navigate to confirmation
       navigate("/order-confirmation");
     } catch (error) {
