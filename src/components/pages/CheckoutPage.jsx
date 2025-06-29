@@ -1144,23 +1144,77 @@ const CheckoutPage = () => {
                       </ul>
                     </div>
                   )}
-                  {/* Debug section for development */}
-                  {process.env.NODE_ENV === "development" && (
-                    <details className="mt-2 text-xs text-gray-600">
-                      <summary className="cursor-pointer text-gray-700 font-medium">
-                        Debug Info
-                      </summary>
-                      <div className="mt-1 space-y-1">
+                  {/* Debug section for development and troubleshooting */}
+                  <details className="mt-2 text-xs text-gray-600">
+                    <summary className="cursor-pointer text-gray-700 font-medium">
+                      Debug & Fix Tools
+                    </summary>
+                    <div className="mt-2 space-y-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          console.log("Manual validation triggered");
+                          forceValidation();
+                        }}
+                        className="px-3 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600"
+                      >
+                        Force Validation Check
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          console.log("Form state refresh triggered");
+                          setFormErrors((prev) => ({ ...prev }));
+                          setFormData((prev) => ({ ...prev }));
+                        }}
+                        className="px-3 py-1 bg-green-500 text-white text-xs rounded hover:bg-green-600 ml-2"
+                      >
+                        Refresh Form State
+                      </button>
+                      <div className="mt-2 space-y-1 text-xs">
                         <div>
-                          Form Data: {JSON.stringify(formData, null, 2)}
+                          <strong>Form Ready:</strong>{" "}
+                          {isFormReady().toString()}
                         </div>
                         <div>
-                          Form Errors: {JSON.stringify(formErrors, null, 2)}
+                          <strong>Is Submitting:</strong>{" "}
+                          {isSubmitting.toString()}
                         </div>
-                        <div>Is Form Ready: {isFormReady().toString()}</div>
+                        <div>
+                          <strong>Button Should Be Enabled:</strong>{" "}
+                          {(!isSubmitting && isFormReady()).toString()}
+                        </div>
+                        <div>
+                          <strong>Error Count:</strong>{" "}
+                          {Object.keys(formErrors).length}
+                        </div>
+                        <div>
+                          <strong>Required Fields Filled:</strong>{" "}
+                          {["firstName", "lastName", "phone", "address", "city"]
+                            .map(
+                              (field) =>
+                                `${field}: ${formData[field] ? "✓" : "✗"}`,
+                            )
+                            .join(", ")}
+                        </div>
+                        {Object.keys(formErrors).length > 0 && (
+                          <div>
+                            <strong>Current Errors:</strong>
+                            <ul className="list-disc list-inside ml-2">
+                              {Object.entries(formErrors).map(
+                                ([field, error]) =>
+                                  error && (
+                                    <li key={field}>
+                                      {field}: {error}
+                                    </li>
+                                  ),
+                              )}
+                            </ul>
+                          </div>
+                        )}
                       </div>
-                    </details>
-                  )}
+                    </div>
+                  </details>
                 </div>
               )}
             </form>
