@@ -2540,6 +2540,7 @@ function App() {
       rating: 4.4,
       brand: "New Balance",
       category: "Lifestyle",
+      gender: "Women",
       condition: "Brand New",
       authenticity: "100% Guaranteed",
       isNew: true,
