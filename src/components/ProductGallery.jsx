@@ -28,11 +28,11 @@ const ProductGallery = ({ images, productName, className = "" }) => {
   }
 
   const nextImage = () => {
-    setCurrentIndex((prev) => (prev + 1) % images.length);
+    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
   const prevImage = () => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
 
   const goToImage = (index) => {
@@ -43,35 +43,35 @@ const ProductGallery = ({ images, productName, className = "" }) => {
     <div className={`product-gallery ${className}`}>
       {/* Main Image Display */}
       <div className="relative mb-4">
-        <img
-          src={images[currentIndex]}
-          alt={`${productName} - View ${currentIndex + 1} of ${images.length}`}
-          className="w-full h-80 sm:h-96 lg:h-[500px] object-contain bg-gray-50 rounded-xl"
-          loading="lazy"
-          onError={(e) => {
-            // Try to fix common path issues
-            const originalSrc = e.target.src;
-            if (originalSrc.includes("./Sneakers photos/")) {
-              e.target.src = originalSrc.replace(
-                "./Sneakers photos/",
-                "/Sneakers photos/",
-              );
-            } else if (!originalSrc.includes("/Sneakers photos/")) {
-              // Fallback to placeholder
-              e.target.style.display = "none";
-              e.target.parentElement.style.backgroundColor = "#f3f4f6";
-              e.target.parentElement.innerHTML = `
-                <div class="flex items-center justify-center h-full">
-                  <div class="text-center text-gray-500">
-                    <div class="text-4xl mb-2">📸</div>
-                    <div class="text-lg">Image not available</div>
-                    <div class="text-sm">${productName}</div>
-                  </div>
-                </div>
-              `;
-            }
-          }}
-        />
+        {failedImages.has(currentIndex) ? (
+          <div className="w-full h-80 sm:h-96 lg:h-[500px] bg-gray-50 rounded-xl flex items-center justify-center">
+            <div className="text-center text-gray-500">
+              <div className="text-4xl mb-2">📸</div>
+              <div className="text-lg">Image not available</div>
+              <div className="text-sm">{productName}</div>
+            </div>
+          </div>
+        ) : (
+          <img
+            src={images[currentIndex]}
+            alt={`${productName} - View ${currentIndex + 1} of ${images.length}`}
+            className="w-full h-80 sm:h-96 lg:h-[500px] object-contain bg-gray-50 rounded-xl"
+            loading="lazy"
+            onError={(e) => {
+              // Try to fix common path issues
+              const originalSrc = e.target.src;
+              if (originalSrc.includes("./Sneakers photos/")) {
+                e.target.src = originalSrc.replace(
+                  "./Sneakers photos/",
+                  "/Sneakers photos/",
+                );
+              } else {
+                // Mark image as failed for React to handle
+                setFailedImages((prev) => new Set([...prev, currentIndex]));
+              }
+            }}
+          />
+        )}
 
         {/* Navigation Arrows */}
         {images.length > 1 && (
@@ -114,23 +114,6 @@ const ProductGallery = ({ images, productName, className = "" }) => {
                   : "border-gray-200 hover:border-gray-300"
               }`}
             >
-        {failedImages.has(currentIndex) ? (
-          <div className="w-full h-80 sm:h-96 lg:h-[500px] bg-gray-50 rounded-xl flex items-center justify-center">
-            <div className="text-center text-gray-500">
-              <div className="text-4xl mb-2">📸</div>
-              <div className="text-lg">Image not available</div>
-              <div className="text-sm">{productName}</div>
-            </div>
-          </div>
-        ) : (
-          <img
-            src={images[currentIndex]}
-            alt={`${productName} - View ${currentIndex + 1} of ${images.length}`}
-            className="w-full h-80 sm:h-96 lg:h-[500px] object-contain bg-gray-50 rounded-xl"
-            loading="lazy"
-            onError={(e) => {
-              // Try to fix common path issues
-              const originalSrc = e.target.src;
               {failedImages.has(index) ? (
                 <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                   <span className="text-gray-400 text-xs">❌</span>
@@ -143,11 +126,23 @@ const ProductGallery = ({ images, productName, className = "" }) => {
                   onError={(e) => {
                     // Try to fix path issues for thumbnails
                     const originalSrc = e.target.src;
-                    if (originalSrc.includes('./Sneakers photos/')) {
-                      e.target.src = originalSrc.replace('./Sneakers photos/', '/Sneakers photos/');
+                    if (originalSrc.includes("./Sneakers photos/")) {
+                      e.target.src = originalSrc.replace(
+                        "./Sneakers photos/",
+                        "/Sneakers photos/",
+                      );
                     } else {
-                      setFailedImages(prev => new Set([...prev, index]));
+                      setFailedImages((prev) => new Set([...prev, index]));
                     }
                   }}
                 />
               )}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ProductGallery;
