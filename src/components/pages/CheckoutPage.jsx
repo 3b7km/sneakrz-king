@@ -125,6 +125,13 @@ const CheckoutPage = ({ cartItems = [] }) => {
       const totalAmount = calculatedTotal.toFixed(2);
       const subtotalAmount = calculatedSubtotal.toFixed(2);
 
+      console.log(
+        "Final amounts - Subtotal:",
+        subtotalAmount,
+        "Total:",
+        totalAmount,
+      );
+
       const templateParams = {
         customer_name: customerName,
         customer_email: formData.email.trim(),
@@ -134,12 +141,18 @@ const CheckoutPage = ({ cartItems = [] }) => {
         subtotal_amount: subtotalAmount,
         shipping_amount: "80.00",
         total_amount: totalAmount,
+        order_total: totalAmount, // Add this as backup
         order_notes: formData.notes.trim() || "No additional notes",
         order_date: new Date().toLocaleDateString(),
         order_time: new Date().toLocaleTimeString(),
+        // Add more explicit values
+        subtotal: `${subtotalAmount} EGP`,
+        shipping: "80.00 EGP",
+        total: `${totalAmount} EGP`,
       };
 
-      console.log("Template params being sent:", templateParams);
+      console.log("=== Final Template Params ===");
+      console.log(JSON.stringify(templateParams, null, 2));
 
       const response = await window.emailjs.send(
         "service_jpicl4m",
