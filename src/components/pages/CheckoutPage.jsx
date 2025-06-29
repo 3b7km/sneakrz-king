@@ -544,11 +544,15 @@ const CheckoutPage = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
 
+    // iOS Safari specific: Clear errors immediately for better UX
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
     // Real-time validation with debounce for better UX
     if (value.trim() !== "") {
+      const validationDelay = isIOS ? 300 : 500; // Faster on iOS
       setTimeout(() => {
         validateSingleField(name, value);
-      }, 500);
+      }, validationDelay);
     } else {
       // Clear error if field is empty (except for required fields on blur)
       if (formErrors[name]) {
@@ -559,6 +563,14 @@ const CheckoutPage = () => {
     // Clear general submit error
     if (submitError) {
       setSubmitError("");
+    }
+
+    // iOS Safari: Force re-render to update button state
+    if (isIOS) {
+      setTimeout(() => {
+        // Force a small state update to trigger re-render
+        setFormData((prev) => ({ ...prev }));
+      }, 50);
     }
   };
 
