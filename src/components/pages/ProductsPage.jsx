@@ -229,9 +229,17 @@ const ProductsPage = ({
                   onClick={() => setSelectedGender(gender)}
                   className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 border ${
                     selectedGender === gender
-                      ? "bg-blue-600 text-white border-blue-600 shadow-md"
+                      ? "text-white shadow-md"
                       : "bg-gray-50 text-gray-700 hover:bg-gray-100 border-gray-200 hover:border-gray-300"
                   }`}
+                  style={
+                    selectedGender === gender
+                      ? {
+                          backgroundColor: "rgba(30, 59, 96, 1)",
+                          borderColor: "rgba(30, 59, 96, 1)",
+                        }
+                      : {}
+                  }
                 >
                   {gender === "All" ? "All Products" : `${gender}'s Shoes`}
                 </button>
