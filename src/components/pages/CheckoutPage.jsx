@@ -123,7 +123,8 @@ const CheckoutPage = ({ cartItems = [] }) => {
             </h2>
             <button
               onClick={() => navigate("/products")}
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+              className="bg-navy-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-navy-700 transition-colors"
+              style={{ backgroundColor: "#002b5e" }}
             >
               Shop Now
             </button>
@@ -246,7 +247,14 @@ const CheckoutPage = ({ cartItems = [] }) => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{ backgroundColor: "#002b5e" }}
+                onMouseEnter={(e) =>
+                  !isSubmitting && (e.target.style.backgroundColor = "#001a3d")
+                }
+                onMouseLeave={(e) =>
+                  !isSubmitting && (e.target.style.backgroundColor = "#002b5e")
+                }
               >
                 {isSubmitting ? "Processing Order..." : "Place Order"}
               </button>
