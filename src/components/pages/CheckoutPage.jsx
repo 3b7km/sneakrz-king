@@ -263,6 +263,9 @@ const CheckoutPage = () => {
 
     // Validate form
     if (!validateFormData()) {
+      setSubmitError(
+        "Please fill in all required fields correctly before placing your order.",
+      );
       return;
     }
 
