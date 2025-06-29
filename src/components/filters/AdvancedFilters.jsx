@@ -1,0 +1,285 @@
+import { useState, useMemo } from "react";
+import { X } from "lucide-react";
+
+const AdvancedFilters = ({
+  priceRange,
+  setPriceRange,
+  products = [],
+  selectedCategories = [],
+  setSelectedCategories = () => {},
+  selectedSizes = [],
+  setSelectedSizes = () => {},
+  onSale = false,
+  setOnSale = () => {},
+  inStock = false,
+  setInStock = () => {},
+}) => {
+  // Extract unique values for filter options
+  const filterOptions = useMemo(() => {
+    const categories = [...new Set(products.map((p) => p.category))];
+    const sizes = [
+      ...new Set(
+        products.flatMap(
+          (p) =>
+            p.sizes?.map((s) => (typeof s === "object" ? s.value : s)) || [],
+        ),
+      ),
+    ].sort((a, b) => parseInt(a) - parseInt(b));
+
+    const minPrice = Math.min(...products.map((p) => p.price));
+    const maxPrice = Math.max(...products.map((p) => p.price));
+
+    return { categories, sizes, minPrice, maxPrice };
+  }, [products]);
+
+  const handleCategoryToggle = (category) => {
+    if (selectedCategories.includes(category)) {
+      setSelectedCategories(selectedCategories.filter((c) => c !== category));
+    } else {
+      setSelectedCategories([...selectedCategories, category]);
+    }
+  };
+
+  const handleSizeToggle = (size) => {
+    if (selectedSizes.includes(size)) {
+      setSelectedSizes(selectedSizes.filter((s) => s !== size));
+    } else {
+      setSelectedSizes([...selectedSizes, size]);
+    }
+  };
+
+  const clearAllFilters = () => {
+    setPriceRange([filterOptions.minPrice, filterOptions.maxPrice]);
+    setSelectedCategories([]);
+    setSelectedSizes([]);
+    setOnSale(false);
+    setInStock(false);
+  };
+
+  const activeFiltersCount = [
+    selectedCategories.length > 0,
+    selectedSizes.length > 0,
+    priceRange[0] > filterOptions.minPrice ||
+      priceRange[1] < filterOptions.maxPrice,
+    onSale,
+    inStock,
+  ].filter(Boolean).length;
+
+  return (
+    <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+      <div className="flex items-center justify-between mb-6">
+        <h3 className="text-lg font-semibold text-gray-900">
+          Advanced Filters
+          {activeFiltersCount > 0 && (
+            <span className="ml-2 bg-blue-100 text-blue-800 text-sm px-2 py-1 rounded-full">
+              {activeFiltersCount}
+            </span>
+          )}
+        </h3>
+        {activeFiltersCount > 0 && (
+          <button
+            onClick={clearAllFilters}
+            className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1"
+          >
+            <X className="w-4 h-4" />
+            Clear All
+          </button>
+        )}
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Price Range */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-3">
+            Price Range (EGP)
+          </label>
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <input
+                type="number"
+                value={priceRange[0]}
+                onChange={(e) =>
+                  setPriceRange([parseInt(e.target.value) || 0, priceRange[1]])
+                }
+                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                placeholder="Min"
+                min={filterOptions.minPrice}
+                max={priceRange[1]}
+              />
+              <span className="text-gray-500">-</span>
+              <input
+                type="number"
+                value={priceRange[1]}
+                onChange={(e) =>
+                  setPriceRange([priceRange[0], parseInt(e.target.value) || 0])
+                }
+                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                placeholder="Max"
+                min={priceRange[0]}
+                max={filterOptions.maxPrice}
+              />
+            </div>
+            <div className="flex justify-between text-xs text-gray-500">
+              <span>{filterOptions.minPrice} EGP</span>
+              <span>{filterOptions.maxPrice} EGP</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Categories */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-3">
+            Categories
+          </label>
+          <div className="space-y-2 max-h-32 overflow-y-auto">
+            {filterOptions.categories.map((category) => (
+              <label key={category} className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={selectedCategories.includes(category)}
+                  onChange={() => handleCategoryToggle(category)}
+                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <span className="ml-2 text-sm text-gray-700">{category}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        {/* Sizes */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-3">
+            Sizes
+          </label>
+          <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
+            {filterOptions.sizes.map((size) => (
+              <button
+                key={size}
+                onClick={() => handleSizeToggle(size)}
+                className={`px-3 py-1 border rounded-md text-sm font-medium transition-colors ${
+                  selectedSizes.includes(size)
+                    ? "border-blue-500 bg-blue-50 text-blue-700"
+                    : "border-gray-300 text-gray-700 hover:border-gray-400"
+                }`}
+              >
+                {size}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Additional Filters */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-3">
+            Additional Filters
+          </label>
+          <div className="space-y-3">
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                checked={onSale}
+                onChange={(e) => setOnSale(e.target.checked)}
+                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              />
+              <span className="ml-2 text-sm text-gray-700">On Sale</span>
+            </label>
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                checked={inStock}
+                onChange={(e) => setInStock(e.target.checked)}
+                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              />
+              <span className="ml-2 text-sm text-gray-700">In Stock</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      {/* Active Filters Display */}
+      {activeFiltersCount > 0 && (
+        <div className="mt-6 pt-4 border-t border-gray-200">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-sm font-medium text-gray-700">
+              Active filters:
+            </span>
+
+            {selectedCategories.map((category) => (
+              <span
+                key={category}
+                className="inline-flex items-center gap-1 bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full"
+              >
+                {category}
+                <button
+                  onClick={() => handleCategoryToggle(category)}
+                  className="hover:bg-blue-200 rounded-full p-0.5"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            ))}
+
+            {selectedSizes.map((size) => (
+              <span
+                key={size}
+                className="inline-flex items-center gap-1 bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full"
+              >
+                Size {size}
+                <button
+                  onClick={() => handleSizeToggle(size)}
+                  className="hover:bg-green-200 rounded-full p-0.5"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            ))}
+
+            {(priceRange[0] > filterOptions.minPrice ||
+              priceRange[1] < filterOptions.maxPrice) && (
+              <span className="inline-flex items-center gap-1 bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">
+                {priceRange[0]} - {priceRange[1]} EGP
+                <button
+                  onClick={() =>
+                    setPriceRange([
+                      filterOptions.minPrice,
+                      filterOptions.maxPrice,
+                    ])
+                  }
+                  className="hover:bg-yellow-200 rounded-full p-0.5"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            )}
+
+            {onSale && (
+              <span className="inline-flex items-center gap-1 bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">
+                On Sale
+                <button
+                  onClick={() => setOnSale(false)}
+                  className="hover:bg-red-200 rounded-full p-0.5"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            )}
+
+            {inStock && (
+              <span className="inline-flex items-center gap-1 bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full">
+                In Stock
+                <button
+                  onClick={() => setInStock(false)}
+                  className="hover:bg-gray-200 rounded-full p-0.5"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default AdvancedFilters;
