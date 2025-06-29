@@ -236,7 +236,11 @@ const ProductsPage = ({
               <button
                 onClick={() => {
                   setSelectedBrand("All");
+                  setSelectedGender("All");
+                  setSelectedCategories([]);
                   setPriceRange([0, 5000]);
+                  setOnSale(false);
+                  setInStock(false);
                   setSortBy("newest");
                 }}
                 className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
