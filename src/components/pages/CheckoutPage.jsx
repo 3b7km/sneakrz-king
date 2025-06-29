@@ -608,21 +608,43 @@ const CheckoutPage = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
 
-    // Real-time validation with debounce for better UX
+    // Clear general submit error immediately
+    if (submitError) {
+      setSubmitError("");
+    }
+
+    // Real-time validation with shorter debounce for better responsiveness
     if (value.trim() !== "") {
+      // Immediate validation for better UX
       setTimeout(() => {
         validateSingleField(name, value);
-      }, 500);
+      }, 200);
     } else {
-      // Clear error if field is empty (except for required fields on blur)
-      if (formErrors[name]) {
-        setFormErrors((prev) => ({ ...prev, [name]: "" }));
+      // Clear error if field is empty (except for required fields)
+      const requiredFields = [
+        "firstName",
+        "lastName",
+        "phone",
+        "address",
+        "city",
+      ];
+      if (formErrors[name] && !requiredFields.includes(name)) {
+        setFormErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors[name];
+          return newErrors;
+        });
       }
     }
 
-    // Clear general submit error
-    if (submitError) {
-      setSubmitError("");
+    // Force form state refresh for iOS Safari
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    if (isIOS && isSafari) {
+      // Additional state update to trigger re-render
+      setTimeout(() => {
+        setFormErrors((prev) => ({ ...prev }));
+      }, 100);
     }
   };
 
