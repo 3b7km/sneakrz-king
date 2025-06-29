@@ -15,7 +15,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="hero-section-enhanced relative overflow-hidden bg-white min-h-screen flex items-center">
+    <section className="hero-section-enhanced relative overflow-hidden bg-black min-h-screen flex items-center">
       {/* Background Video */}
       <div className="absolute inset-0 z-0">
         <video
@@ -23,7 +23,7 @@ const HeroSection = () => {
           muted
           loop
           playsInline
-          className="w-full h-full object-cover opacity-10"
+          className="w-full h-full object-cover opacity-30"
           poster="https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F0f4530de78a647deb471d412dfb4a0d7?format=webp&width=1920"
         >
           <source src="/logo3d.mp4" type="video/mp4" />
@@ -31,25 +31,21 @@ const HeroSection = () => {
       </div>
 
       {/* Background Pattern */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-r from-gray-50/80 to-white/80"></div>
+      <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/50 to-black/30"></div>
 
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
-          <div className="text-gray-900 space-y-8">
+          <div className="text-white space-y-8">
             <div className="space-y-4">
-              <h1
-                className="hero-title text-5xl md:text-6xl lg:text-7xl font-bold leading-tight"
-                style={{ color: "#1E3B60" }}
-              >
-                Premium
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-gray-800 to-gray-600">
-                  Sneakers
+              <h1 className="hero-title text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-white">
+                Step Into
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200">
+                  Greatness
                 </span>
-                <span className="block">Collection</span>
               </h1>
 
-              <p className="hero-subtitle text-xl md:text-2xl text-gray-600 leading-relaxed max-w-lg">
+              <p className="hero-subtitle text-xl md:text-2xl text-gray-200 leading-relaxed max-w-lg">
                 Discover authentic sneakers from the world's most prestigious
                 brands. Experience style, comfort, and authenticity in every
                 step.
