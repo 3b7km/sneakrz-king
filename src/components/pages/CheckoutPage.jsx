@@ -415,7 +415,7 @@ const CheckoutPage = ({ cartItems = [] }) => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
                 style={{ backgroundColor: "#002b5e" }}
                 onMouseEnter={(e) =>
                   !isSubmitting && (e.target.style.backgroundColor = "#001a3d")
@@ -424,7 +424,10 @@ const CheckoutPage = ({ cartItems = [] }) => {
                   !isSubmitting && (e.target.style.backgroundColor = "#002b5e")
                 }
               >
-                {isSubmitting ? "Processing Order..." : "Place Order"}
+                {isSubmitting && <LoadingSpinner size="sm" />}
+                <span>
+                  {isSubmitting ? "Processing Order..." : "Place Order"}
+                </span>
               </button>
             </form>
           </div>
