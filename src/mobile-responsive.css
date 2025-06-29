@@ -66,14 +66,39 @@
 
   /* Cart page mobile fixes */
   .cart-page {
-    padding: 0.5rem !important;
+    padding: 1rem !important;
+    overflow-x: hidden !important;
   }
 
   .cart-page .container,
   .cart-page .max-w-7xl {
-    padding: 0.5rem !important;
-    margin: 0 !important;
+    padding: 1rem !important;
+    margin: 0 auto !important;
     max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Cart grid mobile fixes */
+  .grid.lg\\:grid-cols-3 {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Cart items mobile layout */
+  .cart-item-mobile {
+    display: flex !important;
+    flex-direction: column !important;
+    space-y: 1rem !important;
+  }
+
+  /* Order summary mobile */
+  .order-summary-mobile {
+    position: sticky !important;
+    bottom: 0 !important;
+    background: white !important;
+    border-top: 1px solid #e5e7eb !important;
+    padding: 1rem !important;
+    margin: 0 -1rem !important;
   }
 
   /* Button improvements for mobile */
