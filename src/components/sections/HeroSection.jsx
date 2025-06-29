@@ -74,14 +74,6 @@ const HeroSection = () => {
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fadeInUp animation-delay-500">
               {/* Primary CTA with Dropdown */}
               <div className="relative" ref={dropdownRef}></div>
-
-              {/* Secondary CTA */}
-              <button
-                onClick={() => navigate("/brands")}
-                className="border-2 border-white/30 text-white bg-white/10 backdrop-blur-sm px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-500 hover:bg-white hover:text-blue-900 transform hover:scale-105 hover:shadow-2xl hover:shadow-white/25"
-              >
-                Explore Brands
-              </button>
             </div>
 
             {/* New Features Section */}
@@ -92,15 +84,27 @@ const HeroSection = () => {
             </div>
           </div>
         </div>
-        <button
-          onClick={() => setShowDropdown(!showDropdown)}
-          className="group bg-gradient-to-r from-white to-blue-50 text-blue-900 px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 flex items-end justify-center gap-3 backdrop-blur-sm border border-white/20"
+        <div
+          className="flex flex-col sm:flex-row gap-6 justify-center items-center relative"
+          ref={dropdownRef}
         >
-          <span>View Collection</span>
-          <ChevronDown
-            className={`w-5 h-5 transition-transform duration-300 ${showDropdown ? "rotate-180" : ""}`}
-          />
-        </button>
+          <button
+            onClick={() => setShowDropdown(!showDropdown)}
+            className="group bg-gradient-to-r from-white to-blue-50 text-blue-900 px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 flex items-end justify-center gap-3 backdrop-blur-sm border border-white/20"
+          >
+            <span>View Collection</span>
+            <ChevronDown
+              className={`w-5 h-5 transition-transform duration-300 ${showDropdown ? "rotate-180" : ""}`}
+            />
+          </button>
+
+          <button
+            onClick={() => navigate("/brands")}
+            className="border-2 border-white/30 text-white bg-white/10 backdrop-blur-sm px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-500 hover:bg-white hover:text-blue-900 transform hover:scale-105 hover:shadow-2xl hover:shadow-white/25"
+          >
+            Explore Brands
+          </button>
+        </div>
 
         {/* Enhanced Dropdown Menu */}
         {showDropdown && (
