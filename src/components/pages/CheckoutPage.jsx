@@ -192,6 +192,19 @@ const CheckoutPage = () => {
     };
   }, []);
 
+  // iOS Safari specific: Force button state updates
+  useEffect(() => {
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    if (isIOS) {
+      // Force periodic updates to ensure button state is correct
+      const interval = setInterval(() => {
+        setForceUpdate((prev) => prev + 1);
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [formData, formErrors, isSubmitting]);
+
   // Enhanced form validation function using utility
   const validateFormData = () => {
     // Create custom validation rules without the country requirement
