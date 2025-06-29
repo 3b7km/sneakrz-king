@@ -145,11 +145,11 @@ const OrderConfirmation = () => {
           {/* Order Details */}
           <div className="lg:col-span-2 space-y-6">
             {/* Customer Information */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
-              <h3 className="text-lg font-semibold mb-4">
+            <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
+              <h3 className="text-lg font-semibold mb-4 text-center md:text-left">
                 Customer Information
               </h3>
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-gray-600">Name</p>
                   <p className="font-medium">
