@@ -47,7 +47,7 @@ const HeroSection = () => {
       </div>
 
       {/* Enhanced Background Overlay */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/60 via-black/40 to-black/60"></div>
+      #<div className="absolute inset-0 z-10 bg-gradient-to-r from-black/60 via-black/40 to-black/60"></div>
 
       {/* Animated Background Elements */}
       <div className="absolute inset-0 z-5">
@@ -66,7 +66,7 @@ const HeroSection = () => {
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-200 to-white drop-shadow-2xl ml-auto pb-48">
                     <p>
                       Rise With{" "}
-                      <strong style={{ fontFamily: "Khula, sans-serif" }}>
+                      <strong style={{ fontFamily: "'Montserrat', 'Khula', sans-serif", fontWeight: 700, letterSpacing: '1px' }}>
                         Every Step
                       </strong>
                     </p>
@@ -106,10 +106,10 @@ const HeroSection = () => {
         >
           <button
             onClick={() => setShowDropdown(!showDropdown)}
-            className="group bg-gradient-to-r from-white to-blue-50 text-blue-900 px-10 py-5 rounded-2xl text-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 flex flex-row items-center justify-center backdrop-blur-sm border border-white/20"
+            className="group bg-gradient-to-r from-white to-blue-50 text-blue-900 px-10 py-5 rounded-2xl text-lg font-bold transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 flex flex-row items-center justify-center backdrop-blur-sm border border-white/20"
             style={{ gap: "15px" }}
           >
-            <span>View Collection</span>
+            <span style={{ fontWeight: 700 }}>View Collection</span>
             <ChevronDown
               className={`w-5 h-5 transition-transform duration-300 ${showDropdown ? "rotate-180" : ""}`}
             />

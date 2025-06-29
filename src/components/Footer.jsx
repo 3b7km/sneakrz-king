@@ -2,7 +2,7 @@ import { Instagram, Phone, ShoppingBag } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="relative text-white py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 overflow-hidden">
+    <footer className="relative text-white py-20" style={{ backgroundColor: '#1E3B60' }}>
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-float"></div>
@@ -20,8 +20,8 @@ const Footer = () => {
               <img
                 src="/kingsvg.svg"
                 alt="SneakrzKing Logo"
-                className="filter brightness-0 invert transition-transform duration-300 hover:scale-105"
-                style={{ width: "250px", height: "200px" }}
+                className="filter brightness-0 invert transition-transform duration-300 hover:scale-105 ml-0 mr-auto"
+                style={{ width: "300px", height: "250px", }}
               />
             </div>
             <p className="text-blue-100 text-base leading-relaxed font-light">
@@ -111,15 +111,6 @@ const Footer = () => {
                   </p>
                   <p className="text-blue-200">@sneakrz.king</p>
                 </div>
-              </div>
-
-              {/* Business Hours */}
-              <div className="p-4 bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-sm rounded-xl border border-blue-500/20">
-                <h5 className="text-white font-semibold text-base mb-2">
-                  Business Hours
-                </h5>
-                <p className="text-blue-200 text-sm">Always available online</p>
-                <p className="text-blue-200 text-sm">24/7 customer support</p>
               </div>
             </div>
           </div>

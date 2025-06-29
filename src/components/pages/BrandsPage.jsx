@@ -109,13 +109,13 @@ const BrandsPage = ({ selectedBrand, setSelectedBrand, brands = [] }) => {
                     {brand.name}
                   </h3>
                   <p className="text-gray-600 mb-4">{brand.description}</p>
-                  <div className="flex items-center justify-between">
-                    <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mt-4">
+                    <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium w-fit mx-auto sm:mx-0">
                       {brand.products} Products
                     </span>
                     <button
                       onClick={() => handleViewCollection(brand.name)}
-                      className="text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                    className="w-full sm:w-auto text-white px-3 py-2 rounded-md font-medium text-sm transition-all duration-200 transform hover:scale-105 shadow hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                       style={{ backgroundColor: "#002b5e" }}
                       onMouseEnter={(e) =>
                         (e.target.style.backgroundColor = "#001a3d")
