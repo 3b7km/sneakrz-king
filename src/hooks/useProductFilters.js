@@ -11,9 +11,12 @@ export function useProductFilters(products) {
       return acc;
     }, {});
 
-    return Object.entries(brandCounts)
+    const brandsWithCounts = Object.entries(brandCounts)
       .map(([name, count]) => ({ name, count }))
       .sort((a, b) => a.name.localeCompare(b.name));
+
+    // Add "All" option at the beginning
+    return [{ name: "All", count: products.length }, ...brandsWithCounts];
   }, [products]);
 
   // Filter products based on search term and selected brand
