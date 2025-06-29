@@ -20,12 +20,22 @@ const ProductsPage = ({
   brands,
   selectedBrand,
   setSelectedBrand,
+  searchTerm,
+  setSearchTerm,
   openQuickView,
   addToCart,
   loadingStates,
 }) => {
   const [searchParams] = useSearchParams();
   const [sortBy, setSortBy] = useState("newest");
+
+  // Handle URL search parameter
+  useEffect(() => {
+    const searchQuery = searchParams.get("search");
+    if (searchQuery && searchQuery !== searchTerm) {
+      setSearchTerm(searchQuery);
+    }
+  }, [searchParams, searchTerm, setSearchTerm]);
   const [priceRange, setPriceRange] = useState([0, 5000]);
   const [showFilters, setShowFilters] = useState(true);
   const [selectedGender, setSelectedGender] = useState("All");
