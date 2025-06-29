@@ -24,6 +24,7 @@ const ProductsPage = ({
   addToCart,
   loadingStates,
 }) => {
+  const [searchParams] = useSearchParams();
   const [sortBy, setSortBy] = useState("newest");
   const [priceRange, setPriceRange] = useState([0, 5000]);
   const [showFilters, setShowFilters] = useState(true);
