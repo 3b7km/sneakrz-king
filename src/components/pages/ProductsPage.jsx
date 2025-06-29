@@ -35,11 +35,37 @@ const ProductsPage = ({
   const sortedProducts = useMemo(() => {
     let sorted = [...filteredProducts];
 
+    // Filter by gender
+    if (selectedGender !== "All") {
+      sorted = sorted.filter((product) => product.gender === selectedGender);
+    }
+
+    // Filter by categories
+    if (selectedCategories.length > 0) {
+      sorted = sorted.filter((product) =>
+        selectedCategories.includes(product.category),
+      );
+    }
+
     // Filter by price range
     sorted = sorted.filter(
       (product) =>
         product.price >= priceRange[0] && product.price <= priceRange[1],
     );
+
+    // Filter by sale status
+    if (onSale) {
+      sorted = sorted.filter((product) => product.onSale);
+    }
+
+    // Filter by stock status
+    if (inStock) {
+      sorted = sorted.filter((product) =>
+        product.sizes?.some((size) =>
+          typeof size === "object" ? size.available : true,
+        ),
+      );
+    }
 
     // Sort products
     switch (sortBy) {
@@ -62,7 +88,15 @@ const ProductsPage = ({
     }
 
     return sorted;
-  }, [filteredProducts, sortBy, priceRange]);
+  }, [
+    filteredProducts,
+    sortBy,
+    priceRange,
+    selectedGender,
+    selectedCategories,
+    onSale,
+    inStock,
+  ]);
 
   return (
     <div className="products-page py-12 bg-gray-50 min-h-screen">
