@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { LoadingSpinner } from "../LoadingSpinner";
+import { AlertCircle, CheckCircle } from "lucide-react";
 
 const CheckoutPage = ({ cartItems = [] }) => {
   const navigate = useNavigate();
@@ -13,6 +15,9 @@ const CheckoutPage = ({ cartItems = [] }) => {
     notes: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
+  const [submitError, setSubmitError] = useState("");
+  const [emailSentStatus, setEmailSentStatus] = useState(null);
 
   const subtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
