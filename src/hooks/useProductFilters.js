@@ -29,7 +29,9 @@ export function useProductFilters(products) {
         product.category.toLowerCase().includes(searchTerm.toLowerCase());
 
       const matchesBrand =
-        selectedBrand === "" || product.brand === selectedBrand;
+        selectedBrand === "" ||
+        selectedBrand === "All" ||
+        product.brand === selectedBrand;
 
       return matchesSearch && matchesBrand;
     });
