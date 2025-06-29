@@ -25,6 +25,7 @@ const CheckoutPage = () => {
   const [formErrors, setFormErrors] = useState({});
   const [submitError, setSubmitError] = useState("");
   const [emailSentStatus, setEmailSentStatus] = useState(null);
+  const [forceUpdate, setForceUpdate] = useState(0);
 
   const subtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
