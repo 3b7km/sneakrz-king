@@ -120,7 +120,7 @@ const HeroSection = () => {
 
           <button
             onClick={() => navigate("/brands")}
-            className="border-2 border-white/30 text-white bg-white/10 backdrop-blur-sm px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-500 hover:bg-white hover:text-blue-900 transform hover:scale-105 hover:shadow-2xl hover:shadow-white/25"
+            className="hero-explore-btn border-2 border-white/30 text-white bg-white/10 backdrop-blur-sm px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-500 hover:bg-white hover:text-blue-900 transform hover:scale-105 hover:shadow-2xl hover:shadow-white/25"
           >
             Explore Brands
           </button>
