@@ -5,6 +5,9 @@
   /* Navigation fixes */
   .nav-professional {
     padding: 0.5rem 1rem !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 100 !important;
   }
 
   /* Header mobile adjustments */
@@ -16,22 +19,22 @@
 
   /* Mobile logo centering */
   .nav-professional .flex.justify-between {
-    justify-content: center !important;
+    justify-content: space-between !important;
+    align-items: center !important;
     position: relative;
   }
 
   /* Mobile cart and menu button positioning */
   .nav-professional .md\\:hidden {
-    position: absolute !important;
-    right: 0 !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
+    position: static !important;
+    transform: none !important;
   }
 
   /* Logo size adjustment for mobile */
   .nav-professional .w-70 {
-    width: 60px !important;
-    height: 60px !important;
+    width: 50px !important;
+    height: 50px !important;
+    flex-shrink: 0;
   }
 
   /* Mobile menu improvements */
