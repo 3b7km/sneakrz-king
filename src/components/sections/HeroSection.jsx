@@ -113,10 +113,10 @@ const HeroSection = () => {
           <div className="hidden lg:block">
             <div className="relative">
               {/* Background Circle */}
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-blue-400/20 rounded-full blur-3xl transform scale-150"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-gray-200/20 to-gray-300/20 rounded-full blur-3xl transform scale-150"></div>
 
               {/* Featured Product */}
-              <div className="relative bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+              <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 shadow-2xl">
                 <div className="text-center">
                   <img
                     src="https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F0f4530de78a647deb471d412dfb4a0d7?format=webp&width=400"
@@ -124,10 +124,13 @@ const HeroSection = () => {
                     className="w-64 h-64 object-contain mx-auto mb-4 transform hover:scale-110 transition-transform duration-300"
                     loading="eager"
                   />
-                  <h3 className="text-xl font-bold text-white mb-2">
+                  <h3
+                    className="text-xl font-bold mb-2"
+                    style={{ color: "#1E3B60" }}
+                  >
                     Featured Product
                   </h3>
-                  <p className="text-blue-200 text-sm mb-4">
+                  <p className="text-gray-600 text-sm mb-4">
                     Nike Air Force 1 '07
                   </p>
                   <div className="flex items-center justify-center space-x-2 mb-4">
@@ -137,9 +140,18 @@ const HeroSection = () => {
                         className="w-4 h-4 text-yellow-400 fill-current"
                       />
                     ))}
-                    <span className="text-white text-sm ml-2">(4.8)</span>
+                    <span className="text-gray-700 text-sm ml-2">(4.8)</span>
                   </div>
-                  <button className="bg-white text-blue-900 px-6 py-2 rounded-lg font-medium hover:bg-blue-50 transition-colors">
+                  <button
+                    className="px-6 py-2 rounded-lg font-medium transition-colors text-white"
+                    style={{ backgroundColor: "#1E3B60" }}
+                    onMouseEnter={(e) =>
+                      (e.target.style.backgroundColor = "#2C5F87")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.target.style.backgroundColor = "#1E3B60")
+                    }
+                  >
                     View Product
                   </button>
                 </div>
