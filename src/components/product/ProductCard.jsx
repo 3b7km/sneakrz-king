@@ -100,11 +100,6 @@ const ProductCard = ({
             New
           </span>
         )}
-        {product.onSale && (
-          <span className="status-badge absolute top-4 right-4 z-10 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-            Sale
-          </span>
-        )}
       </div>
 
       {/* Product Details */}
@@ -264,14 +259,6 @@ const ProductCard = ({
               Buy Now
             </button>
           </div>
-        </div>
-
-        {/* Authenticity Badge */}
-        <div className="text-center">
-          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-            <span className="w-2 h-2 bg-green-400 rounded-full mr-1"></span>
-            {product.authenticity}
-          </span>
         </div>
       </div>
     </div>

@@ -9,9 +9,9 @@ const Footer = () => {
           <div>
             <div className="flex items-center mb-4">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets%2Fcb0376fc8e71411c9ebb0a3533b4d888%2F9d94d31e894f47c7ab1bcdd0297a87c3"
+                src="https://cdn.builder.io/api/v1/image/assets%2Fcb0376fc8e71411c9ebb0a3533b4d888%2Fe7f2ab16e4324b0baa07b1066b6e8e3c"
                 alt="SneakrzKing Logo"
-                className="w-12 h-12 mr-3"
+                className="w-16 h-16 mr-3"
               />
               <h3 className="text-xl font-bold">Sneakrz King</h3>
             </div>
