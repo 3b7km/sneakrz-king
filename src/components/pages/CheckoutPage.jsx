@@ -964,11 +964,38 @@ const CheckoutPage = () => {
               </button>
 
               {/* Form status indicator */}
-              {!isFormReady() && Object.keys(formErrors).length === 0 && (
-                <p className="mt-2 text-sm text-gray-600 text-center">
-                  Please fill in all required fields to place your order
-                </p>
+              {!isFormReady() && (
+                <div className="mt-2 text-sm text-center">
+                  {Object.keys(formErrors).length > 0 ? (
+                    <p className="text-red-600">
+                      Please fix the errors above to continue
+                    </p>
+                  ) : (
+                    <p className="text-gray-600">
+                      Please fill in all required fields to place your order
+                    </p>
+                  )}
+                </div>
               )}
+
+              {/* iOS Safari Debug Info - Remove in production */}
+              {/iPad|iPhone|iPod/.test(navigator.userAgent) &&
+                process.env.NODE_ENV === "development" && (
+                  <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs">
+                    <p>iOS Debug - Form Ready: {isFormReady() ? "✅" : "❌"}</p>
+                    <p>Submitting: {isSubmitting ? "✅" : "❌"}</p>
+                    <p>Errors: {Object.keys(formErrors).length}</p>
+                    <p>
+                      Required Fields:{" "}
+                      {["firstName", "lastName", "phone", "address", "city"]
+                        .map(
+                          (field) =>
+                            `${field}: ${formData[field] ? "✅" : "❌"}`,
+                        )
+                        .join(", ")}
+                    </p>
+                  </div>
+                )}
             </form>
           </div>
 
