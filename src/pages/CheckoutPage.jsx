@@ -32,7 +32,7 @@ const CheckoutPage = () => {
   // Initialize EmailJS
   useEffect(() => {
     if (window.emailjs) {
-      window.emailjs.init("YB3nz0o8m09fUU-e6"); // Your public key
+      window.emailjs.init("xZ-FMAkzHPph3aojg"); // Your public key
     }
   }, []);
 
