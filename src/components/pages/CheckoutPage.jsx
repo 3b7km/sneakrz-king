@@ -285,6 +285,16 @@ const CheckoutPage = () => {
 
     const mappedFieldName = fieldMapping[fieldName];
     if (mappedFieldName) {
+      // Skip validation for empty optional fields (like email)
+      if (fieldName === "email" && (!value || value.trim() === "")) {
+        setFormErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors[fieldName];
+          return newErrors;
+        });
+        return;
+      }
+
       const validation = validateField(
         mappedFieldName,
         value,
