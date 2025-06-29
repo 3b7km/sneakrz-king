@@ -29,74 +29,15 @@ const OrderConfirmation = lazy(
   () => import("./components/OrderConfirmation.jsx"),
 );
 
-// Enhanced UI Components
-const Card = ({ children, className = "", ...props }) => (
-  <div className={`card-professional ${className}`} {...props}>
-    {children}
+// Performance-optimized Loading Component
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="text-center">
+      <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+      <p className="text-gray-600 font-medium">Loading...</p>
+    </div>
   </div>
 );
-
-const CardContent = ({ children, className = "", ...props }) => (
-  <div className={`p-6 ${className}`} {...props}>
-    {children}
-  </div>
-);
-
-const Button = ({
-  children,
-  variant = "default",
-  size = "md",
-  className = "",
-  onClick,
-  ...props
-}) => {
-  const baseClasses =
-    "inline-flex items-center justify-center font-medium transition-all duration-300 focus-professional disabled:opacity-50 disabled:pointer-events-none";
-
-  const variants = {
-    default: "btn-professional",
-    outline: "btn-secondary",
-    ghost: "hover:bg-gray-100 text-gray-700 rounded-lg px-4 py-2",
-    buyNow:
-      "bg-teal-500 hover:bg-teal-600 text-white rounded-lg px-6 py-3 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1",
-  };
-
-  const sizes = {
-    sm: "h-9 px-3 text-sm",
-    md: "h-11 px-6 py-3",
-    lg: "h-12 px-8 text-lg",
-  };
-
-  return (
-    <button
-      className={`${baseClasses} ${variants[variant]} ${sizes[size]} ${className}`}
-      onClick={onClick}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-};
-
-const Input = ({ className = "", ...props }) => (
-  <input className={`form-input ${className}`} {...props} />
-);
-
-const Badge = ({ children, className = "", variant = "default", ...props }) => {
-  const variants = {
-    default: "bg-gray-100 text-gray-800",
-    new: "badge-new status-badge",
-  };
-
-  return (
-    <span
-      className={`status-badge inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide ${variants[variant]} ${className}`}
-      {...props}
-    >
-      {children}
-    </span>
-  );
-};
 
 // Success Notification Component
 const SuccessNotification = ({ message, onViewCart, onClose }) => {
