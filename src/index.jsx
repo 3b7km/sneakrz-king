@@ -1,16 +1,17 @@
-import { Suspense, lazy, useState, useCallback, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useSearchParams,
-  useLocation,
-} from "react-router-dom";
-import { useProductFilters, useLoadingStates } from "./hooks/usePerformance.js";
-import Navigation from "./components/Navigation.jsx";
+import React, { Suspense, lazy, useState, useCallback, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./index.css";
 import "./App.css";
-//king
-// Lazy load pages for optimal performance
+import "./mobile-responsive.css";
+import "./mobile-cart-fix.css";
+import "./mobile-fixes.css";
+
+// Hooks
+import { useProductFilters } from "./hooks/useProductFilters";
+import { useLoadingStates } from "./hooks/useLoadingStates";
+
+// Components - Using lazy loading for better performance
+const Navigation = lazy(() => import("./components/Navigation.jsx"));
 const HomePage = lazy(() => import("./components/pages/HomePage.jsx"));
 const ProductsPage = lazy(() => import("./components/pages/ProductsPage.jsx"));
 const MensShoesPage = lazy(
@@ -26,8 +27,6 @@ const CheckoutPage = lazy(() => import("./components/pages/CheckoutPage.jsx"));
 const OrderConfirmation = lazy(
   () => import("./components/OrderConfirmation.jsx"),
 );
-
-// Lazy load components
 const Footer = lazy(() => import("./components/Footer.jsx"));
 const WhatsAppFloat = lazy(() => import("./components/WhatsAppFloat.jsx"));
 const QuickViewModal = lazy(() => import("./components/QuickViewModal.jsx"));
@@ -115,8 +114,8 @@ const products = [
     id: 4,
     name: "Nike Air Max 97 'Black'",
     price: 1650,
-    image: "./Sneakers photos/airmax97blac.jpg",
-    images: ["./Sneakers photos/airmax97blac.jpg"],
+    image: "/Sneakers photos/airmax97blac.jpg",
+    images: ["/Sneakers photos/airmax97blac.jpg"],
     rating: 4.7,
     brand: "Nike",
     category: "Lifestyle",
@@ -138,8 +137,8 @@ const products = [
     id: 5,
     name: "New Balance 327 'Sea Salt'",
     price: 1450,
-    image: "./Sneakers photos/NB53.jpg",
-    images: ["./Sneakers photos/NB53.jpg"],
+    image: "/Sneakers photos/NB53.jpg",
+    images: ["/Sneakers photos/NB53.jpg"],
     rating: 4.4,
     brand: "New Balance",
     category: "Lifestyle",
@@ -161,8 +160,8 @@ const products = [
     id: 6,
     name: "ASICS Gel-Kayano 14 'Silver Cream'",
     price: 1350,
-    image: "./Sneakers photos/AsicsGelKayano14SilverCream1201A019-108.jpg",
-    images: ["./Sneakers photos/AsicsGelKayano14SilverCream1201A019-108.jpg"],
+    image: "/Sneakers photos/AsicsGelKayano14SilverCream1201A019-108.jpg",
+    images: ["/Sneakers photos/AsicsGelKayano14SilverCream1201A019-108.jpg"],
     rating: 4.3,
     brand: "ASICS",
     category: "Running",
@@ -185,8 +184,8 @@ const products = [
     name: "Air Jordan 4 Retro 'Red Thunder'",
     price: 3250,
     originalPrice: 3650,
-    image: "./Sneakers photos/redthunder.jpg",
-    images: ["./Sneakers photos/redthunder.jpg"],
+    image: "/Sneakers photos/redthunder.jpg",
+    images: ["/Sneakers photos/redthunder.jpg"],
     rating: 4.9,
     brand: "Jordan",
     category: "Basketball",
@@ -210,8 +209,8 @@ const products = [
     name: "Nike Dunk Low 'Panda'",
     price: 2150,
     originalPrice: 2450,
-    image: "./Sneakers photos/NikeDunkLowRetro'Panda'.jpg",
-    images: ["./Sneakers photos/NikeDunkLowRetro'Panda'.jpg"],
+    image: "/Sneakers photos/NikeDunkLowRetro'Panda'.jpg",
+    images: ["/Sneakers photos/NikeDunkLowRetro'Panda'.jpg"],
     rating: 4.8,
     brand: "Nike",
     category: "Lifestyle",
@@ -235,8 +234,8 @@ const products = [
     id: 9,
     name: "Nike Air Force 1 Low '07 Black'",
     price: 1850,
-    image: "./Sneakers photos/NikeAirForce1Low'07Black.jpg",
-    images: ["./Sneakers photos/NikeAirForce1Low'07Black.jpg"],
+    image: "/Sneakers photos/NikeAirForce1Low'07Black.jpg",
+    images: ["/Sneakers photos/NikeAirForce1Low'07Black.jpg"],
     rating: 4.6,
     brand: "Nike",
     category: "Lifestyle",
@@ -260,8 +259,8 @@ const products = [
     name: "Air Jordan 4 'Black Cat'",
     price: 3500,
     originalPrice: 4000,
-    image: "./Sneakers photos/blackcat.jpg",
-    images: ["./Sneakers photos/blackcat.jpg"],
+    image: "/Sneakers photos/blackcat.jpg",
+    images: ["/Sneakers photos/blackcat.jpg"],
     rating: 4.9,
     brand: "Jordan",
     category: "Basketball",
@@ -285,8 +284,8 @@ const products = [
     id: 11,
     name: "Air Jordan 11 Retro 'Space Jam'",
     price: 3800,
-    image: "./Sneakers photos/jorden11.jpg",
-    images: ["./Sneakers photos/jorden11.jpg"],
+    image: "/Sneakers photos/jorden11.jpg",
+    images: ["/Sneakers photos/jorden11.jpg"],
     rating: 4.9,
     brand: "Jordan",
     category: "Basketball",
@@ -309,8 +308,8 @@ const products = [
     id: 12,
     name: "ASICS Gel-Kahana 8 'Black Rose Gold'",
     price: 1200,
-    image: "./Sneakers photos/AsicsGel-Kahana8BlackRoseGold.jpg",
-    images: ["./Sneakers photos/AsicsGel-Kahana8BlackRoseGold.jpg"],
+    image: "/Sneakers photos/AsicsGel-Kahana8BlackRoseGold.jpg",
+    images: ["/Sneakers photos/AsicsGel-Kahana8BlackRoseGold.jpg"],
     rating: 4.2,
     brand: "ASICS",
     category: "Trail Running",
@@ -333,8 +332,8 @@ const products = [
     name: "ASICS Gel-Kahana 8 'Trail Edition'",
     price: 1300,
     originalPrice: 1500,
-    image: "./Sneakers photos/asicsgelkahanam8.jpg",
-    images: ["./Sneakers photos/asicsgelkahanam8.jpg"],
+    image: "/Sneakers photos/asicsgelkahanam8.jpg",
+    images: ["/Sneakers photos/asicsgelkahanam8.jpg"],
     rating: 4.3,
     brand: "ASICS",
     category: "Trail Running",
@@ -356,8 +355,8 @@ const products = [
     id: 14,
     name: "ASICS Gel-NYC 'Black Ivory Gray'",
     price: 1550,
-    image: "./Sneakers photos/AsicsGelNYCBlackIvoryGrayjpg.jpg",
-    images: ["./Sneakers photos/AsicsGelNYCBlackIvoryGrayjpg.jpg"],
+    image: "/Sneakers photos/AsicsGelNYCBlackIvoryGrayjpg.jpg",
+    images: ["/Sneakers photos/AsicsGelNYCBlackIvoryGrayjpg.jpg"],
     rating: 4.4,
     brand: "ASICS",
     category: "Lifestyle",
@@ -380,8 +379,8 @@ const products = [
     name: "Nike Air Force 1 '07 'Triple White' V2",
     price: 1900,
     originalPrice: 2200,
-    image: "./Sneakers photos/AF1.jpg",
-    images: ["./Sneakers photos/AF1.jpg"],
+    image: "/Sneakers photos/AF1.jpg",
+    images: ["/Sneakers photos/AF1.jpg"],
     rating: 4.7,
     brand: "Nike",
     category: "Lifestyle",
@@ -403,8 +402,8 @@ const products = [
     id: 16,
     name: "Nike Air Max 97 'Black Edition'",
     price: 1750,
-    image: "./Sneakers photos/airmax97blac.jpg",
-    images: ["./Sneakers photos/airmax97blac.jpg"],
+    image: "/Sneakers photos/airmax97blac.jpg",
+    images: ["/Sneakers photos/airmax97blac.jpg"],
     rating: 4.6,
     brand: "Nike",
     category: "Running",
@@ -428,8 +427,8 @@ const products = [
     name: "New Balance 327 'Premium Pack'",
     price: 1550,
     originalPrice: 1800,
-    image: "./Sneakers photos/NB53.jpg",
-    images: ["./Sneakers photos/NB53.jpg"],
+    image: "/Sneakers photos/NB53.jpg",
+    images: ["/Sneakers photos/NB53.jpg"],
     rating: 4.5,
     brand: "New Balance",
     category: "Lifestyle",
@@ -451,8 +450,8 @@ const products = [
     id: 18,
     name: "ASICS Gel-Kayano 14 'Platinum Edition'",
     price: 1450,
-    image: "./Sneakers photos/AsicsGelKayano14SilverCream1201A019-108.jpg",
-    images: ["./Sneakers photos/AsicsGelKayano14SilverCream1201A019-108.jpg"],
+    image: "/Sneakers photos/AsicsGelKayano14SilverCream1201A019-108.jpg",
+    images: ["/Sneakers photos/AsicsGelKayano14SilverCream1201A019-108.jpg"],
     rating: 4.4,
     brand: "ASICS",
     category: "Running",
@@ -475,8 +474,8 @@ const products = [
     name: "Nike Dunk Low 'Classic Panda'",
     price: 2000,
     originalPrice: 2300,
-    image: "./Sneakers photos/NikeDunkLowRetro'Panda'.jpg",
-    images: ["./Sneakers photos/NikeDunkLowRetro'Panda'.jpg"],
+    image: "/Sneakers photos/NikeDunkLowRetro'Panda'.jpg",
+    images: ["/Sneakers photos/NikeDunkLowRetro'Panda'.jpg"],
     rating: 4.7,
     brand: "Nike",
     category: "Lifestyle",
@@ -498,8 +497,8 @@ const products = [
     id: 20,
     name: "Nike Air Force 1 Low '07 'All Black'",
     price: 1950,
-    image: "./Sneakers photos/NikeAirForce1Low'07Black.jpg",
-    images: ["./Sneakers photos/NikeAirForce1Low'07Black.jpg"],
+    image: "/Sneakers photos/NikeAirForce1Low'07Black.jpg",
+    images: ["/Sneakers photos/NikeAirForce1Low'07Black.jpg"],
     rating: 4.8,
     brand: "Nike",
     category: "Lifestyle",
@@ -554,27 +553,27 @@ function App() {
   // Optimized cart functions with performance improvements
   const addToCart = useCallback(
     async (product) => {
-      const productKey = `add-${product.id}`;
+      const loadingKey = `add-${product.id}`;
 
       try {
-        // Simulate API call with proper loading state
-        await new Promise((resolve) => setTimeout(resolve, 300));
+        // Start loading state
+        loadingStates.setLoading(loadingKey, true);
 
-        const existingItem = cartItems.find(
+        // Find existing item
+        const existingItemIndex = cartItems.findIndex(
           (item) =>
             item.id === product.id &&
             item.selectedSize === product.selectedSize,
         );
 
-        let updatedCart;
-        if (existingItem) {
-          updatedCart = cartItems.map((item) =>
-            item.id === product.id && item.selectedSize === product.selectedSize
-              ? { ...item, quantity: item.quantity + (product.quantity || 1) }
-              : item,
-          );
+        let newCartItems;
+        if (existingItemIndex >= 0) {
+          // Update existing item
+          newCartItems = [...cartItems];
+          newCartItems[existingItemIndex].quantity += product.quantity || 1;
         } else {
-          updatedCart = [
+          // Add new item
+          newCartItems = [
             ...cartItems,
             {
               ...product,
@@ -585,51 +584,29 @@ function App() {
           ];
         }
 
-        setCartItems(updatedCart);
-        localStorage.setItem("sneakrz-cart", JSON.stringify(updatedCart));
+        setCartItems(newCartItems);
+        localStorage.setItem("sneakrz-cart", JSON.stringify(newCartItems));
 
+        // Success notification
         setSuccessNotification({
-          message: `"${product.name}" has been added to your cart.`,
+          message: `${product.name} added to cart!`,
           onViewCart: () => {
-            setSuccessNotification(null);
             window.location.href = "/cart";
           },
           onClose: () => setSuccessNotification(null),
         });
+
+        // Auto-hide notification after 3 seconds
+        setTimeout(() => {
+          setSuccessNotification(null);
+        }, 3000);
       } catch (error) {
         console.error("Error adding to cart:", error);
+      } finally {
+        loadingStates.setLoading(loadingKey, false);
       }
     },
-    [cartItems],
-  );
-
-  const updateCartItem = useCallback(
-    (id, selectedSize, quantity) => {
-      if (quantity <= 0) {
-        removeFromCart(id, selectedSize);
-        return;
-      }
-
-      const updatedCart = cartItems.map((item) =>
-        item.id === id && item.selectedSize === selectedSize
-          ? { ...item, quantity }
-          : item,
-      );
-      setCartItems(updatedCart);
-      localStorage.setItem("sneakrz-cart", JSON.stringify(updatedCart));
-    },
-    [cartItems],
-  );
-
-  const removeFromCart = useCallback(
-    (id, selectedSize) => {
-      const updatedCart = cartItems.filter(
-        (item) => !(item.id === id && item.selectedSize === selectedSize),
-      );
-      setCartItems(updatedCart);
-      localStorage.setItem("sneakrz-cart", JSON.stringify(updatedCart));
-    },
-    [cartItems],
+    [cartItems, loadingStates],
   );
 
   const clearCart = useCallback(() => {
@@ -735,9 +712,10 @@ function App() {
                 path="/brands"
                 element={
                   <BrandsPage
-                    selectedBrand={filters.selectedBrand}
-                    setSelectedBrand={filters.setSelectedBrand}
-                    brands={filters.brands}
+                    products={products}
+                    openQuickView={openQuickView}
+                    addToCart={addToCart}
+                    loadingStates={loadingStates}
                   />
                 }
               />
@@ -747,8 +725,7 @@ function App() {
                 element={
                   <CartPage
                     cartItems={cartItems}
-                    updateCartItem={updateCartItem}
-                    removeFromCart={removeFromCart}
+                    setCartItems={setCartItems}
                     clearCart={clearCart}
                   />
                 }
