@@ -75,12 +75,14 @@ const AdvancedFilters = ({
   ].filter(Boolean).length;
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+    <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold text-gray-900">
-          Advanced Filters
+        <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+          <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Advanced Filters
+          </span>
           {activeFiltersCount > 0 && (
-            <span className="ml-2 bg-blue-100 text-blue-800 text-sm px-2 py-1 rounded-full">
+            <span className="ml-3 bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full font-medium">
               {activeFiltersCount}
             </span>
           )}
@@ -88,7 +90,7 @@ const AdvancedFilters = ({
         {activeFiltersCount > 0 && (
           <button
             onClick={clearAllFilters}
-            className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1"
+            className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-blue-50 transition-colors duration-200"
           >
             <X className="w-4 h-4" />
             Clear All
