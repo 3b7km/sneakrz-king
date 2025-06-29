@@ -16,7 +16,22 @@ const HeroSection = () => {
 
   return (
     <section className="hero-section-enhanced relative overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-800 min-h-screen flex items-center">
-      <div className="absolute inset-0 z-0"></div>
+      {/* Background Video - More Visible */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover opacity-60"
+          poster="https://cdn.builder.io/api/v1/image/assets%2F26e7fe5ba12d4f12a5b5cc3d4e881806%2F0f4530de78a647deb471d412dfb4a0d7?format=webp&width=1920"
+        >
+          <source src="/logo3d.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      {/* Lighter Background Pattern */}
+      <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/30 to-transparent"></div>
 
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center">
@@ -41,7 +56,8 @@ const HeroSection = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={scrollToProducts}
-                className="group bg-white text-black px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex items-center justify-center gap-2"
+                className="group px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex items-center justify-center gap-2 text-white"
+                style={{ backgroundColor: "#1e3a5f" }}
               >
                 Shop Collection
                 <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -49,14 +65,16 @@ const HeroSection = () => {
 
               <button
                 onClick={() => navigate("/products")}
-                className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:bg-white hover:text-black transform hover:scale-105"
+                className="px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 text-white"
+                style={{ backgroundColor: "#1e3a5f" }}
               >
                 Men's Collection
               </button>
 
               <button
                 onClick={() => navigate("/products")}
-                className="border-2 border-orange-400 text-orange-400 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:bg-orange-400 hover:text-black transform hover:scale-105"
+                className="px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 text-white"
+                style={{ backgroundColor: "#1e3a5f" }}
               >
                 Women's Collection
               </button>
