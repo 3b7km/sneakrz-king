@@ -169,7 +169,7 @@ const SearchDropdown = ({
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-full object-cover"
+                    className="search-result-image w-full h-full object-cover"
                     onError={(e) => {
                       e.target.src = "/placeholder-shoe.jpg";
                     }}
