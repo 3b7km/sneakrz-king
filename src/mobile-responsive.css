@@ -120,44 +120,71 @@ body {
     margin-bottom: env(safe-area-inset-bottom, 0) !important;
   }
 
-  /* CONSOLIDATED BUTTON STYLES - All mobile button styles in one place */
+  /* CONSOLIDATED MOBILE BUTTON STYLES - All mobile button styles unified */
+
+  /* Primary action buttons (checkout, place order, etc.) */
+  .btn-primary,
   .btn-enhanced,
   .btn-professional,
-  .cart-action-btn {
+  .cart-action-btn,
+  button[type="submit"],
+  .checkout-button,
+  .place-order-button {
     min-height: 48px !important;
     font-size: 16px !important;
-    padding: 12px 16px !important;
+    padding: 14px 20px !important;
     border-radius: 8px !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+  }
+
+  /* Secondary buttons */
+  .btn-secondary,
+  .btn-outline {
+    min-height: 44px !important;
+    font-size: 16px !important;
+    padding: 12px 16px !important;
+    border-radius: 6px !important;
     font-weight: 500 !important;
     transition: all 0.2s ease !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
   }
 
-  /* Regular buttons - exclude hero section buttons */
-  button:not(.btn-enhanced):not(.btn-professional):not(.cart-quantity-btn):not(
-      .hero-collection-btn
-    ):not(.hero-explore-btn):not(.hero-dropdown-btn) {
-    min-height: 48px !important;
+  /* Regular buttons - general mobile optimization */
+  button:not(.hero-collection-btn):not(.hero-explore-btn):not(
+      .hero-dropdown-btn
+    ):not(.cart-quantity-btn):not(.mobile-menu-btn) {
+    min-height: 44px !important;
     font-size: 16px !important;
     padding: 12px 16px !important;
-    border-radius: 8px !important;
+    border-radius: 6px !important;
+    font-weight: 500 !important;
     transition: all 0.2s ease !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
   }
 
-  /* Hero section buttons - preserve original styling */
+  /* Hero section buttons - preserve original styling but add touch optimization */
   .hero-collection-btn,
   .hero-explore-btn,
   .hero-dropdown-btn {
-    min-height: auto !important;
-    font-size: inherit !important;
-    padding: inherit !important;
-    border-radius: inherit !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
   }
 
-  /* Cart quantity buttons - smaller for inline use */
+  /* Cart quantity buttons - optimized for touch */
   .cart-quantity-btn {
     min-width: 44px !important;
     min-height: 44px !important;
-    font-size: 16px !important;
+    font-size: 18px !important;
     border-radius: 6px !important;
     display: flex !important;
     align-items: center !important;
@@ -165,16 +192,31 @@ body {
     background: white !important;
     border: 1px solid #d1d5db !important;
     transition: all 0.2s ease !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
   }
 
-  .cart-quantity-btn:hover {
+  .cart-quantity-btn:hover,
+  .cart-quantity-btn:active {
     background: #f9fafb !important;
     border-color: #9ca3af !important;
+    transform: scale(0.98) !important;
   }
 
   .cart-quantity-btn:disabled {
     opacity: 0.5 !important;
     cursor: not-allowed !important;
+  }
+
+  /* Mobile navigation buttons */
+  .mobile-menu-btn,
+  .nav-toggle {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    padding: 10px !important;
+    border-radius: 6px !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
   }
 
   /* Text improvements */
@@ -205,12 +247,53 @@ body {
     height: 12rem !important;
   }
 
-  /* Form fixes */
+  /* Form fixes - Enhanced for better mobile UX */
   input,
   select,
   textarea {
     font-size: 16px !important;
-    min-height: 44px !important;
+    min-height: 48px !important;
+    padding: 14px 16px !important;
+    border-radius: 8px !important;
+    transition: all 0.2s ease !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+  }
+
+  /* Email input specific styles */
+  input[type="email"] {
+    font-size: 16px !important;
+    min-height: 48px !important;
+    padding: 14px 16px !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 8px !important;
+    background: white !important;
+    transition: all 0.2s ease !important;
+  }
+
+  input[type="email"]:focus {
+    outline: none !important;
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+  }
+
+  /* Checkout form mobile optimization */
+  .checkout-form {
+    padding: 1rem !important;
+  }
+
+  .checkout-form .grid.grid-cols-2 {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  /* Email status messages mobile */
+  .email-status-message {
+    margin: 1rem 0 !important;
+    padding: 1rem !important;
+    border-radius: 8px !important;
+    font-size: 14px !important;
   }
 
   /* Padding and margin adjustments */
