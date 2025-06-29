@@ -205,6 +205,58 @@ const CheckoutPage = ({ cartItems = [] }) => {
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h2 className="text-xl font-semibold mb-6">Billing Information</h2>
 
+            {/* Error Display */}
+            {submitError && (
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start space-x-3">
+                <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="font-medium text-red-800">Error</h4>
+                  <p className="text-red-700">{submitError}</p>
+                </div>
+              </div>
+            )}
+
+            {/* Email Status */}
+            {emailSentStatus && (
+              <div
+                className={`mb-6 p-4 rounded-lg flex items-start space-x-3 ${
+                  emailSentStatus === "sent"
+                    ? "bg-green-50 border border-green-200"
+                    : emailSentStatus === "failed"
+                      ? "bg-yellow-50 border border-yellow-200"
+                      : "bg-blue-50 border border-blue-200"
+                }`}
+              >
+                {emailSentStatus === "sending" && (
+                  <LoadingSpinner size="sm" className="mt-0.5" />
+                )}
+                {emailSentStatus === "sent" && (
+                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                )}
+                {emailSentStatus === "failed" && (
+                  <AlertCircle className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                )}
+                <div>
+                  <p
+                    className={`text-sm ${
+                      emailSentStatus === "sent"
+                        ? "text-green-700"
+                        : emailSentStatus === "failed"
+                          ? "text-yellow-700"
+                          : "text-blue-700"
+                    }`}
+                  >
+                    {emailSentStatus === "sending" &&
+                      "Sending confirmation email..."}
+                    {emailSentStatus === "sent" &&
+                      "Confirmation email sent successfully!"}
+                    {emailSentStatus === "failed" &&
+                      "Could not send confirmation email, but order will still be processed."}
+                  </p>
+                </div>
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -217,8 +269,17 @@ const CheckoutPage = ({ cartItems = [] }) => {
                     value={formData.firstName}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                      formErrors.firstName
+                        ? "border-red-300 bg-red-50"
+                        : "border-gray-300"
+                    }`}
                   />
+                  {formErrors.firstName && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {formErrors.firstName}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -230,8 +291,17 @@ const CheckoutPage = ({ cartItems = [] }) => {
                     value={formData.lastName}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                      formErrors.lastName
+                        ? "border-red-300 bg-red-50"
+                        : "border-gray-300"
+                    }`}
                   />
+                  {formErrors.lastName && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {formErrors.lastName}
+                    </p>
+                  )}
                 </div>
               </div>
 
