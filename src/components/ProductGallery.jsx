@@ -116,7 +116,20 @@ const ProductGallery = ({ images, productName, className = "" }) => {
               <img
                 src={image}
                 alt={`${productName} thumbnail ${index + 1}`}
-                className="w-full h-full object-contain bg-gray-50"
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  // Try to fix path issues for thumbnails
+                  const originalSrc = e.target.src;
+                  if (originalSrc.includes("./Sneakers photos/")) {
+                    e.target.src = originalSrc.replace(
+                      "./Sneakers photos/",
+                      "/Sneakers photos/",
+                    );
+                  } else {
+                    e.target.style.backgroundColor = "#f3f4f6";
+                    e.target.alt = "❌";
+                  }
+                }}
               />
             </button>
           ))}
