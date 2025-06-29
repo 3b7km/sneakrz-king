@@ -307,7 +307,14 @@ const OrderConfirmation = () => {
             <div className="space-y-3">
               <button
                 onClick={() => navigate("/products")}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center"
+                className="w-full text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center"
+                style={{ backgroundColor: "#002b5e" }}
+                onMouseEnter={(e) =>
+                  (e.target.style.backgroundColor = "#001a3d")
+                }
+                onMouseLeave={(e) =>
+                  (e.target.style.backgroundColor = "#002b5e")
+                }
               >
                 Continue Shopping
                 <ArrowRight className="w-4 h-4 ml-2" />
