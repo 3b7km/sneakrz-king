@@ -1082,6 +1082,11 @@ const CheckoutPage = () => {
                   WebkitTouchCallout: "none",
                   WebkitUserSelect: "none",
                   userSelect: "none",
+                  // iPhone specific fixes
+                  WebkitAppearance: "none",
+                  appearance: "none",
+                  border: "none",
+                  outline: "none",
                 }}
                 onMouseEnter={(e) => {
                   if (!isSubmitting && isFormReady()) {
@@ -1094,13 +1099,15 @@ const CheckoutPage = () => {
                   }
                 }}
                 onTouchStart={(e) => {
-                  // iOS Safari specific: Ensure touch events work properly
+                  // iPhone specific: Ensure touch events work properly
+                  console.log("Touch start on iPhone button");
                   if (!isSubmitting && isFormReady()) {
                     e.target.style.backgroundColor = "#001a3d";
                   }
                 }}
                 onTouchEnd={(e) => {
-                  // iOS Safari specific: Reset background after touch
+                  // iPhone specific: Reset background after touch
+                  console.log("Touch end on iPhone button");
                   if (!isSubmitting && isFormReady()) {
                     setTimeout(() => {
                       e.target.style.backgroundColor = "#002b5e";
@@ -1108,13 +1115,48 @@ const CheckoutPage = () => {
                   }
                 }}
                 onClick={(e) => {
-                  // Debug logging
-                  console.log("Button clicked:", {
+                  // iPhone specific debugging
+                  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+                  const isSafari = /^((?!chrome|android).)*safari/i.test(
+                    navigator.userAgent,
+                  );
+                  const isIOSSafari = isIOS && isSafari;
+
+                  console.log("iPhone Button clicked:", {
+                    isIOS,
+                    isSafari,
+                    isIOSSafari,
                     isSubmitting,
                     isFormReady: isFormReady(),
                     disabled: e.target.disabled,
                     buttonEnabled: !isSubmitting && isFormReady(),
+                    userAgent: navigator.userAgent,
                   });
+
+                  // iPhone specific: Force form submission if conditions are met
+                  if (
+                    isIOSSafari &&
+                    !e.target.disabled &&
+                    !isSubmitting &&
+                    isFormReady()
+                  ) {
+                    console.log("iPhone: Forcing form submission");
+                    // Find the form and submit it directly
+                    const form = e.target.closest("form");
+                    if (form) {
+                      // Prevent default to avoid double submission
+                      e.preventDefault();
+                      // Trigger form submission manually
+                      setTimeout(() => {
+                        const submitEvent = new Event("submit", {
+                          bubbles: true,
+                          cancelable: true,
+                        });
+                        form.dispatchEvent(submitEvent);
+                      }, 100);
+                    }
+                    return;
+                  }
 
                   // Only prevent if actually disabled
                   if (e.target.disabled) {
