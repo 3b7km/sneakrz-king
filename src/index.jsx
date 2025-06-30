@@ -207,8 +207,11 @@ const products = [
     name: "ASICS Gel-Kahana 8 'Black Rose Gold'",
     price: 1700,
     originalPrice: 2000,
-    image: "/Sneakers photos/AsicsGel-Kahana8BlackRoseGold.jpg",
-    images: ["/Sneakers photos/AsicsGel-Kahana8BlackRoseGold.jpg"],
+    image:
+      "https://cdn.builder.io/api/v1/image/assets%2F0ebe16fdd0024a4da3822a9f17207c5b%2F6b93ddf421a84138823022a6ab94a284?format=webp&width=800",
+    images: [
+      "https://cdn.builder.io/api/v1/image/assets%2F0ebe16fdd0024a4da3822a9f17207c5b%2F6b93ddf421a84138823022a6ab94a284?format=webp&width=800",
+    ],
     rating: 4.2,
     brand: "ASICS",
     category: "Trail Running",
