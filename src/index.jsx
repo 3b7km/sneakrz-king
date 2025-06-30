@@ -63,7 +63,7 @@ const products = [
       { value: "45", available: true },
     ],
   },
-   {
+  {
     id: 2,
     name: "Adidas Samba OG 'White Black Gum'",
     price: 1700,
