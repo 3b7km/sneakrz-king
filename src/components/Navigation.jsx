@@ -38,7 +38,7 @@ const Navigation = ({
             >
               <div
                 className="mr-4 transition-transform duration-300 group-hover:scale-110"
-                style={{ width: "300px", height: "250px" }}
+                style={{ width: "250px", height: "250px" }}
               >
                 <img
                   src="/kingsvg.svg"
