@@ -761,7 +761,12 @@ function App() {
                 path="/womens-shoes"
                 element={
                   <WomensShoesPage
-                    products={products.filter((p) => p.gender === "Women")}
+                    products={products.filter(
+                      (p) =>
+                        p.gender === "Women" ||
+                        p.gender === "women" ||
+                        p.gender === "unisex",
+                    )}
                     openQuickView={openQuickView}
                     addToCart={addToCart}
                     loadingStates={loadingStates}
