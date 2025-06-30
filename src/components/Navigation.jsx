@@ -44,6 +44,7 @@ const Navigation = ({
                   src="/kingsvg.svg"
                   alt="SneakrzKing Logo"
                   className="w-full h-full object-contain"
+                  style={{ paddingRight: "86px" }}
                 />
               </div>
             </Link>
