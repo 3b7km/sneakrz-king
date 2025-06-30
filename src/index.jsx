@@ -91,7 +91,7 @@ const products = [
   },
   {
     id: 3,
-    name: "Air Jordan 1 'Equality'",
+    name: "Jordan 1 Low Light Smoke Grey",
     price: 2200,
     image: "/Sneakers photos/Jordan1LowLightSmokeGrey.jpg",
     images: ["/Sneakers photos/Jordan1LowLightSmokeGrey.jpg"],
@@ -101,7 +101,7 @@ const products = [
     gender: "Men",
     condition: "Brand New",
     authenticity: "100% Guaranteed",
-    isNew: false,
+    isNew: true,
     onSale: false,
     sizes: [
       { value: "39", available: true },
