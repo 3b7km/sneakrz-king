@@ -626,7 +626,7 @@ const products = [
     ],
   },
   {
-    id: 24,
+    id: 22,
     name: "Air Jordan 11 Retro 'Bred'",
     price: 1900,
     originalPrice: 3800,
