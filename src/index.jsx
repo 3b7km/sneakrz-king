@@ -177,7 +177,7 @@ const products = [
     rating: 4.6,
     brand: "ASICS",
     category: "Running",
-    gender: "unisex",
+    gender: "men",
     condition: "Brand New",
     authenticity: "100% Guaranteed",
     isNew: true,
