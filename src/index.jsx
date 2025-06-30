@@ -551,7 +551,7 @@ const products = [
     rating: 4.7,
     brand: "Nike",
     category: "Lifestyle",
-    gender: "Men",
+    gender: "unisex",
     condition: "Brand New",
     authenticity: "100% Guaranteed",
     isNew: true,
