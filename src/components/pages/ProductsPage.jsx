@@ -236,7 +236,7 @@ const ProductsPage = ({
               Gender Categories
             </h3>
             <div className="flex flex-wrap gap-3">
-              {["All", "Men", "Women", "Unisex"].map((gender) => (
+              {["All", "Men", "Women"].map((gender) => (
                 <button
                   key={gender}
                   onClick={() => setSelectedGender(gender)}
