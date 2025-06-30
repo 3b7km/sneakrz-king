@@ -469,7 +469,7 @@ const products = [
     rating: 4.8,
     brand: "Nike",
     category: "Skateboarding",
-    gender: "Women",
+    gender: "unisex",
     condition: "Brand New",
     authenticity: "100% Guaranteed",
     isNew: true,
