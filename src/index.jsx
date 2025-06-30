@@ -336,7 +336,7 @@ const products = [
     rating: 4.8,
     brand: "Dior",
     category: "Luxury",
-    gender: "Women",
+    gender: "men",
     condition: "Brand New",
     authenticity: "100% Guaranteed",
     isNew: true,
