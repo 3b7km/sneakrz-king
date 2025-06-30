@@ -263,9 +263,9 @@ const products = [
     price: 2300,
     originalPrice: 2800,
     image:
-      "https://cdn.builder.io/api/v1/image/assets%2F0ebe16fdd0024a4da3822a9f17207c5b%2F1417324245df466fbc5433b2ed1de30b?format=webp&width=800",
+      "https://cdn.builder.io/api/v1/image/assets%2F0ebe16fdd0024a4da3822a9f17207c5b%2F3df9b68f45734740a34b01a257b8d1d1?format=webp&width=800",
     images: [
-      "https://cdn.builder.io/api/v1/image/assets%2F0ebe16fdd0024a4da3822a9f17207c5b%2F1417324245df466fbc5433b2ed1de30b?format=webp&width=800",
+      "https://cdn.builder.io/api/v1/image/assets%2F0ebe16fdd0024a4da3822a9f17207c5b%2F3df9b68f45734740a34b01a257b8d1d1?format=webp&width=800",
     ],
     rating: 4.8,
     brand: "Dior",
