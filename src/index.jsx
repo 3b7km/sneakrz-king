@@ -208,9 +208,9 @@ const products = [
     price: 1700,
     originalPrice: 2000,
     image:
-      "https://cdn.builder.io/api/v1/image/assets%2F0ebe16fdd0024a4da3822a9f17207c5b%2F6b93ddf421a84138823022a6ab94a284?format=webp&width=800",
+      "https://cdn.builder.io/api/v1/image/assets%2F0ebe16fdd0024a4da3822a9f17207c5b%2F2d2ab23252bf44d3be4cf2ecc2498ed7?format=webp&width=800",
     images: [
-      "https://cdn.builder.io/api/v1/image/assets%2F0ebe16fdd0024a4da3822a9f17207c5b%2F6b93ddf421a84138823022a6ab94a284?format=webp&width=800",
+      "https://cdn.builder.io/api/v1/image/assets%2F0ebe16fdd0024a4da3822a9f17207c5b%2F2d2ab23252bf44d3be4cf2ecc2498ed7?format=webp&width=800",
     ],
     rating: 4.2,
     brand: "ASICS",
