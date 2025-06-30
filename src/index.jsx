@@ -430,8 +430,11 @@ const products = [
     name: "Nike Air Force 1 Low '07 Black",
     price: 1500,
     originalPrice: 1850,
-    image: "/Sneakers photos/AF1.jpg",
-    images: ["/Sneakers photos/AF1.jpg"],
+    image:
+      "https://cdn.builder.io/api/v1/image/assets%2F0ebe16fdd0024a4da3822a9f17207c5b%2Fe92a0ef25401402aa50214180125891c?format=webp&width=800",
+    images: [
+      "https://cdn.builder.io/api/v1/image/assets%2F0ebe16fdd0024a4da3822a9f17207c5b%2Fe92a0ef25401402aa50214180125891c?format=webp&width=800",
+    ],
     rating: 4.6,
     brand: "Nike",
     category: "Lifestyle",
