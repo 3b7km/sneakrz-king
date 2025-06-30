@@ -62,7 +62,20 @@ const ProductsPage = ({
 
     // Filter by gender
     if (selectedGender !== "All") {
-      sorted = sorted.filter((product) => product.gender === selectedGender);
+      sorted = sorted.filter((product) => {
+        if (selectedGender === "Men") {
+          return (
+            (product.gender && product.gender.toLowerCase() === "men") ||
+            product.gender === "unisex"
+          );
+        } else if (selectedGender === "Women") {
+          return (
+            (product.gender && product.gender.toLowerCase() === "women") ||
+            product.gender === "unisex"
+          );
+        }
+        return product.gender === selectedGender;
+      });
     }
 
     // Filter by categories
