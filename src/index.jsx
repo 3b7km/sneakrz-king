@@ -557,6 +557,7 @@ const products = [
     isNew: true,
     onSale: true,
     sizes: [
+      { value: "38", available: true },
       { value: "39", available: true },
       { value: "40", available: true },
       { value: "41", available: true },
