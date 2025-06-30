@@ -762,8 +762,7 @@ function App() {
                   <WomensShoesPage
                     products={products.filter(
                       (p) =>
-                        p.gender === "Women" ||
-                        p.gender === "women" ||
+                        p.gender.toLowerCase() === "women" ||
                         p.gender === "unisex",
                     )}
                     openQuickView={openQuickView}
