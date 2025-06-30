@@ -745,11 +745,21 @@ function App() {
                 path="/mens-shoes"
                 element={
                   <MensShoesPage
-                    products={products.filter(
-                      (p) =>
-                        (p.gender && p.gender.toLowerCase() === "men") ||
-                        p.gender === "unisex",
-                    )}
+                    products={(() => {
+                      const filtered = products.filter(
+                        (p) =>
+                          (p.gender && p.gender.toLowerCase() === "men") ||
+                          p.gender === "unisex",
+                      );
+                      console.log(
+                        "Men's page products:",
+                        filtered.map((p) => ({
+                          name: p.name,
+                          gender: p.gender,
+                        })),
+                      );
+                      return filtered;
+                    })()}
                     openQuickView={openQuickView}
                     addToCart={addToCart}
                     loadingStates={loadingStates}
