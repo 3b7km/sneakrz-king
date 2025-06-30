@@ -254,7 +254,11 @@ const ProductsPage = ({
                       : {}
                   }
                 >
-                  {gender === "All" ? "All Products" : `${gender}'s Shoes`}
+                  {gender === "All"
+                    ? "All Products"
+                    : gender === "Unisex"
+                      ? "Unisex Shoes"
+                      : `${gender}'s Shoes`}
                 </button>
               ))}
             </div>
