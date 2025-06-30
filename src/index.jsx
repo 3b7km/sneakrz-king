@@ -169,12 +169,15 @@ const products = [
     name: "ASICS Gel-NYC Black Ivory Gray",
     price: 1850,
     originalPrice: 2300,
-    image: "/Sneakers photos/AsicsGelNYCBlackIvoryGrayjpg.jpg",
-    images: ["/Sneakers photos/AsicsGelNYCBlackIvoryGrayjpg.jpg"],
+    image:
+      "https://cdn.builder.io/api/v1/image/assets%2Fad0a7923005f4b5580ccccd0bb24c27b%2F04252309c75a4b36994000652a7291f5?format=webp&width=800",
+    images: [
+      "https://cdn.builder.io/api/v1/image/assets%2Fad0a7923005f4b5580ccccd0bb24c27b%2F04252309c75a4b36994000652a7291f5?format=webp&width=800",
+    ],
     rating: 4.6,
     brand: "ASICS",
     category: "Running",
-    gender: "Men",
+    gender: "unisex",
     condition: "Brand New",
     authenticity: "100% Guaranteed",
     isNew: true,
