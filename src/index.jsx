@@ -66,8 +66,8 @@ const products = [
   {
     id: 2,
     name: "Adidas Samba OG 'White Black Gum'",
-    price: 1700,
-    originalPrice: 2100,
+    price: 1600,
+    originalPrice: 2000,
     image: "/Sneakers photos/AdidasSambaOG‘WhiteBlackGum’.jpg",
     images: ["/Sneakers photos/AdidasSambaOG‘WhiteBlackGum’.jpg"],
     rating: 4.7,
@@ -90,7 +90,7 @@ const products = [
     ],
   },
   {
-    id: 8,
+    id: 3,
     name: "ASICS Gel-Kayano 14 'Silver Cream'",
     price: 1900,
     originalPrice: 2400,
@@ -99,7 +99,7 @@ const products = [
     rating: 4.3,
     brand: "ASICS",
     category: "Running",
-    gender: "Men",
+    gender: "unisex",
     condition: "Brand New",
     authenticity: "100% Guaranteed",
     isNew: true,
@@ -116,7 +116,7 @@ const products = [
     ],
   },
   {
-    id: 7,
+    id: 4,
     name: "ASICS Gel-Kahana 8",
     price: 1650,
     originalPrice: 2100,
@@ -125,15 +125,12 @@ const products = [
     rating: 4.3,
     brand: "ASICS",
     category: "Trail Running",
-    gender: "Women",
+    gender: "men",
     condition: "Brand New",
     authenticity: "100% Guaranteed",
     isNew: true,
     onSale: true,
     sizes: [
-      { value: "38", available: true },
-      { value: "39", available: true },
-      { value: "40", available: true },
       { value: "41", available: true },
       { value: "42", available: true },
       { value: "43", available: true },
@@ -142,7 +139,7 @@ const products = [
     ],
   },
   {
-    id: 9,
+    id: 5,
     name: "ASICS Gel-Kahana 8 'Black Rose Gold'",
     price: 1700,
     originalPrice: 2200,
@@ -154,15 +151,12 @@ const products = [
     rating: 4.2,
     brand: "ASICS",
     category: "Trail Running",
-    gender: "Women",
+    gender: "men",
     condition: "Brand New",
     authenticity: "100% Guaranteed",
     isNew: true,
     onSale: true,
     sizes: [
-      { value: "38", available: true },
-      { value: "39", available: true },
-      { value: "40", available: true },
       { value: "41", available: true },
       { value: "42", available: true },
       { value: "43", available: true },
@@ -170,9 +164,8 @@ const products = [
       { value: "45", available: true },
     ],
   },
-  // ...existing code...
   {
-    id: 20,
+    id: 6,
     name: "ASICS Gel-NYC Black Ivory Gray",
     price: 1850,
     originalPrice: 2300,
@@ -198,7 +191,7 @@ const products = [
     ],
   },
   {
-    id: 3,
+    id: 7,
     name: "New Balance 2002R",
     price: 1900,
     originalPrice: 2300,
@@ -210,7 +203,7 @@ const products = [
     rating: 4.7,
     brand: "New Balance",
     category: "Lifestyle",
-    gender: "Men",
+    gender: "unisex",
     condition: "Brand New",
     authenticity: "100% Guaranteed",
     isNew: true,
@@ -227,7 +220,7 @@ const products = [
     ],
   },
   {
-    id: 4,
+    id: 8,
     name: "Jordan 1 Low Light Smoke Grey",
     price: 1700,
     originalPrice: 2200,
@@ -253,7 +246,7 @@ const products = [
     ],
   },
   {
-    id: 5,
+    id: 9,
     name: "Adidas Forum Low White Royal Blue",
     price: 1800,
     originalPrice: 2200,
@@ -282,7 +275,7 @@ const products = [
     ],
   },
   {
-    id: 6,
+    id: 10,
     name: "New Balance 530 'Concrete Grey'",
     price: 1700,
     originalPrice: 2000,
@@ -308,7 +301,7 @@ const products = [
     ],
   },
   {
-    id: 19,
+    id: 11,
     name: "Air Jordan 11 Retro Space Jam 2016",
     price: 1900,
     originalPrice: 2400,
@@ -337,7 +330,7 @@ const products = [
     ],
   },
   {
-    id: 10,
+    id: 12,
     name: "Dior B22 Black Reflective",
     price: 2300,
     originalPrice: 2800,
@@ -366,7 +359,7 @@ const products = [
     ],
   },
   {
-    id: 11,
+    id: 13,
     name: "Air Jordan 4 Retro 'Black Cat'",
     price: 1900,
     originalPrice: 2400,
@@ -392,7 +385,7 @@ const products = [
     ],
   },
   {
-    id: 12,
+    id: 14,
     name: "Nike Air Max 97 'Black'",
     price: 1650,
     originalPrice: 2000,
@@ -418,7 +411,7 @@ const products = [
     ],
   },
   {
-    id: 13,
+    id: 15,
     name: "Nike SB Dunk Low Pro Triple White",
     price: 1600,
     originalPrice: 2000,
@@ -447,7 +440,7 @@ const products = [
     ],
   },
   {
-    id: 14,
+    id: 16,
     name: "Nike SB Dunk Low Pro Triple Black",
     price: 1600,
     originalPrice: 2000,
@@ -476,7 +469,7 @@ const products = [
     ],
   },
   {
-    id: 15,
+    id: 17,
     name: "Nike SB Dunk Low Fog",
     price: 1600,
     originalPrice: 2000,
@@ -505,7 +498,7 @@ const products = [
     ],
   },
   {
-    id: 16,
+    id: 18,
     name: "Nike Air Force 1 Low '07 Black",
     price: 1500,
     originalPrice: 1900,
@@ -534,7 +527,7 @@ const products = [
     ],
   },
   {
-    id: 17,
+    id: 19,
     name: "Air Jordan 4 Retro 'Red Thunder'",
     price: 1900,
     originalPrice: 2400,
@@ -561,7 +554,7 @@ const products = [
   },
   // ...existing code...
   {
-    id: 18,
+    id: 20,
     name: "Nike Dunk Low 'Classic Panda'",
     price: 1700,
     originalPrice: 2300,
