@@ -229,7 +229,7 @@ const products = [
     rating: 4.5,
     brand: "Jordan",
     category: "Basketball",
-    gender: "Men",
+    gender: "men",
     condition: "Brand New",
     authenticity: "100% Guaranteed",
     isNew: true,
