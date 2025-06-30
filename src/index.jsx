@@ -73,7 +73,7 @@ const products = [
     rating: 4.7,
     brand: "Adidas",
     category: "Lifestyle",
-    gender: "men",
+    gender: "unisex",
     condition: "Brand New",
     authenticity: "100% Guaranteed",
     isNew: true,
