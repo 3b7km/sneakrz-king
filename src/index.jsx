@@ -597,7 +597,7 @@ const products = [
     ],
   },
   {
-    id: 23,
+    id: 21,
     name: "ASICS Gel-NYC 'Black Ivory Gray'",
     price: 1900,
     originalPrice: 2300,
