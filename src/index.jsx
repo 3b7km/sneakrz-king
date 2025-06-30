@@ -654,6 +654,35 @@ const products = [
       { value: "45", available: true },
     ],
   },
+  {
+    id: 23,
+    name: "Adidas Samba OG 'White Black Gum'",
+    price: 1600,
+    originalPrice: 2100,
+    image:
+      "https://cdn.builder.io/api/v1/image/assets%2F0ebe16fdd0024a4da3822a9f17207c5b%2F7969df626c2e4d94a8f21bbfe9a7a42a?format=webp&width=800",
+    images: [
+      "https://cdn.builder.io/api/v1/image/assets%2F0ebe16fdd0024a4da3822a9f17207c5b%2F7969df626c2e4d94a8f21bbfe9a7a42a?format=webp&width=800",
+    ],
+    rating: 4.7,
+    brand: "Adidas",
+    category: "Lifestyle",
+    gender: "Women",
+    condition: "Brand New",
+    authenticity: "100% Guaranteed",
+    isNew: true,
+    onSale: true,
+    sizes: [
+      { value: "38", available: true },
+      { value: "39", available: true },
+      { value: "40", available: true },
+      { value: "41", available: true },
+      { value: "42", available: true },
+      { value: "43", available: true },
+      { value: "44", available: true },
+      { value: "45", available: true },
+    ],
+  },
 ];
 
 // Performance-optimized Loading Component
