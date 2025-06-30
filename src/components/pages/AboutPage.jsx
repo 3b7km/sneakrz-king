@@ -37,10 +37,7 @@ const AboutPage = () => {
                 shoes – they're a form of self-expression, a statement of style,
                 and a reflection of personality.
               </p>
-              <p className="text-gray-600 leading-relaxed">
-                Since our inception, we've built strong relationships with
-                authorized retailers and verified suppliers worldwide to ensure
-                that every pair of sneakers we sell is 100% authentic. Our team
+              <p className="text-gray-600 leading-relaxed">Our team
                 of sneaker experts carefully curates our collection to bring you
                 the latest releases, classic favorites, and hard-to-find gems.
               </p>
