@@ -19,7 +19,38 @@ const Navigation = ({
     return false;
   };
 
-  const handleMobileLinkClick = () => setIsMenuOpen(false);
+  const handleMobileLinkClick = () => {
+    setIsMenuOpen(false);
+  };
+
+  const handleMenuToggle = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  // Close menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname, setIsMenuOpen]);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isMenuOpen &&
+        !event.target.closest("#mobile-menu") &&
+        !event.target.closest('[aria-label="Toggle mobile menu"]')
+      ) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener("click", handleClickOutside);
+      return () => document.removeEventListener("click", handleClickOutside);
+    }
+  }, [isMenuOpen, setIsMenuOpen]);
 
   return (
     <nav
