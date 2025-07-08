@@ -166,65 +166,67 @@ const Navigation = ({
         </div>
 
         {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div
-            id="mobile-menu"
-            className="md:hidden bg-white border-t border-gray-200 shadow-lg"
-          >
-            <div className="px-4 pt-2 pb-3 space-y-1">
-              {/* Mobile Search */}
-              <div className="py-3">
-                <SearchDropdown
-                  searchTerm={searchTerm}
-                  setSearchTerm={setSearchTerm}
-                  products={products}
-                  onClose={() => setIsMenuOpen(false)}
-                  className="w-full"
-                />
-              </div>
-
-              <Link
-                to="/"
-                onClick={handleMobileLinkClick}
-                className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
-              >
-                Home
-              </Link>
-              <Link
-                to="/products"
-                onClick={handleMobileLinkClick}
-                className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
-              >
-                Products
-              </Link>
-              <Link
-                to="/brands"
-                onClick={handleMobileLinkClick}
-                className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
-              >
-                Brands
-              </Link>
-              <Link
-                to="/about"
-                onClick={handleMobileLinkClick}
-                className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
-              >
-                About
-              </Link>
-              <a
-                href="https://www.instagram.com/sneakrz.king?igsh=ZHpuZ2lzdm9vdTky"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={handleMobileLinkClick}
-                className="flex items-center px-3 py-3 text-base font-medium text-gray-700 hover:text-pink-600 hover:bg-gray-50 rounded-lg transition-colors"
-                aria-label="Instagram"
-              >
-                <Instagram className="w-4 h-4 mr-2" />
-                Instagram
-              </a>
+        <div
+          id="mobile-menu"
+          className={`md:hidden bg-white border-t border-gray-200 shadow-lg transition-all duration-300 ease-in-out ${
+            isMenuOpen
+              ? "max-h-screen opacity-100"
+              : "max-h-0 opacity-0 overflow-hidden"
+          }`}
+        >
+          <div className="px-4 pt-2 pb-3 space-y-1">
+            {/* Mobile Search */}
+            <div className="py-3">
+              <SearchDropdown
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                products={products}
+                onClose={() => setIsMenuOpen(false)}
+                className="w-full"
+              />
             </div>
+
+            <Link
+              to="/"
+              onClick={handleMobileLinkClick}
+              className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors touch-target"
+            >
+              Home
+            </Link>
+            <Link
+              to="/products"
+              onClick={handleMobileLinkClick}
+              className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors touch-target"
+            >
+              Products
+            </Link>
+            <Link
+              to="/brands"
+              onClick={handleMobileLinkClick}
+              className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors touch-target"
+            >
+              Brands
+            </Link>
+            <Link
+              to="/about"
+              onClick={handleMobileLinkClick}
+              className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors touch-target"
+            >
+              About
+            </Link>
+            <a
+              href="https://www.instagram.com/sneakrz.king?igsh=ZHpuZ2lzdm9vdTky"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleMobileLinkClick}
+              className="flex items-center px-3 py-3 text-base font-medium text-gray-700 hover:text-pink-600 hover:bg-gray-50 rounded-lg transition-colors touch-target"
+              aria-label="Instagram"
+            >
+              <Instagram className="w-4 h-4 mr-2" />
+              Instagram
+            </a>
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );
