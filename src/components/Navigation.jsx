@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ShoppingCart, Search, Menu, X, Instagram } from "lucide-react";
 import SearchDropdown from "./SearchDropdown.jsx";
