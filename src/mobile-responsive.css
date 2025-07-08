@@ -11,6 +11,43 @@ body {
   -webkit-overflow-scrolling: touch !important;
 }
 
+/* Mobile Menu Fixes */
+.touch-target {
+  min-height: 44px !important;
+  min-width: 44px !important;
+  touch-action: manipulation !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+/* Mobile menu transition improvements */
+#mobile-menu {
+  transition:
+    max-height 0.3s ease-in-out,
+    opacity 0.3s ease-in-out !important;
+  will-change: max-height, opacity !important;
+}
+
+/* Mobile menu button improvements */
+.nav-professional button[aria-label="Toggle mobile menu"] {
+  min-width: 44px !important;
+  min-height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  touch-action: manipulation !important;
+  -webkit-tap-highlight-color: transparent !important;
+  user-select: none !important;
+}
+
+/* Prevent iOS zoom on touch */
+button,
+input,
+select,
+textarea {
+  touch-action: manipulation !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
 /* Base mobile styles */
 @media (max-width: 768px) {
   /* Navigation fixes */
