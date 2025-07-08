@@ -46,7 +46,7 @@ const Footer = () => {
                 <Instagram className="w-6 h-6 text-white group-hover:scale-110 transition-transform duration-300" />
               </a>
               <a
-                href="https://wa.me/201091968021"
+                href="https://api.whatsapp.com/send/?phone=201091968021&text&type=phone_number&app_absent=0"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-icon group bg-gradient-to-r from-green-500 to-emerald-500 p-3 rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-green-500/25"
