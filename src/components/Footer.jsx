@@ -124,11 +124,21 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="text-center md:text-left">
               <p className="text-blue-200 text-base">
-                © 2024{" "}
+                © 2025{" "}
                 <span className="text-white font-semibold">Sneakrz King</span>.
                 All rights reserved.
               </p>
-              <p className="text-blue-300 text-sm mt-1">Created by @Ki9yj</p>
+              <p className="text-blue-300 text-sm mt-1">
+                Created by{" "}
+                <a
+                  href="https://www.instagram.com/ki9yj?igsh=MXh4cGZqcWhoZW50Zg%3D%3D&utm_source=qr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-200 hover:text-white transition-colors duration-300 font-medium"
+                >
+                  @Ki9yj
+                </a>
+              </p>
             </div>
 
             {/* Trust Indicators */}
