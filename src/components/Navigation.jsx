@@ -182,11 +182,7 @@ const Navigation = ({
 
             {/* Mobile Menu Toggle Button */}
             <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                setIsMenuOpen(!isMenuOpen);
-              }}
+              onClick={handleMenuToggle}
               className={`p-2 rounded-lg transition-all duration-300 touch-target ${
                 isMenuOpen
                   ? "text-blue-600 bg-blue-50"
