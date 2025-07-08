@@ -151,10 +151,19 @@ const Navigation = ({
 
             {/* Mobile Menu Toggle Button */}
             <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 text-gray-600 hover:text-blue-600 transition-colors duration-300"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setIsMenuOpen(!isMenuOpen);
+              }}
+              className={`p-2 rounded-lg transition-all duration-300 touch-target ${
+                isMenuOpen
+                  ? "text-blue-600 bg-blue-50"
+                  : "text-gray-600 hover:text-blue-600 hover:bg-gray-50"
+              }`}
               aria-label="Toggle mobile menu"
               aria-expanded={isMenuOpen}
+              type="button"
             >
               {isMenuOpen ? (
                 <X className="w-6 h-6" />
