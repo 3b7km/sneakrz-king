@@ -286,17 +286,35 @@ const AdvancedFilters = ({
               </span>
             </label>
             <label className="flex items-center group cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition-colors">
-              <input
-                type="checkbox"
-                checked={inStock}
-                onChange={(e) => setInStock(e.target.checked)}
-                className="w-5 h-5 text-green-600 border-2 border-gray-300 rounded focus:ring-green-500 focus:ring-2 focus:ring-offset-2 transition-all"
-                style={{
-                  accentColor: "#16A34A",
-                  appearance: "auto",
-                  WebkitAppearance: "checkbox",
-                }}
-              />
+              <div className="relative">
+                <input
+                  type="checkbox"
+                  checked={inStock}
+                  onChange={(e) => setInStock(e.target.checked)}
+                  className="sr-only"
+                />
+                <div
+                  className={`w-5 h-5 border-2 rounded transition-all duration-200 flex items-center justify-center ${
+                    inStock
+                      ? "bg-green-600 border-green-600"
+                      : "border-gray-300 bg-white hover:border-green-400"
+                  }`}
+                >
+                  {inStock && (
+                    <svg
+                      className="w-3 h-3 text-white"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  )}
+                </div>
+              </div>
               <span className="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors flex items-center font-medium">
                 <span className="w-3 h-3 bg-green-500 rounded-full mr-2 flex-shrink-0"></span>
                 In Stock
