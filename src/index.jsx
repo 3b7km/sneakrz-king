@@ -222,7 +222,7 @@ const products = [
   {
     id: 8,
     name: "Jordan 1 Low Light Smoke Grey",
-    price: 1700,
+    price: 1600,
     originalPrice: 2200,
     image: "/Sneakers photos/Jordan1LowLightSmokeGrey.jpg",
     images: ["/Sneakers photos/Jordan1LowLightSmokeGrey.jpg"],
@@ -547,7 +547,7 @@ const products = [
   {
     id: 20,
     name: "Nike Dunk Low 'Classic Panda'",
-    price: 1700,
+    price: 1600,
     originalPrice: 2300,
     image: "/Sneakers photos/NikeDunkLowRetro‘Panda’.jpg",
     images: ["/Sneakers photos/NikeDunkLowRetro‘Panda’.jpg"],
