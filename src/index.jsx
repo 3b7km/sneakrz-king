@@ -66,7 +66,7 @@ const products = [
   {
     id: 2,
     name: "Adidas Samba OG 'White Black Gum'",
-    price: 1600,
+    price: 1500,
     originalPrice: 2000,
     image: "/Sneakers photos/AdidasSambaOG‘WhiteBlackGum’.jpg",
     images: ["/Sneakers photos/AdidasSambaOG‘WhiteBlackGum’.jpg"],
@@ -92,7 +92,7 @@ const products = [
   {
     id: 3,
     name: "ASICS Gel-Kayano 14 'Silver Cream'",
-    price: 1900,
+    price: 1700,
     originalPrice: 2400,
     image: "/Sneakers photos/AsicsGelKayano14SilverCream1201A019-108.jpg",
     images: ["/Sneakers photos/AsicsGelKayano14SilverCream1201A019-108.jpg"],
@@ -118,7 +118,7 @@ const products = [
   {
     id: 4,
     name: "ASICS Gel-Kahana 8",
-    price: 1650,
+    price: 1700,
     originalPrice: 2100,
     image: "/Sneakers photos/asicsgelkahanam8.jpg",
     images: ["/Sneakers photos/asicsgelkahanam8.jpg"],
@@ -141,7 +141,7 @@ const products = [
   {
     id: 5,
     name: "ASICS Gel-Kahana 8 'Black Rose Gold'",
-    price: 1700,
+    price: 1600,
     originalPrice: 2200,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2F0ebe16fdd0024a4da3822a9f17207c5b%2F2d2ab23252bf44d3be4cf2ecc2498ed7?format=webp&width=800",
@@ -167,7 +167,7 @@ const products = [
   {
     id: 6,
     name: "ASICS Gel-NYC Black Ivory Gray",
-    price: 1850,
+    price: 1700,
     originalPrice: 2300,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2Fad0a7923005f4b5580ccccd0bb24c27b%2F04252309c75a4b36994000652a7291f5?format=webp&width=800",
@@ -235,6 +235,9 @@ const products = [
     isNew: true,
     onSale: false,
     sizes: [
+      { value: "38", available: true },
+      { value: "39", available: true },
+      { value: "40", available: true },
       { value: "41", available: true },
       { value: "42", available: true },
       { value: "43", available: true },
@@ -274,7 +277,7 @@ const products = [
   {
     id: 10,
     name: "New Balance 530 'Concrete Grey'",
-    price: 1700,
+    price: 1500,
     originalPrice: 2000,
     image: "/Sneakers photos/NB53.jpg",
     images: ["/Sneakers photos/NB53.jpg"],
@@ -352,7 +355,7 @@ const products = [
   {
     id: 13,
     name: "Air Jordan 4 Retro 'Black Cat'",
-    price: 1900,
+    price: 1800,
     originalPrice: 2400,
     image: "/Sneakers photos/blackcat.jpg",
     images: ["/Sneakers photos/blackcat.jpg"],
@@ -517,7 +520,7 @@ const products = [
   {
     id: 19,
     name: "Air Jordan 4 Retro 'Red Thunder'",
-    price: 1900,
+    price: 1800,
     originalPrice: 2400,
     image: "/Sneakers photos/redthunder.jpg",
     images: ["/Sneakers photos/redthunder.jpg"],
