@@ -573,7 +573,7 @@ const products = [
   {
     id: 21,
     name: "Air Jordan 4 Military Black",
-    price: 1850,
+    price: 1800,
     originalPrice: 2450,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2Fba9233745cae4e74a7f5a545d112e809%2F5fecaf6e9b6d447fb92129f24ffb9ef3?format=webp&width=800",
@@ -599,7 +599,7 @@ const products = [
   {
     id: 22,
     name: "Air Jordan 4 Retro Midnight Navy GS",
-    price: 1750,
+    price: 1800,
     originalPrice: 2300,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2Fba9233745cae4e74a7f5a545d112e809%2Fd37615cb8240424bbf6ed69b80259a36?format=webp&width=800",
@@ -628,7 +628,7 @@ const products = [
   {
     id: 23,
     name: "Air Jordan 4 Retro SB Navy",
-    price: 1900,
+    price: 1800,
     originalPrice: 2500,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2Fba9233745cae4e74a7f5a545d112e809%2F5605291e183f42fc985f5c6677690c79?format=webp&width=800",
@@ -654,7 +654,7 @@ const products = [
   {
     id: 24,
     name: "Air Jordan 4 SE Wet Cement",
-    price: 1950,
+    price: 1800,
     originalPrice: 2600,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2Fba9233745cae4e74a7f5a545d112e809%2Fbf949f44a40449ab81656ea036d14532?format=webp&width=800",
@@ -706,7 +706,7 @@ const products = [
   {
     id: 26,
     name: "Air Jordan 4 Retro OG SP",
-    price: 2000,
+    price: 1800,
     originalPrice: 2700,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2Fba9233745cae4e74a7f5a545d112e809%2F333f5e5dd9084d3bb97b303b1ac3bec0?format=webp&width=800",
