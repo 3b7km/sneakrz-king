@@ -49,7 +49,7 @@ const products = [
     category: "Lifestyle",
     gender: "unisex",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -75,7 +75,7 @@ const products = [
     category: "Lifestyle",
     gender: "unisex",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -101,7 +101,7 @@ const products = [
     category: "Running",
     gender: "unisex",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -127,7 +127,7 @@ const products = [
     category: "Trail Running",
     gender: "men",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -153,7 +153,7 @@ const products = [
     category: "Trail Running",
     gender: "men",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -179,7 +179,7 @@ const products = [
     category: "Running",
     gender: "men",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -205,7 +205,7 @@ const products = [
     category: "Lifestyle",
     gender: "unisex",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -231,7 +231,7 @@ const products = [
     category: "Basketball",
     gender: "men",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: false,
     sizes: [
@@ -260,7 +260,7 @@ const products = [
     category: "Lifestyle",
     gender: "unisex",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -286,7 +286,7 @@ const products = [
     category: "Lifestyle",
     gender: "unisex",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -315,7 +315,7 @@ const products = [
     category: "Basketball",
     gender: "men",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -341,7 +341,7 @@ const products = [
     category: "Luxury",
     gender: "men",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -364,7 +364,7 @@ const products = [
     category: "Basketball",
     gender: "men",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -387,7 +387,7 @@ const products = [
     category: "Lifestyle",
     gender: "unisex",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -416,7 +416,7 @@ const products = [
     category: "Skateboarding",
     gender: "unisex",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -445,7 +445,7 @@ const products = [
     category: "Skateboarding",
     gender: "unisex",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -474,7 +474,7 @@ const products = [
     category: "Skateboarding",
     gender: "unisex",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -503,7 +503,7 @@ const products = [
     category: "Lifestyle",
     gender: "unisex",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -529,7 +529,7 @@ const products = [
     category: "Basketball",
     gender: "men",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -556,7 +556,7 @@ const products = [
     category: "Lifestyle",
     gender: "unisex",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -585,7 +585,7 @@ const products = [
     category: "Basketball",
     gender: "men",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -611,7 +611,7 @@ const products = [
     category: "Basketball",
     gender: "unisex",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -640,7 +640,7 @@ const products = [
     category: "Basketball",
     gender: "men",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -666,7 +666,7 @@ const products = [
     category: "Basketball",
     gender: "men",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -692,7 +692,7 @@ const products = [
     category: "Basketball",
     gender: "men",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
@@ -718,7 +718,7 @@ const products = [
     category: "Basketball",
     gender: "men",
     condition: "Brand New",
-    authenticity: "100% Guaranteed",
+
     isNew: true,
     onSale: true,
     sizes: [
