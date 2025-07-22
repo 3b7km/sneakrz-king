@@ -141,7 +141,7 @@ const products = [
   {
     id: 5,
     name: "ASICS Gel-Kahana 8 'Black Rose Gold'",
-    price: 1600,
+    price: 1700,
     originalPrice: 2200,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2F0ebe16fdd0024a4da3822a9f17207c5b%2F2d2ab23252bf44d3be4cf2ecc2498ed7?format=webp&width=800",
