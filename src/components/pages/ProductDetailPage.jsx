@@ -12,8 +12,11 @@ const ProductDetailPage = ({ products, onAddToCart, loadingStates = {} }) => {
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Find the product by ID
+  // Find the product by ID and scroll to top
   useEffect(() => {
+    // Scroll to top when component mounts or ID changes
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
     const foundProduct = products.find(p => p.id === parseInt(id));
     if (foundProduct) {
       setProduct(foundProduct);
