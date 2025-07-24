@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Star, Plus, Minus, Eye, ShoppingCart } from "lucide-react";
 import ProductGallery from "./ProductGallery.jsx";
+import { getProductUrl } from "../../utils/urlUtils.js";
 
 // Optimized ProductCard with lazy loading and performance improvements
 const ProductCard = ({
@@ -233,7 +234,7 @@ const ProductCard = ({
         {/* Action Buttons */}
         <div className="flex flex-col space-y-2">
           <Link
-            to={`/product/${product.id}`}
+            to={getProductUrl(product)}
             className="w-full py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
           >
             <Eye className="w-4 h-4" />
