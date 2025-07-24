@@ -729,6 +729,28 @@ const products = [
       { value: "45", available: true },
     ],
   },
+  {
+    id: 27,
+    name: "AJ1 Retro Low OG 'Sail Shy Pink'",
+    price: 1700,
+    originalPrice: 2200,
+    image: "https://cdn.builder.io/api/v1/image/assets%2Fba9233745cae4e74a7f5a545d112e809%2F5ace7120293944e999b1059359797c6c?format=webp&width=800",
+    images: ["https://cdn.builder.io/api/v1/image/assets%2Fba9233745cae4e74a7f5a545d112e809%2F5ace7120293944e999b1059359797c6c?format=webp&width=800"],
+    rating: 4.8,
+    brand: "Jordan",
+    category: "Basketball",
+    gender: "unisex",
+    condition: "Brand New",
+    isNew: true,
+    onSale: true,
+    sizes: [
+      { value: "41", available: true },
+      { value: "42", available: true },
+      { value: "43", available: true },
+      { value: "44", available: true },
+      { value: "45", available: true },
+    ],
+  },
 ];
 
 // Performance-optimized Loading Component
