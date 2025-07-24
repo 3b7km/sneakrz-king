@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Star, Plus, Minus, ShoppingCart, ArrowLeft, Share2, Heart } from "lucide-react";
+import { Star, Plus, Minus, ShoppingCart, ArrowLeft, Share2 } from "lucide-react";
 import ProductGallery from "../product/ProductGallery.jsx";
 import { useCart } from "../../context/CartContext.jsx";
 
@@ -300,19 +300,13 @@ const ProductDetailPage = ({ products, onAddToCart, loadingStates = {} }) => {
                 </button>
               </div>
 
-              <div className="flex space-x-2">
-                <button
-                  onClick={handleShare}
-                  className="flex-1 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
-                >
-                  <Share2 className="w-4 h-4" />
-                  Share
-                </button>
-                <button className="flex-1 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
-                  <Heart className="w-4 h-4" />
-                  Wishlist
-                </button>
-              </div>
+              <button
+                onClick={handleShare}
+                className="w-full py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+              >
+                <Share2 className="w-4 h-4" />
+                Share
+              </button>
             </div>
 
             {/* Product Description */}
