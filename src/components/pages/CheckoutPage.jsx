@@ -324,17 +324,72 @@ const CheckoutPage = () => {
         total: `${total.toFixed(2)} EGP`,
       };
 
-      console.log("Sending email via EmailJS...");
-      const response = await window.emailjs.send(
-        "service_jpicl4m",
-        "template_sd6o0td",
-        templateParams,
-      );
+      console.log("📧 Preparing to send email via EmailJS...");
+      console.log("🔧 Service ID: service_jpicl4m");
+      console.log("📋 Template ID: template_sd6o0td");
+      console.log("📦 Template parameters:", {
+        customer_name: templateParams.customer_name,
+        customer_email: templateParams.customer_email,
+        order_total: templateParams.order_total,
+        itemCount: cartItems.length
+      });
 
-      console.log("Email sent successfully:", response);
-      return response;
+      // Test EmailJS service before sending
+      try {
+        console.log("🔍 Testing EmailJS service availability...");
+
+        const response = await window.emailjs.send(
+          "service_jpicl4m",
+          "template_sd6o0td",
+          templateParams,
+          "xZ-FMAkzHPph3aojg" // Public key as 4th parameter for better compatibility
+        );
+
+        console.log("✅ Email sent successfully!");
+        console.log("📊 EmailJS Response:", {
+          status: response.status,
+          text: response.text,
+          timestamp: new Date().toISOString()
+        });
+
+        return response;
+      } catch (sendError) {
+        console.error("📧 Email sending failed at send step:");
+        console.error("Error details:", {
+          name: sendError.name,
+          message: sendError.message,
+          status: sendError.status,
+          text: sendError.text
+        });
+
+        // Provide specific error messages for common issues
+        if (sendError.status === 400) {
+          console.error("❌ Bad Request - Check service ID, template ID, or template parameters");
+        } else if (sendError.status === 401) {
+          console.error("❌ Unauthorized - Check public key and service permissions");
+        } else if (sendError.status === 402) {
+          console.error("❌ Payment Required - EmailJS account may need billing setup");
+        } else if (sendError.status === 429) {
+          console.error("❌ Rate Limited - Too many emails sent recently");
+        }
+
+        throw sendError;
+      }
     } catch (error) {
-      console.error("Email sending failed:", error);
+      console.error("💥 Email confirmation process failed:");
+      console.error("Error type:", error.constructor.name);
+      console.error("Error message:", error.message);
+      console.error("Full error:", error);
+
+      // Log system information for debugging
+      console.log("🖥️ System info:", {
+        userAgent: navigator.userAgent,
+        onLine: navigator.onLine,
+        cookieEnabled: navigator.cookieEnabled,
+        timestamp: new Date().toISOString(),
+        url: window.location.href
+      });
+
       return null;
     }
   };
