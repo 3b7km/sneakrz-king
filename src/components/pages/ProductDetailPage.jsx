@@ -106,19 +106,33 @@ const ProductDetailPage = ({ products, onAddToCart, loadingStates = {} }) => {
         quantity,
       };
 
-      // Try using the prop first, fallback to CartContext
-      if (onAddToCart) {
-        await onAddToCart(productToAdd);
-      } else {
-        // Fallback to CartContext
+      // Clear cart and add only this item for "Buy Now"
+      const newCart = [
+        {
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          image: product.image,
+          brand: product.brand,
+          selectedSize,
+          quantity,
+          addedAt: new Date().toISOString(),
+        },
+      ];
+
+      // Clear cart first, then add only this item
+      cartAddToCart.clearCart?.() || localStorage.setItem("sneakrz-cart", JSON.stringify([]));
+
+      // Use CartContext to set the new cart
+      if (cartAddToCart) {
         cartAddToCart(product, quantity, selectedSize);
       }
 
       // Navigate to checkout after successful addition
       navigate("/checkout");
     } catch (error) {
-      console.error("Error adding to cart:", error);
-      alert("Failed to add item to cart. Please try again.");
+      console.error("Error processing buy now:", error);
+      alert("Failed to process purchase. Please try again.");
     }
   };
 
