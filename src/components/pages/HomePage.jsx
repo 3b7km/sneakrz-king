@@ -23,6 +23,7 @@ const HomePage = ({
   setSelectedBrand,
   openQuickView,
   addToCart,
+  onBuyNow,
   loadingStates,
 }) => {
   return (
