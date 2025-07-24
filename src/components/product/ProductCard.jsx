@@ -64,20 +64,14 @@ const ProductCard = ({
       return;
     }
 
-    const productToAdd = {
+    await onAddToCart({
       ...product,
       selectedSize,
       quantity,
-    };
+    });
 
-    // Use onBuyNow prop if available, otherwise fallback to add to cart
-    if (onBuyNow) {
-      onBuyNow(productToAdd);
-    } else {
-      await onAddToCart(productToAdd);
-      // Use Link navigation instead of window.location
-      window.location.href = "/checkout";
-    }
+    // Navigate to checkout
+    window.location.href = "/checkout";
   };
 
   const isLoading = loadingStates[`add-${product.id}`];
