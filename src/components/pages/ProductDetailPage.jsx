@@ -142,7 +142,7 @@ const ProductDetailPage = ({ products, onAddToCart, loadingStates = {} }) => {
     }
   };
 
-  const isAddToCartLoading = loadingStates.isLoading ? loadingStates.isLoading(`add-${product.id}`) : loadingStates[`add-${product.id}`];
+  const isAddToCartLoading = loadingStates[`add-${product.id}`];
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
