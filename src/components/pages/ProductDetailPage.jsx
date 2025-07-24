@@ -73,11 +73,24 @@ const ProductDetailPage = ({ products, onAddToCart, loadingStates = {} }) => {
       return;
     }
 
-    await onAddToCart({
-      ...product,
-      selectedSize,
-      quantity,
-    });
+    try {
+      const productToAdd = {
+        ...product,
+        selectedSize,
+        quantity,
+      };
+
+      // Try using the prop first, fallback to CartContext
+      if (onAddToCart) {
+        await onAddToCart(productToAdd);
+      } else {
+        // Fallback to CartContext
+        cartAddToCart(product, quantity, selectedSize);
+      }
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      alert("Failed to add item to cart. Please try again.");
+    }
   };
 
   const handleBuyNow = async () => {
