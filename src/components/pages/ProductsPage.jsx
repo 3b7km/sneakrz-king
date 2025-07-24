@@ -294,6 +294,7 @@ const ProductsPage = ({
                 product={product}
                 onQuickView={openQuickView}
                 onAddToCart={addToCart}
+                onBuyNow={onBuyNow}
                 loadingStates={loadingStates}
               />
             ))}
