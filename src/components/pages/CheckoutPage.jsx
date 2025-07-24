@@ -36,63 +36,92 @@ const CheckoutPage = () => {
   const shipping = 80;
   const total = subtotal + shipping;
 
-  // Initialize EmailJS
+  // Initialize EmailJS with enhanced error handling
   useEffect(() => {
     let retryCount = 0;
-    const maxRetries = 10;
+    const maxRetries = 15;
     let emailJSReady = false;
 
     const initEmailJS = () => {
-      if (window.emailjs && !emailJSReady) {
-        try {
-          window.emailjs.init("xZ-FMAkzHPph3aojg");
-          emailJSReady = true;
-          window._emailJSReady = true;
-          console.log("EmailJS initialized successfully");
-          return true;
-        } catch (error) {
-          console.error("EmailJS initialization failed:", error);
-          return false;
-        }
-      } else if (!window.emailjs) {
+      console.log(`EmailJS init attempt ${retryCount + 1}/${maxRetries}`);
+
+      // Check if EmailJS script is loaded
+      if (typeof window.emailjs === 'undefined') {
+        console.log("EmailJS script not loaded yet, checking CDN...");
         retryCount++;
         if (retryCount < maxRetries) {
-          const delay = 1000 * retryCount;
-          console.log(
-            `Retrying EmailJS init in ${delay}ms (attempt ${retryCount})`,
-          );
+          const delay = Math.min(1000 * retryCount, 5000); // Cap at 5 seconds
+          console.log(`Retrying EmailJS init in ${delay}ms`);
           setTimeout(initEmailJS, delay);
         } else {
-          console.error("EmailJS failed to load after maximum retries");
+          console.error("EmailJS CDN failed to load after maximum retries");
+          console.error("This may be due to network restrictions or ad blockers");
           window._emailJSFailed = true;
         }
         return false;
       }
+
+      if (window.emailjs && !emailJSReady) {
+        try {
+          // Test EmailJS service availability
+          if (typeof window.emailjs.init !== 'function') {
+            throw new Error("EmailJS init function not available");
+          }
+
+          window.emailjs.init("xZ-FMAkzHPph3aojg");
+          emailJSReady = true;
+          window._emailJSReady = true;
+          console.log("✅ EmailJS initialized successfully");
+
+          // Test service connection
+          console.log("🔍 Testing EmailJS service connection...");
+          return true;
+        } catch (error) {
+          console.error("❌ EmailJS initialization failed:", error.message);
+          console.error("Full error:", error);
+          retryCount++;
+          if (retryCount < maxRetries) {
+            const delay = 2000;
+            console.log(`🔄 Retrying initialization in ${delay}ms`);
+            setTimeout(initEmailJS, delay);
+          } else {
+            window._emailJSFailed = true;
+          }
+          return false;
+        }
+      }
       return emailJSReady;
     };
 
-    // Try immediate initialization
-    initEmailJS();
+    // Multiple initialization strategies for better compatibility
+    const initStrategies = [
+      () => initEmailJS(), // Immediate
+      () => setTimeout(initEmailJS, 500), // Short delay
+      () => setTimeout(initEmailJS, 1500), // Medium delay
+      () => setTimeout(initEmailJS, 3000), // Long delay
+    ];
 
-    // Fallback initialization strategies
+    // Execute all strategies
+    initStrategies.forEach((strategy, index) => {
+      setTimeout(strategy, index * 200);
+    });
+
+    // Window load event listener
+    const handleLoad = () => {
+      console.log("Window loaded, attempting EmailJS initialization");
+      setTimeout(initEmailJS, 1000);
+    };
+
     if (document.readyState === "complete") {
-      setTimeout(initEmailJS, 500);
+      handleLoad();
     } else {
-      window.addEventListener(
-        "load",
-        () => {
-          setTimeout(initEmailJS, 500);
-        },
-        { once: true },
-      );
+      window.addEventListener("load", handleLoad, { once: true });
     }
 
-    // Final fallback
-    setTimeout(() => {
-      if (!emailJSReady && !window._emailJSFailed) {
-        initEmailJS();
-      }
-    }, 5000);
+    // Cleanup
+    return () => {
+      window.removeEventListener("load", handleLoad);
+    };
   }, []);
 
   // Enhanced validation using utility functions
