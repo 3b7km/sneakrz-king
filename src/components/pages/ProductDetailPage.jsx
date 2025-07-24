@@ -20,6 +20,9 @@ const ProductDetailPage = ({ products, onAddToCart, loadingStates = {} }) => {
     const foundProduct = products.find(p => p.id === parseInt(id));
     if (foundProduct) {
       setProduct(foundProduct);
+      // Update document title
+      document.title = `${foundProduct.name} - Sneakrz King`;
+
       // Set default size if available
       if (foundProduct.sizes && foundProduct.sizes.length > 0) {
         const firstSize = foundProduct.sizes[0];
@@ -27,6 +30,11 @@ const ProductDetailPage = ({ products, onAddToCart, loadingStates = {} }) => {
       }
     }
     setIsLoading(false);
+
+    // Cleanup: reset title when component unmounts
+    return () => {
+      document.title = 'Sneakrz King';
+    };
   }, [id, products]);
 
   if (isLoading) {
