@@ -990,7 +990,6 @@ function AppContent({ navigate }) {
                   <ProductDetailPage
                     products={products}
                     onAddToCart={addToCart}
-                    onBuyNow={handleBuyNow}
                     loadingStates={loadingStates}
                   />
                 }
