@@ -100,33 +100,11 @@ const ProductDetailPage = ({ products, onAddToCart, loadingStates = {} }) => {
     }
 
     try {
-      const productToAdd = {
-        ...product,
-        selectedSize,
-        quantity,
-      };
+      // Clear cart first for "Buy Now" functionality
+      clearCart();
 
-      // Clear cart and add only this item for "Buy Now"
-      const newCart = [
-        {
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          image: product.image,
-          brand: product.brand,
-          selectedSize,
-          quantity,
-          addedAt: new Date().toISOString(),
-        },
-      ];
-
-      // Clear cart first, then add only this item
-      cartAddToCart.clearCart?.() || localStorage.setItem("sneakrz-cart", JSON.stringify([]));
-
-      // Use CartContext to set the new cart
-      if (cartAddToCart) {
-        cartAddToCart(product, quantity, selectedSize);
-      }
+      // Add only this item to cart
+      cartAddToCart(product, quantity, selectedSize);
 
       // Navigate to checkout after successful addition
       navigate("/checkout");
