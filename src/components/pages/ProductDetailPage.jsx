@@ -8,7 +8,7 @@ import { findProductBySlug } from "../../utils/urlUtils.js";
 const ProductDetailPage = ({ products, onAddToCart, loadingStates = {} }) => {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const { addToCart: cartAddToCart } = useCart();
+  const { addToCart: cartAddToCart, clearCart } = useCart();
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState(null);
