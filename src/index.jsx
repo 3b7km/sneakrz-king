@@ -915,7 +915,6 @@ function AppContent({ navigate }) {
                     setSelectedBrand={filters.setSelectedBrand}
                     openQuickView={openQuickView}
                     addToCart={addToCart}
-                    onBuyNow={handleBuyNow}
                     loadingStates={loadingStates}
                   />
                 }
