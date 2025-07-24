@@ -341,16 +341,9 @@ const ProductDetailPage = ({ products, onAddToCart, loadingStates = {} }) => {
                 <button
                   onClick={handleBuyNow}
                   disabled={isAddToCartLoading}
-                  className="w-full py-4 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="w-full py-4 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors disabled:opacity-50"
                 >
-                  {isAddToCartLoading ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      Processing...
-                    </>
-                  ) : (
-                    "Buy Now"
-                  )}
+                  Buy Now
                 </button>
               </div>
 
