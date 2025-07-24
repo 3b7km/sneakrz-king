@@ -123,9 +123,11 @@ const ProductCard = ({
         </div>
 
         {/* Product Name */}
-        <h3 className="text-xl font-bold text-gray-900 leading-tight line-clamp-2">
-          {product.name}
-        </h3>
+        <Link to={`/product/${product.id}`}>
+          <h3 className="text-xl font-bold text-gray-900 leading-tight line-clamp-2 hover:text-blue-600 transition-colors cursor-pointer">
+            {product.name}
+          </h3>
+        </Link>
 
         {/* Brand & Gender */}
         <div className="flex justify-between items-center">
