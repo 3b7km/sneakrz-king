@@ -687,19 +687,43 @@ const CheckoutPage = () => {
                     Receive order confirmation via email
                   </span>
                 </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  onBlur={handleFieldBlur}
-                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
-                    errors.email ? "border-red-300" : "border-gray-300"
-                  }`}
-                  placeholder="your@email.com"
-                />
+                <div className="flex gap-2">
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    onBlur={handleFieldBlur}
+                    className={`flex-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                      errors.email ? "border-red-300" : "border-gray-300"
+                    }`}
+                    placeholder="your@email.com"
+                  />
+                  {formData.email && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        diagnoseEmailJS();
+                        if (window.emailjs && window._emailJSReady) {
+                          alert("✅ EmailJS is working! Check console for details.");
+                        } else {
+                          alert("❌ EmailJS not ready. Check console for diagnostic report.");
+                        }
+                      }}
+                      className="px-3 py-2 text-xs bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                      title="Test EmailJS functionality"
+                    >
+                      Test
+                    </button>
+                  )}
+                </div>
                 {errors.email && (
                   <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                )}
+                {formData.email && (
+                  <p className="mt-1 text-xs text-gray-500">
+                    💡 Click "Test" to check if EmailJS is working on your device
+                  </p>
                 )}
               </div>
 
