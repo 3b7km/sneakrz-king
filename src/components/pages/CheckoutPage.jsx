@@ -124,6 +124,38 @@ const CheckoutPage = () => {
     };
   }, []);
 
+  // EmailJS diagnostic function
+  const diagnoseEmailJS = () => {
+    console.log("🔍 EmailJS Diagnostic Report:");
+    console.log("================================");
+    console.log("EmailJS Object:", !!window.emailjs);
+    console.log("EmailJS Ready:", !!window._emailJSReady);
+    console.log("EmailJS Failed:", !!window._emailJSFailed);
+    console.log("Navigator Online:", navigator.onLine);
+    console.log("User Agent:", navigator.userAgent);
+    console.log("Cookie Enabled:", navigator.cookieEnabled);
+    console.log("Current URL:", window.location.href);
+    console.log("Protocol:", window.location.protocol);
+
+    if (window.emailjs) {
+      console.log("EmailJS Functions Available:");
+      console.log("- init:", typeof window.emailjs.init);
+      console.log("- send:", typeof window.emailjs.send);
+      console.log("- sendForm:", typeof window.emailjs.sendForm);
+    }
+
+    // Check for common blockers
+    const blockers = [];
+    if (!navigator.onLine) blockers.push("No internet connection");
+    if (window.location.protocol === 'file:') blockers.push("File protocol (should use http/https)");
+    if (!navigator.cookieEnabled) blockers.push("Cookies disabled");
+
+    if (blockers.length > 0) {
+      console.warn("⚠️ Potential blockers detected:", blockers);
+    }
+    console.log("================================");
+  };
+
   // Enhanced validation using utility functions
   const validateFormData = () => {
     const formDataForValidation = {
