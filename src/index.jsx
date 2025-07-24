@@ -892,8 +892,7 @@ function AppContent({ navigate }) {
   }, [navigate]);
 
   return (
-    <Router>
-      <div className="App min-h-screen overflow-x-hidden">
+    <div className="App min-h-screen overflow-x-hidden">
         <Navigation
           cartItems={cartItems}
           searchTerm={filters.searchTerm}
@@ -1024,6 +1023,14 @@ function AppContent({ navigate }) {
           )}
         </Suspense>
       </div>
+  );
+}
+
+// Main App wrapper with Router
+function App() {
+  return (
+    <Router>
+      <AppRouter />
     </Router>
   );
 }
