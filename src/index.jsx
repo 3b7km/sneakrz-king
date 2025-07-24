@@ -766,8 +766,15 @@ const PageLoader = () => (
   </div>
 );
 
+// Router wrapper component that uses useNavigate
+function AppRouter() {
+  const navigate = useNavigate();
+
+  return <AppContent navigate={navigate} />;
+}
+
 // Main App Component - Optimized for Performance
-function App() {
+function AppContent({ navigate }) {
   // Initialize mobile enhancements
   useEffect(() => {
     initMobileEnhancements();
