@@ -976,6 +976,16 @@ function App() {
               <Route path="/cart" element={<CartPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />
               <Route
+                path="/product/:id"
+                element={
+                  <ProductDetailPage
+                    products={products}
+                    onAddToCart={addToCart}
+                    loadingStates={loadingStates}
+                  />
+                }
+              />
+              <Route
                 path="/order-confirmation"
                 element={<OrderConfirmation />}
               />
