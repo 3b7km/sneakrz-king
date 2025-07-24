@@ -878,10 +878,11 @@ function App() {
     ];
     setCartItems(newCart);
     localStorage.setItem("sneakrz-cart", JSON.stringify(newCart));
+    // Use React Router navigation instead of window.location
     setTimeout(() => {
-      window.location.href = "/checkout";
+      navigate("/checkout");
     }, 120);
-  }, []);
+  }, [navigate]);
 
   return (
     <Router>
