@@ -981,6 +981,7 @@ function App() {
                   <ProductDetailPage
                     products={products}
                     onAddToCart={addToCart}
+                    onBuyNow={handleBuyNow}
                     loadingStates={loadingStates}
                   />
                 }
