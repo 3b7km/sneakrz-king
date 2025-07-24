@@ -85,14 +85,19 @@ const ProductDetailPage = ({ products, onAddToCart, loadingStates = {} }) => {
       return;
     }
 
-    await onAddToCart({
-      ...product,
-      selectedSize,
-      quantity,
-    });
+    try {
+      await onAddToCart({
+        ...product,
+        selectedSize,
+        quantity,
+      });
 
-    // Navigate to checkout
-    navigate("/checkout");
+      // Navigate to checkout after successful addition
+      navigate("/checkout");
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      alert("Failed to add item to cart. Please try again.");
+    }
   };
 
   const handleShare = async () => {
