@@ -229,30 +229,47 @@ const CheckoutPage = () => {
     );
   };
 
-  // Send email confirmation
+  // Send email confirmation with enhanced diagnostics
   const sendEmailConfirmation = async () => {
     if (!formData.email) {
-      console.log("Email not provided");
-      return;
+      console.log("📧 Email not provided, skipping email confirmation");
+      return null;
     }
 
+    console.log("🚀 Starting email confirmation process...");
+    console.log("📧 Recipient email:", formData.email);
+
     try {
-      // Wait for EmailJS to be ready
+      // Enhanced EmailJS readiness check
       const waitForEmailJS = () => {
         return new Promise((resolve, reject) => {
           let attempts = 0;
-          const maxAttempts = 20;
+          const maxAttempts = 30; // Increased for slower networks
+
+          console.log("⏳ Waiting for EmailJS to be ready...");
 
           const checkEmailJS = () => {
             attempts++;
+            console.log(`🔍 EmailJS check attempt ${attempts}/${maxAttempts}`);
+
             if (window.emailjs && window._emailJSReady) {
+              console.log("✅ EmailJS is ready!");
               resolve(true);
             } else if (window._emailJSFailed) {
-              reject(new Error("EmailJS failed to initialize"));
+              console.error("❌ EmailJS initialization previously failed");
+              reject(new Error("EmailJS failed to initialize - may be blocked by network or browser"));
             } else if (attempts >= maxAttempts) {
-              reject(new Error("EmailJS timeout"));
+              console.error("⏰ EmailJS timeout after", maxAttempts, "attempts");
+              reject(new Error("EmailJS timeout - service may be unavailable"));
             } else {
-              setTimeout(checkEmailJS, 500);
+              // Log current state for debugging
+              console.log("🔄 EmailJS status:", {
+                emailjsExists: !!window.emailjs,
+                emailjsReady: !!window._emailJSReady,
+                emailjsFailed: !!window._emailJSFailed,
+                attempt: attempts
+              });
+              setTimeout(checkEmailJS, 750); // Slightly longer interval
             }
           };
           checkEmailJS();
@@ -261,8 +278,13 @@ const CheckoutPage = () => {
 
       await waitForEmailJS();
 
+      // Additional safety checks
       if (!window.emailjs) {
-        throw new Error("EmailJS failed to load");
+        throw new Error("EmailJS object not found - CDN may be blocked");
+      }
+
+      if (typeof window.emailjs.send !== 'function') {
+        throw new Error("EmailJS send function not available");
       }
 
       const calculatedSubtotal = cartItems.reduce((sum, item) => {
