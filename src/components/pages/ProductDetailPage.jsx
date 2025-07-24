@@ -106,19 +106,21 @@ const ProductDetailPage = ({ products, onAddToCart, onBuyNow, loadingStates = {}
         quantity,
       };
 
-      // Try using the prop first, fallback to CartContext
-      if (onAddToCart) {
-        await onAddToCart(productToAdd);
+      // Use the onBuyNow prop if available, otherwise fallback to adding to cart and navigating
+      if (onBuyNow) {
+        onBuyNow(productToAdd);
       } else {
-        // Fallback to CartContext
-        cartAddToCart(product, quantity, selectedSize);
+        // Fallback: add to cart and navigate
+        if (onAddToCart) {
+          await onAddToCart(productToAdd);
+        } else {
+          cartAddToCart(product, quantity, selectedSize);
+        }
+        navigate("/checkout");
       }
-
-      // Navigate to checkout after successful addition
-      navigate("/checkout");
     } catch (error) {
-      console.error("Error adding to cart:", error);
-      alert("Failed to add item to cart. Please try again.");
+      console.error("Error processing buy now:", error);
+      alert("Failed to process purchase. Please try again.");
     }
   };
 
