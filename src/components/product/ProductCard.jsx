@@ -9,7 +9,6 @@ const ProductCard = ({
   product,
   onQuickView,
   onAddToCart,
-  onBuyNow,
   loadingStates = {},
 }) => {
   const [selectedSize, setSelectedSize] = useState(() => {
