@@ -87,11 +87,19 @@ const ProductDetailPage = ({ products, onAddToCart, loadingStates = {} }) => {
     }
 
     try {
-      await onAddToCart({
+      const productToAdd = {
         ...product,
         selectedSize,
         quantity,
-      });
+      };
+
+      // Try using the prop first, fallback to CartContext
+      if (onAddToCart) {
+        await onAddToCart(productToAdd);
+      } else {
+        // Fallback to CartContext
+        cartAddToCart(product, quantity, selectedSize);
+      }
 
       // Navigate to checkout after successful addition
       navigate("/checkout");
