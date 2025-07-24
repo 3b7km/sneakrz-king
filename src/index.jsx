@@ -932,6 +932,7 @@ function AppContent({ navigate }) {
                     setSearchTerm={filters.setSearchTerm}
                     openQuickView={openQuickView}
                     addToCart={addToCart}
+                    onBuyNow={handleBuyNow}
                     loadingStates={loadingStates}
                   />
                 }
