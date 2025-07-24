@@ -28,6 +28,9 @@ const CheckoutPage = lazy(() => import("./components/pages/CheckoutPage.jsx"));
 const OrderConfirmation = lazy(
   () => import("./components/OrderConfirmation.jsx"),
 );
+const ProductDetailPage = lazy(
+  () => import("./components/pages/ProductDetailPage.jsx"),
+);
 const Footer = lazy(() => import("./components/Footer.jsx"));
 const WhatsAppFloat = lazy(() => import("./components/WhatsAppFloat.jsx"));
 const QuickViewModal = lazy(() => import("./components/QuickViewModal.jsx"));
