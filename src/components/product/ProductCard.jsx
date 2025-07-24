@@ -232,19 +232,13 @@ const ProductCard = ({
 
         {/* Action Buttons */}
         <div className="flex flex-col space-y-2">
-          <button
-            onClick={() =>
-              onQuickView({
-                ...product,
-                selectedSize,
-                quantity,
-              })
-            }
+          <Link
+            to={`/product/${product.id}`}
             className="w-full py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
           >
             <Eye className="w-4 h-4" />
-            Quick View
-          </button>
+            View Details
+          </Link>
 
           <div className="grid grid-cols-2 gap-2">
             <button
