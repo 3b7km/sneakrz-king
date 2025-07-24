@@ -104,18 +104,37 @@ const ProductDetailPage = ({ products, onAddToCart, loadingStates = {} }) => {
           url: window.location.href,
         });
       } catch (error) {
-        console.log("Sharing failed:", error);
-        copyToClipboard();
+        // Only fallback to copy if the error isn't from user cancellation
+        if (error.name !== 'AbortError') {
+          console.log("Sharing failed:", error);
+          copyToClipboard();
+        }
       }
     } else {
       copyToClipboard();
     }
   };
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(window.location.href).then(() => {
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
       alert("Product link copied to clipboard!");
-    });
+    } catch (error) {
+      console.log("Copy to clipboard failed:", error);
+      // Fallback for browsers that don't support clipboard API
+      const textArea = document.createElement('textarea');
+      textArea.value = window.location.href;
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        alert("Product link copied to clipboard!");
+      } catch (fallbackError) {
+        alert("Could not copy link. Please copy manually: " + window.location.href);
+      }
+      document.body.removeChild(textArea);
+    }
   };
 
   const isAddToCartLoading = loadingStates[`add-${product.id}`];
