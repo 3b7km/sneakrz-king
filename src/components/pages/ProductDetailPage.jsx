@@ -3,21 +3,22 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Star, Plus, Minus, ShoppingCart, ArrowLeft, Share2 } from "lucide-react";
 import ProductGallery from "../product/ProductGallery.jsx";
 import { useCart } from "../../context/CartContext.jsx";
+import { findProductBySlug } from "../../utils/urlUtils.js";
 
 const ProductDetailPage = ({ products, onAddToCart, loadingStates = {} }) => {
-  const { id } = useParams();
+  const { slug } = useParams();
   const navigate = useNavigate();
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Find the product by ID and scroll to top
+  // Find the product by slug and scroll to top
   useEffect(() => {
-    // Scroll to top when component mounts or ID changes
+    // Scroll to top when component mounts or slug changes
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    const foundProduct = products.find(p => p.id === parseInt(id));
+    const foundProduct = findProductBySlug(products, slug);
     if (foundProduct) {
       setProduct(foundProduct);
       // Update document title
@@ -35,7 +36,7 @@ const ProductDetailPage = ({ products, onAddToCart, loadingStates = {} }) => {
     return () => {
       document.title = 'Sneakrz King';
     };
-  }, [id, products]);
+  }, [slug, products]);
 
   if (isLoading) {
     return (

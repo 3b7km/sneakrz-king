@@ -123,7 +123,7 @@ const ProductCard = ({
         </div>
 
         {/* Product Name */}
-        <Link to={`/product/${product.id}`}>
+        <Link to={getProductUrl(product)}>
           <h3 className="text-xl font-bold text-gray-900 leading-tight line-clamp-2 hover:text-blue-600 transition-colors cursor-pointer">
             {product.name}
           </h3>
