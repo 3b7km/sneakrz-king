@@ -5,7 +5,7 @@ import ProductGallery from "../product/ProductGallery.jsx";
 import { useCart } from "../../context/CartContext.jsx";
 import { findProductBySlug } from "../../utils/urlUtils.js";
 
-const ProductDetailPage = ({ products, onAddToCart, loadingStates = {} }) => {
+const ProductDetailPage = ({ products, onAddToCart, onBuyNow, loadingStates = {} }) => {
   const { slug } = useParams();
   const navigate = useNavigate();
   const { addToCart: cartAddToCart } = useCart();
