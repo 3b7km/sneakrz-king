@@ -24,7 +24,6 @@ const ProductsPage = ({
   setSearchTerm,
   openQuickView,
   addToCart,
-  onBuyNow,
   loadingStates,
 }) => {
   const [searchParams] = useSearchParams();
