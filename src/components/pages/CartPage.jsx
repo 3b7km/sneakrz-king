@@ -184,7 +184,7 @@ const CartPage = () => {
                                   {item.price * item.quantity} EGP
                                 </p>
                                 <p className="text-xs text-pink-600 font-medium">
-                                  {getDiscountedPrice(item)} EGP each (15% OFF!)
+                                  {getDiscountedPrice(item)} EGP each (AF1 OFFER!)
                                 </p>
                               </>
                             ) : (
@@ -256,7 +256,7 @@ const CartPage = () => {
                 </div>
                 {af1Discount > 0 && (
                   <div className="flex justify-between text-pink-600">
-                    <span>AF1 Special Offer (15% OFF)</span>
+                    <span>AF1 Special Offer (1500 EGP each)</span>
                     <span>-{af1Discount} EGP</span>
                   </div>
                 )}
