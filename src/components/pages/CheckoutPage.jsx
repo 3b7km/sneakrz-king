@@ -56,11 +56,9 @@ const CheckoutPage = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    email: "",
     phone: "",
     address: "",
     city: "",
-    instagram: "",
     notes: "",
   });
 
@@ -205,21 +203,17 @@ const CheckoutPage = () => {
     const formDataForValidation = {
       firstName: formData.firstName,
       lastName: formData.lastName,
-      email: formData.email,
       phone: formData.phone,
       streetAddress: formData.address,
       city: formData.city,
-      instagram: formData.instagram,
     };
 
     const customValidationRules = {
       firstName: checkoutValidationRules.firstName,
       lastName: checkoutValidationRules.lastName,
-      email: checkoutValidationRules.email,
       phone: checkoutValidationRules.phone,
       streetAddress: checkoutValidationRules.streetAddress,
       city: checkoutValidationRules.city,
-      instagram: checkoutValidationRules.instagram,
     };
 
     const validation = validateForm(
