@@ -497,6 +497,8 @@ const CheckoutPage = () => {
         customer_email: "Not provided",
         customer_phone: formData.phone.trim() || "Not provided",
         customer_address: `${formData.address.trim()}, ${formData.city.trim()}`,
+        customer_city: formData.city.trim(),
+        customer_state: "Egypt", // Default state
         customer_instagram: "Not provided",
         order_items: orderItemsList,
         subtotal_amount: calculatedSubtotal.toFixed(2),
