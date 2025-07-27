@@ -397,10 +397,8 @@ const CheckoutPage = () => {
 
   // Send customer email confirmation (only if email provided)
   const sendCustomerConfirmation = async () => {
-    if (!formData.email) {
-      console.log("📧 Customer email not provided, skipping customer confirmation");
-      return null;
-    }
+    console.log("📧 Customer email not available, skipping customer confirmation");
+    return null;
 
     console.log("🚀 Starting customer email confirmation process...");
     console.log("📧 Recipient email:", formData.email);
@@ -494,10 +492,10 @@ const CheckoutPage = () => {
 
       const templateParams = {
         customer_name: customerName,
-        customer_email: formData.email.trim(),
+        customer_email: "Not provided",
         customer_phone: formData.phone.trim() || "Not provided",
         customer_address: `${formData.address.trim()}, ${formData.city.trim()}`,
-        customer_instagram: formData.instagram.trim() ? `@${formData.instagram.trim()}` : "Not provided",
+        customer_instagram: "Not provided",
         order_items: orderItemsList,
         subtotal_amount: calculatedSubtotal.toFixed(2),
         shipping_amount: shipping.toFixed(2),
