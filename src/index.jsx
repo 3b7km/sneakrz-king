@@ -860,7 +860,7 @@ function AppContent({ navigate }) {
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [successNotification, setSuccessNotification] = useState(null);
 
-  // Optimized cart functions with performance improvements
+  // Cart function using CartContext
   const addToCart = useCallback(
     async (product) => {
       const loadingKey = `add-${product.id}`;
@@ -869,33 +869,8 @@ function AppContent({ navigate }) {
         // Start loading state
         loadingStates.setLoading(loadingKey, true);
 
-        // Find existing item
-        const existingItemIndex = cartItems.findIndex(
-          (item) =>
-            item.id === product.id &&
-            item.selectedSize === product.selectedSize,
-        );
-
-        let newCartItems;
-        if (existingItemIndex >= 0) {
-          // Update existing item
-          newCartItems = [...cartItems];
-          newCartItems[existingItemIndex].quantity += product.quantity || 1;
-        } else {
-          // Add new item
-          newCartItems = [
-            ...cartItems,
-            {
-              ...product,
-              quantity: product.quantity || 1,
-              selectedSize:
-                product.selectedSize || product.sizes?.[0]?.value || "N/A",
-            },
-          ];
-        }
-
-        setCartItems(newCartItems);
-        localStorage.setItem("sneakrz-cart", JSON.stringify(newCartItems));
+        // Use CartContext addToCart
+        await addToCartContext(product, product.quantity || 1, product.selectedSize);
 
         // Success notification
         setSuccessNotification({
@@ -916,7 +891,7 @@ function AppContent({ navigate }) {
         loadingStates.setLoading(loadingKey, false);
       }
     },
-    [cartItems, loadingStates],
+    [addToCartContext, loadingStates],
   );
 
   const clearCart = useCallback(() => {
