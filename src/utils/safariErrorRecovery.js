@@ -110,9 +110,9 @@ export const createSafariErrorRecovery = () => {
       });
     },
 
-    safariEmailJSSend: async (serviceId, templateId, templateParams, publicKey) => {
+    safariEmailJSSend: async function(serviceId, templateId, templateParams, publicKey) {
       const safariInfo = detectSafari();
-      
+
       // Enhanced error handling for Safari
       try {
         // Wait for EmailJS to be ready
