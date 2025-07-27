@@ -8,7 +8,7 @@
     <script
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
-      onload="console.log('✅ EmailJS CDN loaded successfully')"
+      onload="console.log('✅ EmailJS CDN loaded successfully'); try { window.emailjs.init('xZ-FMAkzHPph3aojg'); window._emailJSReady = true; console.log('✅ EmailJS initialized via CDN'); } catch(e) { console.error('❌ EmailJS init failed:', e); }"
       onerror="console.error('❌ Primary EmailJS CDN failed, loading fallback...'); loadEmailJSFallback();"
     ></script>
     <script type="text/javascript">
