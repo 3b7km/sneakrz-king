@@ -125,7 +125,7 @@ const CheckoutPage = () => {
 
           // Browser-specific failure messages
           if (isBrave) {
-            console.error("🦁 Brave users: Disable Shields or allow third-party scripts for email to work");
+            console.error("�� Brave users: Disable Shields or allow third-party scripts for email to work");
           } else if (isSafari) {
             console.error("🍎 Safari users: Check privacy settings and allow cross-site requests");
           }
@@ -940,6 +940,13 @@ const CheckoutPage = () => {
                         <p>• <strong>Network issues:</strong> Temporary connectivity problems</p>
                       </div>
                     </details>
+                    <button
+                      onClick={() => setShowSafariDiagnostic(true)}
+                      className="mt-3 flex items-center gap-2 px-3 py-2 bg-yellow-600 text-white text-sm rounded-md hover:bg-yellow-700 transition-colors"
+                    >
+                      <Settings className="w-4 h-4" />
+                      Show Safari Diagnostic
+                    </button>
                   </div>
                 </div>
               </div>
