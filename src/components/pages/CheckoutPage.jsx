@@ -10,7 +10,7 @@ import {
 } from "../../utils/formValidation";
 
 const CheckoutPage = () => {
-  const { cartItems, getTotalPrice, getAF1Discount, getDiscountedPrice, isAF1Product, clearCart } = useCart();
+  const { cartItems, getTotalPrice, getAF1Discount, getDiscountedPrice, isAF1Product, getShippingCost, isFreeShipping, clearCart } = useCart();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
