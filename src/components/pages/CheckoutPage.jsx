@@ -1069,9 +1069,9 @@ const CheckoutPage = () => {
               {/* Instagram */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Instagram Username (Optional)
+                  Instagram Username *
                   <span className="text-xs text-gray-500 block mt-1">
-                    Help us tag you in our posts
+                    Required for order processing and tagging
                   </span>
                 </label>
                 <div className="relative">
@@ -1084,6 +1084,7 @@ const CheckoutPage = () => {
                     value={formData.instagram}
                     onChange={handleInputChange}
                     onBlur={handleFieldBlur}
+                    required
                     className={`w-full pl-8 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
                       errors.instagram ? "border-red-300" : "border-gray-300"
                     }`}
