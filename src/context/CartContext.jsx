@@ -97,7 +97,7 @@ export const CartProvider = ({ children }) => {
 
   // AF1 products that qualify for the offer (Valentine's Day editions and Double Swoosh only)
   const AF1_OFFER_IDS = [28, 29, 30]; // Valentine 23/24, Double Swoosh
-  const AF1_DISCOUNT_PERCENT = 15; // 15% off AF1 products in cart
+  const AF1_OFFER_PRICE = 1500; // Fixed offer price for AF1 products in cart
 
   // Check if item is AF1 and qualifies for offer
   const isAF1Product = (productId) => {
@@ -107,7 +107,7 @@ export const CartProvider = ({ children }) => {
   // Get discounted price for AF1 products in cart
   const getDiscountedPrice = (item) => {
     if (isAF1Product(item.id)) {
-      return Math.round(item.price * (1 - AF1_DISCOUNT_PERCENT / 100));
+      return AF1_OFFER_PRICE; // Fixed price of 1500 EGP for AF1 items in cart
     }
     return item.price;
   };
