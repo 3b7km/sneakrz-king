@@ -917,6 +917,9 @@ const CheckoutPage = () => {
             </div>
           </div>
         </div>
+
+        {/* Safari/iOS Diagnostic Panel */}
+        <SafariDiagnostic isVisible={showSafariDiagnostic} />
       </div>
     </div>
   );
