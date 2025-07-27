@@ -13,8 +13,11 @@ const OfferPopup = ({ isVisible, onClose }) => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div 
+    <div
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+      onClick={onClose}
+    >
+      <div
         className={`bg-gradient-to-br from-pink-50 via-pink-100 to-rose-100 rounded-3xl shadow-2xl max-w-md w-full mx-4 relative overflow-hidden transform transition-all duration-500 ${
           isAnimating ? 'scale-100 opacity-100 rotate-0' : 'scale-95 opacity-0 rotate-1'
         }`}
@@ -22,6 +25,7 @@ const OfferPopup = ({ isVisible, onClose }) => {
           background: 'linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #f9a8d4 100%)',
           boxShadow: '0 25px 50px -12px rgba(236, 72, 153, 0.3)'
         }}
+        onClick={(e) => e.stopPropagation()}
       >
         {/* Decorative elements */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
@@ -32,9 +36,14 @@ const OfferPopup = ({ isVisible, onClose }) => {
 
         {/* Close button */}
         <button
-          onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-full bg-white/80 hover:bg-white shadow-md transition-all duration-200 hover:scale-110 z-10"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onClose();
+          }}
+          className="absolute top-4 right-4 p-2 rounded-full bg-white/80 hover:bg-white shadow-md transition-all duration-200 hover:scale-110 z-20"
           aria-label="Close offer"
+          type="button"
         >
           <X className="w-5 h-5 text-gray-600" />
         </button>
