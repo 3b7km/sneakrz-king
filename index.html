@@ -29,14 +29,27 @@
         document.head.appendChild(fallbackScript);
       }
 
-      // Additional check after page load
+      // Additional check after page load with multiple attempts
       window.addEventListener('load', function() {
-        setTimeout(function() {
-          if (typeof window.emailjs === 'undefined') {
-            console.warn('⚠️ EmailJS not detected after page load, attempting fallback...');
+        let attempts = 0;
+        const maxAttempts = 3;
+        const checkInterval = 2000;
+
+        const checkEmailJS = () => {
+          attempts++;
+          if (typeof window.emailjs === 'undefined' && attempts <= maxAttempts) {
+            console.warn(`⚠️ EmailJS not detected after page load (attempt ${attempts}/${maxAttempts}), attempting fallback...`);
             loadEmailJSFallback();
+
+            if (attempts < maxAttempts) {
+              setTimeout(checkEmailJS, checkInterval);
+            }
+          } else if (typeof window.emailjs !== 'undefined') {
+            console.log('✅ EmailJS successfully loaded');
           }
-        }, 2000);
+        };
+
+        setTimeout(checkEmailJS, 1000);
       });
     </script>
     <!-- Start Single Page Apps for GitHub Pages -->
