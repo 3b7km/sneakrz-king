@@ -239,14 +239,23 @@ const CheckoutPage = () => {
 
   // Check if form is ready
   const isFormValid = () => {
-    return (
+    // Only check for required fields and relevant errors
+    const hasRequiredFields =
       formData.firstName.trim() &&
       formData.lastName.trim() &&
       formData.phone.trim() &&
       formData.address.trim() &&
-      formData.city.trim() &&
-      Object.keys(errors).length === 0
-    );
+      formData.city.trim();
+
+    // Filter out email errors if email is empty (since it's optional)
+    const relevantErrors = Object.keys(errors).filter(field => {
+      if (field === 'email' && (!formData.email || formData.email.trim() === '')) {
+        return false; // Ignore email errors if no email provided
+      }
+      return true;
+    });
+
+    return hasRequiredFields && relevantErrors.length === 0;
   };
 
   // Send email confirmation with enhanced diagnostics
