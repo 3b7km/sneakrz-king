@@ -49,10 +49,16 @@ const SafariNotificationBanner = ({ onOpenDiagnostic }) => {
           <AlertTriangle className="w-5 h-5 text-blue-600 flex-shrink-0" />
           <div className="flex-1">
             <p className="text-sm text-blue-800 font-medium">
-              Safari/iOS User? We've enhanced ordering compatibility for you!
+              {safariInfo.isIOSSafari || safariInfo.isSafari
+                ? "Safari/iOS User? We've enhanced ordering compatibility for you!"
+                : hasEmailErrors
+                  ? "Email Issues Detected - Diagnostic Tools Available"
+                  : "Enhanced Email Compatibility Available"}
             </p>
             <p className="text-xs text-blue-700 mt-1">
-              If you experience any issues during checkout, our diagnostic tools can help.
+              {hasEmailErrors
+                ? "Previous email sending issues detected. Use diagnostic tools for troubleshooting."
+                : "If you experience any issues during checkout, our diagnostic tools can help."}
             </p>
           </div>
         </div>
