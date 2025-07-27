@@ -42,7 +42,53 @@ export const detectSafari = () => {
  * Check EmailJS compatibility with current browser/device
  * @returns {Object} Compatibility information
  */
-export const checkEmailJSCompatibility = async () => {
+// Sync version for backwards compatibility
+export const checkEmailJSCompatibility = () => {
+  const safariInfo = detectSafari();
+
+  const compatibility = {
+    emailJSAvailable: !!window.emailjs,
+    emailJSReady: !!window._emailJSReady,
+    emailJSFailed: !!window._emailJSFailed,
+    cookiesEnabled: navigator.cookieEnabled,
+    onlineStatus: navigator.onLine,
+    protocol: window.location.protocol,
+    isSecure: window.location.protocol === 'https:',
+    safariInfo
+  };
+
+  // Check for potential blockers
+  const potentialIssues = [];
+
+  if (!compatibility.cookiesEnabled) {
+    potentialIssues.push('Cookies disabled');
+  }
+
+  if (!compatibility.onlineStatus) {
+    potentialIssues.push('Device appears offline');
+  }
+
+  if (compatibility.protocol === 'file:') {
+    potentialIssues.push('Using file:// protocol');
+  }
+
+  if (safariInfo.isIOSSafari && !compatibility.isSecure) {
+    potentialIssues.push('iOS Safari prefers HTTPS');
+  }
+
+  if (!compatibility.emailJSAvailable && !compatibility.emailJSFailed) {
+    potentialIssues.push('EmailJS script not loaded');
+  }
+
+  compatibility.potentialIssues = potentialIssues;
+  compatibility.riskLevel = potentialIssues.length === 0 ? 'low' :
+    potentialIssues.length <= 2 ? 'medium' : 'high';
+
+  return compatibility;
+};
+
+// Async version with better network detection for diagnostics
+export const checkEmailJSCompatibilityAdvanced = async () => {
   const safariInfo = detectSafari();
 
   // Better network detection
