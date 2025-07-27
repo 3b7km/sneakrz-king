@@ -352,13 +352,24 @@ const CheckoutPage = () => {
         await waitForEmailJS();
       }
 
-      // Additional safety checks
+      // Additional safety checks with browser-specific messages
       if (!window.emailjs) {
-        throw new Error("EmailJS object not found - CDN may be blocked");
+        const userAgent = navigator.userAgent;
+        const isBrave = navigator.brave;
+        const isSafari = /^((?!chrome|android).)*safari/i.test(userAgent);
+
+        let errorMsg = "EmailJS object not found - CDN may be blocked";
+        if (isBrave) {
+          errorMsg += ". In Brave browser, try disabling Shields for this site or allowing third-party scripts.";
+        } else if (isSafari) {
+          errorMsg += ". In Safari, check privacy settings and allow cross-site tracking for this site.";
+        }
+
+        throw new Error(errorMsg);
       }
 
       if (typeof window.emailjs.send !== 'function') {
-        throw new Error("EmailJS send function not available");
+        throw new Error("EmailJS send function not available - service may be blocked by browser security settings");
       }
 
       const calculatedSubtotal = cartItems.reduce((sum, item) => {
