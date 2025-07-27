@@ -144,9 +144,9 @@ export const CartProvider = ({ children }) => {
 
   // Check if customer qualifies for free shipping
   const isFreeShipping = () => {
-    // Free shipping if AF1 offer is active (any AF1 products in cart)
+    // Free shipping if AF1 offer is active (AF1 products in cart AND minimum 2 pairs total)
     const hasAF1Products = cartItems.some((item) => isAF1Product(item.id));
-    if (hasAF1Products) {
+    if (hasAF1Products && getTotalQuantity() >= 2) {
       return true;
     }
 
