@@ -895,9 +895,8 @@ function AppContent({ navigate }) {
   );
 
   const clearCart = useCallback(() => {
-    setCartItems([]);
-    localStorage.setItem("sneakrz-cart", JSON.stringify([]));
-  }, []);
+    clearCartContext();
+  }, [clearCartContext]);
 
   // Quick View functions
   const openQuickView = useCallback((product) => {
