@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Star, Plus, Minus, Eye, ShoppingCart } from "lucide-react";
 import ProductGallery from "./ProductGallery.jsx";
 import { getProductUrl } from "../../utils/urlUtils.js";
+import { useCart } from "../../context/CartContext.jsx";
 
 // Optimized ProductCard with lazy loading and performance improvements
 const ProductCard = ({
@@ -11,6 +12,7 @@ const ProductCard = ({
   onAddToCart,
   loadingStates = {},
 }) => {
+  const { isAF1Product, getDiscountedPrice } = useCart();
   const [selectedSize, setSelectedSize] = useState(() => {
     if (product.sizes && product.sizes.length > 0) {
       const firstSize = product.sizes[0];
@@ -123,10 +125,19 @@ const ProductCard = ({
           </span>
         </div>
 
-        {/* Product Name */}
+        {/* Product Name with AF1 Special Styling */}
         <Link to={getProductUrl(product)}>
-          <h3 className="text-xl font-bold text-gray-900 leading-tight line-clamp-2 hover:text-blue-600 transition-colors cursor-pointer">
+          <h3 className={`text-xl font-bold leading-tight line-clamp-2 hover:text-blue-600 transition-colors cursor-pointer ${
+            isAF1Product(product.id)
+              ? "text-pink-600 bg-gradient-to-r from-pink-100 to-pink-50 px-2 py-1 rounded-md border border-pink-200"
+              : "text-gray-900"
+          }`}>
             {product.name}
+            {isAF1Product(product.id) && (
+              <span className="ml-2 bg-pink-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+                AF1 OFFER!
+              </span>
+            )}
           </h3>
         </Link>
 
@@ -138,24 +149,40 @@ const ProductCard = ({
           </span>
         </div>
 
-        {/* Price Display */}
+        {/* Price Display with AF1 Special Pricing */}
         <div className="flex items-center space-x-3">
-          <span className="text-2xl font-bold text-gray-900">
-            {product.price} EGP
-          </span>
-          {product.originalPrice && (
+          {isAF1Product(product.id) ? (
             <>
+              <span className="text-2xl font-bold text-pink-600">
+                {getDiscountedPrice(product)} EGP
+              </span>
               <span className="text-lg text-gray-500 line-through">
-                {product.originalPrice} EGP
+                {product.price} EGP
               </span>
-              <span className="bg-red-100 text-red-800 px-2 py-1 rounded-md text-sm font-semibold">
-                {Math.round(
-                  ((product.originalPrice - product.price) /
-                    product.originalPrice) *
-                    100,
-                )}
-                % OFF
+              <span className="bg-pink-100 text-pink-800 px-2 py-1 rounded-md text-sm font-semibold">
+                15% OFF AF1!
               </span>
+            </>
+          ) : (
+            <>
+              <span className="text-2xl font-bold text-gray-900">
+                {product.price} EGP
+              </span>
+              {product.originalPrice && (
+                <>
+                  <span className="text-lg text-gray-500 line-through">
+                    {product.originalPrice} EGP
+                  </span>
+                  <span className="bg-red-100 text-red-800 px-2 py-1 rounded-md text-sm font-semibold">
+                    {Math.round(
+                      ((product.originalPrice - product.price) /
+                        product.originalPrice) *
+                        100,
+                    )}
+                    % OFF
+                  </span>
+                </>
+              )}
             </>
           )}
         </div>
