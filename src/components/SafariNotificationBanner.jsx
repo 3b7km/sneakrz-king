@@ -12,8 +12,8 @@ const SafariNotificationBanner = ({ onOpenDiagnostic }) => {
 
     console.log('Safari detection:', safariInfo);
 
-    // Show banner for Safari/iOS users who haven't dismissed it, or for all users if in development
-    const shouldShow = (safariInfo.isIOSSafari || safariInfo.isSafari || window.location.hostname === 'localhost') && !dismissed;
+    // Show banner for Safari/iOS users who haven't dismissed it, or for testing purposes
+    const shouldShow = (safariInfo.isIOSSafari || safariInfo.isSafari || !dismissed) && !dismissed;
 
     if (shouldShow) {
       setIsVisible(true);
