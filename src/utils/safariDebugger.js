@@ -182,12 +182,29 @@ export const diagnoseEmailJSIssues = async () => {
     diagnosis.recommendations.push('EmailJS script failed to load - check network connectivity or ad blockers');
   }
   
-  // Test 2: Basic Browser Compatibility
+  // Test 2: Basic Browser Compatibility with improved network detection
+  let actualNetworkStatus = navigator.onLine;
+
+  // Try a more reliable network test
+  try {
+    // Test if we can make a fetch request to a reliable endpoint
+    const testResponse = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
+      method: 'HEAD',
+      mode: 'no-cors',
+      cache: 'no-cache'
+    });
+    actualNetworkStatus = true; // If fetch doesn't throw, we have network
+  } catch (e) {
+    // If fetch fails, fall back to navigator.onLine
+    actualNetworkStatus = navigator.onLine;
+  }
+
   diagnosis.tests.browserCompatibility = {
-    passed: navigator.cookieEnabled && navigator.onLine,
+    passed: navigator.cookieEnabled && actualNetworkStatus,
     details: {
       cookiesEnabled: navigator.cookieEnabled,
-      online: navigator.onLine,
+      onlineByNavigator: navigator.onLine,
+      onlineByTest: actualNetworkStatus,
       protocol: window.location.protocol,
       userAgent: navigator.userAgent.substring(0, 100) + '...'
     }
