@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { AlertTriangle, X, Settings } from 'lucide-react';
-import { detectSafari } from '../utils/safariDebugger';
+import { detectSafari, getSavedErrors } from '../utils/safariDebugger';
 
 const SafariNotificationBanner = ({ onOpenDiagnostic }) => {
   const [isVisible, setIsVisible] = useState(false);
