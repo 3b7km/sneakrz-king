@@ -910,21 +910,14 @@ function AppContent({ navigate }) {
   }, []);
 
   const handleBuyNow = useCallback((product) => {
-    const newCart = [
-      {
-        ...product,
-        quantity: product.quantity || 1,
-        selectedSize:
-          product.selectedSize || product.sizes?.[0]?.value || "N/A",
-      },
-    ];
-    setCartItems(newCart);
-    localStorage.setItem("sneakrz-cart", JSON.stringify(newCart));
+    // Clear cart and add only this product
+    clearCartContext();
+    addToCartContext(product, product.quantity || 1, product.selectedSize);
     // Use React Router navigation instead of window.location
     setTimeout(() => {
       navigate("/checkout");
     }, 120);
-  }, [navigate]);
+  }, [navigate, clearCartContext, addToCartContext]);
 
   return (
     <div className="App min-h-screen overflow-x-hidden">
