@@ -95,12 +95,48 @@ export const CartProvider = ({ children }) => {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
   };
 
-  // Get total price of items in cart
+  // AF1 products that qualify for the offer
+  const AF1_OFFER_IDS = [1, 18, 28, 29, 30]; // Triple White, Black, Valentine 23/24, Double Swoosh
+  const AF1_DISCOUNT_PERCENT = 15; // 15% off AF1 products
+
+  // Check if item is AF1 and qualifies for offer
+  const isAF1Product = (productId) => {
+    return AF1_OFFER_IDS.includes(productId);
+  };
+
+  // Get discounted price for AF1 products
+  const getDiscountedPrice = (item) => {
+    if (isAF1Product(item.id)) {
+      return Math.round(item.price * (1 - AF1_DISCOUNT_PERCENT / 100));
+    }
+    return item.price;
+  };
+
+  // Get total price of items in cart with AF1 discounts
   const getTotalPrice = () => {
+    return cartItems.reduce(
+      (total, item) => total + getDiscountedPrice(item) * item.quantity,
+      0,
+    );
+  };
+
+  // Get original total price without discounts
+  const getOriginalTotalPrice = () => {
     return cartItems.reduce(
       (total, item) => total + item.price * item.quantity,
       0,
     );
+  };
+
+  // Get total AF1 discount amount
+  const getAF1Discount = () => {
+    return cartItems.reduce((total, item) => {
+      if (isAF1Product(item.id)) {
+        const discount = item.price - getDiscountedPrice(item);
+        return total + discount * item.quantity;
+      }
+      return total;
+    }, 0);
   };
 
   // Check if product is in cart
@@ -126,6 +162,10 @@ export const CartProvider = ({ children }) => {
     clearCart,
     getTotalQuantity,
     getTotalPrice,
+    getOriginalTotalPrice,
+    getAF1Discount,
+    isAF1Product,
+    getDiscountedPrice,
     isInCart,
     getItemQuantity,
   };
