@@ -68,6 +68,7 @@ const CheckoutPage = () => {
   const [errors, setErrors] = useState({});
   const [submitError, setSubmitError] = useState("");
   const [emailSentStatus, setEmailSentStatus] = useState(null);
+  const [showSafariDiagnostic, setShowSafariDiagnostic] = useState(false);
 
 
   // Calculate totals with AF1 discounts
