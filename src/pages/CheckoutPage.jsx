@@ -13,7 +13,7 @@ import {
 import { ShoppingCart, Phone, MapPin, User, Mail } from "lucide-react";
 
 const CheckoutPage = () => {
-  const { cartItems, getTotalPrice, clearCart } = useCart();
+  const { cartItems, getTotalPrice, getOriginalTotalPrice, getAF1Discount, clearCart } = useCart();
   const navigate = useNavigate();
 
   const [customerData, setCustomerData] = useState({
@@ -366,7 +366,7 @@ const CheckoutPage = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <ShoppingCart className="w-5 h-5" />
-                ملخص الطلب
+                مل��ص الطلب
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -404,10 +404,21 @@ const CheckoutPage = () => {
                 ))}
 
                 <div className="border-t pt-4">
+                  {getAF1Discount() > 0 && (
+                    <div className="flex justify-between text-pink-600 font-medium mb-2">
+                      <span>خصم عروض AF1 (15%):</span>
+                      <span>-{getAF1Discount().toFixed(2)} جنيه</span>
+                    </div>
+                  )}
                   <div className="flex justify-between items-center text-lg font-bold">
                     <span>الإجمالي:</span>
                     <span>{getTotalPrice().toFixed(2)} جنيه</span>
                   </div>
+                  {getAF1Discount() > 0 && (
+                    <p className="text-sm text-pink-600 mt-1 text-center">
+                      وفرت {getAF1Discount().toFixed(2)} جنيه على أحذية AF1!
+                    </p>
+                  )}
                 </div>
 
                 <Button
