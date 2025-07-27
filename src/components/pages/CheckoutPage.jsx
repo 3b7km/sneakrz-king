@@ -556,9 +556,30 @@ const CheckoutPage = () => {
       navigate("/order-confirmation");
     } catch (error) {
       console.error("Order submission failed:", error);
-      setSubmitError(
-        "Order submission failed. Please check your information and try again.",
-      );
+
+      // Enhanced error logging for Safari/iOS debugging
+      const errorDetails = logOrderError(error, {
+        formData: {
+          hasEmail: !!formData.email,
+          hasPhone: !!formData.phone,
+          hasName: !!(formData.firstName && formData.lastName)
+        },
+        cartInfo: {
+          itemCount: cartItems.length,
+          totalPrice: total
+        },
+        checkoutStep: 'order_submission'
+      });
+
+      // Provide more specific error messages for Safari/iOS users
+      const safariInfo = detectSafari();
+      let errorMessage = "Order submission failed. Please check your information and try again.";
+
+      if (safariInfo.isIOSSafari) {
+        errorMessage += " If you're using iOS Safari, please ensure you have a stable internet connection and try again.";
+      }
+
+      setSubmitError(errorMessage);
     } finally {
       setIsSubmitting(false);
       setEmailSentStatus(null);
