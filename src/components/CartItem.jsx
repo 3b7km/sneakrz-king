@@ -2,7 +2,7 @@ import { Minus, Plus, X } from "lucide-react";
 import { useCart } from "../context/CartContext";
 
 const CartItem = ({ item, onUpdateQuantity, onRemove, isLoading }) => {
-  const { isAF1Product } = useCart();
+  const { isAF1Product, getDiscountedPrice } = useCart();
 
   return (
     <div className="flex items-start space-x-4 p-4 border-b">
@@ -46,9 +46,21 @@ const CartItem = ({ item, onUpdateQuantity, onRemove, isLoading }) => {
       </div>
       
       <div className="text-right">
-        <p className="font-medium text-gray-900">
-          {item.price * item.quantity} EGP
-        </p>
+        {isAF1Product(item.id) ? (
+          <>
+            <p className="font-medium text-pink-600">
+              {getDiscountedPrice(item) * item.quantity} EGP
+            </p>
+            <p className="text-sm text-gray-500 line-through">
+              {item.price * item.quantity} EGP
+            </p>
+            <p className="text-xs text-pink-600">15% OFF!</p>
+          </>
+        ) : (
+          <p className="font-medium text-gray-900">
+            {item.price * item.quantity} EGP
+          </p>
+        )}
         <button
           onClick={onRemove}
           disabled={isLoading}
