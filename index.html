@@ -93,9 +93,28 @@
             console.log('✅ EmailJS successfully loaded');
             // Initialize EmailJS for Safari compatibility
             try {
-              window.emailjs.init('xZ-FMAkzHPph3aojg');
-              window._emailJSReady = true;
-              console.log('✅ EmailJS initialized successfully');
+              // Additional Safari-specific checks
+              const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) && /apple/i.test(navigator.vendor);
+              const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+              if (isSafari || isIOS) {
+                console.log('🍎 Safari/iOS detected, applying compatibility mode');
+                // Give extra time for Safari to fully load EmailJS
+                setTimeout(() => {
+                  try {
+                    window.emailjs.init('xZ-FMAkzHPph3aojg');
+                    window._emailJSReady = true;
+                    console.log('✅ EmailJS initialized successfully for Safari/iOS');
+                  } catch (safariInitError) {
+                    console.error('❌ Safari EmailJS initialization failed:', safariInitError);
+                    window._emailJSFailed = true;
+                  }
+                }, 500);
+              } else {
+                window.emailjs.init('xZ-FMAkzHPph3aojg');
+                window._emailJSReady = true;
+                console.log('✅ EmailJS initialized successfully');
+              }
             } catch (initError) {
               console.error('❌ EmailJS initialization failed:', initError);
               window._emailJSFailed = true;
