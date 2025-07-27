@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import CartItem from "./CartItem";
 
 const CartPopup = ({ isOpen, onClose }) => {
-  const { cartItems, getTotalPrice, getAF1Discount, updateQuantity, removeItem } = useCart();
+  const { cartItems, getTotalPrice, updateQuantity, removeItem } = useCart();
   const [loadingStates, setLoadingStates] = useState({});
   const navigate = useNavigate();
 
@@ -31,7 +31,7 @@ const CartPopup = ({ isOpen, onClose }) => {
     }
   };
 
-  const af1Discount = getAF1Discount();
+
 
   return (
     <div className="fixed inset-0 z-50 bg-black bg-opacity-50" onClick={onClose}>
@@ -71,23 +71,10 @@ const CartPopup = ({ isOpen, onClose }) => {
 
         {cartItems.length > 0 && (
           <div className="border-t p-4 space-y-4">
-            {af1Discount > 0 && (
-              <div className="flex justify-between text-pink-600 font-medium">
-                <span>AF1 Special Offer (15% OFF)</span>
-                <span>-{af1Discount} EGP</span>
-              </div>
-            )}
-            
             <div className="flex justify-between text-lg font-semibold">
               <span>Total</span>
               <span>{getTotalPrice()} EGP</span>
             </div>
-            
-            {af1Discount > 0 && (
-              <p className="text-sm text-pink-600 text-center">
-                You saved {af1Discount} EGP on AF1 shoes!
-              </p>
-            )}
 
             <div className="space-y-2">
               <button
