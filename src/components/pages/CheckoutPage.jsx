@@ -545,7 +545,7 @@ const CheckoutPage = () => {
           // Enhanced Safari/iOS email error logging
           logOrderError(emailError, {
             checkoutStep: 'email_confirmation',
-            emailJSCompatibility: checkEmailJSCompatibility(),
+            emailJSCompatibility: await checkEmailJSCompatibility(),
             formData: {
               hasEmail: !!formData.email,
               emailValue: formData.email ? 'provided' : 'not_provided'
