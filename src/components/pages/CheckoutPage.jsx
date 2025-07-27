@@ -819,7 +819,7 @@ const CheckoutPage = () => {
               </div>
             )}
 
-            {emailSentStatus === "failed" && formData.email && (
+            {emailSentStatus === "failed" && (
               <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                 <div className="flex items-start gap-3">
                   <AlertCircle className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" />
@@ -857,11 +857,6 @@ const CheckoutPage = () => {
                     <h4 className="font-medium text-green-800">Notifications Sent Successfully</h4>
                     <p className="text-green-700">
                       ✅ Store owner has been notified of your order
-                      {formData.email && (
-                        <>
-                          <br />✅ Order confirmation has been sent to {formData.email}
-                        </>
-                      )}
                     </p>
                   </div>
                 </div>
@@ -876,11 +871,6 @@ const CheckoutPage = () => {
                     <h4 className="font-medium text-blue-800">Order Received</h4>
                     <p className="text-blue-700">
                       ✅ Store owner has been notified of your order
-                      {formData.email && (
-                        <>
-                          <br />⚠️ Customer confirmation email had issues, but your order is confirmed
-                        </>
-                      )}
                     </p>
                   </div>
                 </div>
