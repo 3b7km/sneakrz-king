@@ -1,4 +1,5 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useState, useEffect } from "react";
+import OfferPopup from "../OfferPopup.jsx";
 
 const ProductCard = lazy(() => import("../product/ProductCard.jsx"));
 
