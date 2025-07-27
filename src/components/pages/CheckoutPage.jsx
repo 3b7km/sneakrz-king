@@ -674,18 +674,25 @@ const CheckoutPage = () => {
     setIsSubmitting(true);
 
     try {
-      // Send email confirmation if email is provided
-      if (formData.email) {
-        setEmailSentStatus("sending");
-        console.log("Starting email confirmation process");
+      setEmailSentStatus("sending");
 
+      // Always send admin notification
+      console.log("📧 Sending admin notification...");
+      let adminResult = null;
+      try {
+        adminResult = await sendAdminNotification();
+        console.log("✅ Admin notification result:", adminResult ? "success" : "failed");
+      } catch (adminError) {
+        console.error("❌ Admin notification failed:", adminError);
+      }
+
+      // Send customer confirmation only if email is provided
+      let customerResult = null;
+      if (formData.email) {
+        console.log("📧 Sending customer confirmation...");
         try {
-          const emailResult = await sendEmailConfirmation();
-          setEmailSentStatus(emailResult ? "sent" : "failed");
-          console.log(
-            "Email confirmation result:",
-            emailResult ? "success" : "failed",
-          );
+          customerResult = await sendCustomerConfirmation();
+          console.log("✅ Customer confirmation result:", customerResult ? "success" : "failed");
         } catch (emailError) {
           console.error("Email confirmation error:", emailError);
 
