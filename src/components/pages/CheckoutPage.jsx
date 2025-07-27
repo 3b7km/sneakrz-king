@@ -287,15 +287,7 @@ const CheckoutPage = () => {
       formData.address.trim() &&
       formData.city.trim();
 
-    // Filter out email errors if email is empty (since it's optional)
-    const relevantErrors = Object.keys(errors).filter(field => {
-      if (field === 'email' && (!formData.email || formData.email.trim() === '')) {
-        return false; // Ignore email errors if no email provided
-      }
-      return true;
-    });
-
-    return hasRequiredFields && relevantErrors.length === 0;
+    return hasRequiredFields && Object.keys(errors).length === 0;
   };
 
   // Send admin notification email (always sent)
@@ -359,10 +351,10 @@ const CheckoutPage = () => {
       const adminTemplateParams = {
         admin_subject: `🆕 New Order from ${customerName}`,
         customer_name: customerName,
-        customer_email: formData.email.trim() || "Not provided",
+        customer_email: "Not provided",
         customer_phone: formData.phone.trim() || "Not provided",
         customer_address: `${formData.address.trim()}, ${formData.city.trim()}`,
-        customer_instagram: formData.instagram.trim() ? `@${formData.instagram.trim()}` : "Not provided",
+        customer_instagram: "Not provided",
         order_items: orderItemsList,
         subtotal_amount: calculatedSubtotal.toFixed(2),
         shipping_amount: shipping.toFixed(2),
@@ -370,8 +362,8 @@ const CheckoutPage = () => {
         order_notes: formData.notes.trim() || "No additional notes",
         order_date: new Date().toLocaleDateString(),
         order_time: new Date().toLocaleTimeString(),
-        has_customer_email: formData.email ? "Yes" : "No",
-        has_customer_instagram: formData.instagram ? "Yes" : "No",
+        has_customer_email: "No",
+        has_customer_instagram: "No",
         notification_type: "admin_new_order"
       };
 
