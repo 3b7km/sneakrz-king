@@ -63,9 +63,24 @@ const CheckoutPage = () => {
     const initEmailJS = () => {
       console.log(`EmailJS init attempt ${retryCount + 1}/${maxRetries}`);
 
+      // Enhanced browser detection for better debugging
+      const userAgent = navigator.userAgent;
+      const isBrave = navigator.brave;
+      const isSafari = /^((?!chrome|android).)*safari/i.test(userAgent);
+
       // Check if EmailJS script is loaded
       if (typeof window.emailjs === 'undefined') {
         console.log("EmailJS script not loaded yet, checking CDN...");
+
+        // Browser-specific debugging
+        if (isBrave) {
+          console.warn("🦁 Brave browser detected: EmailJS CDN may be blocked by Brave Shields");
+          console.warn("💡 Try: Settings > Shields > Down for this site, or allow Scripts & Plugins");
+        } else if (isSafari) {
+          console.warn("🍎 Safari detected: EmailJS CDN may be blocked by tracking prevention");
+          console.warn("💡 Try: Safari Settings > Privacy > Disable 'Prevent cross-site tracking' for this site");
+        }
+
         retryCount++;
         if (retryCount < maxRetries) {
           const delay = Math.min(1000 * retryCount, 5000); // Cap at 5 seconds
@@ -73,7 +88,15 @@ const CheckoutPage = () => {
           setTimeout(initEmailJS, delay);
         } else {
           console.error("EmailJS CDN failed to load after maximum retries");
-          console.error("This may be due to network restrictions or ad blockers");
+          console.error("This may be due to network restrictions, ad blockers, or browser privacy settings");
+
+          // Browser-specific failure messages
+          if (isBrave) {
+            console.error("🦁 Brave users: Disable Shields or allow third-party scripts for email to work");
+          } else if (isSafari) {
+            console.error("🍎 Safari users: Check privacy settings and allow cross-site requests");
+          }
+
           window._emailJSFailed = true;
         }
         return false;
