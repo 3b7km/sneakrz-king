@@ -106,8 +106,8 @@ export const CartProvider = ({ children }) => {
 
   // Get discounted price for AF1 products in cart
   const getDiscountedPrice = (item) => {
-    if (isAF1Product(item.id)) {
-      return AF1_OFFER_PRICE; // Fixed price of 1500 EGP for AF1 items in cart
+    if (isAF1Product(item.id) && getTotalQuantity() >= 2) {
+      return AF1_OFFER_PRICE; // Fixed price of 1500 EGP for AF1 items in cart (minimum 2 pairs required)
     }
     return item.price;
   };
