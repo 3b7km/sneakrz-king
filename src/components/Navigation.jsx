@@ -5,13 +5,14 @@ import SearchDropdown from "./SearchDropdown.jsx";
 import { useCart } from "../context/CartContext.jsx";
 
 const Navigation = ({
-  cartItems = [],
   searchTerm = "",
   setSearchTerm = () => {},
   isMenuOpen = false,
   setIsMenuOpen = () => {},
   products = [],
 }) => {
+  const { getTotalQuantity } = useCart();
+  const cartItemCount = getTotalQuantity();
   const location = useLocation();
 
   const isActive = (path) => {
