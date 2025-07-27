@@ -56,11 +56,9 @@ const CheckoutPage = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    email: "",
     phone: "",
     address: "",
     city: "",
-    instagram: "",
     notes: "",
   });
 
@@ -205,21 +203,17 @@ const CheckoutPage = () => {
     const formDataForValidation = {
       firstName: formData.firstName,
       lastName: formData.lastName,
-      email: formData.email,
       phone: formData.phone,
       streetAddress: formData.address,
       city: formData.city,
-      instagram: formData.instagram,
     };
 
     const customValidationRules = {
       firstName: checkoutValidationRules.firstName,
       lastName: checkoutValidationRules.lastName,
-      email: checkoutValidationRules.email,
       phone: checkoutValidationRules.phone,
       streetAddress: checkoutValidationRules.streetAddress,
       city: checkoutValidationRules.city,
-      instagram: checkoutValidationRules.instagram,
     };
 
     const validation = validateForm(
@@ -233,12 +227,10 @@ const CheckoutPage = () => {
       mappedErrors.firstName = validation.errors.firstName;
     if (validation.errors.lastName)
       mappedErrors.lastName = validation.errors.lastName;
-    if (validation.errors.email) mappedErrors.email = validation.errors.email;
     if (validation.errors.phone) mappedErrors.phone = validation.errors.phone;
     if (validation.errors.streetAddress)
       mappedErrors.address = validation.errors.streetAddress;
     if (validation.errors.city) mappedErrors.city = validation.errors.city;
-    if (validation.errors.instagram) mappedErrors.instagram = validation.errors.instagram;
 
     setErrors(mappedErrors);
     return validation.isValid;
@@ -249,34 +241,21 @@ const CheckoutPage = () => {
     const fieldMapping = {
       firstName: "firstName",
       lastName: "lastName",
-      email: "email",
       phone: "phone",
       address: "streetAddress",
       city: "city",
-      instagram: "instagram",
     };
 
     const customValidationRules = {
       firstName: checkoutValidationRules.firstName,
       lastName: checkoutValidationRules.lastName,
-      email: checkoutValidationRules.email,
       phone: checkoutValidationRules.phone,
       streetAddress: checkoutValidationRules.streetAddress,
       city: checkoutValidationRules.city,
-      instagram: checkoutValidationRules.instagram,
     };
 
     const mappedFieldName = fieldMapping[fieldName];
     if (mappedFieldName) {
-      // Skip validation for empty optional fields (like email)
-      if (fieldName === "email" && (!value || value.trim() === "")) {
-        setErrors((prev) => {
-          const newErrors = { ...prev };
-          delete newErrors[fieldName];
-          return newErrors;
-        });
-        return;
-      }
 
       const validation = validateField(
         mappedFieldName,
@@ -308,15 +287,7 @@ const CheckoutPage = () => {
       formData.address.trim() &&
       formData.city.trim();
 
-    // Filter out email errors if email is empty (since it's optional)
-    const relevantErrors = Object.keys(errors).filter(field => {
-      if (field === 'email' && (!formData.email || formData.email.trim() === '')) {
-        return false; // Ignore email errors if no email provided
-      }
-      return true;
-    });
-
-    return hasRequiredFields && relevantErrors.length === 0;
+    return hasRequiredFields && Object.keys(errors).length === 0;
   };
 
   // Send admin notification email (always sent)
@@ -380,10 +351,12 @@ const CheckoutPage = () => {
       const adminTemplateParams = {
         admin_subject: `🆕 New Order from ${customerName}`,
         customer_name: customerName,
-        customer_email: formData.email.trim() || "Not provided",
+        customer_email: "Not provided",
         customer_phone: formData.phone.trim() || "Not provided",
         customer_address: `${formData.address.trim()}, ${formData.city.trim()}`,
-        customer_instagram: formData.instagram.trim() ? `@${formData.instagram.trim()}` : "Not provided",
+        customer_city: formData.city.trim(),
+        customer_state: "Egypt", // Default state
+        customer_instagram: "Not provided",
         order_items: orderItemsList,
         subtotal_amount: calculatedSubtotal.toFixed(2),
         shipping_amount: shipping.toFixed(2),
@@ -391,8 +364,8 @@ const CheckoutPage = () => {
         order_notes: formData.notes.trim() || "No additional notes",
         order_date: new Date().toLocaleDateString(),
         order_time: new Date().toLocaleTimeString(),
-        has_customer_email: formData.email ? "Yes" : "No",
-        has_customer_instagram: formData.instagram ? "Yes" : "No",
+        has_customer_email: "No",
+        has_customer_instagram: "No",
         notification_type: "admin_new_order"
       };
 
@@ -426,10 +399,8 @@ const CheckoutPage = () => {
 
   // Send customer email confirmation (only if email provided)
   const sendCustomerConfirmation = async () => {
-    if (!formData.email) {
-      console.log("📧 Customer email not provided, skipping customer confirmation");
-      return null;
-    }
+    console.log("📧 Customer email not available, skipping customer confirmation");
+    return null;
 
     console.log("🚀 Starting customer email confirmation process...");
     console.log("📧 Recipient email:", formData.email);
@@ -523,10 +494,12 @@ const CheckoutPage = () => {
 
       const templateParams = {
         customer_name: customerName,
-        customer_email: formData.email.trim(),
+        customer_email: "Not provided",
         customer_phone: formData.phone.trim() || "Not provided",
         customer_address: `${formData.address.trim()}, ${formData.city.trim()}`,
-        customer_instagram: formData.instagram.trim() ? `@${formData.instagram.trim()}` : "Not provided",
+        customer_city: formData.city.trim(),
+        customer_state: "Egypt", // Default state
+        customer_instagram: "Not provided",
         order_items: orderItemsList,
         subtotal_amount: calculatedSubtotal.toFixed(2),
         shipping_amount: shipping.toFixed(2),
@@ -700,10 +673,7 @@ const CheckoutPage = () => {
         try {
           const failedNotification = {
             timestamp: new Date().toISOString(),
-            customerInfo: {
-              ...formData,
-              instagram: formData.instagram ? `@${formData.instagram}` : null
-            },
+            customerInfo: formData,
             orderItems: cartItems,
             total: total,
             error: adminError.message,
@@ -726,92 +696,17 @@ const CheckoutPage = () => {
         }
       }
 
-      // Send customer confirmation only if email is provided
+      // Customer email not available
       let customerResult = null;
-      if (formData.email) {
-        console.log("📧 Sending customer confirmation...");
-        try {
-          customerResult = await sendCustomerConfirmation();
-          console.log("✅ Customer confirmation result:", customerResult ? "success" : "failed");
-        } catch (emailError) {
-          console.error("Email confirmation error:", emailError);
-
-          // Enhanced browser-specific error logging
-          const userAgent = navigator.userAgent;
-          const isBrave = navigator.brave; // Check if brave object exists
-          const isSafari = /^((?!chrome|android).)*safari/i.test(userAgent);
-
-          console.group("🚨 Email Error Analysis");
-          console.error("Error details:", {
-            name: emailError.name,
-            message: emailError.message,
-            status: emailError.status,
-            stack: emailError.stack?.substring(0, 200) + '...'
-          });
-
-          console.log("Browser context:", {
-            isBrave: !!isBrave,
-            isSafari,
-            cookieEnabled: navigator.cookieEnabled,
-            onLine: navigator.onLine,
-            emailJSAvailable: !!window.emailjs,
-            emailJSReady: !!window._emailJSReady,
-            emailJSFailed: !!window._emailJSFailed
-          });
-
-          // Browser-specific debugging advice
-          if (isBrave) {
-            console.warn("🦁 Brave detected: Email may fail due to:");
-            console.warn("- Brave Shields blocking third-party scripts");
-            console.warn("- Privacy settings blocking trackers");
-            console.warn("- Ad/tracker blocking affecting EmailJS CDN");
-          }
-
-          if (isSafari) {
-            console.warn("🍎 Safari detected: Email may fail due to:");
-            console.warn("- Intelligent Tracking Prevention (ITP)");
-            console.warn("- Cross-site tracking prevention");
-            console.warn("- Third-party cookie blocking");
-            console.warn("- Safari's strict security policies");
-          }
-          console.groupEnd();
-
-          // Enhanced error logging
-          logOrderError(emailError, {
-            checkoutStep: 'email_confirmation',
-            emailJSCompatibility: checkEmailJSCompatibility(),
-            browserInfo: {
-              isBrave: !!isBrave,
-              isSafari,
-              userAgent: userAgent.substring(0, 100)
-            },
-            formData: {
-              hasEmail: !!formData.email,
-              emailValue: formData.email ? 'provided' : 'not_provided'
-            }
-          });
-
-          // Customer email failed but continue
-        }
-      }
+      console.log("📧 Customer email not available, skipping customer confirmation");
 
       // Set overall email status
-      if (adminResult && customerResult) {
-        setEmailSentStatus("sent"); // Both succeeded
-        console.log("✅ All notifications sent successfully");
-      } else if (adminResult && !formData.email) {
+      if (adminResult) {
         setEmailSentStatus("sent"); // Admin sent, no customer email needed
-        console.log("✅ Admin notified, customer email not provided");
-      } else if (adminResult && formData.email && !customerResult) {
-        setEmailSentStatus("partial"); // Admin sent, customer failed
-        console.log("⚠️ Admin notified, customer email failed");
-      } else if (!adminResult && customerResult) {
-        setEmailSentStatus("partial"); // Customer sent, admin failed
-        console.log("⚠️ Customer notified, admin notification failed");
-        console.error("🚨 IMPORTANT: Admin was not notified of this order! Check localStorage for backup order details.");
+        console.log("✅ Admin notified, customer email not available");
       } else {
-        setEmailSentStatus("failed"); // Both failed
-        console.error("🚨 CRITICAL: All email notifications failed!");
+        setEmailSentStatus("failed"); // Admin failed
+        console.error("🚨 CRITICAL: Admin notification failed!");
         console.error("📋 Check localStorage 'failedAdminNotifications' for order backup");
         console.error("🔧 Admin troubleshooting steps:");
         console.error("1. Check EmailJS service status and configuration");
@@ -859,7 +754,7 @@ const CheckoutPage = () => {
       // Enhanced error logging for Safari/iOS debugging
       const errorDetails = logOrderError(error, {
         formData: {
-          hasEmail: !!formData.email,
+          hasEmail: false,
           hasPhone: !!formData.phone,
           hasName: !!(formData.firstName && formData.lastName)
         },
@@ -928,7 +823,7 @@ const CheckoutPage = () => {
               </div>
             )}
 
-            {emailSentStatus === "failed" && formData.email && (
+            {emailSentStatus === "failed" && (
               <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                 <div className="flex items-start gap-3">
                   <AlertCircle className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" />
@@ -966,11 +861,6 @@ const CheckoutPage = () => {
                     <h4 className="font-medium text-green-800">Notifications Sent Successfully</h4>
                     <p className="text-green-700">
                       ✅ Store owner has been notified of your order
-                      {formData.email && (
-                        <>
-                          <br />✅ Order confirmation has been sent to {formData.email}
-                        </>
-                      )}
                     </p>
                   </div>
                 </div>
@@ -985,11 +875,6 @@ const CheckoutPage = () => {
                     <h4 className="font-medium text-blue-800">Order Received</h4>
                     <p className="text-blue-700">
                       ✅ Store owner has been notified of your order
-                      {formData.email && (
-                        <>
-                          <br />⚠️ Customer confirmation email had issues, but your order is confirmed
-                        </>
-                      )}
                     </p>
                   </div>
                 </div>
@@ -1048,59 +933,7 @@ const CheckoutPage = () => {
                 </div>
               </div>
 
-              {/* Email */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Email (Optional)
-                  <span className="text-xs text-gray-500 block mt-1">
-                    Receive order confirmation via email
-                  </span>
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  onBlur={handleFieldBlur}
-                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
-                    errors.email ? "border-red-300" : "border-gray-300"
-                  }`}
-                  placeholder="your@email.com"
-                />
-                {errors.email && (
-                  <p className="mt-1 text-sm text-red-600">{errors.email}</p>
-                )}
-              </div>
 
-              {/* Instagram */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Instagram Username *
-                  <span className="text-xs text-gray-500 block mt-1">
-                    Required for order processing and tagging
-                  </span>
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <span className="text-gray-500 text-sm">@</span>
-                  </div>
-                  <input
-                    type="text"
-                    name="instagram"
-                    value={formData.instagram}
-                    onChange={handleInputChange}
-                    onBlur={handleFieldBlur}
-                    required
-                    className={`w-full pl-8 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
-                      errors.instagram ? "border-red-300" : "border-gray-300"
-                    }`}
-                    placeholder="your_instagram_username"
-                  />
-                </div>
-                {errors.instagram && (
-                  <p className="mt-1 text-sm text-red-600">{errors.instagram}</p>
-                )}
-              </div>
 
               {/* Phone */}
               <div>
