@@ -851,8 +851,10 @@ function AppContent({ navigate }) {
   const { loadingStates } = useLoadingStates();
   const filters = useProductFilters(products);
 
-  // Local state for UI
+  // Cart context
+  const { addToCart: addToCartContext, clearCart: clearCartContext } = useCart();
 
+  // Local state for UI
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState(null);
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
