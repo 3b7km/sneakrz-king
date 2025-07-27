@@ -281,10 +281,113 @@ const CheckoutPage = () => {
     return hasRequiredFields && relevantErrors.length === 0;
   };
 
-  // Send email confirmation with enhanced diagnostics
-  const sendEmailConfirmation = async () => {
+  // Send admin notification email (always sent)
+  const sendAdminNotification = async () => {
+    console.log("📧 Sending admin notification for new order...");
+
+    const safariInfo = detectSafari();
+    const safariRecovery = createSafariErrorRecovery();
+
+    try {
+      // Enhanced EmailJS readiness check
+      if (safariInfo.isIOSSafari) {
+        await safariRecovery.safariEmailJSInit("xZ-FMAkzHPph3aojg", 15000);
+      } else {
+        const waitForEmailJS = () => {
+          return new Promise((resolve, reject) => {
+            let attempts = 0;
+            const maxAttempts = 30;
+
+            const checkEmailJS = () => {
+              attempts++;
+              if (window.emailjs && window._emailJSReady) {
+                resolve(true);
+              } else if (window._emailJSFailed) {
+                reject(new Error("EmailJS failed to initialize"));
+              } else if (attempts >= maxAttempts) {
+                reject(new Error("EmailJS timeout"));
+              } else {
+                setTimeout(checkEmailJS, 750);
+              }
+            };
+            checkEmailJS();
+          });
+        };
+        await waitForEmailJS();
+      }
+
+      if (!window.emailjs || typeof window.emailjs.send !== 'function') {
+        throw new Error("EmailJS not available");
+      }
+
+      const calculatedSubtotal = cartItems.reduce((sum, item) => {
+        const itemPrice = parseFloat(item.price) || 0;
+        const itemQuantity = parseInt(item.quantity) || 1;
+        return sum + itemPrice * itemQuantity;
+      }, 0);
+
+      const customerName = `${formData.firstName.trim()} ${formData.lastName.trim()}`;
+      const orderItemsList = cartItems.length > 0
+        ? cartItems
+            .map((item) => {
+              const itemPrice = parseFloat(item.price) || 0;
+              const itemQuantity = parseInt(item.quantity) || 1;
+              const itemTotal = itemPrice * itemQuantity;
+              return `• ${item.name || "Unknown Item"} - Size: ${item.selectedSize || "N/A"} - Qty: ${itemQuantity} - Price: ${itemTotal.toFixed(2)} EGP`;
+            })
+            .join("\n")
+        : "No items in cart";
+
+      // Admin notification template parameters
+      const adminTemplateParams = {
+        admin_subject: `🆕 New Order from ${customerName}`,
+        customer_name: customerName,
+        customer_email: formData.email.trim() || "Not provided",
+        customer_phone: formData.phone.trim() || "Not provided",
+        customer_address: `${formData.address.trim()}, ${formData.city.trim()}`,
+        order_items: orderItemsList,
+        subtotal_amount: calculatedSubtotal.toFixed(2),
+        shipping_amount: shipping.toFixed(2),
+        total_amount: total.toFixed(2),
+        order_notes: formData.notes.trim() || "No additional notes",
+        order_date: new Date().toLocaleDateString(),
+        order_time: new Date().toLocaleTimeString(),
+        has_customer_email: formData.email ? "Yes" : "No",
+        notification_type: "admin_new_order"
+      };
+
+      console.log("📧 Sending admin notification...");
+
+      let response;
+      if (safariInfo.isIOSSafari) {
+        response = await safariRecovery.safariEmailJSSend(
+          "service_jpicl4m",
+          "template_admin_order", // Admin notification template
+          adminTemplateParams,
+          "xZ-FMAkzHPph3aojg"
+        );
+      } else {
+        response = await window.emailjs.send(
+          "service_jpicl4m",
+          "template_admin_order", // Admin notification template
+          adminTemplateParams,
+          "xZ-FMAkzHPph3aojg"
+        );
+      }
+
+      console.log("✅ Admin notification sent successfully!");
+      return response;
+
+    } catch (error) {
+      console.error("❌ Admin notification failed:", error);
+      return null;
+    }
+  };
+
+  // Send customer email confirmation (only if email provided)
+  const sendCustomerConfirmation = async () => {
     if (!formData.email) {
-      console.log("📧 Email not provided, skipping email confirmation");
+      console.log("📧 Customer email not provided, skipping customer confirmation");
       return null;
     }
 
