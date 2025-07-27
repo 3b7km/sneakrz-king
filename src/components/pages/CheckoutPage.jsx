@@ -207,6 +207,7 @@ const CheckoutPage = () => {
       phone: formData.phone,
       streetAddress: formData.address,
       city: formData.city,
+      instagram: formData.instagram,
     };
 
     const customValidationRules = {
