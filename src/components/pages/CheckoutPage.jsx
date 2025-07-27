@@ -750,7 +750,7 @@ const CheckoutPage = () => {
       // Enhanced error logging for Safari/iOS debugging
       const errorDetails = logOrderError(error, {
         formData: {
-          hasEmail: !!formData.email,
+          hasEmail: false,
           hasPhone: !!formData.phone,
           hasName: !!(formData.firstName && formData.lastName)
         },
