@@ -10,7 +10,7 @@ import {
 } from "../../utils/formValidation";
 
 const CheckoutPage = () => {
-  const { cartItems, clearCart } = useCart();
+  const { cartItems, getTotalPrice, getAF1Discount, getDiscountedPrice, isAF1Product, clearCart } = useCart();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -28,11 +28,9 @@ const CheckoutPage = () => {
   const [submitError, setSubmitError] = useState("");
   const [emailSentStatus, setEmailSentStatus] = useState(null);
 
-  // Calculate totals
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0,
-  );
+  // Calculate totals with AF1 discounts
+  const subtotal = getTotalPrice();
+  const af1Discount = getAF1Discount();
   const shipping = 80;
   const total = subtotal + shipping;
 
@@ -800,14 +798,33 @@ const CheckoutPage = () => {
                       Qty: {item.quantity}
                     </p>
                   </div>
-                  <p className="font-medium">
-                    {item.price * item.quantity} EGP
-                  </p>
+                  <div className="text-right">
+                    {isAF1Product(item.id) ? (
+                      <>
+                        <p className="font-medium text-pink-600">
+                          {getDiscountedPrice(item) * item.quantity} EGP
+                        </p>
+                        <p className="text-sm text-gray-500 line-through">
+                          {item.price * item.quantity} EGP
+                        </p>
+                      </>
+                    ) : (
+                      <p className="font-medium">
+                        {item.price * item.quantity} EGP
+                      </p>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
 
             <div className="border-t pt-4 space-y-2">
+              {af1Discount > 0 && (
+                <div className="flex justify-between text-pink-600">
+                  <span>AF1 Special Offer</span>
+                  <span>-{af1Discount} EGP</span>
+                </div>
+              )}
               <div className="flex justify-between">
                 <span>Subtotal</span>
                 <span>{subtotal} EGP</span>
@@ -820,6 +837,11 @@ const CheckoutPage = () => {
                 <span>Total</span>
                 <span>{total} EGP</span>
               </div>
+              {af1Discount > 0 && (
+                <p className="text-sm text-pink-600 text-center">
+                  You saved {af1Discount} EGP on AF1 shoes!
+                </p>
+              )}
             </div>
 
             <div className="mt-6 p-4 bg-blue-50 rounded-lg">
