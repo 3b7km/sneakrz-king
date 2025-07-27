@@ -176,6 +176,12 @@ const OrderConfirmation = () => {
                   </p>
                 </div>
                 <div>
+                  <p className="text-sm text-gray-600">Instagram</p>
+                  <p className="font-medium">
+                    {customerInfo.instagram ? `@${customerInfo.instagram}` : "Not provided"}
+                  </p>
+                </div>
+                <div className="sm:col-span-2">
                   <p className="text-sm text-gray-600">Delivery Address</p>
                   <p className="font-medium">
                     {customerInfo.address && customerInfo.city
