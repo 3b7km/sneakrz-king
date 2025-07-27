@@ -314,10 +314,41 @@ export const getDiagnosticInfo = () => {
   };
 };
 
+/**
+ * Get saved error logs from session storage
+ * @returns {Array} Array of saved error logs
+ */
+export const getSavedErrors = () => {
+  try {
+    const savedLogs = sessionStorage.getItem('errorLogs');
+    return savedLogs ? JSON.parse(savedLogs) : [];
+  } catch (error) {
+    console.warn('Could not retrieve saved errors:', error);
+    return [];
+  }
+};
+
+/**
+ * Clear saved error logs from session storage
+ * @returns {boolean} True if successfully cleared
+ */
+export const clearSavedErrors = () => {
+  try {
+    sessionStorage.removeItem('errorLogs');
+    console.log('✅ Saved errors cleared');
+    return true;
+  } catch (error) {
+    console.warn('Could not clear saved errors:', error);
+    return false;
+  }
+};
+
 export default {
   detectSafari,
   checkEmailJSCompatibility,
   logOrderError,
   diagnoseEmailJSIssues,
-  getDiagnosticInfo
+  getDiagnosticInfo,
+  getSavedErrors,
+  clearSavedErrors
 };
