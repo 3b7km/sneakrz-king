@@ -217,7 +217,7 @@ export const logOrderError = (error, context = {}) => {
  */
 export const diagnoseEmailJSIssues = async () => {
   const safariInfo = detectSafari();
-  const compatibility = await checkEmailJSCompatibility();
+  const compatibility = await checkEmailJSCompatibilityAdvanced();
   
   console.log('🔍 Starting EmailJS diagnostic...');
   
