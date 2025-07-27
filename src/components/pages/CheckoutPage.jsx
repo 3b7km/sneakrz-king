@@ -381,6 +381,7 @@ const CheckoutPage = () => {
         customer_email: formData.email.trim() || "Not provided",
         customer_phone: formData.phone.trim() || "Not provided",
         customer_address: `${formData.address.trim()}, ${formData.city.trim()}`,
+        customer_instagram: formData.instagram.trim() ? `@${formData.instagram.trim()}` : "Not provided",
         order_items: orderItemsList,
         subtotal_amount: calculatedSubtotal.toFixed(2),
         shipping_amount: shipping.toFixed(2),
@@ -389,6 +390,7 @@ const CheckoutPage = () => {
         order_date: new Date().toLocaleDateString(),
         order_time: new Date().toLocaleTimeString(),
         has_customer_email: formData.email ? "Yes" : "No",
+        has_customer_instagram: formData.instagram ? "Yes" : "No",
         notification_type: "admin_new_order"
       };
 
