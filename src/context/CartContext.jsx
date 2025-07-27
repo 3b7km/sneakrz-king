@@ -130,6 +130,9 @@ export const CartProvider = ({ children }) => {
 
   // Get total AF1 discount amount
   const getAF1Discount = () => {
+    if (getTotalQuantity() < 2) {
+      return 0; // No discount if less than 2 pairs in cart
+    }
     return cartItems.reduce((total, item) => {
       if (isAF1Product(item.id)) {
         const discount = item.price - getDiscountedPrice(item);
