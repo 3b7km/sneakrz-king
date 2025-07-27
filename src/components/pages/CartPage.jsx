@@ -12,7 +12,7 @@ const CartPage = () => {
   const originalSubtotal = getOriginalTotalPrice();
   const subtotal = getTotalPrice();
   const af1Discount = getAF1Discount();
-  const shipping = 80;
+  const shipping = getShippingCost();
   const total = subtotal + shipping;
 
   const handleQuantityUpdate = async (itemId, selectedSize, newQuantity) => {
