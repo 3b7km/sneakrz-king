@@ -1297,7 +1297,16 @@ const CheckoutPage = () => {
 
 
         </div>
-      </div>
+
+      {/* Safari Diagnostic Modal */}
+      <SafariDiagnostic isVisible={showSafariDiagnostic} />
+      {showSafariDiagnostic && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={() => setShowSafariDiagnostic(false)}
+        />
+      )}
+    </div>
   );
 };
 
