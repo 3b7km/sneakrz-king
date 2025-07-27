@@ -648,6 +648,32 @@ const CheckoutPage = () => {
         console.log("✅ Admin notification result:", adminResult ? "success" : "failed");
       } catch (adminError) {
         console.error("❌ Admin notification failed:", adminError);
+
+        // Fallback: Store order info for manual retrieval
+        try {
+          const failedNotification = {
+            timestamp: new Date().toISOString(),
+            customerInfo: formData,
+            orderItems: cartItems,
+            total: total,
+            error: adminError.message,
+            userAgent: navigator.userAgent.substring(0, 100)
+          };
+
+          // Store in localStorage as backup
+          const existingFailedOrders = JSON.parse(localStorage.getItem('failedAdminNotifications') || '[]');
+          existingFailedOrders.push(failedNotification);
+
+          // Keep only last 50 failed notifications to avoid storage overflow
+          if (existingFailedOrders.length > 50) {
+            existingFailedOrders.splice(0, existingFailedOrders.length - 50);
+          }
+
+          localStorage.setItem('failedAdminNotifications', JSON.stringify(existingFailedOrders));
+          console.log("📦 Order details stored locally as backup for admin review");
+        } catch (storageError) {
+          console.error("❌ Could not store backup notification:", storageError);
+        }
       }
 
       // Send customer confirmation only if email is provided
@@ -889,7 +915,7 @@ const CheckoutPage = () => {
                   <div className="flex-1">
                     <h4 className="font-medium text-blue-800">Order Received</h4>
                     <p className="text-blue-700">
-                      ✅ Store owner has been notified of your order
+                      ��� Store owner has been notified of your order
                       {formData.email && (
                         <>
                           <br />⚠️ Customer confirmation email had issues, but your order is confirmed
