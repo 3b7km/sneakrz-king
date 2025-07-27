@@ -424,6 +424,7 @@ export const clearSavedErrors = () => {
 export default {
   detectSafari,
   checkEmailJSCompatibility,
+  checkEmailJSCompatibilityAdvanced,
   logOrderError,
   diagnoseEmailJSIssues,
   getDiagnosticInfo,
