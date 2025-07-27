@@ -132,9 +132,6 @@ class APIService {
 
   async addToCart(productData) {
     try {
-      // Simulate API delay with proper loading state
-      await new Promise((resolve) => setTimeout(resolve, 300));
-
       return await this.request("/cart", {
         method: "POST",
         body: productData,
