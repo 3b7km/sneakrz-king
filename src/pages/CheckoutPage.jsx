@@ -190,7 +190,7 @@ const CheckoutPage = () => {
       navigate("/");
     } catch (error) {
       console.error("Order submission error:", error);
-      alert("حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.");
+      alert("حدث خطأ أثناء إرسال الطلب. ي��جى المحاولة مرة أخرى.");
     } finally {
       setIsSubmitting(false);
     }
@@ -388,7 +388,7 @@ const CheckoutPage = () => {
                       <p className="text-sm text-gray-600">{item.brand}</p>
                       {item.selectedSize && (
                         <p className="text-sm text-gray-600">
-                          المقاس: {item.selectedSize}
+                          المق��س: {item.selectedSize}
                         </p>
                       )}
                       <div className="flex justify-between items-center mt-2">
@@ -406,7 +406,7 @@ const CheckoutPage = () => {
                 <div className="border-t pt-4">
                   {getAF1Discount() > 0 && (
                     <div className="flex justify-between text-pink-600 font-medium mb-2">
-                      <span>خصم عروض AF1 (15%):</span>
+                      <span>خصم عروض AF1 (1500 جنيه):</span>
                       <span>-{getAF1Discount().toFixed(2)} جنيه</span>
                     </div>
                   )}
@@ -432,7 +432,7 @@ const CheckoutPage = () => {
                 </Button>
 
                 <p className="text-xs text-gray-500 text-center">
-                  س��تم فتح واتساب مع تفاصيل طلبك جاهزة للإرسال
+                  سيتم فتح واتساب مع تفاصيل طلبك جاهزة للإرسال
                   {customerData.email && <br />}
                   {customerData.email && "وسيتم إرسال تأكيد الطلب على إيميلك"}
                 </p>
