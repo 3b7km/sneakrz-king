@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { AlertCircle, CheckCircle } from "lucide-react";
-import SafariDiagnostic from "../SafariDiagnostic";
+
 import SafariNotificationBanner from "../SafariNotificationBanner";
 import {
   validateForm,
@@ -36,7 +36,7 @@ const CheckoutPage = () => {
   const [errors, setErrors] = useState({});
   const [submitError, setSubmitError] = useState("");
   const [emailSentStatus, setEmailSentStatus] = useState(null);
-  const [showSafariDiagnostic, setShowSafariDiagnostic] = useState(false);
+
 
   // Calculate totals with AF1 discounts
   const subtotal = getTotalPrice();
@@ -52,8 +52,7 @@ const CheckoutPage = () => {
 
     if (safariInfo.isIOSSafari) {
       console.log('📱 Running on iOS Safari - Enhanced compatibility mode enabled');
-      // Show diagnostic panel for iOS Safari users
-      setShowSafariDiagnostic(true);
+
       // Run comprehensive diagnostics for iOS Safari
       setTimeout(() => {
         diagnoseEmailJSIssues().then(diagnosis => {
@@ -667,17 +666,7 @@ const CheckoutPage = () => {
                     <p className="text-red-700">{submitError}</p>
                   </div>
                 </div>
-                {detectSafari().isIOSSafari && (
-                  <div className="mt-3 pt-3 border-t border-red-200">
-                    <button
-                      type="button"
-                      onClick={() => setShowSafariDiagnostic(!showSafariDiagnostic)}
-                      className="text-sm text-red-600 hover:text-red-800 underline"
-                    >
-                      {showSafariDiagnostic ? 'Hide' : 'Show'} Safari Diagnostic
-                    </button>
-                  </div>
-                )}
+
               </div>
             )}
 
@@ -957,8 +946,7 @@ const CheckoutPage = () => {
           </div>
         </div>
 
-        {/* Safari/iOS Diagnostic Panel */}
-        <SafariDiagnostic isVisible={showSafariDiagnostic} />
+
         </div>
       </div>
     </>
