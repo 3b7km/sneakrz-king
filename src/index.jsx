@@ -10,6 +10,7 @@ import { initMobileEnhancements } from "./utils/mobileCartUtils.js";
 // Hooks
 import { useProductFilters } from "./hooks/useProductFilters.js";
 import { useLoadingStates } from "./hooks/useLoadingStates.js";
+import { useCart } from "./context/CartContext.jsx";
 
 // Components - Using lazy loading for better performance
 const Navigation = lazy(() => import("./components/Navigation.jsx"));
