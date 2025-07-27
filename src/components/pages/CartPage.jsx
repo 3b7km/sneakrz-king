@@ -89,27 +89,27 @@ const CartPage = () => {
                     key={`${item.id}-${item.selectedSize}`}
                     className="p-4 md:p-6"
                   >
-                    <div className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
-                      <div className="flex items-start space-x-4">
+                    <div className="flex flex-col md:flex-row md:items-start space-y-4 md:space-y-0 md:space-x-6">
+                      <div className="flex items-start space-x-4 flex-1">
                         <img
                           src={item.image}
                           alt={item.name}
-                          className="w-16 h-16 md:w-20 md:h-20 object-cover rounded-lg flex-shrink-0"
+                          className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-lg flex-shrink-0 border border-gray-200"
                         />
                         <div className="flex-1 min-w-0">
-                          <h3 className={`text-base md:text-lg font-medium truncate ${
+                          <h3 className={`text-sm md:text-base font-medium leading-tight ${
                             isAF1Product(item.id)
                               ? "text-pink-600"
                               : "text-gray-900"
                           }`}>
                             {item.name}
-                            {isAF1Product(item.id) && (
-                              <span className="ml-2 bg-pink-500 text-white px-2 py-1 rounded-full text-xs font-bold">
-                                AF1 OFFER!
-                              </span>
-                            )}
                           </h3>
-                          <p className="text-sm md:text-base text-gray-600">
+                          {isAF1Product(item.id) && (
+                            <span className="inline-block mt-1 bg-pink-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+                              AF1 OFFER!
+                            </span>
+                          )}
+                          <p className="text-sm text-gray-600 mt-1">
                             {item.brand}
                           </p>
                           <p className="text-sm text-gray-500">
