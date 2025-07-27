@@ -294,44 +294,53 @@ const CheckoutPage = () => {
     console.log("🚀 Starting email confirmation process...");
     console.log("📧 Recipient email:", formData.email);
 
+    const safariInfo = detectSafari();
+    const safariRecovery = createSafariErrorRecovery();
+
     try {
-      // Enhanced EmailJS readiness check
-      const waitForEmailJS = () => {
-        return new Promise((resolve, reject) => {
-          let attempts = 0;
-          const maxAttempts = 30; // Increased for slower networks
+      // Use Safari-specific EmailJS initialization if on Safari/iOS
+      if (safariInfo.isIOSSafari) {
+        console.log("🍎 Using Safari-specific EmailJS handling");
+        await safariRecovery.safariEmailJSInit("xZ-FMAkzHPph3aojg", 15000);
+      } else {
+        // Enhanced EmailJS readiness check for other browsers
+        const waitForEmailJS = () => {
+          return new Promise((resolve, reject) => {
+            let attempts = 0;
+            const maxAttempts = 30; // Increased for slower networks
 
-          console.log("⏳ Waiting for EmailJS to be ready...");
+            console.log("⏳ Waiting for EmailJS to be ready...");
 
-          const checkEmailJS = () => {
-            attempts++;
-            console.log(`🔍 EmailJS check attempt ${attempts}/${maxAttempts}`);
+            const checkEmailJS = () => {
+              attempts++;
+              console.log(`🔍 EmailJS check attempt ${attempts}/${maxAttempts}`);
 
-            if (window.emailjs && window._emailJSReady) {
-              console.log("✅ EmailJS is ready!");
-              resolve(true);
-            } else if (window._emailJSFailed) {
-              console.error("❌ EmailJS initialization previously failed");
-              reject(new Error("EmailJS failed to initialize - may be blocked by network or browser"));
-            } else if (attempts >= maxAttempts) {
-              console.error("⏰ EmailJS timeout after", maxAttempts, "attempts");
-              reject(new Error("EmailJS timeout - service may be unavailable"));
-            } else {
-              // Log current state for debugging
-              console.log("🔄 EmailJS status:", {
-                emailjsExists: !!window.emailjs,
-                emailjsReady: !!window._emailJSReady,
-                emailjsFailed: !!window._emailJSFailed,
-                attempt: attempts
-              });
-              setTimeout(checkEmailJS, 750); // Slightly longer interval
-            }
-          };
-          checkEmailJS();
-        });
-      };
+              if (window.emailjs && window._emailJSReady) {
+                console.log("✅ EmailJS is ready!");
+                resolve(true);
+              } else if (window._emailJSFailed) {
+                console.error("❌ EmailJS initialization previously failed");
+                reject(new Error("EmailJS failed to initialize - may be blocked by network or browser"));
+              } else if (attempts >= maxAttempts) {
+                console.error("⏰ EmailJS timeout after", maxAttempts, "attempts");
+                reject(new Error("EmailJS timeout - service may be unavailable"));
+              } else {
+                // Log current state for debugging
+                console.log("🔄 EmailJS status:", {
+                  emailjsExists: !!window.emailjs,
+                  emailjsReady: !!window._emailJSReady,
+                  emailjsFailed: !!window._emailJSFailed,
+                  attempt: attempts
+                });
+                setTimeout(checkEmailJS, 750); // Slightly longer interval
+              }
+            };
+            checkEmailJS();
+          });
+        };
 
-      await waitForEmailJS();
+        await waitForEmailJS();
+      }
 
       // Additional safety checks
       if (!window.emailjs) {
