@@ -6,13 +6,12 @@ import { useState } from "react";
 
 const CartPage = () => {
   const navigate = useNavigate();
-  const { cartItems, updateQuantity, removeItem, clearCart } = useCart();
+  const { cartItems, updateQuantity, removeItem, clearCart, getTotalPrice, getOriginalTotalPrice, getAF1Discount, isAF1Product, getDiscountedPrice } = useCart();
   const [loadingStates, setLoadingStates] = useState({});
 
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0,
-  );
+  const originalSubtotal = getOriginalTotalPrice();
+  const subtotal = getTotalPrice();
+  const af1Discount = getAF1Discount();
   const shipping = 80;
   const total = subtotal + shipping;
 
@@ -98,8 +97,17 @@ const CartPage = () => {
                           className="w-16 h-16 md:w-20 md:h-20 object-cover rounded-lg flex-shrink-0"
                         />
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-base md:text-lg font-medium text-gray-900 truncate">
+                          <h3 className={`text-base md:text-lg font-medium truncate ${
+                            isAF1Product(item.id)
+                              ? "text-pink-600"
+                              : "text-gray-900"
+                          }`}>
                             {item.name}
+                            {isAF1Product(item.id) && (
+                              <span className="ml-2 bg-pink-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+                                AF1 OFFER!
+                              </span>
+                            )}
                           </h3>
                           <p className="text-sm md:text-base text-gray-600">
                             {item.brand}
@@ -167,12 +175,28 @@ const CartPage = () => {
 
                         <div className="flex items-center justify-between md:justify-end md:space-x-4">
                           <div className="text-right">
-                            <p className="text-base md:text-lg font-medium text-gray-900">
-                              {item.price * item.quantity} EGP
-                            </p>
-                            <p className="text-xs md:text-sm text-gray-500">
-                              {item.price} EGP each
-                            </p>
+                            {isAF1Product(item.id) ? (
+                              <>
+                                <p className="text-base md:text-lg font-medium text-pink-600">
+                                  {getDiscountedPrice(item) * item.quantity} EGP
+                                </p>
+                                <p className="text-xs md:text-sm text-gray-500 line-through">
+                                  {item.price * item.quantity} EGP
+                                </p>
+                                <p className="text-xs text-pink-600 font-medium">
+                                  {getDiscountedPrice(item)} EGP each (15% OFF AF1!)
+                                </p>
+                              </>
+                            ) : (
+                              <>
+                                <p className="text-base md:text-lg font-medium text-gray-900">
+                                  {item.price * item.quantity} EGP
+                                </p>
+                                <p className="text-xs md:text-sm text-gray-500">
+                                  {item.price} EGP each
+                                </p>
+                              </>
+                            )}
                           </div>
                           <button
                             onClick={() =>
@@ -220,10 +244,22 @@ const CartPage = () => {
               </h3>
 
               <div className="space-y-3">
+                {af1Discount > 0 && (
+                  <div className="flex justify-between text-gray-500">
+                    <span>Original Subtotal</span>
+                    <span className="line-through">{originalSubtotal} EGP</span>
+                  </div>
+                )}
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span>{subtotal} EGP</span>
+                  <span className={af1Discount > 0 ? "text-pink-600 font-medium" : ""}>{subtotal} EGP</span>
                 </div>
+                {af1Discount > 0 && (
+                  <div className="flex justify-between text-pink-600">
+                    <span>AF1 Special Offer (15% OFF)</span>
+                    <span>-{af1Discount} EGP</span>
+                  </div>
+                )}
                 <div className="flex justify-between">
                   <span>Shipping</span>
                   <span>{shipping} EGP</span>
@@ -233,6 +269,11 @@ const CartPage = () => {
                     <span>Total</span>
                     <span>{total} EGP</span>
                   </div>
+                  {af1Discount > 0 && (
+                    <p className="text-sm text-pink-600 mt-1">
+                      You saved {af1Discount} EGP on AF1 shoes!
+                    </p>
+                  )}
                 </div>
               </div>
 
