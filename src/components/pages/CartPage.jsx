@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const CartPage = () => {
   const navigate = useNavigate();
-  const { cartItems, updateQuantity, removeItem, clearCart, getTotalPrice, getOriginalTotalPrice, getAF1Discount, getDiscountedPrice, isAF1Product } = useCart();
+  const { cartItems, updateQuantity, removeItem, clearCart, getTotalPrice, getOriginalTotalPrice, getAF1Discount, getDiscountedPrice, isAF1Product, getShippingCost, isFreeShipping } = useCart();
   const [loadingStates, setLoadingStates] = useState({});
 
   const originalSubtotal = getOriginalTotalPrice();
