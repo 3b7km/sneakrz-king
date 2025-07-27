@@ -851,14 +851,6 @@ function AppContent({ navigate }) {
   const filters = useProductFilters(products);
 
   // Local state for UI
-  const [cartItems, setCartItems] = useState(() => {
-    try {
-      const saved = localStorage.getItem("sneakrz-cart");
-      return saved ? JSON.parse(saved) : [];
-    } catch {
-      return [];
-    }
-  });
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState(null);
