@@ -251,6 +251,7 @@ const CheckoutPage = () => {
       phone: "phone",
       address: "streetAddress",
       city: "city",
+      instagram: "instagram",
     };
 
     const customValidationRules = {
@@ -409,7 +410,7 @@ const CheckoutPage = () => {
         );
       }
 
-      console.log("��� Admin notification sent successfully!");
+      console.log("✅ Admin notification sent successfully!");
       return response;
 
     } catch (error) {
