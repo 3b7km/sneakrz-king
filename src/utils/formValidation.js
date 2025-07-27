@@ -110,6 +110,11 @@ export const validateField = (
     errors.push(`Please enter a valid Egyptian phone number`);
   }
 
+  // Instagram validation
+  if (rule.instagram && value && !validateInstagram(value)) {
+    errors.push(`Please enter a valid Instagram username (letters, numbers, dots, underscores only)`);
+  }
+
   // Minimum length validation
   if (rule.minLength && value && !validateMinLength(value, rule.minLength)) {
     errors.push(
