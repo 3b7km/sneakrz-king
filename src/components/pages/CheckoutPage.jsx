@@ -236,6 +236,7 @@ const CheckoutPage = () => {
     if (validation.errors.streetAddress)
       mappedErrors.address = validation.errors.streetAddress;
     if (validation.errors.city) mappedErrors.city = validation.errors.city;
+    if (validation.errors.instagram) mappedErrors.instagram = validation.errors.instagram;
 
     setErrors(mappedErrors);
     return validation.isValid;
@@ -408,7 +409,7 @@ const CheckoutPage = () => {
         );
       }
 
-      console.log("✅ Admin notification sent successfully!");
+      console.log("��� Admin notification sent successfully!");
       return response;
 
     } catch (error) {
