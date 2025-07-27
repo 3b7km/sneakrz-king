@@ -53,12 +53,7 @@ const CheckoutPage = () => {
     if (safariInfo.isIOSSafari) {
       console.log('📱 Running on iOS Safari - Enhanced compatibility mode enabled');
 
-      // Run comprehensive diagnostics for iOS Safari
-      setTimeout(() => {
-        diagnoseEmailJSIssues().then(diagnosis => {
-          console.log('📊 iOS Safari Diagnostics Complete:', diagnosis);
-        });
-      }, 3000);
+
     }
 
     let retryCount = 0;
