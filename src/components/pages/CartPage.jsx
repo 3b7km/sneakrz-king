@@ -262,7 +262,9 @@ const CartPage = () => {
                 )}
                 <div className="flex justify-between">
                   <span>Shipping</span>
-                  <span>{shipping} EGP</span>
+                  <span className={isFreeShipping() ? "text-green-600 font-medium" : ""}>
+                    {shipping === 0 ? "FREE" : `${shipping} EGP`}
+                  </span>
                 </div>
                 <div className="border-t pt-3">
                   <div className="flex justify-between text-lg font-medium">
