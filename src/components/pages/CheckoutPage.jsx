@@ -398,16 +398,27 @@ const CheckoutPage = () => {
         itemCount: cartItems.length
       });
 
-      // Test EmailJS service before sending
+      // Use Safari-specific sending or standard method
       try {
         console.log("🔍 Testing EmailJS service availability...");
 
-        const response = await window.emailjs.send(
-          "service_jpicl4m",
-          "template_sd6o0td",
-          templateParams,
-          "xZ-FMAkzHPph3aojg" // Public key as 4th parameter for better compatibility
-        );
+        let response;
+        if (safariInfo.isIOSSafari) {
+          console.log("🍎 Using Safari-specific email sending");
+          response = await safariRecovery.safariEmailJSSend(
+            "service_jpicl4m",
+            "template_sd6o0td",
+            templateParams,
+            "xZ-FMAkzHPph3aojg"
+          );
+        } else {
+          response = await window.emailjs.send(
+            "service_jpicl4m",
+            "template_sd6o0td",
+            templateParams,
+            "xZ-FMAkzHPph3aojg" // Public key as 4th parameter for better compatibility
+          );
+        }
 
         console.log("✅ Email sent successfully!");
         console.log("📊 EmailJS Response:", {
