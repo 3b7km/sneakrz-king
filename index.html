@@ -20,6 +20,14 @@
         fallbackScript.src = 'https://unpkg.com/@emailjs/browser@4/dist/email.min.js';
         fallbackScript.onload = function() {
           console.log('✅ EmailJS fallback CDN loaded successfully');
+          try {
+            window.emailjs.init('xZ-FMAkzHPph3aojg');
+            window._emailJSReady = true;
+            console.log('✅ EmailJS initialized via fallback CDN');
+          } catch(e) {
+            console.error('❌ EmailJS fallback init failed:', e);
+            window._emailJSFailed = true;
+          }
         };
         fallbackScript.onerror = function() {
           console.error('❌ Both EmailJS CDNs failed to load');
