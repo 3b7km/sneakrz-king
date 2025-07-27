@@ -5,7 +5,7 @@ const SuccessNotification = ({ message, onViewCart, onClose }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       onClose();
-    }, 5000);
+    }, 3000);
     return () => clearTimeout(timer);
   }, [onClose]);
 
