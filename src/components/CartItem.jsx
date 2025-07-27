@@ -54,7 +54,7 @@ const CartItem = ({ item, onUpdateQuantity, onRemove, isLoading }) => {
             <p className="text-sm text-gray-500 line-through">
               {item.price * item.quantity} EGP
             </p>
-            <p className="text-xs text-pink-600">15% OFF!</p>
+            <p className="text-xs text-pink-600">AF1 OFFER!</p>
           </>
         ) : (
           <p className="font-medium text-gray-900">
