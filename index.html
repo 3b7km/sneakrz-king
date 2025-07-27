@@ -37,6 +37,22 @@
         document.head.appendChild(fallbackScript);
       }
 
+      // Add debugging function for users to test EmailJS
+      window.testEmailJS = function() {
+        console.log('🧪 Testing EmailJS functionality...');
+        console.log('EmailJS available:', !!window.emailjs);
+        console.log('EmailJS ready:', !!window._emailJSReady);
+        console.log('EmailJS failed:', !!window._emailJSFailed);
+        console.log('Cookies enabled:', navigator.cookieEnabled);
+        console.log('Online status:', navigator.onLine);
+
+        if (window.emailjs && window._emailJSReady) {
+          console.log('✅ EmailJS appears to be working correctly');
+        } else {
+          console.warn('⚠️ EmailJS may have issues');
+        }
+      };
+
       // Additional check after page load with multiple attempts
       window.addEventListener('load', function() {
         let attempts = 0;
