@@ -7,7 +7,7 @@ import "./mobile-cart-fix.css";
 import "./mobile-fixes.css";
 import { initMobileEnhancements } from "./utils/mobileCartUtils.js";
 //king089mm
-// Hooksdgggggggg
+// Hook
 import { useProductFilters } from "./hooks/useProductFilters.js";
 import { useLoadingStates } from "./hooks/useLoadingStates.js";
 import { useCart } from "./context/CartContext.jsx";
