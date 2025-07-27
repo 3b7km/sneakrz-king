@@ -188,6 +188,8 @@ export const CartProvider = ({ children }) => {
     getAF1Discount,
     getDiscountedPrice,
     isAF1Product,
+    isFreeShipping,
+    getShippingCost,
     isInCart,
     getItemQuantity,
   };
