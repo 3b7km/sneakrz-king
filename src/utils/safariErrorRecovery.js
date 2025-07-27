@@ -112,11 +112,12 @@ export const createSafariErrorRecovery = () => {
 
     safariEmailJSSend: async function(serviceId, templateId, templateParams, publicKey) {
       const safariInfo = detectSafari();
+      const recovery = this;
 
       // Enhanced error handling for Safari
       try {
         // Wait for EmailJS to be ready
-        await this.safariEmailJSInit(publicKey, 15000);
+        await recovery.safariEmailJSInit(publicKey, 15000);
         
         // Additional Safari-specific checks
         if (!navigator.onLine) {
