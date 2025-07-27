@@ -552,10 +552,55 @@ const CheckoutPage = () => {
         } catch (emailError) {
           console.error("Email confirmation error:", emailError);
 
-          // Enhanced Safari/iOS email error logging
+          // Enhanced browser-specific error logging
+          const userAgent = navigator.userAgent;
+          const isBrave = navigator.brave; // Check if brave object exists
+          const isSafari = /^((?!chrome|android).)*safari/i.test(userAgent);
+
+          console.group("🚨 Email Error Analysis");
+          console.error("Error details:", {
+            name: emailError.name,
+            message: emailError.message,
+            status: emailError.status,
+            stack: emailError.stack?.substring(0, 200) + '...'
+          });
+
+          console.log("Browser context:", {
+            isBrave: !!isBrave,
+            isSafari,
+            cookieEnabled: navigator.cookieEnabled,
+            onLine: navigator.onLine,
+            emailJSAvailable: !!window.emailjs,
+            emailJSReady: !!window._emailJSReady,
+            emailJSFailed: !!window._emailJSFailed
+          });
+
+          // Browser-specific debugging advice
+          if (isBrave) {
+            console.warn("🦁 Brave detected: Email may fail due to:");
+            console.warn("- Brave Shields blocking third-party scripts");
+            console.warn("- Privacy settings blocking trackers");
+            console.warn("- Ad/tracker blocking affecting EmailJS CDN");
+          }
+
+          if (isSafari) {
+            console.warn("🍎 Safari detected: Email may fail due to:");
+            console.warn("- Intelligent Tracking Prevention (ITP)");
+            console.warn("- Cross-site tracking prevention");
+            console.warn("- Third-party cookie blocking");
+            console.warn("- Safari's strict security policies");
+          }
+          console.groupEnd();
+
+          // Enhanced error logging
           logOrderError(emailError, {
             checkoutStep: 'email_confirmation',
             emailJSCompatibility: checkEmailJSCompatibility(),
+            browserInfo: {
+              isBrave: !!isBrave,
+              isSafari,
+              userAgent: userAgent.substring(0, 100)
+            },
             formData: {
               hasEmail: !!formData.email,
               emailValue: formData.email ? 'provided' : 'not_provided'
