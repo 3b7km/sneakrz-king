@@ -362,14 +362,14 @@ const CheckoutPage = () => {
       if (safariInfo.isIOSSafari) {
         response = await safariRecovery.safariEmailJSSend(
           "service_jpicl4m",
-          "template_admin_order", // Admin notification template
+          "template_sd6o0td", // Use same template but with admin-specific parameters
           adminTemplateParams,
           "xZ-FMAkzHPph3aojg"
         );
       } else {
         response = await window.emailjs.send(
           "service_jpicl4m",
-          "template_admin_order", // Admin notification template
+          "template_sd6o0td", // Use same template but with admin-specific parameters
           adminTemplateParams,
           "xZ-FMAkzHPph3aojg"
         );
