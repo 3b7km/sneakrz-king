@@ -45,7 +45,7 @@ const products = [
   {
     id: 1,
     name: "Nike Air Force 1 '07 Triple White",
-    price: 1500,
+    price: 1550,
     originalPrice: 2000,
     image: "/Sneakers photos/AF1.jpg",
     images: ["/Sneakers photos/AF1.jpg"],
@@ -71,7 +71,7 @@ const products = [
   {
     id: 2,
     name: "Adidas Samba OG 'White Black Gum'",
-    price: 1500,
+    price: 1550,
     originalPrice: 2000,
     image: "/Sneakers photos/AdidasSambaOG‘WhiteBlackGum’.jpg",
     images: ["/Sneakers photos/AdidasSambaOG‘WhiteBlackGum’.jpg"],
@@ -97,7 +97,7 @@ const products = [
   {
     id: 3,
     name: "ASICS Gel-Kayano 14 'Silver Cream'",
-    price: 1700,
+    price: 1800,
     originalPrice: 2400,
     image: "/Sneakers photos/AsicsGelKayano14SilverCream1201A019-108.jpg",
     images: ["/Sneakers photos/AsicsGelKayano14SilverCream1201A019-108.jpg"],
@@ -123,7 +123,7 @@ const products = [
   {
     id: 4,
     name: "ASICS Gel-Kahana 8",
-    price: 1700,
+    price: 1800,
     originalPrice: 2100,
     image: "/Sneakers photos/asicsgelkahanam8.jpg",
     images: ["/Sneakers photos/asicsgelkahanam8.jpg"],
@@ -146,7 +146,7 @@ const products = [
   {
     id: 5,
     name: "ASICS Gel-Kahana 8 'Black Rose Gold'",
-    price: 1700,
+    price: 1800,
     originalPrice: 2200,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2F0ebe16fdd0024a4da3822a9f17207c5b%2F2d2ab23252bf44d3be4cf2ecc2498ed7?format=webp&width=800",
@@ -172,7 +172,7 @@ const products = [
   {
     id: 6,
     name: "ASICS Gel-NYC Black Ivory Gray",
-    price: 1700,
+    price: 1800,
     originalPrice: 2300,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2Fad0a7923005f4b5580ccccd0bb24c27b%2F04252309c75a4b36994000652a7291f5?format=webp&width=800",
@@ -227,7 +227,7 @@ const products = [
   {
     id: 8,
     name: "Jordan 1 Low Light Smoke Grey",
-    price: 1600,
+    price: 1700,
     originalPrice: 2200,
     image: "/Sneakers photos/Jordan1LowLightSmokeGrey.jpg",
     images: ["/Sneakers photos/Jordan1LowLightSmokeGrey.jpg"],
@@ -282,7 +282,7 @@ const products = [
   {
     id: 10,
     name: "New Balance 530 'Concrete Grey'",
-    price: 1500,
+    price: 1550,
     originalPrice: 2000,
     image: "/Sneakers photos/NB53.jpg",
     images: ["/Sneakers photos/NB53.jpg"],
@@ -449,7 +449,7 @@ const products = [
   {
     id: 14,
     name: "Nike Air Max 97 'Black'",
-    price: 1650,
+    price: 1700,
     originalPrice: 2000,
     image: "/Sneakers photos/airmax97blac.jpg",
     images: ["/Sneakers photos/airmax97blac.jpg"],
@@ -475,7 +475,7 @@ const products = [
   {
     id: 15,
     name: "Nike SB Dunk Low Pro Triple White",
-    price: 1600,
+    price: 1700,
     originalPrice: 2000,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2F0ebe16fdd0024a4da3822a9f17207c5b%2F736ab7a022904b2db7b532f14749f994?format=webp&width=800",
@@ -504,7 +504,7 @@ const products = [
   {
     id: 16,
     name: "Nike SB Dunk Low Pro Triple Black",
-    price: 1600,
+    price: 1700,
     originalPrice: 2000,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2F0ebe16fdd0024a4da3822a9f17207c5b%2F749788b45d344459a8e1cb6308243874?format=webp&width=800",
@@ -533,7 +533,7 @@ const products = [
   {
     id: 17,
     name: "Nike SB Dunk Low Fog",
-    price: 1600,
+    price: 1700,
     originalPrice: 2000,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2F0ebe16fdd0024a4da3822a9f17207c5b%2Fe272d03d70bb43e59469c93880112640?format=webp&width=800",
@@ -562,7 +562,7 @@ const products = [
   {
     id: 18,
     name: "Nike Air Force 1 Low '07 Black",
-    price: 1500,
+    price: 1700,
     originalPrice: 1900,
     image:
       "https://cdn.builder.io/api/v1/image/assets%2F0ebe16fdd0024a4da3822a9f17207c5b%2Fe92a0ef25401402aa50214180125891c?format=webp&width=800",
@@ -618,7 +618,7 @@ const products = [
   {
     id: 20,
     name: "Nike Dunk Low 'Classic Panda'",
-    price: 1600,
+    price: 1700,
     originalPrice: 2300,
     image: "/Sneakers photos/NikeDunkLowRetro‘Panda’.jpg",
     images: ["/Sneakers photos/NikeDunkLowRetro‘Panda’.jpg"],
