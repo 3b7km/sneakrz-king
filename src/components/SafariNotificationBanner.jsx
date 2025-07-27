@@ -67,6 +67,9 @@ const SafariNotificationBanner = ({ onOpenDiagnostic }) => {
                 ? "Previous email sending issues detected. Use diagnostic tools for troubleshooting."
                 : "If you experience any issues during checkout, our diagnostic tools can help."}
             </p>
+            <p className="text-xs text-blue-600 mt-2 bg-blue-50 p-2 rounded">
+              <strong>Safari Test:</strong> Open browser console and run <code className="bg-blue-100 px-1 rounded font-mono">window.testEmailJS()</code> to check EmailJS status
+            </p>
           </div>
         </div>
         
