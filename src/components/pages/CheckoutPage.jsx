@@ -524,6 +524,7 @@ const CheckoutPage = () => {
         customer_email: formData.email.trim(),
         customer_phone: formData.phone.trim() || "Not provided",
         customer_address: `${formData.address.trim()}, ${formData.city.trim()}`,
+        customer_instagram: formData.instagram.trim() ? `@${formData.instagram.trim()}` : "Not provided",
         order_items: orderItemsList,
         subtotal_amount: calculatedSubtotal.toFixed(2),
         shipping_amount: shipping.toFixed(2),
