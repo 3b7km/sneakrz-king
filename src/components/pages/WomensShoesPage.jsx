@@ -105,6 +105,12 @@ const WomensShoesPage = ({
             </div>
           </div>
         )}
+
+        {/* Offer Popup */}
+        <OfferPopup
+          isVisible={showOfferPopup}
+          onClose={() => setShowOfferPopup(false)}
+        />
       </div>
     </div>
   );
