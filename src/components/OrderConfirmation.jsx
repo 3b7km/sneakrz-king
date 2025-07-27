@@ -353,9 +353,7 @@ const OrderConfirmation = () => {
                       </a>
                     )}
                   </div>
-                  <p className="text-sm text-purple-700 mt-3">
-                    💜 Tag us @sneakrz_king in your stories and get featured!
-                  </p>
+
                 </div>
               </div>
             </div>
