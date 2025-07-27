@@ -227,12 +227,10 @@ const CheckoutPage = () => {
       mappedErrors.firstName = validation.errors.firstName;
     if (validation.errors.lastName)
       mappedErrors.lastName = validation.errors.lastName;
-    if (validation.errors.email) mappedErrors.email = validation.errors.email;
     if (validation.errors.phone) mappedErrors.phone = validation.errors.phone;
     if (validation.errors.streetAddress)
       mappedErrors.address = validation.errors.streetAddress;
     if (validation.errors.city) mappedErrors.city = validation.errors.city;
-    if (validation.errors.instagram) mappedErrors.instagram = validation.errors.instagram;
 
     setErrors(mappedErrors);
     return validation.isValid;
@@ -243,34 +241,21 @@ const CheckoutPage = () => {
     const fieldMapping = {
       firstName: "firstName",
       lastName: "lastName",
-      email: "email",
       phone: "phone",
       address: "streetAddress",
       city: "city",
-      instagram: "instagram",
     };
 
     const customValidationRules = {
       firstName: checkoutValidationRules.firstName,
       lastName: checkoutValidationRules.lastName,
-      email: checkoutValidationRules.email,
       phone: checkoutValidationRules.phone,
       streetAddress: checkoutValidationRules.streetAddress,
       city: checkoutValidationRules.city,
-      instagram: checkoutValidationRules.instagram,
     };
 
     const mappedFieldName = fieldMapping[fieldName];
     if (mappedFieldName) {
-      // Skip validation for empty optional fields (like email)
-      if (fieldName === "email" && (!value || value.trim() === "")) {
-        setErrors((prev) => {
-          const newErrors = { ...prev };
-          delete newErrors[fieldName];
-          return newErrors;
-        });
-        return;
-      }
 
       const validation = validateField(
         mappedFieldName,
