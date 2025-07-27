@@ -50,6 +50,8 @@ const CheckoutPage = () => {
 
     if (safariInfo.isIOSSafari) {
       console.log('📱 Running on iOS Safari - Enhanced compatibility mode enabled');
+      // Show diagnostic panel for iOS Safari users
+      setShowSafariDiagnostic(true);
       // Run comprehensive diagnostics for iOS Safari
       setTimeout(() => {
         diagnoseEmailJSIssues().then(diagnosis => {
