@@ -4,6 +4,36 @@ import { useCart } from "../../context/CartContext";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { AlertCircle, CheckCircle } from "lucide-react";
 
+// Utility function for admins to check failed notifications
+// Run this in browser console: window.checkFailedNotifications()
+window.checkFailedNotifications = () => {
+  try {
+    const failed = JSON.parse(localStorage.getItem('failedAdminNotifications') || '[]');
+    console.log(`📊 Found ${failed.length} failed admin notifications:`);
+    failed.forEach((notification, index) => {
+      console.group(`Order ${index + 1} - ${notification.timestamp}`);
+      console.log('Customer:', `${notification.customerInfo.firstName} ${notification.customerInfo.lastName}`);
+      console.log('Email:', notification.customerInfo.email || 'Not provided');
+      console.log('Phone:', notification.customerInfo.phone);
+      console.log('Address:', `${notification.customerInfo.address}, ${notification.customerInfo.city}`);
+      console.log('Total:', `${notification.total} EGP`);
+      console.log('Items:', notification.orderItems.length);
+      console.log('Error:', notification.error);
+      console.groupEnd();
+    });
+    return failed;
+  } catch (error) {
+    console.error('Error checking failed notifications:', error);
+    return [];
+  }
+};
+
+// Utility to clear processed notifications
+window.clearFailedNotifications = () => {
+  localStorage.removeItem('failedAdminNotifications');
+  console.log('✅ Failed notifications cleared');
+};
+
 
 import {
   validateForm,
@@ -29,6 +59,7 @@ const CheckoutPage = () => {
     phone: "",
     address: "",
     city: "",
+    instagram: "",
     notes: "",
   });
 
@@ -63,9 +94,24 @@ const CheckoutPage = () => {
     const initEmailJS = () => {
       console.log(`EmailJS init attempt ${retryCount + 1}/${maxRetries}`);
 
+      // Enhanced browser detection for better debugging
+      const userAgent = navigator.userAgent;
+      const isBrave = navigator.brave;
+      const isSafari = /^((?!chrome|android).)*safari/i.test(userAgent);
+
       // Check if EmailJS script is loaded
       if (typeof window.emailjs === 'undefined') {
         console.log("EmailJS script not loaded yet, checking CDN...");
+
+        // Browser-specific debugging
+        if (isBrave) {
+          console.warn("🦁 Brave browser detected: EmailJS CDN may be blocked by Brave Shields");
+          console.warn("💡 Try: Settings > Shields > Down for this site, or allow Scripts & Plugins");
+        } else if (isSafari) {
+          console.warn("🍎 Safari detected: EmailJS CDN may be blocked by tracking prevention");
+          console.warn("💡 Try: Safari Settings > Privacy > Disable 'Prevent cross-site tracking' for this site");
+        }
+
         retryCount++;
         if (retryCount < maxRetries) {
           const delay = Math.min(1000 * retryCount, 5000); // Cap at 5 seconds
@@ -73,7 +119,15 @@ const CheckoutPage = () => {
           setTimeout(initEmailJS, delay);
         } else {
           console.error("EmailJS CDN failed to load after maximum retries");
-          console.error("This may be due to network restrictions or ad blockers");
+          console.error("This may be due to network restrictions, ad blockers, or browser privacy settings");
+
+          // Browser-specific failure messages
+          if (isBrave) {
+            console.error("🦁 Brave users: Disable Shields or allow third-party scripts for email to work");
+          } else if (isSafari) {
+            console.error("🍎 Safari users: Check privacy settings and allow cross-site requests");
+          }
+
           window._emailJSFailed = true;
         }
         return false;
@@ -153,6 +207,7 @@ const CheckoutPage = () => {
       phone: formData.phone,
       streetAddress: formData.address,
       city: formData.city,
+      instagram: formData.instagram,
     };
 
     const customValidationRules = {
@@ -162,6 +217,7 @@ const CheckoutPage = () => {
       phone: checkoutValidationRules.phone,
       streetAddress: checkoutValidationRules.streetAddress,
       city: checkoutValidationRules.city,
+      instagram: checkoutValidationRules.instagram,
     };
 
     const validation = validateForm(
@@ -180,6 +236,7 @@ const CheckoutPage = () => {
     if (validation.errors.streetAddress)
       mappedErrors.address = validation.errors.streetAddress;
     if (validation.errors.city) mappedErrors.city = validation.errors.city;
+    if (validation.errors.instagram) mappedErrors.instagram = validation.errors.instagram;
 
     setErrors(mappedErrors);
     return validation.isValid;
@@ -194,6 +251,7 @@ const CheckoutPage = () => {
       phone: "phone",
       address: "streetAddress",
       city: "city",
+      instagram: "instagram",
     };
 
     const customValidationRules = {
@@ -203,6 +261,7 @@ const CheckoutPage = () => {
       phone: checkoutValidationRules.phone,
       streetAddress: checkoutValidationRules.streetAddress,
       city: checkoutValidationRules.city,
+      instagram: checkoutValidationRules.instagram,
     };
 
     const mappedFieldName = fieldMapping[fieldName];
@@ -239,24 +298,138 @@ const CheckoutPage = () => {
 
   // Check if form is ready
   const isFormValid = () => {
-    return (
+    // Only check for required fields and relevant errors
+    const hasRequiredFields =
       formData.firstName.trim() &&
       formData.lastName.trim() &&
       formData.phone.trim() &&
       formData.address.trim() &&
-      formData.city.trim() &&
-      Object.keys(errors).length === 0
-    );
+      formData.city.trim();
+
+    // Filter out email errors if email is empty (since it's optional)
+    const relevantErrors = Object.keys(errors).filter(field => {
+      if (field === 'email' && (!formData.email || formData.email.trim() === '')) {
+        return false; // Ignore email errors if no email provided
+      }
+      return true;
+    });
+
+    return hasRequiredFields && relevantErrors.length === 0;
   };
 
-  // Send email confirmation with enhanced diagnostics
-  const sendEmailConfirmation = async () => {
+  // Send admin notification email (always sent)
+  const sendAdminNotification = async () => {
+    console.log("📧 Sending admin notification for new order...");
+
+    const safariInfo = detectSafari();
+    const safariRecovery = createSafariErrorRecovery();
+
+    try {
+      // Enhanced EmailJS readiness check
+      if (safariInfo.isIOSSafari) {
+        await safariRecovery.safariEmailJSInit("xZ-FMAkzHPph3aojg", 15000);
+      } else {
+        const waitForEmailJS = () => {
+          return new Promise((resolve, reject) => {
+            let attempts = 0;
+            const maxAttempts = 30;
+
+            const checkEmailJS = () => {
+              attempts++;
+              if (window.emailjs && window._emailJSReady) {
+                resolve(true);
+              } else if (window._emailJSFailed) {
+                reject(new Error("EmailJS failed to initialize"));
+              } else if (attempts >= maxAttempts) {
+                reject(new Error("EmailJS timeout"));
+              } else {
+                setTimeout(checkEmailJS, 750);
+              }
+            };
+            checkEmailJS();
+          });
+        };
+        await waitForEmailJS();
+      }
+
+      if (!window.emailjs || typeof window.emailjs.send !== 'function') {
+        throw new Error("EmailJS not available");
+      }
+
+      const calculatedSubtotal = cartItems.reduce((sum, item) => {
+        const itemPrice = parseFloat(item.price) || 0;
+        const itemQuantity = parseInt(item.quantity) || 1;
+        return sum + itemPrice * itemQuantity;
+      }, 0);
+
+      const customerName = `${formData.firstName.trim()} ${formData.lastName.trim()}`;
+      const orderItemsList = cartItems.length > 0
+        ? cartItems
+            .map((item) => {
+              const itemPrice = parseFloat(item.price) || 0;
+              const itemQuantity = parseInt(item.quantity) || 1;
+              const itemTotal = itemPrice * itemQuantity;
+              return `• ${item.name || "Unknown Item"} - Size: ${item.selectedSize || "N/A"} - Qty: ${itemQuantity} - Price: ${itemTotal.toFixed(2)} EGP`;
+            })
+            .join("\n")
+        : "No items in cart";
+
+      // Admin notification template parameters
+      const adminTemplateParams = {
+        admin_subject: `🆕 New Order from ${customerName}`,
+        customer_name: customerName,
+        customer_email: formData.email.trim() || "Not provided",
+        customer_phone: formData.phone.trim() || "Not provided",
+        customer_address: `${formData.address.trim()}, ${formData.city.trim()}`,
+        customer_instagram: formData.instagram.trim() ? `@${formData.instagram.trim()}` : "Not provided",
+        order_items: orderItemsList,
+        subtotal_amount: calculatedSubtotal.toFixed(2),
+        shipping_amount: shipping.toFixed(2),
+        total_amount: total.toFixed(2),
+        order_notes: formData.notes.trim() || "No additional notes",
+        order_date: new Date().toLocaleDateString(),
+        order_time: new Date().toLocaleTimeString(),
+        has_customer_email: formData.email ? "Yes" : "No",
+        has_customer_instagram: formData.instagram ? "Yes" : "No",
+        notification_type: "admin_new_order"
+      };
+
+      console.log("📧 Sending admin notification...");
+
+      let response;
+      if (safariInfo.isIOSSafari) {
+        response = await safariRecovery.safariEmailJSSend(
+          "service_jpicl4m",
+          "template_sd6o0td", // Use same template but with admin-specific parameters
+          adminTemplateParams,
+          "xZ-FMAkzHPph3aojg"
+        );
+      } else {
+        response = await window.emailjs.send(
+          "service_jpicl4m",
+          "template_sd6o0td", // Use same template but with admin-specific parameters
+          adminTemplateParams,
+          "xZ-FMAkzHPph3aojg"
+        );
+      }
+
+      console.log("✅ Admin notification sent successfully!");
+      return response;
+
+    } catch (error) {
+      console.error("❌ Admin notification failed:", error);
+      return null;
+    }
+  };
+
+  // Send customer email confirmation (only if email provided)
+  const sendCustomerConfirmation = async () => {
     if (!formData.email) {
-      console.log("📧 Email not provided, skipping email confirmation");
+      console.log("📧 Customer email not provided, skipping customer confirmation");
       return null;
     }
 
-    console.log("🚀 Starting email confirmation process...");
+    console.log("🚀 Starting customer email confirmation process...");
     console.log("📧 Recipient email:", formData.email);
 
     const safariInfo = detectSafari();
@@ -307,13 +480,24 @@ const CheckoutPage = () => {
         await waitForEmailJS();
       }
 
-      // Additional safety checks
+      // Additional safety checks with browser-specific messages
       if (!window.emailjs) {
-        throw new Error("EmailJS object not found - CDN may be blocked");
+        const userAgent = navigator.userAgent;
+        const isBrave = navigator.brave;
+        const isSafari = /^((?!chrome|android).)*safari/i.test(userAgent);
+
+        let errorMsg = "EmailJS object not found - CDN may be blocked";
+        if (isBrave) {
+          errorMsg += ". In Brave browser, try disabling Shields for this site or allowing third-party scripts.";
+        } else if (isSafari) {
+          errorMsg += ". In Safari, check privacy settings and allow cross-site tracking for this site.";
+        }
+
+        throw new Error(errorMsg);
       }
 
       if (typeof window.emailjs.send !== 'function') {
-        throw new Error("EmailJS send function not available");
+        throw new Error("EmailJS send function not available - service may be blocked by browser security settings");
       }
 
       const calculatedSubtotal = cartItems.reduce((sum, item) => {
@@ -340,6 +524,7 @@ const CheckoutPage = () => {
         customer_email: formData.email.trim(),
         customer_phone: formData.phone.trim() || "Not provided",
         customer_address: `${formData.address.trim()}, ${formData.city.trim()}`,
+        customer_instagram: formData.instagram.trim() ? `@${formData.instagram.trim()}` : "Not provided",
         order_items: orderItemsList,
         subtotal_amount: calculatedSubtotal.toFixed(2),
         shipping_amount: shipping.toFixed(2),
@@ -492,34 +677,139 @@ const CheckoutPage = () => {
     setIsSubmitting(true);
 
     try {
-      // Send email confirmation if email is provided
-      if (formData.email) {
-        setEmailSentStatus("sending");
-        console.log("Starting email confirmation process");
+      setEmailSentStatus("sending");
 
+      // Always send admin notification
+      console.log("📧 Sending admin notification...");
+      let adminResult = null;
+      try {
+        adminResult = await sendAdminNotification();
+        console.log("✅ Admin notification result:", adminResult ? "success" : "failed");
+      } catch (adminError) {
+        console.error("❌ Admin notification failed:", adminError);
+
+        // Fallback: Store order info for manual retrieval
         try {
-          const emailResult = await sendEmailConfirmation();
-          setEmailSentStatus(emailResult ? "sent" : "failed");
-          console.log(
-            "Email confirmation result:",
-            emailResult ? "success" : "failed",
-          );
+          const failedNotification = {
+            timestamp: new Date().toISOString(),
+            customerInfo: {
+              ...formData,
+              instagram: formData.instagram ? `@${formData.instagram}` : null
+            },
+            orderItems: cartItems,
+            total: total,
+            error: adminError.message,
+            userAgent: navigator.userAgent.substring(0, 100)
+          };
+
+          // Store in localStorage as backup
+          const existingFailedOrders = JSON.parse(localStorage.getItem('failedAdminNotifications') || '[]');
+          existingFailedOrders.push(failedNotification);
+
+          // Keep only last 50 failed notifications to avoid storage overflow
+          if (existingFailedOrders.length > 50) {
+            existingFailedOrders.splice(0, existingFailedOrders.length - 50);
+          }
+
+          localStorage.setItem('failedAdminNotifications', JSON.stringify(existingFailedOrders));
+          console.log("📦 Order details stored locally as backup for admin review");
+        } catch (storageError) {
+          console.error("❌ Could not store backup notification:", storageError);
+        }
+      }
+
+      // Send customer confirmation only if email is provided
+      let customerResult = null;
+      if (formData.email) {
+        console.log("📧 Sending customer confirmation...");
+        try {
+          customerResult = await sendCustomerConfirmation();
+          console.log("✅ Customer confirmation result:", customerResult ? "success" : "failed");
         } catch (emailError) {
           console.error("Email confirmation error:", emailError);
 
-          // Enhanced Safari/iOS email error logging
+          // Enhanced browser-specific error logging
+          const userAgent = navigator.userAgent;
+          const isBrave = navigator.brave; // Check if brave object exists
+          const isSafari = /^((?!chrome|android).)*safari/i.test(userAgent);
+
+          console.group("🚨 Email Error Analysis");
+          console.error("Error details:", {
+            name: emailError.name,
+            message: emailError.message,
+            status: emailError.status,
+            stack: emailError.stack?.substring(0, 200) + '...'
+          });
+
+          console.log("Browser context:", {
+            isBrave: !!isBrave,
+            isSafari,
+            cookieEnabled: navigator.cookieEnabled,
+            onLine: navigator.onLine,
+            emailJSAvailable: !!window.emailjs,
+            emailJSReady: !!window._emailJSReady,
+            emailJSFailed: !!window._emailJSFailed
+          });
+
+          // Browser-specific debugging advice
+          if (isBrave) {
+            console.warn("🦁 Brave detected: Email may fail due to:");
+            console.warn("- Brave Shields blocking third-party scripts");
+            console.warn("- Privacy settings blocking trackers");
+            console.warn("- Ad/tracker blocking affecting EmailJS CDN");
+          }
+
+          if (isSafari) {
+            console.warn("🍎 Safari detected: Email may fail due to:");
+            console.warn("- Intelligent Tracking Prevention (ITP)");
+            console.warn("- Cross-site tracking prevention");
+            console.warn("- Third-party cookie blocking");
+            console.warn("- Safari's strict security policies");
+          }
+          console.groupEnd();
+
+          // Enhanced error logging
           logOrderError(emailError, {
             checkoutStep: 'email_confirmation',
             emailJSCompatibility: checkEmailJSCompatibility(),
+            browserInfo: {
+              isBrave: !!isBrave,
+              isSafari,
+              userAgent: userAgent.substring(0, 100)
+            },
             formData: {
               hasEmail: !!formData.email,
               emailValue: formData.email ? 'provided' : 'not_provided'
             }
           });
 
-          setEmailSentStatus("failed");
-          // Continue with order processing even if email fails
+          // Customer email failed but continue
         }
+      }
+
+      // Set overall email status
+      if (adminResult && customerResult) {
+        setEmailSentStatus("sent"); // Both succeeded
+        console.log("✅ All notifications sent successfully");
+      } else if (adminResult && !formData.email) {
+        setEmailSentStatus("sent"); // Admin sent, no customer email needed
+        console.log("✅ Admin notified, customer email not provided");
+      } else if (adminResult && formData.email && !customerResult) {
+        setEmailSentStatus("partial"); // Admin sent, customer failed
+        console.log("⚠️ Admin notified, customer email failed");
+      } else if (!adminResult && customerResult) {
+        setEmailSentStatus("partial"); // Customer sent, admin failed
+        console.log("⚠️ Customer notified, admin notification failed");
+        console.error("🚨 IMPORTANT: Admin was not notified of this order! Check localStorage for backup order details.");
+      } else {
+        setEmailSentStatus("failed"); // Both failed
+        console.error("🚨 CRITICAL: All email notifications failed!");
+        console.error("📋 Check localStorage 'failedAdminNotifications' for order backup");
+        console.error("🔧 Admin troubleshooting steps:");
+        console.error("1. Check EmailJS service status and configuration");
+        console.error("2. Verify internet connection and browser settings");
+        console.error("3. Check for ad blockers or privacy settings blocking EmailJS");
+        console.error("4. Consider implementing alternative notification methods");
       }
 
       // Simulate order processing
@@ -627,7 +917,67 @@ const CheckoutPage = () => {
                     <p className="text-red-700">{submitError}</p>
                   </div>
                 </div>
+              </div>
+            )}
 
+            {emailSentStatus === "failed" && formData.email && (
+              <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <div className="flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" />
+                  <div className="flex-1">
+                    <h4 className="font-medium text-yellow-800">Email Confirmation Failed</h4>
+                    <p className="text-yellow-700 mb-2">
+                      We couldn't send the confirmation email, but your order will still be processed.
+                    </p>
+                    <details className="text-sm text-yellow-700">
+                      <summary className="cursor-pointer font-medium">Why might this happen?</summary>
+                      <div className="mt-2 space-y-1">
+                        <p>• <strong>Safari users:</strong> Check Privacy settings and allow cross-site tracking for this site</p>
+                        <p>• <strong>Brave users:</strong> Try disabling Shields or allowing scripts for this site</p>
+                        <p>• <strong>Ad blockers:</strong> Email service may be blocked by ad/privacy blockers</p>
+                        <p>• <strong>Network issues:</strong> Temporary connectivity problems</p>
+                      </div>
+                    </details>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {emailSentStatus === "sent" && (
+              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                  <div className="flex-1">
+                    <h4 className="font-medium text-green-800">Notifications Sent Successfully</h4>
+                    <p className="text-green-700">
+                      ✅ Store owner has been notified of your order
+                      {formData.email && (
+                        <>
+                          <br />✅ Order confirmation has been sent to {formData.email}
+                        </>
+                      )}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {emailSentStatus === "partial" && (
+              <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" />
+                  <div className="flex-1">
+                    <h4 className="font-medium text-blue-800">Order Received</h4>
+                    <p className="text-blue-700">
+                      ✅ Store owner has been notified of your order
+                      {formData.email && (
+                        <>
+                          <br />⚠️ Customer confirmation email had issues, but your order is confirmed
+                        </>
+                      )}
+                    </p>
+                  </div>
+                </div>
               </div>
             )}
 
@@ -704,6 +1054,35 @@ const CheckoutPage = () => {
                 />
                 {errors.email && (
                   <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                )}
+              </div>
+
+              {/* Instagram */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Instagram Username (Optional)
+                  <span className="text-xs text-gray-500 block mt-1">
+                    Help us tag you in our posts
+                  </span>
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <span className="text-gray-500 text-sm">@</span>
+                  </div>
+                  <input
+                    type="text"
+                    name="instagram"
+                    value={formData.instagram}
+                    onChange={handleInputChange}
+                    onBlur={handleFieldBlur}
+                    className={`w-full pl-8 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                      errors.instagram ? "border-red-300" : "border-gray-300"
+                    }`}
+                    placeholder="your_instagram_username"
+                  />
+                </div>
+                {errors.instagram && (
+                  <p className="mt-1 text-sm text-red-600">{errors.instagram}</p>
                 )}
               </div>
 
