@@ -751,9 +751,21 @@ const CheckoutPage = () => {
             }
           });
 
-          setEmailSentStatus("failed");
-          // Continue with order processing even if email fails
+          // Customer email failed but continue
         }
+      }
+
+      // Set overall email status
+      if (adminResult && customerResult) {
+        setEmailSentStatus("sent"); // Both succeeded
+      } else if (adminResult && !formData.email) {
+        setEmailSentStatus("sent"); // Admin sent, no customer email needed
+      } else if (adminResult && formData.email && !customerResult) {
+        setEmailSentStatus("partial"); // Admin sent, customer failed
+      } else if (!adminResult && customerResult) {
+        setEmailSentStatus("partial"); // Customer sent, admin failed
+      } else {
+        setEmailSentStatus("failed"); // Both failed
       }
 
       // Simulate order processing
