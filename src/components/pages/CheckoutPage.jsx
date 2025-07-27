@@ -516,6 +516,17 @@ const CheckoutPage = () => {
           );
         } catch (emailError) {
           console.error("Email confirmation error:", emailError);
+
+          // Enhanced Safari/iOS email error logging
+          logOrderError(emailError, {
+            checkoutStep: 'email_confirmation',
+            emailJSCompatibility: checkEmailJSCompatibility(),
+            formData: {
+              hasEmail: !!formData.email,
+              emailValue: formData.email ? 'provided' : 'not_provided'
+            }
+          });
+
           setEmailSentStatus("failed");
           // Continue with order processing even if email fails
         }
