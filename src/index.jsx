@@ -960,7 +960,6 @@ function AppContent({ navigate }) {
   return (
     <div className="App min-h-screen overflow-x-hidden">
         <Navigation
-          cartItems={cartItems}
           searchTerm={filters.searchTerm}
           setSearchTerm={filters.setSearchTerm}
           isMenuOpen={isMenuOpen}
