@@ -8,6 +8,12 @@ import {
   validateField,
   checkoutValidationRules,
 } from "../../utils/formValidation";
+import {
+  detectSafari,
+  checkEmailJSCompatibility,
+  logOrderError,
+  diagnoseEmailJSIssues,
+} from "../../utils/safariDebugger";
 
 const CheckoutPage = () => {
   const { cartItems, getTotalPrice, getAF1Discount, getDiscountedPrice, isAF1Product, getShippingCost, isFreeShipping, clearCart } = useCart();
