@@ -343,7 +343,7 @@ const CheckoutPage = () => {
         customer_address: `${formData.address.trim()}, ${formData.city.trim()}`,
         order_items: orderItemsList,
         subtotal_amount: calculatedSubtotal.toFixed(2),
-        shipping_amount: "80.00",
+        shipping_amount: shipping.toFixed(2),
         total_amount: total.toFixed(2),
         order_total: total.toFixed(2),
         order_notes: formData.notes.trim() || "No additional notes",
