@@ -117,8 +117,8 @@ const CartPage = () => {
                           </p>
                         </div>
                       </div>
-                      <div className="flex items-center justify-between md:justify-start">
-                        <div className="flex items-center space-x-2 md:space-x-3">
+                      <div className="flex items-center justify-between md:justify-start md:space-x-6">
+                        <div className="flex items-center space-x-2 md:space-x-3 bg-gray-50 rounded-lg px-1">
                           <button
                             onClick={() =>
                               handleQuantityUpdate(
@@ -173,11 +173,11 @@ const CartPage = () => {
                           </button>
                         </div>
 
-                        <div className="flex items-center justify-between md:justify-end md:space-x-4">
-                          <div className="text-right">
+                        <div className="flex items-center justify-between md:justify-end md:space-x-6">
+                          <div className="text-right min-w-0 flex-1 md:flex-none">
                             {isAF1Product(item.id) ? (
-                              <>
-                                <p className="text-base md:text-lg font-medium text-pink-600">
+                              <div className="space-y-1">
+                                <p className="text-base md:text-lg font-bold text-pink-600">
                                   {getDiscountedPrice(item) * item.quantity} EGP
                                 </p>
                                 <p className="text-xs md:text-sm text-gray-500 line-through">
@@ -186,16 +186,16 @@ const CartPage = () => {
                                 <p className="text-xs text-pink-600 font-medium">
                                   {getDiscountedPrice(item)} EGP each (AF1 OFFER!)
                                 </p>
-                              </>
+                              </div>
                             ) : (
-                              <>
+                              <div className="space-y-1">
                                 <p className="text-base md:text-lg font-medium text-gray-900">
                                   {item.price * item.quantity} EGP
                                 </p>
                                 <p className="text-xs md:text-sm text-gray-500">
                                   {item.price} EGP each
                                 </p>
-                              </>
+                              </div>
                             )}
                           </div>
                           <button
