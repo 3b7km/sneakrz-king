@@ -38,6 +38,9 @@ const QuickViewModal = lazy(() => import("./components/QuickViewModal.jsx"));
 const SuccessNotification = lazy(
   () => import("./components/SuccessNotification.jsx"),
 );
+const SafariTestPage = lazy(
+  () => import("./components/SafariTestPage.jsx"),
+);
 
 // Optimized products data with performance in mind - All prices are on sale!
 const products = [
