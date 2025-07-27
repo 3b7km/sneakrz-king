@@ -1048,6 +1048,10 @@ function AppContent({ navigate }) {
                 path="/order-confirmation"
                 element={<OrderConfirmation />}
               />
+              <Route
+                path="/safari-test"
+                element={<SafariTestPage />}
+              />
 
             </Routes>
           </Suspense>
