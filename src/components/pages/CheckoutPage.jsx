@@ -692,7 +692,10 @@ const CheckoutPage = () => {
         try {
           const failedNotification = {
             timestamp: new Date().toISOString(),
-            customerInfo: formData,
+            customerInfo: {
+              ...formData,
+              instagram: formData.instagram ? `@${formData.instagram}` : null
+            },
             orderItems: cartItems,
             total: total,
             error: adminError.message,
