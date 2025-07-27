@@ -73,7 +73,7 @@ const CartPopup = ({ isOpen, onClose }) => {
           <div className="border-t p-4 space-y-4">
             {getAF1Discount() > 0 && (
               <div className="flex justify-between text-pink-600 font-medium">
-                <span>AF1 Special Offer (15% OFF)</span>
+                <span>AF1 Special Offer (1500 EGP each)</span>
                 <span>-{getAF1Discount()} EGP</span>
               </div>
             )}
