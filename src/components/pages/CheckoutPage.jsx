@@ -391,44 +391,8 @@ const CheckoutPage = () => {
       return null;
     }
 
-    console.log("🚀 Starting email confirmation process...");
+    console.log("🚀 Starting customer email confirmation process...");
     console.log("📧 Recipient email:", formData.email);
-
-    // Enhanced browser detection and debugging
-    const userAgent = navigator.userAgent;
-    const isBrave = navigator.brave && await navigator.brave.isBrave();
-    const isSafari = /^((?!chrome|android).)*safari/i.test(userAgent);
-    const isChrome = /chrome/i.test(userAgent) && !/edg/i.test(userAgent);
-
-    console.log("🌐 Browser detection:", {
-      userAgent: userAgent.substring(0, 100) + '...',
-      isBrave: !!isBrave,
-      isSafari,
-      isChrome,
-      cookieEnabled: navigator.cookieEnabled,
-      onLine: navigator.onLine,
-      protocol: window.location.protocol
-    });
-
-    // Enhanced debugging for Brave/Safari specific issues
-    if (isBrave) {
-      console.log("🦁 Brave browser detected - checking shields and privacy settings");
-      console.log("🛡️ Brave-specific checks:", {
-        shieldsUp: "unknown", // Can't detect directly
-        cookieBlocking: !navigator.cookieEnabled,
-        httpsOnly: window.location.protocol === 'https:'
-      });
-    }
-
-    if (isSafari) {
-      console.log("🍎 Safari detected - checking compatibility");
-      console.log("🔍 Safari-specific checks:", {
-        trackingPrevention: "unknown", // Can't detect directly
-        cookieEnabled: navigator.cookieEnabled,
-        isSecure: window.location.protocol === 'https:',
-        userAgent: navigator.userAgent
-      });
-    }
 
     const safariInfo = detectSafari();
     const safariRecovery = createSafariErrorRecovery();
