@@ -276,6 +276,11 @@ const CartPage = () => {
                       You saved {af1Discount} EGP on AF1 shoes!
                     </p>
                   )}
+                  {isFreeShipping() && (
+                    <p className="text-sm text-green-600 mt-1 text-center font-medium">
+                      🚚 FREE Shipping Applied!
+                    </p>
+                  )}
                 </div>
               </div>
 
