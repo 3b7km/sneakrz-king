@@ -13,7 +13,7 @@ import {
 import { ShoppingCart, Phone, MapPin, User, Mail } from "lucide-react";
 
 const CheckoutPage = () => {
-  const { cartItems, getTotalPrice, getAF1Discount, clearCart } = useCart();
+  const { cartItems, getTotalPrice, getAF1Discount, getDiscountedPrice, isAF1Product, clearCart } = useCart();
   const navigate = useNavigate();
 
   const [customerData, setCustomerData] = useState({
@@ -142,7 +142,7 @@ const CheckoutPage = () => {
     message += `💰 *إجمالي الطلب: ${total.toFixed(2)} جنيه*\n\n`;
 
     message += `📝 *ملاحظة:* يرجى تأكيد الطلب والتواصل لتحديد طريقة الدفع والتوصيل.\n\n`;
-    message += `شكراً لاختي��ركم Sneakrz King! 👟✨`;
+    message += `��كراً لاختي��ركم Sneakrz King! 👟✨`;
 
     return encodeURIComponent(message);
   };
@@ -184,7 +184,7 @@ const CheckoutPage = () => {
       // Show success message with email confirmation
       const successMessage = customerData.email
         ? "تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً وتم إرسال تأكيد الطلب على إيميلك."
-        : "تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً.";
+        : "تم إرسال طلبك بنجاح! سيتم التواصل معك قري��اً.";
 
       alert(successMessage);
       navigate("/");
@@ -395,9 +395,23 @@ const CheckoutPage = () => {
                         <span className="text-sm text-gray-600">
                           الكمية: {item.quantity}
                         </span>
-                        <span className="font-semibold">
-                          {(item.price * item.quantity).toFixed(2)} جنيه
-                        </span>
+                        <div className="text-right">
+                          {isAF1Product(item.id) ? (
+                            <>
+                              <span className="font-semibold text-pink-600">
+                                {(getDiscountedPrice(item) * item.quantity).toFixed(2)} جنيه
+                              </span>
+                              <br />
+                              <span className="text-sm text-gray-500 line-through">
+                                {(item.price * item.quantity).toFixed(2)} جنيه
+                              </span>
+                            </>
+                          ) : (
+                            <span className="font-semibold">
+                              {(item.price * item.quantity).toFixed(2)} جنيه
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -428,7 +442,7 @@ const CheckoutPage = () => {
                   size="lg"
                 >
                   <Phone className="w-5 h-5 mr-2" />
-                  {isSubmitting ? "جاري الإرسال..." : "إرسال الطلب عبر واتساب"}
+                  {isSubmitting ? "جاري الإرسال..." : "إرسال ��لطلب عبر واتساب"}
                 </Button>
 
                 <p className="text-xs text-gray-500 text-center">
