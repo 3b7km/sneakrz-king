@@ -21,8 +21,6 @@ const CartPage = () => {
     setLoadingStates((prev) => ({ ...prev, [loadingKey]: true }));
 
     try {
-      // Add small delay to show loading state
-      await new Promise((resolve) => setTimeout(resolve, 300));
       updateQuantity(itemId, selectedSize, newQuantity);
     } finally {
       setLoadingStates((prev) => ({ ...prev, [loadingKey]: false }));
@@ -34,7 +32,6 @@ const CartPage = () => {
     setLoadingStates((prev) => ({ ...prev, [loadingKey]: true }));
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 200));
       removeItem(itemId, selectedSize);
     } finally {
       setLoadingStates((prev) => ({ ...prev, [loadingKey]: false }));
