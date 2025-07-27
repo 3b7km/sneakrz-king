@@ -2,13 +2,43 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/king svg white.svg" />
+    <link rel="icon" type="image/svg+xml" href="./kingsvg.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sneakrz King - Premium Sneakers Store in Egypt</title>
+    <title>Sneakrz King</title>
     <script
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+      onload="console.log('✅ EmailJS CDN loaded successfully')"
+      onerror="console.error('❌ Primary EmailJS CDN failed, loading fallback...'); loadEmailJSFallback();"
     ></script>
+    <script type="text/javascript">
+      // Fallback EmailJS loading function
+      function loadEmailJSFallback() {
+        console.log('🔄 Loading EmailJS fallback CDN...');
+        const fallbackScript = document.createElement('script');
+        fallbackScript.type = 'text/javascript';
+        fallbackScript.src = 'https://unpkg.com/@emailjs/browser@4/dist/email.min.js';
+        fallbackScript.onload = function() {
+          console.log('✅ EmailJS fallback CDN loaded successfully');
+        };
+        fallbackScript.onerror = function() {
+          console.error('❌ Both EmailJS CDNs failed to load');
+          console.error('💡 This may be due to network restrictions, ad blockers, or firewall settings');
+          window._emailJSFailed = true;
+        };
+        document.head.appendChild(fallbackScript);
+      }
+
+      // Additional check after page load
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          if (typeof window.emailjs === 'undefined') {
+            console.warn('⚠️ EmailJS not detected after page load, attempting fallback...');
+            loadEmailJSFallback();
+          }
+        }, 2000);
+      });
+    </script>
     <!-- Start Single Page Apps for GitHub Pages -->
     <script type="text/javascript">
       // Single Page Apps for GitHub Pages
@@ -39,8 +69,8 @@
       })(window.location);
     </script>
     <!-- End Single Page Apps for GitHub Pages -->
-    <script type="module" crossorigin src="./assets/index-Bg2sHZ-j.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BY0AA06M.css">
+    <script type="module" crossorigin src="./assets/index-BH6IK7iT.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BmTaT55k.css">
   </head>
   <body>
     <div id="root"></div>
