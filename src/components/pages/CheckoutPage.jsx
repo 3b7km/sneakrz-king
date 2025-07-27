@@ -350,7 +350,7 @@ const CheckoutPage = () => {
         order_date: new Date().toLocaleDateString(),
         order_time: new Date().toLocaleTimeString(),
         subtotal: `${calculatedSubtotal.toFixed(2)} EGP`,
-        shipping: "80.00 EGP",
+        shipping: `${shipping.toFixed(2)} EGP`,
         total: `${total.toFixed(2)} EGP`,
       };
 
