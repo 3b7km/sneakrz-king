@@ -42,15 +42,30 @@ export const detectSafari = () => {
  * Check EmailJS compatibility with current browser/device
  * @returns {Object} Compatibility information
  */
-export const checkEmailJSCompatibility = () => {
+export const checkEmailJSCompatibility = async () => {
   const safariInfo = detectSafari();
-  
+
+  // Better network detection
+  let actualNetworkStatus = navigator.onLine;
+  try {
+    await fetch('https://jsonplaceholder.typicode.com/posts/1', {
+      method: 'HEAD',
+      mode: 'no-cors',
+      cache: 'no-cache',
+      signal: AbortSignal.timeout(3000) // 3 second timeout
+    });
+    actualNetworkStatus = true;
+  } catch (e) {
+    actualNetworkStatus = navigator.onLine;
+  }
+
   const compatibility = {
     emailJSAvailable: !!window.emailjs,
     emailJSReady: !!window._emailJSReady,
     emailJSFailed: !!window._emailJSFailed,
     cookiesEnabled: navigator.cookieEnabled,
-    onlineStatus: navigator.onLine,
+    onlineStatus: actualNetworkStatus,
+    navigatorOnlineStatus: navigator.onLine,
     protocol: window.location.protocol,
     isSecure: window.location.protocol === 'https:',
     safariInfo
