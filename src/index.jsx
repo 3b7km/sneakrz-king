@@ -1024,7 +1024,20 @@ function AppContent({ navigate }) {
                       (p) =>
                         (p.gender && p.gender.toLowerCase() === "women") ||
                         p.gender === "unisex",
-                    )}
+                    ).sort((a, b) => {
+                      // Prioritize new women's Nike AF1 products (IDs 28, 29, 30)
+                      const priorityIds = [28, 29, 30];
+                      const aIsPriority = priorityIds.includes(a.id);
+                      const bIsPriority = priorityIds.includes(b.id);
+
+                      if (aIsPriority && !bIsPriority) return -1;
+                      if (!aIsPriority && bIsPriority) return 1;
+                      if (aIsPriority && bIsPriority) {
+                        // Sort priority items by ID (28, 29, 30)
+                        return priorityIds.indexOf(a.id) - priorityIds.indexOf(b.id);
+                      }
+                      return 0; // Keep original order for non-priority items
+                    })}
                     openQuickView={openQuickView}
                     addToCart={addToCart}
                     loadingStates={loadingStates}
