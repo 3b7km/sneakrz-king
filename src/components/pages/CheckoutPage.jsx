@@ -669,10 +669,7 @@ const CheckoutPage = () => {
         try {
           const failedNotification = {
             timestamp: new Date().toISOString(),
-            customerInfo: {
-              ...formData,
-              instagram: formData.instagram ? `@${formData.instagram}` : null
-            },
+            customerInfo: formData,
             orderItems: cartItems,
             total: total,
             error: adminError.message,
@@ -695,92 +692,17 @@ const CheckoutPage = () => {
         }
       }
 
-      // Send customer confirmation only if email is provided
+      // Customer email not available
       let customerResult = null;
-      if (formData.email) {
-        console.log("📧 Sending customer confirmation...");
-        try {
-          customerResult = await sendCustomerConfirmation();
-          console.log("✅ Customer confirmation result:", customerResult ? "success" : "failed");
-        } catch (emailError) {
-          console.error("Email confirmation error:", emailError);
-
-          // Enhanced browser-specific error logging
-          const userAgent = navigator.userAgent;
-          const isBrave = navigator.brave; // Check if brave object exists
-          const isSafari = /^((?!chrome|android).)*safari/i.test(userAgent);
-
-          console.group("🚨 Email Error Analysis");
-          console.error("Error details:", {
-            name: emailError.name,
-            message: emailError.message,
-            status: emailError.status,
-            stack: emailError.stack?.substring(0, 200) + '...'
-          });
-
-          console.log("Browser context:", {
-            isBrave: !!isBrave,
-            isSafari,
-            cookieEnabled: navigator.cookieEnabled,
-            onLine: navigator.onLine,
-            emailJSAvailable: !!window.emailjs,
-            emailJSReady: !!window._emailJSReady,
-            emailJSFailed: !!window._emailJSFailed
-          });
-
-          // Browser-specific debugging advice
-          if (isBrave) {
-            console.warn("🦁 Brave detected: Email may fail due to:");
-            console.warn("- Brave Shields blocking third-party scripts");
-            console.warn("- Privacy settings blocking trackers");
-            console.warn("- Ad/tracker blocking affecting EmailJS CDN");
-          }
-
-          if (isSafari) {
-            console.warn("🍎 Safari detected: Email may fail due to:");
-            console.warn("- Intelligent Tracking Prevention (ITP)");
-            console.warn("- Cross-site tracking prevention");
-            console.warn("- Third-party cookie blocking");
-            console.warn("- Safari's strict security policies");
-          }
-          console.groupEnd();
-
-          // Enhanced error logging
-          logOrderError(emailError, {
-            checkoutStep: 'email_confirmation',
-            emailJSCompatibility: checkEmailJSCompatibility(),
-            browserInfo: {
-              isBrave: !!isBrave,
-              isSafari,
-              userAgent: userAgent.substring(0, 100)
-            },
-            formData: {
-              hasEmail: !!formData.email,
-              emailValue: formData.email ? 'provided' : 'not_provided'
-            }
-          });
-
-          // Customer email failed but continue
-        }
-      }
+      console.log("📧 Customer email not available, skipping customer confirmation");
 
       // Set overall email status
-      if (adminResult && customerResult) {
-        setEmailSentStatus("sent"); // Both succeeded
-        console.log("✅ All notifications sent successfully");
-      } else if (adminResult && !formData.email) {
+      if (adminResult) {
         setEmailSentStatus("sent"); // Admin sent, no customer email needed
-        console.log("✅ Admin notified, customer email not provided");
-      } else if (adminResult && formData.email && !customerResult) {
-        setEmailSentStatus("partial"); // Admin sent, customer failed
-        console.log("⚠️ Admin notified, customer email failed");
-      } else if (!adminResult && customerResult) {
-        setEmailSentStatus("partial"); // Customer sent, admin failed
-        console.log("⚠️ Customer notified, admin notification failed");
-        console.error("🚨 IMPORTANT: Admin was not notified of this order! Check localStorage for backup order details.");
+        console.log("✅ Admin notified, customer email not available");
       } else {
-        setEmailSentStatus("failed"); // Both failed
-        console.error("🚨 CRITICAL: All email notifications failed!");
+        setEmailSentStatus("failed"); // Admin failed
+        console.error("🚨 CRITICAL: Admin notification failed!");
         console.error("📋 Check localStorage 'failedAdminNotifications' for order backup");
         console.error("🔧 Admin troubleshooting steps:");
         console.error("1. Check EmailJS service status and configuration");
