@@ -46,6 +46,15 @@
             }
           } else if (typeof window.emailjs !== 'undefined') {
             console.log('✅ EmailJS successfully loaded');
+            // Initialize EmailJS for Safari compatibility
+            try {
+              window.emailjs.init('xZ-FMAkzHPph3aojg');
+              window._emailJSReady = true;
+              console.log('✅ EmailJS initialized successfully');
+            } catch (initError) {
+              console.error('❌ EmailJS initialization failed:', initError);
+              window._emailJSFailed = true;
+            }
           }
         };
 
