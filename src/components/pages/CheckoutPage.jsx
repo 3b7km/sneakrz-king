@@ -668,6 +668,12 @@ const CheckoutPage = () => {
 
     console.log("Form submitted");
 
+    // Prevent double submission
+    if (isSubmitting) {
+      console.log("Form already being submitted, ignoring duplicate submission");
+      return;
+    }
+
     // Validate form
     if (!validateFormData()) {
       setSubmitError(
