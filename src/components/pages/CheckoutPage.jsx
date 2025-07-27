@@ -1051,6 +1051,35 @@ const CheckoutPage = () => {
                 )}
               </div>
 
+              {/* Instagram */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Instagram Username (Optional)
+                  <span className="text-xs text-gray-500 block mt-1">
+                    Help us tag you in our posts
+                  </span>
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <span className="text-gray-500 text-sm">@</span>
+                  </div>
+                  <input
+                    type="text"
+                    name="instagram"
+                    value={formData.instagram}
+                    onChange={handleInputChange}
+                    onBlur={handleFieldBlur}
+                    className={`w-full pl-8 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                      errors.instagram ? "border-red-300" : "border-gray-300"
+                    }`}
+                    placeholder="your_instagram_username"
+                  />
+                </div>
+                {errors.instagram && (
+                  <p className="mt-1 text-sm text-red-600">{errors.instagram}</p>
+                )}
+              </div>
+
               {/* Phone */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
