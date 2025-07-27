@@ -4,7 +4,7 @@ import { useCart } from "../../context/CartContext";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { AlertCircle, CheckCircle } from "lucide-react";
 
-import SafariNotificationBanner from "../SafariNotificationBanner";
+
 import {
   validateForm,
   validateField,
