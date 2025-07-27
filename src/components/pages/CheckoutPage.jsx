@@ -748,14 +748,26 @@ const CheckoutPage = () => {
       // Set overall email status
       if (adminResult && customerResult) {
         setEmailSentStatus("sent"); // Both succeeded
+        console.log("✅ All notifications sent successfully");
       } else if (adminResult && !formData.email) {
         setEmailSentStatus("sent"); // Admin sent, no customer email needed
+        console.log("✅ Admin notified, customer email not provided");
       } else if (adminResult && formData.email && !customerResult) {
         setEmailSentStatus("partial"); // Admin sent, customer failed
+        console.log("⚠️ Admin notified, customer email failed");
       } else if (!adminResult && customerResult) {
         setEmailSentStatus("partial"); // Customer sent, admin failed
+        console.log("⚠️ Customer notified, admin notification failed");
+        console.error("🚨 IMPORTANT: Admin was not notified of this order! Check localStorage for backup order details.");
       } else {
         setEmailSentStatus("failed"); // Both failed
+        console.error("🚨 CRITICAL: All email notifications failed!");
+        console.error("📋 Check localStorage 'failedAdminNotifications' for order backup");
+        console.error("🔧 Admin troubleshooting steps:");
+        console.error("1. Check EmailJS service status and configuration");
+        console.error("2. Verify internet connection and browser settings");
+        console.error("3. Check for ad blockers or privacy settings blocking EmailJS");
+        console.error("4. Consider implementing alternative notification methods");
       }
 
       // Simulate order processing
@@ -915,7 +927,7 @@ const CheckoutPage = () => {
                   <div className="flex-1">
                     <h4 className="font-medium text-blue-800">Order Received</h4>
                     <p className="text-blue-700">
-                      ��� Store owner has been notified of your order
+                      ✅ Store owner has been notified of your order
                       {formData.email && (
                         <>
                           <br />⚠️ Customer confirmation email had issues, but your order is confirmed
