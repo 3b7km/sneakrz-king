@@ -44,6 +44,9 @@ const SafariNotificationBanner = lazy(
 const SafariDiagnostic = lazy(
   () => import("./components/SafariDiagnostic.jsx"),
 );
+const SafariTestPage = lazy(
+  () => import("./components/SafariTestPage.jsx"),
+);
 
 
 // Optimized products data with performance in mind - All prices are on sale!
