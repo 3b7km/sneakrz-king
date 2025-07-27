@@ -52,6 +52,11 @@ export const checkoutValidationRules = {
     phone: true,
     label: "Phone Number",
   },
+  instagram: {
+    required: false,
+    instagram: true,
+    label: "Instagram Username",
+  },
   streetAddress: {
     required: true,
     minLength: 5,
