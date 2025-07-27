@@ -17,6 +17,16 @@ const WomensShoesPage = ({
   addToCart,
   loadingStates,
 }) => {
+  const [showOfferPopup, setShowOfferPopup] = useState(false);
+
+  // Show popup after a short delay when component mounts
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowOfferPopup(true);
+    }, 2000); // Show after 2 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <div className="products-page py-12 bg-gray-50 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
