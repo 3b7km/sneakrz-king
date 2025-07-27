@@ -42,6 +42,20 @@ const CheckoutPage = () => {
 
   // Initialize EmailJS with enhanced error handling
   useEffect(() => {
+    // Log Safari/iOS compatibility info
+    const safariInfo = detectSafari();
+    console.log('🍎 Safari/iOS Detection:', safariInfo);
+
+    if (safariInfo.isIOSSafari) {
+      console.log('📱 Running on iOS Safari - Enhanced compatibility mode enabled');
+      // Run comprehensive diagnostics for iOS Safari
+      setTimeout(() => {
+        diagnoseEmailJSIssues().then(diagnosis => {
+          console.log('📊 iOS Safari Diagnostics Complete:', diagnosis);
+        });
+      }, 3000);
+    }
+
     let retryCount = 0;
     const maxRetries = 15;
     let emailJSReady = false;
