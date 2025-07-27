@@ -13,7 +13,7 @@ import {
 import { ShoppingCart, Phone, MapPin, User, Mail } from "lucide-react";
 
 const CheckoutPage = () => {
-  const { cartItems, getTotalPrice, clearCart } = useCart();
+  const { cartItems, getTotalPrice, getAF1Discount, clearCart } = useCart();
   const navigate = useNavigate();
 
   const [customerData, setCustomerData] = useState({
@@ -95,7 +95,7 @@ const CheckoutPage = () => {
     if (!customerData.address.trim()) newErrors.address = "العنوان مطلوب";
     if (!customerData.city.trim()) newErrors.city = "المدينة مطلوبة";
     if (!customerData.governorate.trim())
-      newErrors.governorate = "المحاف��ة مطلوبة";
+      newErrors.governorate = "المحافظة مطلوبة";
 
     // Validate phone number format
     if (
@@ -202,7 +202,7 @@ const CheckoutPage = () => {
         <div className="max-w-2xl mx-auto px-4 text-center">
           <ShoppingCart className="w-16 h-16 mx-auto text-gray-400 mb-4" />
           <h2 className="text-2xl font-bold text-gray-900 mb-4">السلة فارغة</h2>
-          <p className="text-gray-600 mb-8">��رجى إضافة منتجات لإتمام الطلب</p>
+          <p className="text-gray-600 mb-8">يرجى إضافة منتجات لإتمام الطلب</p>
           <Button onClick={() => navigate("/products")} size="lg">
             تصفح المنتجات
           </Button>
@@ -404,10 +404,21 @@ const CheckoutPage = () => {
                 ))}
 
                 <div className="border-t pt-4">
+                  {getAF1Discount() > 0 && (
+                    <div className="flex justify-between text-pink-600 font-medium mb-2">
+                      <span>خصم عروض AF1 (15%):</span>
+                      <span>-{getAF1Discount().toFixed(2)} جنيه</span>
+                    </div>
+                  )}
                   <div className="flex justify-between items-center text-lg font-bold">
                     <span>الإجمالي:</span>
                     <span>{getTotalPrice().toFixed(2)} جنيه</span>
                   </div>
+                  {getAF1Discount() > 0 && (
+                    <p className="text-sm text-pink-600 mt-1 text-center">
+                      وفرت {getAF1Discount().toFixed(2)} جنيه على أحذية AF1!
+                    </p>
+                  )}
                 </div>
 
                 <Button
@@ -421,7 +432,7 @@ const CheckoutPage = () => {
                 </Button>
 
                 <p className="text-xs text-gray-500 text-center">
-                  سيتم فتح واتساب مع تفاصيل طلبك جاهزة للإرسال
+                  س��تم فتح واتساب مع تفاصيل طلبك جاهزة للإرسال
                   {customerData.email && <br />}
                   {customerData.email && "وسيتم إرسال تأكيد الطلب على إيميلك"}
                 </p>
