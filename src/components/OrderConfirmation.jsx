@@ -158,10 +158,10 @@ const OrderConfirmation = () => {
             </div>
             <div className="flex-1">
               <h3 className="text-base md:text-lg font-semibold text-purple-900 mb-2">
-                📸 Share Your Order!
+                🚨 IMPORTANT: Share Your Order with us to ensure we received your order!
               </h3>
               <p className="text-sm md:text-base text-purple-800 mb-3">
-                Help us spread the love! Take a screenshot of this order confirmation and share it with us.
+                Help us spread the love! Take a screenshot of this order confirmation and share it with us to confirm your order was processed successfully.
               </p>
               <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
                 <a
