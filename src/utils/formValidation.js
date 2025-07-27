@@ -10,6 +10,12 @@ export const validatePhone = (phone) => {
   return phoneRegex.test(phone.replace(/\s/g, ""));
 };
 
+export const validateInstagram = (username) => {
+  // Instagram username validation (alphanumeric, dots, underscores, 1-30 chars)
+  const instagramRegex = /^[a-zA-Z0-9._]{1,30}$/;
+  return instagramRegex.test(username);
+};
+
 export const validateRequired = (value) => {
   return value && value.toString().trim().length > 0;
 };
