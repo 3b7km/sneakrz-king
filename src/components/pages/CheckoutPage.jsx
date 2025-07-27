@@ -15,6 +15,7 @@ import {
   logOrderError,
   diagnoseEmailJSIssues,
 } from "../../utils/safariDebugger";
+import createSafariErrorRecovery from "../../utils/safariErrorRecovery";
 
 const CheckoutPage = () => {
   const { cartItems, getTotalPrice, getAF1Discount, getDiscountedPrice, isAF1Product, getShippingCost, isFreeShipping, clearCart } = useCart();
