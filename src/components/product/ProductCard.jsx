@@ -12,7 +12,7 @@ const ProductCard = ({
   onAddToCart,
   loadingStates = {},
 }) => {
-  const { isAF1Product, getDiscountedPrice } = useCart();
+  const { isAF1Product } = useCart();
   const [selectedSize, setSelectedSize] = useState(() => {
     if (product.sizes && product.sizes.length > 0) {
       const firstSize = product.sizes[0];
@@ -149,40 +149,24 @@ const ProductCard = ({
           </span>
         </div>
 
-        {/* Price Display with AF1 Special Pricing */}
+        {/* Price Display */}
         <div className="flex items-center space-x-3">
-          {isAF1Product(product.id) ? (
+          <span className="text-2xl font-bold text-gray-900">
+            {product.price} EGP
+          </span>
+          {product.originalPrice && (
             <>
-              <span className="text-2xl font-bold text-pink-600">
-                {getDiscountedPrice(product)} EGP
-              </span>
               <span className="text-lg text-gray-500 line-through">
-                {product.price} EGP
+                {product.originalPrice} EGP
               </span>
-              <span className="bg-pink-100 text-pink-800 px-2 py-1 rounded-md text-sm font-semibold">
-                15% OFF AF1!
+              <span className="bg-red-100 text-red-800 px-2 py-1 rounded-md text-sm font-semibold">
+                {Math.round(
+                  ((product.originalPrice - product.price) /
+                    product.originalPrice) *
+                    100,
+                )}
+                % OFF
               </span>
-            </>
-          ) : (
-            <>
-              <span className="text-2xl font-bold text-gray-900">
-                {product.price} EGP
-              </span>
-              {product.originalPrice && (
-                <>
-                  <span className="text-lg text-gray-500 line-through">
-                    {product.originalPrice} EGP
-                  </span>
-                  <span className="bg-red-100 text-red-800 px-2 py-1 rounded-md text-sm font-semibold">
-                    {Math.round(
-                      ((product.originalPrice - product.price) /
-                        product.originalPrice) *
-                        100,
-                    )}
-                    % OFF
-                  </span>
-                </>
-              )}
             </>
           )}
         </div>
