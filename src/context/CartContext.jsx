@@ -83,6 +83,11 @@ export const CartProvider = ({ children }) => {
   // Clear entire cart
   const clearCart = () => {
     setCartItems([]);
+    try {
+      localStorage.setItem("sneakrz-cart", JSON.stringify([]));
+    } catch (error) {
+      console.error("Error clearing cart from localStorage:", error);
+    }
   };
 
   // Get total quantity of items in cart
