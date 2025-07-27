@@ -751,7 +751,43 @@ const CheckoutPage = () => {
                     <p className="text-red-700">{submitError}</p>
                   </div>
                 </div>
+              </div>
+            )}
 
+            {emailSentStatus === "failed" && formData.email && (
+              <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <div className="flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" />
+                  <div className="flex-1">
+                    <h4 className="font-medium text-yellow-800">Email Confirmation Failed</h4>
+                    <p className="text-yellow-700 mb-2">
+                      We couldn't send the confirmation email, but your order will still be processed.
+                    </p>
+                    <details className="text-sm text-yellow-700">
+                      <summary className="cursor-pointer font-medium">Why might this happen?</summary>
+                      <div className="mt-2 space-y-1">
+                        <p>• <strong>Safari users:</strong> Check Privacy settings and allow cross-site tracking for this site</p>
+                        <p>• <strong>Brave users:</strong> Try disabling Shields or allowing scripts for this site</p>
+                        <p>• <strong>Ad blockers:</strong> Email service may be blocked by ad/privacy blockers</p>
+                        <p>• <strong>Network issues:</strong> Temporary connectivity problems</p>
+                      </div>
+                    </details>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {emailSentStatus === "sent" && formData.email && (
+              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                  <div className="flex-1">
+                    <h4 className="font-medium text-green-800">Email Confirmation Sent</h4>
+                    <p className="text-green-700">
+                      Order confirmation has been sent to {formData.email}
+                    </p>
+                  </div>
+                </div>
               </div>
             )}
 
