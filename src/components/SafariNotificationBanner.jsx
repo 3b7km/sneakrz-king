@@ -9,10 +9,17 @@ const SafariNotificationBanner = ({ onOpenDiagnostic }) => {
   useEffect(() => {
     const safariInfo = detectSafari();
     const dismissed = localStorage.getItem('safari_banner_dismissed');
-    
-    // Show banner for Safari/iOS users who haven't dismissed it
-    if ((safariInfo.isIOSSafari || safariInfo.isSafari) && !dismissed) {
+
+    console.log('Safari detection:', safariInfo);
+
+    // Show banner for Safari/iOS users who haven't dismissed it, or for all users if in development
+    const shouldShow = (safariInfo.isIOSSafari || safariInfo.isSafari || window.location.hostname === 'localhost') && !dismissed;
+
+    if (shouldShow) {
       setIsVisible(true);
+      console.log('Safari banner will be shown');
+    } else {
+      console.log('Safari banner hidden - dismissed:', !!dismissed, 'safari detected:', safariInfo.isSafari);
     }
   }, []);
 
