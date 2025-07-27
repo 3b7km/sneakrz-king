@@ -59,6 +59,7 @@ const CheckoutPage = () => {
     phone: "",
     address: "",
     city: "",
+    instagram: "",
     notes: "",
   });
 
