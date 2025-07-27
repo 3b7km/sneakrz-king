@@ -6,22 +6,29 @@ const SafariNotificationBanner = ({ onOpenDiagnostic }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
 
+  const [safariInfo, setSafariInfo] = useState(null);
+  const [hasEmailErrors, setHasEmailErrors] = useState(false);
+
   useEffect(() => {
-    const safariInfo = detectSafari();
+    const detectedSafariInfo = detectSafari();
+    setSafariInfo(detectedSafariInfo);
+
     const dismissed = localStorage.getItem('safari_banner_dismissed');
 
-    console.log('Safari detection:', safariInfo);
+    console.log('Safari detection:', detectedSafariInfo);
 
     // Show banner for Safari/iOS users who haven't dismissed it, or if there are saved email errors
     const savedErrors = getSavedErrors();
-    const hasEmailErrors = savedErrors.length > 0;
-    const shouldShow = (safariInfo.isIOSSafari || safariInfo.isSafari || hasEmailErrors) && !dismissed;
+    const emailErrors = savedErrors.length > 0;
+    setHasEmailErrors(emailErrors);
+
+    const shouldShow = (detectedSafariInfo.isIOSSafari || detectedSafariInfo.isSafari || emailErrors) && !dismissed;
 
     if (shouldShow) {
       setIsVisible(true);
       console.log('Safari banner will be shown');
     } else {
-      console.log('Safari banner hidden - dismissed:', !!dismissed, 'safari detected:', safariInfo.isSafari);
+      console.log('Safari banner hidden - dismissed:', !!dismissed, 'safari detected:', detectedSafariInfo.isSafari);
     }
   }, []);
 
