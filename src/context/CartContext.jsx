@@ -139,6 +139,28 @@ export const CartProvider = ({ children }) => {
     }, 0);
   };
 
+  // Check if customer qualifies for free shipping
+  const isFreeShipping = () => {
+    // Free shipping if AF1 offer is active (any AF1 products in cart)
+    const hasAF1Products = cartItems.some((item) => isAF1Product(item.id));
+    if (hasAF1Products) {
+      return true;
+    }
+
+    // Free shipping for orders over 3000 EGP (women's collection offer)
+    const total = getTotalPrice();
+    if (total >= 3000) {
+      return true;
+    }
+
+    return false;
+  };
+
+  // Get shipping cost (0 if free shipping applies)
+  const getShippingCost = () => {
+    return isFreeShipping() ? 0 : 80;
+  };
+
   // Check if product is in cart
   const isInCart = (productId, selectedSize = null) => {
     return cartItems.some(
