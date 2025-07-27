@@ -633,12 +633,25 @@ const CheckoutPage = () => {
             <h2 className="text-xl font-semibold mb-6">Billing Information</h2>
 
             {submitError && (
-              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
-                <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
-                <div>
-                  <h4 className="font-medium text-red-800">Error</h4>
-                  <p className="text-red-700">{submitError}</p>
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                <div className="flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
+                  <div className="flex-1">
+                    <h4 className="font-medium text-red-800">Error</h4>
+                    <p className="text-red-700">{submitError}</p>
+                  </div>
                 </div>
+                {detectSafari().isIOSSafari && (
+                  <div className="mt-3 pt-3 border-t border-red-200">
+                    <button
+                      type="button"
+                      onClick={() => setShowSafariDiagnostic(!showSafariDiagnostic)}
+                      className="text-sm text-red-600 hover:text-red-800 underline"
+                    >
+                      {showSafariDiagnostic ? 'Hide' : 'Show'} Safari Diagnostic
+                    </button>
+                  </div>
+                )}
               </div>
             )}
 
