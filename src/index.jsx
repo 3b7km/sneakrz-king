@@ -38,6 +38,12 @@ const QuickViewModal = lazy(() => import("./components/QuickViewModal.jsx"));
 const SuccessNotification = lazy(
   () => import("./components/SuccessNotification.jsx"),
 );
+const SafariNotificationBanner = lazy(
+  () => import("./components/SafariNotificationBanner.jsx"),
+);
+const SafariDiagnostic = lazy(
+  () => import("./components/SafariDiagnostic.jsx"),
+);
 
 
 // Optimized products data with performance in mind - All prices are on sale!
@@ -860,6 +866,7 @@ function AppContent({ navigate }) {
   const [quickViewProduct, setQuickViewProduct] = useState(null);
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [successNotification, setSuccessNotification] = useState(null);
+  const [showSafariDiagnostic, setShowSafariDiagnostic] = useState(false);
 
   // Cart function using CartContext
   const addToCart = useCallback(
@@ -922,6 +929,7 @@ function AppContent({ navigate }) {
 
   return (
     <div className="App min-h-screen overflow-x-hidden">
+        <SafariNotificationBanner onOpenDiagnostic={() => setShowSafariDiagnostic(true)} />
         <Navigation
           searchTerm={filters.searchTerm}
           setSearchTerm={filters.setSearchTerm}
@@ -1060,6 +1068,14 @@ function AppContent({ navigate }) {
               message={successNotification.message}
               onViewCart={successNotification.onViewCart}
               onClose={successNotification.onClose}
+            />
+          )}
+
+          <SafariDiagnostic isVisible={showSafariDiagnostic} />
+          {showSafariDiagnostic && (
+            <div
+              className="fixed inset-0 bg-black bg-opacity-50 z-40"
+              onClick={() => setShowSafariDiagnostic(false)}
             />
           )}
         </Suspense>
