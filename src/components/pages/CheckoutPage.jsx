@@ -863,14 +863,38 @@ const CheckoutPage = () => {
               </div>
             )}
 
-            {emailSentStatus === "sent" && formData.email && (
+            {emailSentStatus === "sent" && (
               <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
                   <div className="flex-1">
-                    <h4 className="font-medium text-green-800">Email Confirmation Sent</h4>
+                    <h4 className="font-medium text-green-800">Notifications Sent Successfully</h4>
                     <p className="text-green-700">
-                      Order confirmation has been sent to {formData.email}
+                      ✅ Store owner has been notified of your order
+                      {formData.email && (
+                        <>
+                          <br />✅ Order confirmation has been sent to {formData.email}
+                        </>
+                      )}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {emailSentStatus === "partial" && (
+              <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" />
+                  <div className="flex-1">
+                    <h4 className="font-medium text-blue-800">Order Received</h4>
+                    <p className="text-blue-700">
+                      ✅ Store owner has been notified of your order
+                      {formData.email && (
+                        <>
+                          <br />⚠️ Customer confirmation email had issues, but your order is confirmed
+                        </>
+                      )}
                     </p>
                   </div>
                 </div>
