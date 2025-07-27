@@ -175,9 +175,9 @@ const Navigation = ({
               aria-label="View cart"
             >
               <ShoppingCart className="w-6 h-6" />
-              {cartItems.length > 0 && (
+              {cartItemCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
-                  {cartItems.length}
+                  {cartItemCount}
                 </span>
               )}
             </Link>
