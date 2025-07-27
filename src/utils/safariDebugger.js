@@ -107,7 +107,7 @@ export const checkEmailJSCompatibility = async () => {
  * @param {Object} context - Additional context information
  * @returns {Object} Error log entry
  */
-export const logOrderError = (error, context = {}) => {
+export const logOrderError = async (error, context = {}) => {
   const safariInfo = detectSafari();
   const timestamp = new Date().toISOString();
   
