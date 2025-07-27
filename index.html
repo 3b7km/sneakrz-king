@@ -40,16 +40,37 @@
       // Add debugging function for users to test EmailJS
       window.testEmailJS = function() {
         console.log('🧪 Testing EmailJS functionality...');
+        console.log('User Agent:', navigator.userAgent);
+        console.log('Platform:', navigator.platform);
+        console.log('Vendor:', navigator.vendor);
         console.log('EmailJS available:', !!window.emailjs);
         console.log('EmailJS ready:', !!window._emailJSReady);
         console.log('EmailJS failed:', !!window._emailJSFailed);
         console.log('Cookies enabled:', navigator.cookieEnabled);
         console.log('Online status:', navigator.onLine);
+        console.log('Protocol:', window.location.protocol);
+
+        // Safari detection
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) && /apple/i.test(navigator.vendor);
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        console.log('Is Safari:', isSafari);
+        console.log('Is iOS:', isIOS);
+        console.log('Is iOS Safari:', isIOS && isSafari);
 
         if (window.emailjs && window._emailJSReady) {
           console.log('✅ EmailJS appears to be working correctly');
+          // Test EmailJS init
+          try {
+            window.emailjs.init('xZ-FMAkzHPph3aojg');
+            console.log('✅ EmailJS re-initialization successful');
+          } catch(e) {
+            console.error('❌ EmailJS re-initialization failed:', e);
+          }
         } else {
           console.warn('⚠️ EmailJS may have issues');
+          if (!window.emailjs) console.error('EmailJS object not found');
+          if (!window._emailJSReady) console.error('EmailJS not marked as ready');
+          if (window._emailJSFailed) console.error('EmailJS marked as failed');
         }
       };
 
