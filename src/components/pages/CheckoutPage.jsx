@@ -261,6 +261,7 @@ const CheckoutPage = () => {
       phone: checkoutValidationRules.phone,
       streetAddress: checkoutValidationRules.streetAddress,
       city: checkoutValidationRules.city,
+      instagram: checkoutValidationRules.instagram,
     };
 
     const mappedFieldName = fieldMapping[fieldName];
