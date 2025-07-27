@@ -4,6 +4,36 @@ import { useCart } from "../../context/CartContext";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { AlertCircle, CheckCircle } from "lucide-react";
 
+// Utility function for admins to check failed notifications
+// Run this in browser console: window.checkFailedNotifications()
+window.checkFailedNotifications = () => {
+  try {
+    const failed = JSON.parse(localStorage.getItem('failedAdminNotifications') || '[]');
+    console.log(`📊 Found ${failed.length} failed admin notifications:`);
+    failed.forEach((notification, index) => {
+      console.group(`Order ${index + 1} - ${notification.timestamp}`);
+      console.log('Customer:', `${notification.customerInfo.firstName} ${notification.customerInfo.lastName}`);
+      console.log('Email:', notification.customerInfo.email || 'Not provided');
+      console.log('Phone:', notification.customerInfo.phone);
+      console.log('Address:', `${notification.customerInfo.address}, ${notification.customerInfo.city}`);
+      console.log('Total:', `${notification.total} EGP`);
+      console.log('Items:', notification.orderItems.length);
+      console.log('Error:', notification.error);
+      console.groupEnd();
+    });
+    return failed;
+  } catch (error) {
+    console.error('Error checking failed notifications:', error);
+    return [];
+  }
+};
+
+// Utility to clear processed notifications
+window.clearFailedNotifications = () => {
+  localStorage.removeItem('failedAdminNotifications');
+  console.log('✅ Failed notifications cleared');
+};
+
 
 import {
   validateForm,
