@@ -31,7 +31,7 @@ const CheckoutPage = () => {
   // Calculate totals with AF1 discounts
   const subtotal = getTotalPrice();
   const af1Discount = getAF1Discount();
-  const shipping = 80;
+  const shipping = getShippingCost();
   const total = subtotal + shipping;
 
   // Initialize EmailJS with enhanced error handling
