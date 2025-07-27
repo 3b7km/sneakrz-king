@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import { LoadingSpinner } from "../LoadingSpinner";
-import { AlertCircle, CheckCircle } from "lucide-react";
+import { AlertCircle, CheckCircle, Settings } from "lucide-react";
+import SafariDiagnostic from "../SafariDiagnostic";
 
 // Utility function for admins to check failed notifications
 // Run this in browser console: window.checkFailedNotifications()
