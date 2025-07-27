@@ -844,6 +844,11 @@ const CheckoutPage = () => {
                   You saved {af1Discount} EGP on AF1 shoes!
                 </p>
               )}
+              {isFreeShipping() && (
+                <p className="text-sm text-green-600 text-center font-medium">
+                  🚚 FREE Shipping Applied!
+                </p>
+              )}
             </div>
 
             <div className="mt-6 p-4 bg-blue-50 rounded-lg">
