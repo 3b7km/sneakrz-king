@@ -448,11 +448,11 @@ const products = [
     isNew: true,
     onSale: true,
     sizes: [
-      { value: "36", available: true },
+      { value: "36", available: false},
       { value: "37", available: true },
       { value: "38", available: true },
-      { value: "39", available: true },
-      { value: "40", available: true },
+      { value: "39", available: false },
+      { value: "40", available: false },
     ],
   },
   {
