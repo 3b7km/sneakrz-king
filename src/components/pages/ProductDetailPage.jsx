@@ -25,10 +25,17 @@ const ProductDetailPage = ({ products, onAddToCart, loadingStates = {} }) => {
       // Update document title
       document.title = `${foundProduct.name} - Sneakrz King`;
 
-      // Set default size if available
+      // Set default size to first available size
       if (foundProduct.sizes && foundProduct.sizes.length > 0) {
-        const firstSize = foundProduct.sizes[0];
-        setSelectedSize(typeof firstSize === "object" ? firstSize.value : firstSize);
+        const firstAvailableSize = foundProduct.sizes.find((size) => {
+          return typeof size === "object" ? size.available : true;
+        });
+        if (firstAvailableSize) {
+          const sizeValue = typeof firstAvailableSize === "object"
+            ? firstAvailableSize.value
+            : firstAvailableSize;
+          setSelectedSize(sizeValue);
+        }
       }
     }
     setIsLoading(false);

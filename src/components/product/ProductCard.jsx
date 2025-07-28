@@ -15,8 +15,14 @@ const ProductCard = ({
   const { isAF1Product } = useCart();
   const [selectedSize, setSelectedSize] = useState(() => {
     if (product.sizes && product.sizes.length > 0) {
-      const firstSize = product.sizes[0];
-      return typeof firstSize === "object" ? firstSize.value : firstSize;
+      const firstAvailableSize = product.sizes.find((size) => {
+        return typeof size === "object" ? size.available : true;
+      });
+      if (firstAvailableSize) {
+        return typeof firstAvailableSize === "object"
+          ? firstAvailableSize.value
+          : firstAvailableSize;
+      }
     }
     return "";
   });
